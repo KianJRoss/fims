@@ -1,8 +1,12 @@
 """
-Import Jake's catalog vision.json into FIMS database.
-Reads: scripts/catalogs/jakes/{year}/vision.json
+Import Jake's catalog into FIMS using the Issuu text layer (text_layer.json).
+Run scrape_issuu_text.py first to generate the source file.
+
+Usage:
+  python importers/jakes.py [year]
 """
 import json
+import re
 import sys
 import uuid
 from datetime import datetime, timezone
@@ -14,28 +18,44 @@ DB_URL = "postgresql://fims:fims@localhost:5432/fims"
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
 BRAND_NAME = "World Class / Jakes"
 
+# Pages that are clearly not products
+_SKIP_NAMES = {
+    "FAR EAST IMPORTS", "PRE-MADE APPAREL", "CUSTOM APPAREL",
+    "CUSTOM SIGNS", "PRE-MADE SIGNS", "ALPHABETICAL INDEX",
+    "ASSORTMENTS", "CAKES", "SHELLS", "FOUNTAINS", "ROCKETS",
+    "SPARKLERS", "NOVELTIES", "ARTILLERY", "FIRECRACKERS",
+}
+
+
+def clean_name(raw: str | None, item_number: str | None) -> str:
+    if not raw or raw.strip() in _SKIP_NAMES:
+        return f"Item {item_number}" if item_number else "Unknown"
+    # Strip OCR noise like "PACKING: ..." that ended up in name field
+    name = re.sub(r"\s*(PACKING|BARCODE|SKU)[:\s].*", "", raw, flags=re.IGNORECASE).strip()
+    return name or (f"Item {item_number}" if item_number else "Unknown")
+
 
 def main(year: str = "2026"):
-    vision_path = SCRIPTS_DIR / "catalogs" / "jakes" / year / "vision.json"
-    if not vision_path.exists():
-        print(f"Not found: {vision_path}")
+    text_path = SCRIPTS_DIR / "catalogs" / "jakes" / year / "text_layer.json"
+    if not text_path.exists():
+        print(f"Not found: {text_path}")
+        print("Run: python scrape_issuu_text.py --cdn-id <CDN_ID> --slug jakes --year {year} --pages 177 --start-page 11")
         sys.exit(1)
 
-    data = json.loads(vision_path.read_text(encoding="utf-8"))
+    data = json.loads(text_path.read_text(encoding="utf-8"))
     products = [
-        p
-        for page in data["pages"]
-        for p in page.get("products", [])
-        if p.get("item_number")
+        r for r in data["results"]
+        if r.get("item_number") and not r.get("skipped")
     ]
-    print(f"Found {len(products)} products with item numbers in vision.json")
+    print(f"Found {len(products)} product records with item numbers")
 
     conn = psycopg.connect(DB_URL, autocommit=False)
-    inserted = skipped = 0
+    inserted = skipped = updated = 0
     now = datetime.now(timezone.utc)
 
     try:
         with conn.cursor() as cur:
+            # Get/create brand
             cur.execute(
                 "SELECT id FROM product_brands WHERE LOWER(name) = LOWER(%s)", (BRAND_NAME,)
             )
@@ -48,47 +68,48 @@ def main(year: str = "2026"):
                 )
                 brand_id = cur.fetchone()[0]
 
-            cur.execute("SELECT id FROM price_types WHERE code = 'RETAIL'")
-            price_row = cur.fetchone()
-            if not price_row:
-                cur.execute("SELECT id FROM price_types LIMIT 1")
-                price_row = cur.fetchone()
-            price_type_id = price_row[0] if price_row else None
-
             for p in products:
                 item_no = p["item_number"]
-                cur.execute("SELECT id FROM products WHERE item_number = %s", (item_no,))
-                if cur.fetchone():
+                name = clean_name(p.get("name"), item_no)
+
+                # Skip non-product pages
+                if p.get("name") and p["name"].strip() in _SKIP_NAMES:
                     skipped += 1
                     continue
 
-                pid = str(uuid.uuid4())
-                name = (p.get("name") or "").strip() or f"Item {item_no}"
-                cur.execute(
-                    """INSERT INTO products
-                           (id, name, item_number, description, shot_count, brand_id,
-                            is_active, created_at, updated_at)
-                       VALUES (%s, %s, %s, %s, %s, %s, true, %s, %s)""",
-                    (
-                        pid,
-                        name,
-                        item_no,
-                        p.get("description"),
-                        p.get("shell_count"),
-                        brand_id,
-                        now,
-                        now,
-                    ),
-                )
+                # Check if already exists
+                cur.execute("SELECT id FROM products WHERE item_number = %s", (item_no,))
+                existing = cur.fetchone()
 
-                for bc in p.get("barcodes") or []:
+                if existing:
+                    # Update with richer data if we have it
+                    pid = existing[0]
                     cur.execute(
-                        """INSERT INTO product_barcodes (product_id, barcode, barcode_type, is_primary)
-                           VALUES (%s, %s, 'UPC', false) ON CONFLICT DO NOTHING""",
-                        (pid, bc),
+                        """UPDATE products SET name=%s, description=%s, shot_count=%s, updated_at=%s
+                           WHERE id=%s AND (description IS NULL OR description = '')""",
+                        (name, p.get("description"), p.get("shot_count"), now, pid),
                     )
+                    updated += 1
+                else:
+                    pid = str(uuid.uuid4())
+                    cur.execute(
+                        """INSERT INTO products
+                               (id, name, item_number, description, shot_count, brand_id,
+                                is_active, created_at, updated_at)
+                           VALUES (%s, %s, %s, %s, %s, %s, true, %s, %s)""",
+                        (pid, name, item_no, p.get("description"), p.get("shot_count"),
+                         brand_id, now, now),
+                    )
+                    inserted += 1
 
-                inserted += 1
+                # Insert barcodes
+                for bc in p.get("barcodes") or []:
+                    if bc and len(bc) >= 8:
+                        cur.execute(
+                            """INSERT INTO product_barcodes (product_id, barcode, barcode_type, is_primary)
+                               VALUES (%s, %s, 'UPC', false) ON CONFLICT DO NOTHING""",
+                            (pid, bc),
+                        )
 
         conn.commit()
     except Exception:
@@ -97,7 +118,7 @@ def main(year: str = "2026"):
     finally:
         conn.close()
 
-    print(f"Inserted: {inserted}  Skipped (already exist): {skipped}")
+    print(f"Inserted: {inserted}  Updated: {updated}  Skipped: {skipped}")
 
 
 if __name__ == "__main__":
