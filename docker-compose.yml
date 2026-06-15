@@ -14,21 +14,22 @@ services:
       - api
       - web
 
-  # ─── React frontend ────────────────────────────────────────────────────────
+  # ─── React frontend (production build, ARM64-safe) ─────────────────────────
   web:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      - VITE_API_URL=/api
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     depends_on:
       - api
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
   # ─── FastAPI backend ───────────────────────────────────────────────────────
   api:
@@ -53,6 +54,10 @@ services:
       redis:
         condition: service_started
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   # ─── Celery worker (background jobs: PDF parsing, import pipeline) ─────────
   worker:
@@ -74,6 +79,10 @@ services:
       redis:
         condition: service_started
     command: celery -A app.worker.celery_app worker --loglevel=info -Q default,imports,reports
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   # ─── Celery beat (scheduled tasks: nightly reports, cleanup) ──────────────
   beat:
@@ -93,8 +102,12 @@ services:
       redis:
         condition: service_started
     command: celery -A app.worker.celery_app beat --loglevel=info
+    deploy:
+      resources:
+        limits:
+          memory: 128M
 
-  # ─── PostgreSQL 17 ────────────────────────────────────────────────────────
+  # ─── PostgreSQL 17 (tuned for 4GB Pi) ────────────────────────────────────
   postgres:
     image: postgres:17-alpine
     restart: unless-stopped
@@ -102,6 +115,16 @@ services:
       POSTGRES_USER: fims
       POSTGRES_PASSWORD: fims
       POSTGRES_DB: fims
+    # Memory-conservative settings for Raspberry Pi 4B 4GB
+    command: >
+      postgres
+      -c shared_buffers=256MB
+      -c work_mem=16MB
+      -c maintenance_work_mem=64MB
+      -c effective_cache_size=1GB
+      -c max_connections=50
+      -c wal_buffers=16MB
+      -c checkpoint_completion_target=0.9
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -112,6 +135,10 @@ services:
       retries: 5
     ports:
       - "5432:5432"   # expose for local tools like DBeaver
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   # ─── Redis 7 (Celery broker + cache) ─────────────────────────────────────
   redis:
@@ -121,6 +148,10 @@ services:
       - redis_data:/data
     ports:
       - "6379:6379"   # expose for local inspection
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
 volumes:
   pgdata:

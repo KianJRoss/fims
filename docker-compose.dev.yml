@@ -1,0 +1,16 @@
+# Development overrides — hot-reload for frontend and backend
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+services:
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      - VITE_API_URL=/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    deploy:
+      resources:
+        limits:
+          memory: 1G
