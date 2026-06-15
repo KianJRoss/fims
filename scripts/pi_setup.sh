@@ -61,41 +61,61 @@ else
     log "Swapfile already exists, skipping."
 fi
 
-# ── 6. VNC setup ─────────────────────────────────────────────────────────────
-log "Checking VNC status..."
+# ── 6. Force display resolution for headless VNC ─────────────────────────────
+# Without a monitor attached, Pi defaults to 640x480. Force 1920x1080.
+log "Configuring headless display resolution for VNC..."
 
-if systemctl list-units --type=service 2>/dev/null | grep -q vncserver-x11-serviced; then
-    # RealVNC (comes with Pi OS Desktop)
-    if sudo systemctl is-enabled vncserver-x11-serviced &>/dev/null; then
-        log "RealVNC (Pi OS Desktop) is already enabled."
-    else
-        log "Enabling RealVNC server..."
-        sudo systemctl enable vncserver-x11-serviced
-        sudo systemctl start vncserver-x11-serviced
-        log "RealVNC enabled and started."
-    fi
-elif command -v vncserver &>/dev/null; then
-    log "VNC server found (non-RealVNC). Assuming already configured."
+# Pi OS Bookworm uses /boot/firmware/config.txt; older uses /boot/config.txt
+if [ -f /boot/firmware/config.txt ]; then
+    CONFIG=/boot/firmware/config.txt
 else
-    warn "No VNC server found. Installing TigerVNC for headless use..."
-    sudo apt-get install -y -qq tigervnc-standalone-server
-    # Create a minimal VNC startup
-    mkdir -p ~/.vnc
-    cat > ~/.vnc/xstartup << 'EOF'
-#!/bin/sh
-xsetroot -solid grey
-x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
-x-window-manager &
-EOF
-    chmod +x ~/.vnc/xstartup
-    warn "TigerVNC installed. Set a password with: vncpasswd"
-    warn "Then start with: vncserver :1 -geometry 1280x720 -depth 24"
+    CONFIG=/boot/config.txt
 fi
 
-# ── 7. Configure VNC to survive reboot ───────────────────────────────────────
-# Ensure RealVNC auto-starts if present
+# Only add if not already set
+if ! grep -q "hdmi_force_hotplug" "$CONFIG"; then
+    sudo tee -a "$CONFIG" > /dev/null << 'EOF'
+
+# Force HDMI output and resolution even with no monitor attached (for VNC)
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=82
+# hdmi_mode=82 = 1920x1080 60Hz
+# Change to hdmi_mode=85 for 1280x720, or 87 for custom below
+#hdmi_cvt=1920 1080 60 6 0 0 0
+EOF
+    log "Headless resolution set to 1920x1080 in $CONFIG."
+else
+    log "hdmi_force_hotplug already set in $CONFIG, skipping."
+fi
+
+# For Pi OS Bookworm: also set via wayfire/wlr if Wayland is in use
+if command -v wlr-randr &>/dev/null 2>&1; then
+    warn "Wayland detected — resolution is set via $CONFIG and takes effect on reboot."
+fi
+
+# ── 7. VNC setup ─────────────────────────────────────────────────────────────
+log "Configuring RealVNC server..."
+
+# Enable via raspi-config (works on all Pi OS Desktop versions)
 if command -v raspi-config &>/dev/null; then
     sudo raspi-config nonint do_vnc 0 2>/dev/null && log "VNC enabled via raspi-config." || true
+fi
+
+# Enable and start the RealVNC systemd service
+if systemctl list-unit-files 2>/dev/null | grep -q vncserver-x11-serviced; then
+    sudo systemctl enable vncserver-x11-serviced
+    sudo systemctl restart vncserver-x11-serviced
+    log "RealVNC service enabled and started."
+elif systemctl list-unit-files 2>/dev/null | grep -q vncserver-virtuald; then
+    # Newer Pi OS uses vncserver-virtuald for virtual displays
+    sudo systemctl enable vncserver-virtuald
+    sudo systemctl restart vncserver-virtuald
+    log "RealVNC virtual display service enabled and started."
+else
+    warn "RealVNC service not found by expected name. Trying manual enable..."
+    sudo systemctl enable --now "$(systemctl list-unit-files | grep -i vnc | awk '{print $1}' | head -1)" 2>/dev/null || \
+        warn "Could not auto-enable VNC service. Run: sudo raspi-config → Interface Options → VNC"
 fi
 
 # ── 8. Clone / update FIMS repo ──────────────────────────────────────────────
