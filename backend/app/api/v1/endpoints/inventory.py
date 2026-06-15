@@ -298,6 +298,36 @@ def inventory_summary(db: Session = Depends(get_db)):
     }
 
 
+@router.post("/pair-videos")
+def bulk_pair_videos(db: Session = Depends(get_db)):
+    """Match every product to a video by name and insert pairings. Returns counts."""
+    remote_videos = _fetch_remote_videos()
+    if not remote_videos:
+        return {"status": "no_videos", "paired": 0, "skipped": 0}
+
+    products = db.execute(
+        select(Product)
+        .options(joinedload(Product.brand))
+        .where(Product.is_active.is_(True))
+    ).scalars().all()
+
+    paired = 0
+    skipped = 0
+    for product in products:
+        match = _find_video_match(product.item_number, product.name, remote_videos)
+        if not match:
+            skipped += 1
+            continue
+        if _pairing_exists(db, product.id, match):
+            skipped += 1
+            continue
+        _insert_video_pair(db, product.id, match)
+        paired += 1
+
+    db.commit()
+    return {"status": "ok", "paired": paired, "skipped": skipped}
+
+
 @router.get("/products")
 def inventory_products(
     in_store: bool | None = None,

@@ -79,6 +79,11 @@ export default function Inventory() {
   }, [scanMutation.mutate]);
   const isScanning = scanMutation.isPending;
 
+  const pairVideosMutation = useMutation({
+    mutationFn: async () => (await api.post("/v1/inventory/pair-videos")).data,
+    onSuccess: () => summaryQuery.refetch(),
+  });
+
   useScannerStream(scanBarcode);
 
   useEffect(() => {
@@ -146,7 +151,7 @@ export default function Inventory() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <div
               className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium ${
                 summaryQuery.isFetching
@@ -157,6 +162,16 @@ export default function Inventory() {
               {summaryQuery.isFetching ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />}
               <span className="uppercase tracking-[0.25em]">{inStoreCount} in store</span>
             </div>
+            <button
+              onClick={() => pairVideosMutation.mutate()}
+              disabled={pairVideosMutation.isPending}
+              className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-900 px-4 py-2 text-sm font-semibold text-gray-100 transition hover:border-orange-500/50 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {pairVideosMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              {pairVideosMutation.isSuccess
+                ? `Paired ${(pairVideosMutation.data as { paired: number }).paired} videos`
+                : "Pair All Videos"}
+            </button>
           </div>
         </div>
       </div>
