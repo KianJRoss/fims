@@ -630,7 +630,7 @@ function SearchResultCard({
             {detailQuery.data?.barcodes?.length ? (
               findBarcodeList(detailQuery.data.barcodes).map((barcode) => (
                 <div
-                  key={barcode.id}
+                  key={barcode.barcode}
                   className="flex items-center justify-between rounded-2xl border border-gray-800 bg-gray-900 px-3 py-2 text-sm"
                 >
                   <span className="font-mono text-gray-100">{barcode.barcode}</span>
