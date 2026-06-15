@@ -143,27 +143,6 @@ export default function SalesScreen() {
     return () => window.clearTimeout(timer);
   }, [flash]);
 
-  const processBarcode = useCallback(
-    async (code: string) => {
-      const barcode = code.trim();
-      if (!barcode) {
-        return;
-      }
-      try {
-        const { data } = await api.get<ProductSearchResult[]>(`/v1/products/lookup/barcode/${encodeURIComponent(barcode)}`);
-        if (!data.length) {
-          throw new Error("No product");
-        }
-        await addProductToCart(data[0].id);
-      } catch {
-        setFlash({ kind: "error", text: "Barcode not found." });
-      }
-    },
-    [addProductToCart]
-  );
-
-  useScannerStream(processBarcode);
-
   const searchResultsQuery = useQuery({
     queryKey: ["sales-search", debouncedSearch],
     queryFn: async (): Promise<ProductSearchResult[]> => {
@@ -261,6 +240,27 @@ export default function SalesScreen() {
       setFlash({ kind: "error", text: "Product price not found." });
     }
   }, []);
+
+  const processBarcode = useCallback(
+    async (code: string) => {
+      const barcode = code.trim();
+      if (!barcode) {
+        return;
+      }
+      try {
+        const { data } = await api.get<ProductSearchResult[]>(`/v1/products/lookup/barcode/${encodeURIComponent(barcode)}`);
+        if (!data.length) {
+          throw new Error("No product");
+        }
+        await addProductToCart(data[0].id);
+      } catch {
+        setFlash({ kind: "error", text: "Barcode not found." });
+      }
+    },
+    [addProductToCart]
+  );
+
+  useScannerStream(processBarcode);
 
   const handleBarcodeSubmit = useCallback(
     async (event: KeyboardEvent<HTMLInputElement>) => {

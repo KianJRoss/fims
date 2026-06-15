@@ -84,6 +84,7 @@ export default function Inventory() {
     onSuccess: () => summaryQuery.refetch(),
   });
 
+  // Remote scanner events should reuse the same barcode path as the keyboard listener.
   useScannerStream(scanBarcode);
 
   useEffect(() => {
