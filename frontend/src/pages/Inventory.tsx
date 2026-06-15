@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Barcode, Loader2 } from "lucide-react";
 
 import { api } from "../api/client";
+import { useScannerStream } from "../hooks/useScannerStream";
 
 type InventorySummary = {
   total_products: number;
@@ -73,6 +74,12 @@ export default function Inventory() {
       await summaryQuery.refetch();
     },
   });
+  const scanBarcode = useCallback((barcode: string) => {
+    scanMutation.mutate(barcode);
+  }, [scanMutation.mutate]);
+  const isScanning = scanMutation.isPending;
+
+  useScannerStream(scanBarcode);
 
   useEffect(() => {
     const flushBuffer = () => {
@@ -83,11 +90,11 @@ export default function Inventory() {
 
       const barcode = bufferRef.current.trim();
       bufferRef.current = "";
-      if (barcode.length < 6 || scanMutation.isPending) {
+      if (barcode.length < 6 || isScanning) {
         return;
       }
 
-      scanMutation.mutate(barcode);
+      scanBarcode(barcode);
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -119,7 +126,7 @@ export default function Inventory() {
         window.clearTimeout(timerRef.current);
       }
     };
-  }, [scanMutation]);
+  }, [isScanning, scanBarcode]);
 
   const inStoreCount = summaryQuery.data?.in_store_count ?? 0;
   const hasCurrentVideo = currentScan && currentScan.found ? Boolean(currentScan.video_match) : false;

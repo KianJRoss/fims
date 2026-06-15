@@ -1,0 +1,17 @@
+[Unit]
+Description=FIMS USB barcode scanner reader
+After=network-online.target redis.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=%h/fims
+ExecStart=/usr/bin/python3 %h/fims/scripts/scanner_reader.py
+Restart=always
+RestartSec=2
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

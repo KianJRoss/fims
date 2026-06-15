@@ -2,7 +2,9 @@
     # API - FastAPI
     handle /api/* {
         uri strip_prefix /api
-        reverse_proxy api:8000
+        reverse_proxy api:8000 {
+            flush_interval -1
+        }
     }
 
     # WebSocket for live kiosk push (Pi display, barcode events)

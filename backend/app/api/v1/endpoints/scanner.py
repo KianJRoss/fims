@@ -1,0 +1,68 @@
+from __future__ import annotations
+
+import json
+import os
+import time
+
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
+from redis import asyncio as aioredis
+from starlette.responses import StreamingResponse
+
+router = APIRouter()
+
+REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+SCANNER_CHANNEL = "scanner:barcode"
+
+
+class ScannerInputRequest(BaseModel):
+    barcode: str = Field(min_length=1)
+
+
+@router.post("/input")
+async def scanner_input(payload: ScannerInputRequest):
+    barcode = payload.barcode.strip()
+    if not barcode:
+        raise HTTPException(status_code=400, detail="Barcode is required")
+
+    redis = aioredis.from_url(REDIS_URL, decode_responses=True)
+    try:
+        await redis.publish(SCANNER_CHANNEL, json.dumps({"barcode": barcode, "ts": time.time()}))
+    finally:
+        await redis.aclose()
+
+    return {"status": "ok"}
+
+
+async def _scanner_stream():
+    redis = aioredis.from_url(REDIS_URL, decode_responses=True)
+    pubsub = redis.pubsub()
+    try:
+        await pubsub.subscribe(SCANNER_CHANNEL)
+        while True:
+            message = await pubsub.get_message(ignore_subscribe_messages=True, timeout=15.0)
+            if message is None:
+                yield ": ping\n\n"
+                continue
+
+            data = message.get("data")
+            if isinstance(data, str) and data.strip():
+                yield f"data: {data}\n\n"
+    finally:
+        try:
+            await pubsub.unsubscribe(SCANNER_CHANNEL)
+        finally:
+            await pubsub.aclose()
+            await redis.aclose()
+
+
+@router.get("/stream")
+async def scanner_stream():
+    return StreamingResponse(
+        _scanner_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )

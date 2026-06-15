@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Barcode, Loader2, Minus, Plus, Search, Trash2 } from "lucide-react";
 
 import { api } from "../api/client";
+import { useScannerStream } from "../hooks/useScannerStream";
 
 type CartItem = {
   product_id: string;
@@ -142,6 +143,27 @@ export default function SalesScreen() {
     return () => window.clearTimeout(timer);
   }, [flash]);
 
+  const processBarcode = useCallback(
+    async (code: string) => {
+      const barcode = code.trim();
+      if (!barcode) {
+        return;
+      }
+      try {
+        const { data } = await api.get<ProductSearchResult[]>(`/v1/products/lookup/barcode/${encodeURIComponent(barcode)}`);
+        if (!data.length) {
+          throw new Error("No product");
+        }
+        await addProductToCart(data[0].id);
+      } catch {
+        setFlash({ kind: "error", text: "Barcode not found." });
+      }
+    },
+    [addProductToCart]
+  );
+
+  useScannerStream(processBarcode);
+
   const searchResultsQuery = useQuery({
     queryKey: ["sales-search", debouncedSearch],
     queryFn: async (): Promise<ProductSearchResult[]> => {
@@ -210,7 +232,7 @@ export default function SalesScreen() {
   const totalDiscount = displayedDealSummary.total_discount;
   const total = applyDealsMutation.isPending && cart.length > 0 ? subtotal : displayedDealSummary.total;
 
-  async function addProductToCart(productId: string) {
+  const addProductToCart = useCallback(async (productId: string) => {
     try {
       const { data } = await api.get<PricingResponse>(`/v1/pricing/${productId}`);
       const retailPrice = findRetailPrice(data);
@@ -238,29 +260,20 @@ export default function SalesScreen() {
     } catch {
       setFlash({ kind: "error", text: "Product price not found." });
     }
-  }
+  }, []);
 
-  async function handleBarcodeSubmit(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key !== "Enter") {
-      return;
-    }
-    const code = barcodeInput.trim();
-    if (!code) {
-      return;
-    }
-    try {
-      const { data } = await api.get<ProductSearchResult[]>(`/v1/products/lookup/barcode/${encodeURIComponent(code)}`);
-      if (!data.length) {
-        throw new Error("No product");
+  const handleBarcodeSubmit = useCallback(
+    async (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key !== "Enter") {
+        return;
       }
-      await addProductToCart(data[0].id);
-    } catch {
-      setFlash({ kind: "error", text: "Barcode not found." });
-    } finally {
+      event.preventDefault();
+      await processBarcode(barcodeInput);
       setBarcodeInput("");
       barcodeInputRef.current?.focus();
-    }
-  }
+    },
+    [barcodeInput, processBarcode]
+  );
 
   function updateCartQuantity(productId: string, delta: number) {
     setCart((current) =>
