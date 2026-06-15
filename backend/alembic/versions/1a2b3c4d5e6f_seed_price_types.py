@@ -25,7 +25,7 @@ def upgrade() -> None:
             ('Cost', 'COST', TRUE, 4),
             ('Employee', 'EMPLOYEE', TRUE, 5),
             ('Clearance', 'CLEARANCE', FALSE, 6)
-        ON CONFLICT (code) DO NOTHING;
+        ON CONFLICT DO NOTHING;
         """
     )
 
