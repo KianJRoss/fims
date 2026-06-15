@@ -18,19 +18,16 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.execute("CREATE EXTENSION IF NOT EXISTS pgcrypto;")
-    op.add_column(
-        "sales",
-        sa.Column(
-            "receipt_token",
-            sa.String(length=36),
-            nullable=False,
-            server_default=sa.text("gen_random_uuid()::text"),
-        ),
-    )
-    op.add_column("sales", sa.Column("payment_method", sa.String(length=30), nullable=True))
-    op.add_column("sales", sa.Column("card_last4", sa.String(length=4), nullable=True))
-    op.add_column("sales", sa.Column("receipt_html", sa.Text(), nullable=True))
-    op.create_index("ix_sales_receipt_token", "sales", ["receipt_token"], unique=True)
+    op.execute("""
+        ALTER TABLE sales
+            ADD COLUMN IF NOT EXISTS receipt_token VARCHAR(36) DEFAULT gen_random_uuid()::text NOT NULL,
+            ADD COLUMN IF NOT EXISTS payment_method VARCHAR(30),
+            ADD COLUMN IF NOT EXISTS card_last4 VARCHAR(4),
+            ADD COLUMN IF NOT EXISTS receipt_html TEXT;
+    """)
+    op.execute("""
+        CREATE UNIQUE INDEX IF NOT EXISTS ix_sales_receipt_token ON sales (receipt_token);
+    """)
 
 
 def downgrade() -> None:
