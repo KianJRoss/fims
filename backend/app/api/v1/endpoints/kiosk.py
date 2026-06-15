@@ -4,12 +4,14 @@ Pi polls /kiosk/scan/{barcode} and gets back what video to play.
 No business logic runs on the Pi; it's stateless.
 """
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.models.product import Product, ProductBarcode
+from app.models.product import Product
 from app.models.media import ProductVideo
 from app.models.pricing import ProductPrice, PriceType
+from app.api.v1.endpoints._barcode import resolve_product_ids
 
 router = APIRouter()
 
@@ -20,31 +22,34 @@ def scan_for_display(barcode: str, db: Session = Depends(get_db)):
     Given a barcode, return product info + video URL for kiosk display.
     If multiple products map to the barcode, returns all (Pi can cycle through them).
     """
-    barcode_rows = db.query(ProductBarcode).filter(ProductBarcode.barcode == barcode).all()
-    if not barcode_rows:
+    product_ids = resolve_product_ids(db, barcode)
+    if not product_ids:
         raise HTTPException(status_code=404, detail="Unknown barcode")
 
     results = []
-    for br in barcode_rows:
-        product = db.query(Product).filter(Product.id == br.product_id).first()
-        if not product or not product.is_active:
+    for product_id in product_ids:
+        product = db.execute(
+            select(Product).where(Product.id == product_id, Product.is_active.is_(True))
+        ).scalars().first()
+        if not product:
             continue
 
-        videos = (
-            db.query(ProductVideo)
-            .filter(ProductVideo.product_id == product.id, ProductVideo.is_primary == True)
-            .all()
-        )
-        retail_price = (
-            db.query(ProductPrice)
+        videos = db.execute(
+            select(ProductVideo).where(
+                ProductVideo.product_id == product.id,
+                ProductVideo.is_primary.is_(True),
+            )
+        ).scalars().all()
+
+        retail_price = db.execute(
+            select(ProductPrice)
             .join(PriceType)
-            .filter(
+            .where(
                 ProductPrice.product_id == product.id,
                 PriceType.code == "RETAIL",
-                ProductPrice.is_active == True,
+                ProductPrice.is_active.is_(True),
             )
-            .first()
-        )
+        ).scalars().first()
 
         results.append({
             "product_id": product.id,

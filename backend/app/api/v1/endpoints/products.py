@@ -191,11 +191,10 @@ def list_products(
 @router.get("/lookup/barcode/{barcode}")
 def lookup_by_barcode(barcode: str, db: Session = Depends(get_db)):
     """Returns all products mapped to this barcode (may be more than one)."""
-    rows = db.query(ProductBarcode).filter(ProductBarcode.barcode == barcode).all()
-    if not rows:
+    from app.api.v1.endpoints._barcode import resolve_product_ids
+    product_ids = resolve_product_ids(db, barcode)
+    if not product_ids:
         raise HTTPException(status_code=404, detail="Barcode not found")
-
-    product_ids = list(dict.fromkeys(row.product_id for row in rows))
     products = (
         db.execute(
             select(Product)

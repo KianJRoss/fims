@@ -54,14 +54,8 @@ def _serialize_product(product: Product, supplier_name: str | None, video_matche
 
 
 def _get_product_by_barcode(db: Session, barcode: str) -> Product | None:
-    stmt = (
-        select(Product)
-        .join(ProductBarcode, ProductBarcode.product_id == Product.id)
-        .options(joinedload(Product.brand), joinedload(Product.category))
-        .where(ProductBarcode.barcode == barcode, Product.is_active.is_(True))
-        .order_by(ProductBarcode.is_primary.desc(), ProductBarcode.id.asc(), Product.id.asc())
-    )
-    return db.execute(stmt).scalars().first()
+    from app.api.v1.endpoints._barcode import resolve_product
+    return resolve_product(db, barcode)
 
 
 def _get_supplier_name(db: Session, product_id: str) -> str | None:
