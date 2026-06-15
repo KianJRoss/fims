@@ -1,4 +1,5 @@
 from .product import Product, ProductBarcode, ProductCategory, ProductBrand
+from .brand_hierarchy import BrandImporter, BrandManufacturer, Importer, Manufacturer
 from .pricing import PriceType, ProductPrice, PriceHistory
 from .packaging import PackagingUnit, CasePack
 from .supplier import Supplier, SupplierProduct
@@ -12,6 +13,7 @@ from .import_job import ImportJob, ImportRow
 
 __all__ = [
     "Product", "ProductBarcode", "ProductCategory", "ProductBrand",
+    "BrandImporter", "BrandManufacturer", "Importer", "Manufacturer",
     "PriceType", "ProductPrice", "PriceHistory",
     "PackagingUnit", "CasePack",
     "Supplier", "SupplierProduct",

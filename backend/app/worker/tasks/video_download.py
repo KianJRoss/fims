@@ -43,7 +43,19 @@ def download_video(video_id: int):
             )
             conn.commit()
 
-            output_dir = f"{media_root}/videos/{product_id}"
+            # Look up brand slug for organized folder structure
+            with conn.cursor() as brand_cur:
+                brand_cur.execute(
+                    """SELECT LOWER(REPLACE(b.name, ' ', '_'))
+                       FROM products p
+                       LEFT JOIN product_brands b ON p.brand_id = b.id
+                       WHERE p.id = %s""",
+                    (product_id,),
+                )
+                brand_row = brand_cur.fetchone()
+                brand_slug = brand_row[0] if brand_row and brand_row[0] else "unknown"
+
+            output_dir = f"{media_root}/videos/{brand_slug}/{product_id}"
             os.makedirs(output_dir, exist_ok=True)
 
             cur.execute(

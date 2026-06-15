@@ -53,3 +53,12 @@ scripts/jakes_catalog_vision.json
 scripts/test_pages_26_27.json
 scripts/jakes_catalog.json
 scripts/jakes_catalog.csv
+
+# Catalog page images (downloaded, regeneratable via extract_catalog.py --slug ... --year ...)
+scripts/catalogs/**/pages/
+# Keep vision.json outputs and .gitkeep markers
+!scripts/catalogs/**/.gitkeep
+!scripts/catalogs/**/vision.json
+
+# Celery schedule
+backend/celerybeat-schedule

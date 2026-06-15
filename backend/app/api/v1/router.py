@@ -15,12 +15,16 @@ from app.api.v1.endpoints import (
     kiosk,
     videos,
 )
+from app.api.v1.endpoints.brands import brands_router, importers_router, manufacturers_router
 
 api_router = APIRouter()
 
 api_router.include_router(products.router, prefix="/products", tags=["Products"])
 api_router.include_router(barcodes.router, prefix="/barcodes", tags=["Barcodes"])
 api_router.include_router(pricing.router, prefix="/pricing", tags=["Pricing"])
+api_router.include_router(brands_router, prefix="/brands", tags=["Brands"])
+api_router.include_router(importers_router, prefix="/importers", tags=["Importers"])
+api_router.include_router(manufacturers_router, prefix="/manufacturers", tags=["Manufacturers"])
 api_router.include_router(suppliers.router, prefix="/suppliers", tags=["Suppliers"])
 api_router.include_router(imports.router, prefix="/imports", tags=["Import Pipeline"])
 api_router.include_router(sales.router, prefix="/sales", tags=["Sales"])

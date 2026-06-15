@@ -4,11 +4,15 @@ Barcodes are many-to-many: one product → many barcodes, one barcode → many p
 """
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Text, Boolean, DateTime, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
+
+if TYPE_CHECKING:
+    from app.models.brand_hierarchy import BrandImporter, BrandManufacturer
 
 
 def _uuid() -> str:
@@ -30,8 +34,15 @@ class ProductBrand(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    tier: Mapped[str | None] = mapped_column(String(20))
+    brand_type: Mapped[str | None] = mapped_column(String(30))
+    website: Mapped[str | None] = mapped_column(String(255))
+    notes: Mapped[str | None] = mapped_column(Text)
+    logo_url: Mapped[str | None] = mapped_column(String(512))
 
     products: Mapped[list["Product"]] = relationship(back_populates="brand")
+    importer_links: Mapped[list["BrandImporter"]] = relationship(back_populates="brand", cascade="all, delete-orphan")
+    manufacturer_links: Mapped[list["BrandManufacturer"]] = relationship(back_populates="brand", cascade="all, delete-orphan")
 
 
 class Product(Base):
