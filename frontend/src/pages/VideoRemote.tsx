@@ -116,16 +116,17 @@ export default function VideoRemote() {
     refetchOnWindowFocus: false,
   });
 
-  const statusFilename = extractStatusFilename(statusQuery.data);
+  const statusData = statusQuery.data;
+  const statusFilename = statusData ? extractStatusFilename(statusData) : null;
   const activeFilename = statusFilename ?? optimisticPlayback?.filename ?? null;
-  const playing = isPlayingStatus(statusQuery.data, activeFilename) || Boolean(optimisticPlayback);
+  const playing = (statusData ? isPlayingStatus(statusData, activeFilename) : false) || Boolean(optimisticPlayback);
   const statusLabel = playing ? "playing" : "idle";
 
   useEffect(() => {
-    if (statusFilename && isPlayingStatus(statusQuery.data, statusFilename)) {
+    if (statusFilename && statusData && isPlayingStatus(statusData, statusFilename)) {
       setOptimisticPlayback({ filename: statusFilename, expiresAt: Date.now() + 10_000 });
     }
-  }, [statusFilename, statusQuery.data]);
+  }, [statusFilename, statusData]);
 
   useEffect(() => {
     if (!optimisticPlayback) {
