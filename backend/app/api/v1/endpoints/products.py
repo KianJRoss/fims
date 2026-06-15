@@ -17,6 +17,11 @@ class ProductVideoPatch(BaseModel):
     is_primary: bool | None = None
 
 
+class BarcodeAddRequest(BaseModel):
+    barcode: str
+    is_primary: bool = True
+
+
 class ProductInStorePatch(BaseModel):
     in_store: bool
 
@@ -288,6 +293,48 @@ def update_product_video(
     db.commit()
     db.refresh(video)
     return _serialize_video(video)
+
+
+@router.post("/{product_id}/barcodes")
+def add_barcode(product_id: str, payload: BarcodeAddRequest, db: Session = Depends(get_db)):
+    """Add (or replace primary) barcode for a product. Used when linking an unknown scan."""
+    product = db.execute(select(Product).where(Product.id == product_id)).scalars().first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    barcode = payload.barcode.strip()
+    if not barcode:
+        raise HTTPException(status_code=400, detail="Barcode required")
+
+    if payload.is_primary:
+        # Demote all existing primary barcodes
+        db.execute(
+            select(ProductBarcode).where(ProductBarcode.product_id == product_id)
+        )
+        existing = db.execute(
+            select(ProductBarcode).where(
+                ProductBarcode.product_id == product_id,
+                ProductBarcode.is_primary.is_(True),
+            )
+        ).scalars().all()
+        for row in existing:
+            row.is_primary = False
+
+    # Upsert the new barcode
+    existing_row = db.execute(
+        select(ProductBarcode).where(
+            ProductBarcode.product_id == product_id,
+            ProductBarcode.barcode == barcode,
+        )
+    ).scalars().first()
+
+    if existing_row:
+        existing_row.is_primary = payload.is_primary
+    else:
+        db.add(ProductBarcode(product_id=product_id, barcode=barcode, is_primary=payload.is_primary))
+
+    db.commit()
+    return {"ok": True, "product_id": product_id, "barcode": barcode}
 
 
 @router.get("/{product_id}")
