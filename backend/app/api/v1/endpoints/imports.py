@@ -15,9 +15,16 @@ from app.models.import_job import ImportJob, ImportRow
 from app.models.pricing import PriceHistory, PriceType, ProductPrice
 from app.models.product import Product, ProductBrand, ProductCategory
 from app.worker.tasks.catalog_import import commit_approved_rows, parse_catalog_pdf
+from app.worker.tasks.issuu_import import scrape_issuu_catalog
 from app.worker.tasks.video_search import find_product_videos
 
 router = APIRouter()
+
+
+class IssuuImportRequest(BaseModel):
+    url: str
+    slug: str | None = None
+    year: str | None = None
 
 
 class ImportRowPatch(BaseModel):
@@ -138,6 +145,58 @@ def _insert_product_from_row(db: Session, raw_data: dict) -> Product:
     return product
 
 
+@router.get("/")
+def list_import_jobs(db: Session = Depends(get_db)):
+    jobs = db.query(ImportJob).order_by(ImportJob.created_at.desc()).limit(100).all()
+    return [
+        {
+            "job_id": job.id,
+            "status": job.status,
+            "document_type": job.document_type,
+            "file_name": job.file_name,
+            "created_at": job.created_at,
+            "completed_at": job.completed_at,
+            "error_message": job.error_message,
+            "row_counts": None,
+        }
+        for job in jobs
+    ]
+
+
+@router.post("/issuu")
+def start_issuu_import(payload: IssuuImportRequest, db: Session = Depends(get_db)):
+    import re as _re
+    url = payload.url.strip()
+    slug = (payload.slug or "").strip() or "catalog"
+    year = (payload.year or "").strip() or str(__import__("datetime").date.today().year)
+
+    # Extract CDN ID from Issuu URL or accept raw CDN ID
+    cdn_id: str | None = None
+    doc_slug: str | None = None
+    issuu_match = _re.search(r"issuu\.com/([^/]+)/docs/([^/?#]+)", url)
+    if issuu_match:
+        doc_slug = issuu_match.group(2)
+    elif _re.match(r"^\d{12}-[a-f0-9]{32}$", url):
+        cdn_id = url
+    else:
+        from fastapi import HTTPException as _HTTPException
+        raise _HTTPException(status_code=422, detail="Provide a full Issuu URL or a raw CDN ID (format: 260506140512-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)")
+
+    file_name = f"issuu_{slug}_{year}.scrape"
+    job = ImportJob(
+        document_type="CATALOG",
+        file_name=file_name,
+        file_path="",
+        status="pending",
+    )
+    db.add(job)
+    db.commit()
+    db.refresh(job)
+
+    scrape_issuu_catalog.delay(job.id, cdn_id, doc_slug, slug, year)
+    return {"job_id": job.id, "status": "pending", "message": "Issuu scrape queued"}
+
+
 @router.post("/pdf")
 def upload_pdf_import(
     pdf: UploadFile = File(...),
@@ -184,6 +243,8 @@ def get_import_job(job_id: int, db: Session = Depends(get_db)):
     return {
         "job_id": job.id,
         "status": job.status,
+        "document_type": job.document_type,
+        "file_name": job.file_name,
         "created_at": job.created_at,
         "completed_at": job.completed_at,
         "error_message": job.error_message,

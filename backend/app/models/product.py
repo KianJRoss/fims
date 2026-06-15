@@ -66,8 +66,13 @@ class Product(Base):
     duration_seconds: Mapped[int | None] = mapped_column(Integer)
     effects: Mapped[str | None] = mapped_column(Text)  # comma-separated tags
 
+    # Catalog reference
+    catalog_page: Mapped[int | None] = mapped_column(Integer)
+
     # Status
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    in_store: Mapped[bool] = mapped_column(Boolean, default=False)
+    no_video_confirmed: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow, onupdate=datetime.utcnow

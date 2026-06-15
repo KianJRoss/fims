@@ -11,6 +11,7 @@ celery_app = Celery(
         "app.worker.tasks.catalog_import",
         "app.worker.tasks.video_search",
         "app.worker.tasks.reports",
+        "app.worker.tasks.issuu_import",
     ],
 )
 

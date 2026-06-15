@@ -1,12 +1,12 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import SalesScreen from "./pages/SalesScreen";
 import ProductCatalog from "./pages/ProductCatalog";
-import ImportPipeline from "./pages/ImportPipeline";
 import Pricing from "./pages/Pricing";
 import Deals from "./pages/Deals";
 import Reports from "./pages/Reports";
 import BarcodePrint from "./pages/BarcodePrint";
 import VideoReview from "./pages/VideoReview";
+import Documents from "./pages/Documents";
 
 export default function App() {
   return (
@@ -19,8 +19,8 @@ export default function App() {
           { to: "/pricing", label: "Pricing" },
           { to: "/barcodes", label: "Barcodes" },
           { to: "/videos", label: "Videos" },
+          { to: "/documents", label: "Documents" },
           { to: "/deals", label: "Deals" },
-          { to: "/imports", label: "Imports" },
           { to: "/reports", label: "Reports" },
         ].map(({ to, label }) => (
           <NavLink
@@ -47,8 +47,8 @@ export default function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/barcodes" element={<BarcodePrint />} />
           <Route path="/videos" element={<VideoReview />} />
+          <Route path="/documents" element={<Documents />} />
           <Route path="/deals" element={<Deals />} />
-          <Route path="/imports" element={<ImportPipeline />} />
           <Route path="/reports" element={<Reports />} />
         </Routes>
       </main>

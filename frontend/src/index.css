@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -9,4 +15,6 @@
 body {
   margin: 0;
   font-family: 'Courier New', Courier, monospace;
+  background: #030712;
+  color: #f3f4f6;
 }

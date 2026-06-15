@@ -64,6 +64,17 @@ def search_product_videos(product_id: str, db: Session = Depends(get_db)):
     return {"queued": True, "product_id": product_id}
 
 
+@router.post("/product/{product_id}/no-video")
+def mark_product_no_video(product_id: str, db: Session = Depends(get_db)):
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    product.no_video_confirmed = True
+    db.commit()
+    return {"ok": True, "product_id": product_id, "no_video_confirmed": True}
+
+
 @router.patch("/{video_id}/confirm")
 def confirm_video(video_id: int, body: ConfirmBody, db: Session = Depends(get_db)):
     video = db.query(ProductVideo).filter(ProductVideo.id == video_id).first()

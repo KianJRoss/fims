@@ -14,6 +14,7 @@ from app.api.v1.endpoints import (
     reports,
     kiosk,
     videos,
+    documents,
 )
 from app.api.v1.endpoints.brands import brands_router, importers_router, manufacturers_router
 
@@ -35,3 +36,4 @@ api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(reports.router, prefix="/reports", tags=["Reports"])
 api_router.include_router(kiosk.router, prefix="/kiosk", tags=["Kiosk (Pi)"])
 api_router.include_router(videos.router, prefix="/videos", tags=["Videos"])
+api_router.include_router(documents.router, prefix="/documents", tags=["Documents"])

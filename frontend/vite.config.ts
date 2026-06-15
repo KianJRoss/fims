@@ -6,9 +6,12 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 3000,
-    // HMR WebSocket must connect back through Caddy on port 80
     hmr: {
       clientPort: 80,
+    },
+    watch: {
+      usePolling: true,
+      interval: 500,
     },
     proxy: {
       "/api": {
