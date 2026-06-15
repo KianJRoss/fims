@@ -13,6 +13,7 @@ from app.api.v1.endpoints import (
     users,
     reports,
     kiosk,
+    videos,
 )
 
 api_router = APIRouter()
@@ -29,3 +30,4 @@ api_router.include_router(media.router, prefix="/media", tags=["Media"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(reports.router, prefix="/reports", tags=["Reports"])
 api_router.include_router(kiosk.router, prefix="/kiosk", tags=["Kiosk (Pi)"])
+api_router.include_router(videos.router, prefix="/videos", tags=["Videos"])

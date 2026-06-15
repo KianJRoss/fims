@@ -6,6 +6,7 @@ import Pricing from "./pages/Pricing";
 import Deals from "./pages/Deals";
 import Reports from "./pages/Reports";
 import BarcodePrint from "./pages/BarcodePrint";
+import VideoReview from "./pages/VideoReview";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           { to: "/products", label: "Products" },
           { to: "/pricing", label: "Pricing" },
           { to: "/barcodes", label: "Barcodes" },
+          { to: "/videos", label: "Videos" },
           { to: "/deals", label: "Deals" },
           { to: "/imports", label: "Imports" },
           { to: "/reports", label: "Reports" },
@@ -44,6 +46,7 @@ export default function App() {
           <Route path="/products" element={<ProductCatalog />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/barcodes" element={<BarcodePrint />} />
+          <Route path="/videos" element={<VideoReview />} />
           <Route path="/deals" element={<Deals />} />
           <Route path="/imports" element={<ImportPipeline />} />
           <Route path="/reports" element={<Reports />} />

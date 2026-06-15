@@ -20,6 +20,7 @@ class ProductVideo(Base):
     thumbnail_url: Mapped[str | None] = mapped_column(String(1024))
     search_query: Mapped[str | None] = mapped_column(String(512))
     confirmed: Mapped[bool] = mapped_column(Boolean, default=False)
+    download_status: Mapped[str] = mapped_column(String(20), default="pending")
     original_filename: Mapped[str | None] = mapped_column(String(255))
     duration_seconds: Mapped[int | None] = mapped_column(Integer)
     is_primary: Mapped[bool] = mapped_column(Boolean, default=True)
