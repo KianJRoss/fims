@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const STREAM_BASE_URL = (import.meta.env.VITE_API_URL ?? "/api").replace(/\/$/, "");
 
@@ -8,26 +8,56 @@ type ScannerPayload = {
 };
 
 export function useScannerStream(onBarcode: (barcode: string) => void) {
+  const onBarcodeRef = useRef(onBarcode);
+
+  useEffect(() => {
+    onBarcodeRef.current = onBarcode;
+  }, [onBarcode]);
+
   useEffect(() => {
     if (typeof window.EventSource === "undefined") {
       return;
     }
 
-    const source = new EventSource(`${STREAM_BASE_URL}/v1/scanner/stream`);
+    let source: EventSource | null = null;
+    let retryTimer: ReturnType<typeof setTimeout> | null = null;
+    let retryDelay = 1000;
+    let destroyed = false;
 
-    source.onmessage = (event) => {
-      try {
-        const payload = JSON.parse(event.data) as ScannerPayload;
-        if (typeof payload.barcode === "string" && payload.barcode.trim()) {
-          onBarcode(payload.barcode.trim());
+    function connect() {
+      if (destroyed) return;
+      source = new EventSource(`${STREAM_BASE_URL}/v1/scanner/stream`);
+
+      source.onmessage = (event) => {
+        retryDelay = 1000;
+        try {
+          const payload = JSON.parse(event.data) as ScannerPayload;
+          if (typeof payload.barcode === "string" && payload.barcode.trim()) {
+            onBarcodeRef.current(payload.barcode.trim());
+          }
+        } catch {
+          // ignore malformed messages
         }
-      } catch {
-        // Ignore malformed scanner messages and keep the stream alive.
-      }
-    };
+      };
+
+      source.onerror = () => {
+        source?.close();
+        source = null;
+        if (!destroyed) {
+          retryTimer = setTimeout(() => {
+            retryDelay = Math.min(retryDelay * 2, 30000);
+            connect();
+          }, retryDelay);
+        }
+      };
+    }
+
+    connect();
 
     return () => {
-      source.close();
+      destroyed = true;
+      if (retryTimer !== null) clearTimeout(retryTimer);
+      source?.close();
     };
-  }, [onBarcode]);
+  }, []);
 }
