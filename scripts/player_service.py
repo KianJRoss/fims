@@ -14,6 +14,19 @@ from fastapi import FastAPI, HTTPException
 VIDEO_DIR = "/media/pi/VIDEOS/videos"
 IDLE_RETURN_SECONDS = 60
 IDLE_POLL_SECONDS = 0.5
+TRANSITION_CACHE_DIR = "/tmp/fims_transitions"
+TRANSITION_DURATION = 4  # seconds each brand card is shown
+
+BRAND_PREFIX_MAP: dict[str, str] = {
+    "WC": "WORLD CLASS",
+    "RR": "RED RHINO",
+    "CE": "CUTTING EDGE",
+    "JB": "JAKE'S FIREWORKS",
+    "BC": "BLACK CAT",
+    "PB": "PYRO BOX",
+    "SW": "SUNWING",
+    "WT": "WORLD CLASS",
+}
 
 app = FastAPI(title="FIMS Video Kiosk Player Service")
 
@@ -34,6 +47,50 @@ def _build_env() -> dict[str, str]:
     env.setdefault("XDG_RUNTIME_DIR", "/run/user/1000")
     env.setdefault("DISPLAY", ":0")
     return env
+
+
+def _brand_from_filename(filename: str) -> str:
+    name = os.path.basename(filename).upper()
+    for prefix, brand in BRAND_PREFIX_MAP.items():
+        if name.startswith(prefix + "-") or name.startswith(prefix + "_"):
+            return brand
+    return "FIREWORKS"
+
+
+def _get_transition_png(brand: str) -> str | None:
+    os.makedirs(TRANSITION_CACHE_DIR, exist_ok=True)
+    safe = brand.replace(" ", "_").replace("'", "").upper()
+    path = os.path.join(TRANSITION_CACHE_DIR, f"{safe}.png")
+    if os.path.exists(path):
+        return path
+
+    font_candidates = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+    ]
+    font = next((f for f in font_candidates if os.path.exists(f)), None)
+    font_opt = f":fontfile={font}" if font else ""
+    escaped = brand.replace("'", "\\'").replace(":", "\\:")
+    vf = f"drawtext=text='{escaped}'{font_opt}:fontsize=96:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2"
+
+    result = subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=black:size=1920x1080:rate=1",
+         "-frames:v", "1", "-vf", vf, path],
+        capture_output=True,
+    )
+    return path if result.returncode == 0 else None
+
+
+def _spawn_mpv_playlist(playlist_path: str) -> subprocess.Popen[bytes]:
+    command = [
+        "mpv", "--fs", "--really-quiet", "--no-terminal",
+        "--force-window=yes",
+        f"--image-display-duration={TRANSITION_DURATION}",
+        f"--playlist={playlist_path}",
+    ]
+    return subprocess.Popen(command, env=_build_env())
 
 
 def _spawn_mpv(path: str, loop_forever: bool = False) -> subprocess.Popen[bytes]:
@@ -140,36 +197,57 @@ def _idle_loop() -> None:
             continue
 
         with _lock:
-            _cleanup_finished_process_locked()
-            source = _pick_idle_source_locked()
+            playlist = list(_idle_playlist)
 
-        if _trigger_event.is_set():
+        if not playlist:
+            files = glob.glob(os.path.join(VIDEO_DIR, "*.mp4"))
+            playlist = sorted(files)
+
+        if not playlist:
             time.sleep(IDLE_POLL_SECONDS)
             continue
 
-        if source is None:
+        random.shuffle(playlist)
+
+        # Build M3U interleaving brand transition PNGs between each video.
+        m3u_lines = ["#EXTM3U"]
+        for video_path in playlist:
+            brand = _brand_from_filename(video_path)
+            png = _get_transition_png(brand)
+            if png:
+                m3u_lines.append(png)
+            m3u_lines.append(video_path)
+
+        playlist_path = "/tmp/fims_idle.m3u"
+        try:
+            with open(playlist_path, "w") as fh:
+                fh.write("\n".join(m3u_lines) + "\n")
+        except Exception:
             time.sleep(IDLE_POLL_SECONDS)
             continue
 
         with _lock:
-            if _trigger_event.is_set() or _mode == "triggered":
+            if _trigger_event.is_set():
                 continue
             _cleanup_finished_process_locked()
             try:
-                proc = _spawn_mpv(source, loop_forever=False)
+                proc = _spawn_mpv_playlist(playlist_path)
             except Exception:
-                _current_proc = None
-                _current_source = None
                 time.sleep(IDLE_POLL_SECONDS)
                 continue
             _current_proc = proc
-            _current_source = source
+            _current_source = playlist_path
             _mode = "idle"
 
-        try:
-            proc.wait()
-        except Exception:
-            pass
+        while proc.poll() is None:
+            if _trigger_event.is_set():
+                try:
+                    proc.kill()
+                    proc.wait(timeout=5)
+                except Exception:
+                    pass
+                break
+            time.sleep(IDLE_POLL_SECONDS)
 
         with _lock:
             if _current_proc is proc:

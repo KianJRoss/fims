@@ -7,7 +7,7 @@ from urllib.parse import quote
 import httpx
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy import or_, select
+from sqlalchemy import column, or_, select, table
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -17,6 +17,12 @@ from app.models.product import Product
 router = APIRouter()
 player_router = APIRouter(prefix="/player")
 router.include_router(player_router)
+
+product_videos_table = table(
+    "product_videos",
+    column("product_id"),
+    column("video_filename"),
+)
 
 
 class PlayRequest(BaseModel):
@@ -92,6 +98,23 @@ def _build_idle_playlist(item_numbers: list[str], video_filenames: list[str]) ->
     return playlist
 
 
+def _build_idle_playlist_from_filenames(video_filenames_to_match: list[str], video_filenames: list[str]) -> list[str]:
+    playlist: list[str] = []
+    seen_paths: set[str] = set()
+
+    for wanted_filename in video_filenames_to_match:
+        wanted_lower = wanted_filename.lower()
+        for filename in video_filenames:
+            filename_lower = filename.lower()
+            if wanted_lower == filename_lower or wanted_lower in filename_lower or filename_lower in wanted_lower:
+                path = f"/media/pi/VIDEOS/videos/{filename}"
+                if path not in seen_paths:
+                    seen_paths.add(path)
+                    playlist.append(path)
+
+    return playlist
+
+
 @router.post("/player/play")
 def play_video(body: PlayRequest, db: Session = Depends(get_db)):
     video_pi_url = get_video_pi_url()
@@ -123,7 +146,21 @@ def sync_idle_playlist(db: Session = Depends(get_db)):
     if not video_pi_url:
         return {"status": "not_configured"}
 
-    rows = (
+    paired_rows = (
+        db.execute(
+            select(Product.item_number, product_videos_table.c.video_filename)
+            .select_from(Product)
+            .join(product_videos_table, product_videos_table.c.product_id == Product.id)
+            .where(
+                Product.in_store.is_(True),
+                Product.item_number.isnot(None),
+            )
+            .order_by(Product.name.asc(), Product.id.asc())
+        )
+        .all()
+    )
+
+    fallback_rows = (
         db.execute(
             select(Product.item_number)
             .join(ProductPrice, ProductPrice.product_id == Product.id)
@@ -142,10 +179,16 @@ def sync_idle_playlist(db: Session = Depends(get_db)):
 
     video_response = get_from_video_pi("/videos")
     video_filenames = video_response.get("videos", [])
-    playlist = _build_idle_playlist([item_number for item_number in rows if item_number], video_filenames)
+    selected_video_filenames = [video_filename for _, video_filename in paired_rows if video_filename]
+    playlist = _build_idle_playlist_from_filenames(selected_video_filenames, video_filenames)
+    if not playlist:
+        playlist = _build_idle_playlist([item_number for item_number in fallback_rows if item_number], video_filenames)
 
     post_to_video_pi("/idle/playlist", {"paths": playlist})
-    return {"synced": len(playlist), "total_products": len(rows)}
+    return {
+        "synced": len(playlist),
+        "total_products": len(selected_video_filenames) if selected_video_filenames else len(fallback_rows),
+    }
 
 
 @router.get("/player/status")

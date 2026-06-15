@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
-import { Tv2 } from "lucide-react";
+import { ScanBarcode, Tv2 } from "lucide-react";
 import SalesScreen from "./pages/SalesScreen";
+import Inventory from "./pages/Inventory";
 import ProductCatalog from "./pages/ProductCatalog";
 import Pricing from "./pages/Pricing";
 import Deals from "./pages/Deals";
@@ -13,6 +14,7 @@ import VideoRemote from "./pages/VideoRemote";
 
 const navItems = [
   { to: "/", label: "Sales" },
+  { to: "/inventory", label: "Inventory", icon: ScanBarcode },
   { to: "/products", label: "Products" },
   { to: "/pricing", label: "Pricing" },
   { to: "/barcodes", label: "Barcodes" },
@@ -63,6 +65,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SalesScreen />} />
           <Route path="/receipt/:token" element={<Receipt />} />
+          <Route path="/inventory" element={<Inventory />} />
           <Route path="/products" element={<ProductCatalog />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/barcodes" element={<BarcodePrint />} />
