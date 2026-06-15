@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
@@ -29,6 +29,7 @@ class SaleCreatePayload(BaseModel):
     total_discount: float
     total: float
     payment_method: str | None = None
+    card_last4: str | None = None
     applied_deal_ids: list[int] = Field(default_factory=list)
 
 
@@ -37,11 +38,13 @@ def _serialize_sale(sale: Sale) -> dict[str, Any]:
         "id": sale.id,
         "cashier_id": sale.cashier_id,
         "price_type_id": sale.price_type_id,
+        "receipt_token": sale.receipt_token,
         "subtotal": float(sale.subtotal),
         "discount_total": float(sale.discount_total),
         "tax_total": float(sale.tax_total),
         "grand_total": float(sale.grand_total),
         "payment_method": sale.payment_method,
+        "card_last4": sale.card_last4,
         "status": sale.status,
         "notes": sale.notes,
         "created_at": sale.created_at,
@@ -65,7 +68,7 @@ def _serialize_sale(sale: Sale) -> dict[str, Any]:
     }
 
 
-def _sale_query(db: Session):
+def _sale_query():
     return (
         select(Sale)
         .options(joinedload(Sale.items))
@@ -86,6 +89,7 @@ def create_sale(payload: SaleCreatePayload, db: Session = Depends(get_db)):
         tax_total=0,
         grand_total=payload.total,
         payment_method=payload.payment_method,
+        card_last4=payload.card_last4 if payload.payment_method == "CARD" else None,
         status="completed",
         completed_at=now,
     )
@@ -128,7 +132,7 @@ def create_sale(payload: SaleCreatePayload, db: Session = Depends(get_db)):
 
 @router.get("/")
 def list_sales(db: Session = Depends(get_db)):
-    sales = db.execute(_sale_query(db).limit(50)).unique().scalars().all()
+    sales = db.execute(_sale_query().limit(50)).unique().scalars().all()
     return [_serialize_sale(sale) for sale in sales]
 
 

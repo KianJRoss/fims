@@ -1,14 +1,25 @@
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import SalesScreen from "./pages/SalesScreen";
 import ProductCatalog from "./pages/ProductCatalog";
 import Pricing from "./pages/Pricing";
 import Deals from "./pages/Deals";
 import Reports from "./pages/Reports";
+import Receipt from "./pages/Receipt";
 import BarcodePrint from "./pages/BarcodePrint";
 import VideoReview from "./pages/VideoReview";
 import Documents from "./pages/Documents";
 
 export default function App() {
+  const location = useLocation();
+
+  if (location.pathname.startsWith("/receipt/")) {
+    return (
+      <Routes>
+        <Route path="/receipt/:token" element={<Receipt />} />
+      </Routes>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-gray-950 text-gray-100 font-mono">
       <nav className="w-48 flex-shrink-0 bg-gray-900 border-r border-gray-800 flex flex-col gap-1 p-3">
@@ -43,6 +54,7 @@ export default function App() {
       <main className="flex-1 overflow-auto">
         <Routes>
           <Route path="/" element={<SalesScreen />} />
+          <Route path="/receipt/:token" element={<Receipt />} />
           <Route path="/products" element={<ProductCatalog />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/barcodes" element={<BarcodePrint />} />

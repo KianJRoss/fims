@@ -442,20 +442,26 @@ export default function SalesScreen() {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:min-w-48">
-                  <label className="block text-xs uppercase tracking-[0.25em] text-gray-500">
-                    Payment Method
-                    <select
-                      value={paymentMethod}
-                      onChange={(event) => setPaymentMethod(event.target.value)}
-                      className="mt-2 w-full rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-100 outline-none focus:border-orange-500"
-                    >
-                      {["CASH", "CARD", "CHECK", "OTHER"].map((method) => (
-                        <option key={method} value={method}>
-                          {method}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                  <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Payment Method</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { value: "CARD", label: "Credit / Debit" },
+                      { value: "CASH", label: "Cash / Check" },
+                    ].map(({ value, label }) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => setPaymentMethod(value)}
+                        className={`rounded-2xl border px-3 py-3 text-sm font-semibold transition ${
+                          paymentMethod === value
+                            ? "border-orange-500 bg-orange-500 text-white"
+                            : "border-gray-700 bg-gray-800 text-gray-300 hover:border-gray-600"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
 
                   <button
                     onClick={() =>

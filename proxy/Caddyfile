@@ -1,5 +1,5 @@
 :80 {
-    # API — FastAPI
+    # API - FastAPI
     handle /api/* {
         uri strip_prefix /api
         reverse_proxy api:8000
@@ -16,7 +16,14 @@
         file_server
     }
 
-    # Everything else — React SPA (includes Vite HMR WebSocket upgrades)
+    # External video files served from the dedicated video Pi storage
+    handle /external-videos/* {
+        root * /srv/external-videos
+        rewrite * {path.file}
+        file_server
+    }
+
+    # Everything else - React SPA (includes Vite HMR WebSocket upgrades)
     handle {
         reverse_proxy web:3000 {
             header_up Host {host}

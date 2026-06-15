@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 
-from sqlalchemy import String, Numeric, Integer, ForeignKey, DateTime, Text, Boolean
+from sqlalchemy import String, Numeric, Integer, ForeignKey, DateTime, Text, Boolean, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -17,13 +17,21 @@ class Sale(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
     cashier_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
     price_type_id: Mapped[int | None] = mapped_column(ForeignKey("price_types.id"))
+    receipt_token: Mapped[str] = mapped_column(
+        String(36),
+        nullable=False,
+        unique=True,
+        server_default=text("gen_random_uuid()::text"),
+    )
     subtotal: Mapped[float] = mapped_column(Numeric(10, 2), default=0)
     discount_total: Mapped[float] = mapped_column(Numeric(10, 2), default=0)
     tax_total: Mapped[float] = mapped_column(Numeric(10, 2), default=0)
     grand_total: Mapped[float] = mapped_column(Numeric(10, 2), default=0)
-    payment_method: Mapped[str | None] = mapped_column(String(30))  # CASH, CARD, CHECK
+    payment_method: Mapped[str | None] = mapped_column(String(30))  # CASH, CARD
+    card_last4: Mapped[str | None] = mapped_column(String(4))
     status: Mapped[str] = mapped_column(String(20), default="open")  # open, completed, voided
     notes: Mapped[str | None] = mapped_column(Text)
+    receipt_html: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime)
 
@@ -47,6 +55,7 @@ class SaleItem(Base):
     override_authorized_by: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
 
     sale: Mapped["Sale"] = relationship(back_populates="items")
+    product: Mapped["Product"] = relationship()
 
 
 class Receipt(Base):
