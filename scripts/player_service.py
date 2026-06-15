@@ -194,11 +194,29 @@ def _startup() -> None:
 def play(body: dict[str, Any]) -> dict[str, str]:
     global _mode
 
+    item_number = body.get("item_number")
     file_path = body.get("file_path")
-    if not file_path:
-        raise HTTPException(status_code=400, detail="Missing file_path")
 
-    source = str(file_path)
+    if item_number:
+        item_number_value = str(item_number).strip()
+        if not item_number_value:
+            return {"status": "no_match", "item_number": item_number_value}
+
+        match = next(
+            (
+                path
+                for path in sorted(glob.glob(os.path.join(VIDEO_DIR, "*")))
+                if item_number_value.lower() in os.path.basename(path).lower()
+            ),
+            None,
+        )
+        if match is None:
+            return {"status": "no_match", "item_number": item_number_value}
+        source = match
+    else:
+        if not file_path:
+            raise HTTPException(status_code=400, detail="Missing file_path")
+        source = str(file_path)
 
     with _lock:
         try:
@@ -210,6 +228,12 @@ def play(body: dict[str, Any]) -> dict[str, str]:
             raise HTTPException(status_code=500, detail=str(exc)) from exc
 
     return {"status": "playing", "source": source}
+
+
+@app.get("/videos")
+def list_videos() -> dict:
+    files = sorted(glob.glob(os.path.join(VIDEO_DIR, "*.mp4")))
+    return {"videos": [os.path.basename(f) for f in files]}
 
 
 @app.post("/idle/playlist")

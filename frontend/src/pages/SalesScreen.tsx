@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -232,6 +233,7 @@ export default function SalesScreen() {
         }
         return [...current, { product_id: productId, name, quantity: 1, unit_price: retailPrice, category_id: categoryId }];
       });
+      void axios.post("/api/video-library/player/play", { product_id: productId }).catch(() => {});
       barcodeInputRef.current?.focus();
     } catch {
       setFlash({ kind: "error", text: "Product price not found." });
