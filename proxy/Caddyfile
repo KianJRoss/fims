@@ -1,0 +1,23 @@
+:80 {
+    # API — FastAPI
+    handle /api/* {
+        uri strip_prefix /api
+        reverse_proxy api:8000
+    }
+
+    # WebSocket for live kiosk push (Pi display, barcode events)
+    handle /ws/* {
+        reverse_proxy api:8000
+    }
+
+    # Static media (product images, videos)
+    handle /media/* {
+        root * /app/media
+        file_server
+    }
+
+    # Everything else — React SPA
+    handle {
+        reverse_proxy web:3000
+    }
+}

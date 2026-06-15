@@ -1,0 +1,127 @@
+services:
+  # ─── Reverse proxy ────────────────────────────────────────────────────────
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+      - web
+
+  # ─── React frontend ────────────────────────────────────────────────────────
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - VITE_API_URL=http://localhost/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
+  # ─── FastAPI backend ───────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://fims:fims@postgres:5432/fims
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-me-in-production
+      MEDIA_ROOT: /app/media
+      ENVIRONMENT: development
+    volumes:
+      - ./backend:/app
+      - ./media:/app/media
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # ─── Celery worker (background jobs: PDF parsing, import pipeline) ─────────
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://fims:fims@postgres:5432/fims
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-me-in-production
+      MEDIA_ROOT: /app/media
+    volumes:
+      - ./backend:/app
+      - ./media:/app/media
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: celery -A app.worker.celery_app worker --loglevel=info -Q default,imports,reports
+
+  # ─── Celery beat (scheduled tasks: nightly reports, cleanup) ──────────────
+  beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://fims:fims@postgres:5432/fims
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-me-in-production
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: celery -A app.worker.celery_app beat --loglevel=info
+
+  # ─── PostgreSQL 17 ────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fims
+      POSTGRES_PASSWORD: fims
+      POSTGRES_DB: fims
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fims"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"   # expose for local tools like DBeaver
+
+  # ─── Redis 7 (Celery broker + cache) ─────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"   # expose for local inspection
+
+volumes:
+  pgdata:
+  redis_data:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,55 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Docker volumes / data
+postgres_data/
+redis_data/
+
+# Media uploads
+media/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Generated catalog data (large, regeneratable)
+scripts/catalog_pages/
+scripts/jakes_catalog_vision.json
+scripts/test_pages_26_27.json
+scripts/jakes_catalog.json
+scripts/jakes_catalog.csv
