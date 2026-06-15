@@ -16,8 +16,10 @@
         file_server
     }
 
-    # Everything else — React SPA
+    # Everything else — React SPA (includes Vite HMR WebSocket upgrades)
     handle {
-        reverse_proxy web:3000
+        reverse_proxy web:3000 {
+            header_up Host {host}
+        }
     }
 }
