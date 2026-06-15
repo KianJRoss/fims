@@ -15,6 +15,8 @@ from app.models.pricing import PriceType, ProductPrice
 from app.models.product import Product
 
 router = APIRouter()
+player_router = APIRouter(prefix="/player")
+router.include_router(player_router)
 
 
 class PlayRequest(BaseModel):
@@ -52,6 +54,19 @@ def get_from_video_pi(path: str) -> dict:
         response = client.get(f"{video_pi_url}{path}")
     response.raise_for_status()
     return response.json()
+
+
+def _normalize_video_list(payload: object) -> list[str]:
+    if isinstance(payload, list):
+        return [item for item in payload if isinstance(item, str) and item.strip()]
+
+    if isinstance(payload, dict):
+        for key in ("videos", "files", "items"):
+            value = payload.get(key)
+            if isinstance(value, list):
+                return [item for item in value if isinstance(item, str) and item.strip()]
+
+    return []
 
 
 def _get_product_by_id(db: Session, product_id: str) -> Product:
@@ -136,3 +151,20 @@ def sync_idle_playlist(db: Session = Depends(get_db)):
 @router.get("/player/status")
 def video_status():
     return get_from_video_pi("/status")
+
+
+@player_router.get("/videos")
+def list_videos():
+    video_pi_url = get_video_pi_url()
+    if not video_pi_url:
+        return {"videos": [], "count": 0, "error": "VIDEO_PI_URL is not set"}
+
+    try:
+        with httpx.Client(timeout=15.0) as client:
+            response = client.get(f"{video_pi_url}/videos")
+            response.raise_for_status()
+            payload = response.json()
+        videos = _normalize_video_list(payload)
+        return {"videos": videos, "count": len(videos)}
+    except (httpx.HTTPError, ValueError, TypeError) as exc:
+        return {"videos": [], "count": 0, "error": str(exc)}
