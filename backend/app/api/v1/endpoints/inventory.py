@@ -124,17 +124,50 @@ def _fetch_remote_videos() -> list[str]:
     return _normalize_video_list(payload)
 
 
-def _find_video_match(product_item_number: str | None, remote_videos: list[str]) -> str | None:
-    if not product_item_number:
+def _name_to_search_key(name: str) -> str:
+    """Normalize a product name or filename for fuzzy matching."""
+    import re
+    # Strip file extension, leading codes like "WC ", "1-", "#300 ", etc.
+    key = re.sub(r"\.[a-z0-9]{2,4}$", "", name, flags=re.IGNORECASE)
+    key = re.sub(r"^[#\d\-\s]+", "", key)           # leading numbers/symbols
+    key = re.sub(r"^(WC|RR|CE|BC)\s+", "", key, flags=re.IGNORECASE)  # supplier prefix
+    key = re.sub(r"[^a-z0-9 ]", " ", key.lower())   # punctuation → space
+    key = re.sub(r"\s+", " ", key).strip()
+    return key
+
+
+def _find_video_match(
+    product_item_number: str | None,
+    product_name: str | None,
+    remote_videos: list[str],
+) -> str | None:
+    # Try item_number substring match first (fast, exact)
+    if product_item_number:
+        needle = product_item_number.strip().lower()
+        for filename in remote_videos:
+            if needle in filename.lower():
+                return filename
+
+    # Fall back to name-based match
+    if not product_name or product_name.lower().startswith("item "):
         return None
 
-    needle = product_item_number.strip().lower()
-    if not needle:
+    name_key = _name_to_search_key(product_name)
+    if len(name_key) < 3:
         return None
 
     for filename in remote_videos:
-        if needle in filename.lower():
+        if name_key in _name_to_search_key(filename):
             return filename
+
+    # Partial: all words in name appear in filename
+    words = [w for w in name_key.split() if len(w) > 2]
+    if words:
+        for filename in remote_videos:
+            file_key = _name_to_search_key(filename)
+            if all(w in file_key for w in words):
+                return filename
+
     return None
 
 
@@ -225,7 +258,7 @@ def scan_inventory(payload: InventoryScanRequest, db: Session = Depends(get_db))
     product.in_store = True
 
     remote_videos = _fetch_remote_videos()
-    video_match_filename = _find_video_match(product.item_number, remote_videos)
+    video_match_filename = _find_video_match(product.item_number, product.name, remote_videos)
     if video_match_filename and not _pairing_exists(db, product.id, video_match_filename):
         _insert_video_pair(db, product.id, video_match_filename)
 
