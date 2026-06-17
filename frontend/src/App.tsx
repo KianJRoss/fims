@@ -12,7 +12,6 @@ import {
   ReceiptText,
   Settings as SettingsIcon,
   SquareActivity,
-  Tv2,
   X,
 } from "lucide-react";
 import SalesScreen from "./pages/SalesScreen";
@@ -26,7 +25,6 @@ import VideoReview from "./pages/VideoReview";
 import Documents from "./pages/Documents";
 import Suppliers from "./pages/Suppliers";
 import Settings from "./pages/Settings";
-import VideoRemote from "./pages/VideoRemote";
 import ShopLayout from "./pages/shop/ShopLayout";
 import ShopHome from "./pages/shop/ShopHome";
 import ShopProducts from "./pages/shop/ShopProducts";
@@ -38,7 +36,6 @@ const navItems = [
   { to: "/products", label: "Products", icon: FolderOpen },
   { to: "/barcodes", label: "Barcodes", icon: Barcode },
   { to: "/videos", label: "Videos", icon: FileText },
-  { to: "/video-remote", label: "Video Remote", icon: Tv2 },
   { to: "/documents", label: "Documents", icon: BookText },
   { to: "/suppliers", label: "Suppliers", icon: Building2 },
   { to: "/deals", label: "Deals", icon: ChevronRight },
@@ -127,7 +124,7 @@ export default function App() {
           <Route path="/pricing" element={<Navigate to="/products" replace />} />
           <Route path="/barcodes" element={<BarcodePrint />} />
           <Route path="/videos" element={<VideoReview />} />
-          <Route path="/video-remote" element={<VideoRemote />} />
+          <Route path="/video-remote" element={<Navigate to="/videos" replace />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/deals" element={<Deals />} />
