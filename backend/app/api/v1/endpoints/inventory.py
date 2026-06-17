@@ -378,6 +378,7 @@ def bulk_pair_videos(db: Session = Depends(get_db)):
 def inventory_products(
     in_store: bool | None = None,
     needs_data_review: bool | None = None,
+    sort: str = "name",
     page: int = Query(default=1, ge=1),
     size: int = Query(default=50, ge=1, le=200),
     db: Session = Depends(get_db),
@@ -388,8 +389,11 @@ def inventory_products(
         select(Product)
         .options(joinedload(Product.brand), joinedload(Product.category))
         .where(Product.is_active.is_(True))
-        .order_by(Product.name.asc(), Product.id.asc())
     )
+    if sort == "recent":
+        stmt = stmt.order_by(Product.updated_at.desc(), Product.id.asc())
+    else:
+        stmt = stmt.order_by(Product.name.asc(), Product.id.asc())
     if in_store is not None:
         stmt = stmt.where(Product.in_store.is_(in_store))
     if needs_data_review is not None:

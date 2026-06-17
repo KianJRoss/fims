@@ -113,7 +113,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
     searchTimerRef.current = window.setTimeout(async () => {
       setSearching(true);
       try {
-        const { data } = await api.get("/v1/products", { params: { q: search.trim(), limit: 8 } });
+        const { data } = await api.get("/v1/products/", { params: { q: search.trim(), limit: 8 } });
         setResults(Array.isArray(data) ? data : []);
       } catch {
         setResults([]);
