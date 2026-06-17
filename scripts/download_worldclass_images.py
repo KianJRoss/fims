@@ -96,12 +96,16 @@ def main() -> None:
         with psycopg.connect(DB_URL) as conn:
             with conn.cursor() as cur:
                 cur.execute(
-                    "SELECT item_number FROM products WHERE image_path IS NULL AND item_number IS NOT NULL"
+                    "SELECT item_number FROM products WHERE item_number IS NOT NULL"
                 )
-                missing_skus = {normalize_sku(row[0]) for row in cur.fetchall()}
+                all_skus = {normalize_sku(row[0]) for row in cur.fetchall()}
 
-            targets = {sku: url for sku, url in sku_to_image.items() if sku in missing_skus}
-            print(f"{len(missing_skus)} products missing an image; {len(targets)} have a known World Class image")
+            # Unconditionally overwrite -- worldclassfireworks.com is a verified-correct
+            # per-product source, more trustworthy than whatever image_path a product
+            # currently has (the original catalog-page OCR extraction produced some
+            # corrupted/mis-cropped files).
+            targets = {sku: url for sku, url in sku_to_image.items() if sku in all_skus}
+            print(f"{len(all_skus)} products total; {len(targets)} have a known World Class image (re-downloading all of them)")
 
             IMAGES_DIR.mkdir(parents=True, exist_ok=True)
             downloaded = 0
@@ -124,7 +128,7 @@ def main() -> None:
 
                     with conn.cursor() as cur:
                         cur.execute(
-                            "UPDATE products SET image_path = %s WHERE item_number = %s AND image_path IS NULL",
+                            "UPDATE products SET image_path = %s WHERE item_number = %s",
                             (rel_path, sku),
                         )
                     conn.commit()
