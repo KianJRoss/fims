@@ -4,6 +4,7 @@ import {
   BarChart3,
   Barcode,
   BookText,
+  Building2,
   ChevronRight,
   CircleDollarSign,
   FileText,
@@ -26,6 +27,7 @@ import Receipts from "./pages/Receipts";
 import BarcodePrint from "./pages/BarcodePrint";
 import VideoReview from "./pages/VideoReview";
 import Documents from "./pages/Documents";
+import Suppliers from "./pages/Suppliers";
 import VideoRemote from "./pages/VideoRemote";
 import ShopLayout from "./pages/shop/ShopLayout";
 import ShopHome from "./pages/shop/ShopHome";
@@ -42,6 +44,7 @@ const navItems = [
   { to: "/videos", label: "Videos", icon: FileText },
   { to: "/video-remote", label: "Video Remote", icon: Tv2 },
   { to: "/documents", label: "Documents", icon: BookText },
+  { to: "/suppliers", label: "Suppliers", icon: Building2 },
   { to: "/deals", label: "Deals", icon: ChevronRight },
   { to: "/reports", label: "Reports", icon: BarChart3 },
   { to: "/receipts", label: "Receipts", icon: ReceiptText },
@@ -129,6 +132,7 @@ export default function App() {
           <Route path="/videos" element={<VideoReview />} />
           <Route path="/video-remote" element={<VideoRemote />} />
           <Route path="/documents" element={<Documents />} />
+          <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/deals" element={<Deals />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/receipts" element={<Receipts />} />
