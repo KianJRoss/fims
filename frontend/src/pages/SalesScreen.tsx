@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Barcode, CheckCircle2, Loader2, Minus, Plus, Search, Trash2 } from "lucide-react";
+import { Barcode, CheckCircle2, Loader2, Minus, PauseCircle, Plus, Search, Trash2, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
 import { api } from "../api/client";
@@ -72,6 +72,25 @@ const EMPTY_DEAL_SUMMARY: DealSummary = {
   total: 0,
 };
 
+type ParkedCart = {
+  id: string;
+  label: string;
+  cart: CartItem[];
+  dealSummary: DealSummary;
+  parkedAt: number;
+};
+
+const PARKED_CARTS_STORAGE_KEY = "fims_parked_carts";
+
+function loadParkedCarts(): ParkedCart[] {
+  try {
+    const raw = window.localStorage.getItem(PARKED_CARTS_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as ParkedCart[]) : [];
+  } catch {
+    return [];
+  }
+}
+
 function formatMoney(value: number) {
   return `$${value.toFixed(2)}`;
 }
@@ -127,7 +146,13 @@ export default function SalesScreen() {
   const [paymentMethod, setPaymentMethod] = useState("CASH");
   const [flash, setFlash] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [completedReceiptToken, setCompletedReceiptToken] = useState<string | null>(null);
+  const [parkedCarts, setParkedCarts] = useState<ParkedCart[]>(loadParkedCarts);
+  const [showParkedList, setShowParkedList] = useState(false);
   const dealRequestId = useRef(0);
+
+  useEffect(() => {
+    window.localStorage.setItem(PARKED_CARTS_STORAGE_KEY, JSON.stringify(parkedCarts));
+  }, [parkedCarts]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setDebouncedSearch(searchInput.trim()), 300);
@@ -303,6 +328,46 @@ export default function SalesScreen() {
     barcodeInputRef.current?.focus();
   }
 
+  function parkCart() {
+    if (cart.length === 0) {
+      return;
+    }
+    const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const parked: ParkedCart = {
+      id: crypto.randomUUID(),
+      label: `${itemCount} item${itemCount === 1 ? "" : "s"} · ${formatMoney(subtotal)}`,
+      cart,
+      dealSummary,
+      parkedAt: Date.now(),
+    };
+    setParkedCarts((current) => [...current, parked]);
+    setCart([]);
+    setDealSummary(EMPTY_DEAL_SUMMARY);
+    setBarcodeInput("");
+    setFlash({ kind: "success", text: "Transaction parked." });
+    barcodeInputRef.current?.focus();
+  }
+
+  function recallParkedCart(id: string) {
+    if (cart.length > 0) {
+      setFlash({ kind: "error", text: "Park or clear the current cart before recalling another." });
+      return;
+    }
+    const parked = parkedCarts.find((entry) => entry.id === id);
+    if (!parked) {
+      return;
+    }
+    setCart(parked.cart);
+    setDealSummary(parked.dealSummary);
+    setParkedCarts((current) => current.filter((entry) => entry.id !== id));
+    setShowParkedList(false);
+    barcodeInputRef.current?.focus();
+  }
+
+  function deleteParkedCart(id: string) {
+    setParkedCarts((current) => current.filter((entry) => entry.id !== id));
+  }
+
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
       <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-4 backdrop-blur sm:px-6">
@@ -314,13 +379,64 @@ export default function SalesScreen() {
               Scan barcodes, search products, apply active deals automatically, and charge the order in one flow.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <Metric label="Subtotal" value={formatMoney(subtotal)} />
-            <Metric label="Discount" value={`-${formatMoney(totalDiscount)}`} tone="text-red-300" />
-            <Metric label="Total" value={formatMoney(total)} tone="text-orange-300" />
+          <div className="flex flex-col items-start gap-3 sm:items-end">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <Metric label="Subtotal" value={formatMoney(subtotal)} />
+              <Metric label="Discount" value={`-${formatMoney(totalDiscount)}`} tone="text-red-300" />
+              <Metric label="Total" value={formatMoney(total)} tone="text-orange-300" />
+            </div>
+            {parkedCarts.length > 0 && (
+              <button
+                onClick={() => setShowParkedList((current) => !current)}
+                className="inline-flex items-center gap-2 rounded-2xl border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-sm font-medium text-orange-200 transition hover:bg-orange-500/20"
+              >
+                <PauseCircle className="h-4 w-4" />
+                Parked ({parkedCarts.length})
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {showParkedList && parkedCarts.length > 0 && (
+        <div className="mx-4 mt-4 rounded-2xl border border-gray-800 bg-gray-900 p-4 sm:mx-6">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Parked Transactions</div>
+            <button onClick={() => setShowParkedList(false)} className="text-gray-500 hover:text-gray-300">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="space-y-2">
+            {parkedCarts.map((parked) => (
+              <div
+                key={parked.id}
+                className="flex items-center justify-between gap-3 rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3"
+              >
+                <div>
+                  <div className="text-sm font-medium text-gray-100">{parked.label}</div>
+                  <div className="mt-1 text-xs text-gray-500">
+                    Parked {new Date(parked.parkedAt).toLocaleTimeString()}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => recallParkedCart(parked.id)}
+                    className="rounded-xl border border-orange-500/30 bg-orange-500/10 px-3 py-2 text-xs font-semibold text-orange-200 transition hover:bg-orange-500/20"
+                  >
+                    Recall
+                  </button>
+                  <button
+                    onClick={() => deleteParkedCart(parked.id)}
+                    className="rounded-xl border border-red-500/30 bg-red-500/5 p-2 text-red-200 transition hover:bg-red-500/10"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {flash && (
         <div
@@ -573,6 +689,15 @@ export default function SalesScreen() {
                   >
                     {saleMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                     {applyDealsMutation.isPending ? "Applying Deals..." : "Charge"}
+                  </button>
+
+                  <button
+                    onClick={parkCart}
+                    disabled={cart.length === 0}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-gray-800 bg-gray-950 px-5 py-3 text-sm text-gray-300 transition hover:border-gray-700 hover:text-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <PauseCircle className="h-4 w-4" />
+                    Park Sale
                   </button>
 
                   <button
