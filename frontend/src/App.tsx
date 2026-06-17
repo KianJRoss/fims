@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, NavLink, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, NavLink, useLocation } from "react-router-dom";
 import {
   BarChart3,
   Barcode,
   BookText,
   Building2,
   ChevronRight,
-  CircleDollarSign,
   FileText,
   FolderOpen,
   Menu,
   ReceiptText,
-  ScanBarcode,
   Settings as SettingsIcon,
   SquareActivity,
   Tv2,
   X,
 } from "lucide-react";
 import SalesScreen from "./pages/SalesScreen";
-import Inventory from "./pages/Inventory";
 import ProductCatalog from "./pages/ProductCatalog";
-import Pricing from "./pages/Pricing";
 import Deals from "./pages/Deals";
 import Reports from "./pages/Reports";
 import Receipt from "./pages/Receipt";
@@ -39,9 +35,7 @@ import ShopMap from "./pages/shop/ShopMap";
 
 const navItems = [
   { to: "/", label: "Sales", icon: SquareActivity },
-  { to: "/inventory", label: "Inventory", icon: ScanBarcode },
   { to: "/products", label: "Products", icon: FolderOpen },
-  { to: "/pricing", label: "Pricing", icon: CircleDollarSign },
   { to: "/barcodes", label: "Barcodes", icon: Barcode },
   { to: "/videos", label: "Videos", icon: FileText },
   { to: "/video-remote", label: "Video Remote", icon: Tv2 },
@@ -128,9 +122,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SalesScreen />} />
           <Route path="/receipt/:token" element={<Receipt />} />
-          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/inventory" element={<Navigate to="/products" replace />} />
           <Route path="/products" element={<ProductCatalog />} />
-          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/pricing" element={<Navigate to="/products" replace />} />
           <Route path="/barcodes" element={<BarcodePrint />} />
           <Route path="/videos" element={<VideoReview />} />
           <Route path="/video-remote" element={<VideoRemote />} />

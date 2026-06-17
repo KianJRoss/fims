@@ -230,6 +230,42 @@ Delegate implementation work to Codex via Agent tool with `subagent_type: "codex
 
 These are actively desired features. Build these next.
 
+### Priority 0 — Data Collection & Entry System Audit (HIGHEST PRIORITY, added 2026-06-18)
+
+The whole information collection and entry pipeline needs to be checked end-to-end — both
+completeness (missing data) and correctness (wrong data), not just for one brand.
+
+**1. No Name/RM category backfill** *(cheap — data we already have)*
+- Every RM Enterprises brand (No Name, Sunwing, Pyro Box, Suns Fireworks, Supreme, Miracle,
+  Top Gun — 315 products) currently has **zero category assigned**. gotfireworks.com's
+  "More Information" table has no category field, and the original `NoName2026.pdf` OCR
+  parse (`noname_parsed_preview.json`) also left `category: None` on every single row —
+  category-header detection in that parser never worked.
+- Fix: re-parse `NoName2026.pdf` to detect the printed section headers (FOUNTAINS, SHELLS,
+  etc.) that group each page, and backfill `category_id` from that. No new data sourcing
+  needed, just a parser fix.
+
+**2. Prior-year World Class catalogs** *(recovers legacy/discontinued items)*
+- ~365 of 549 World Class products aren't listed anywhere on the current live
+  worldclassfireworks.com site (confirmed via its own search returning zero results for
+  sampled item numbers) — meaning no name/category/photo can be recovered for them from
+  the current site, even though they may still be physically in the store.
+- Publisher `cloudsent` on Issuu hosts World Class catalogs for **2021, 2023, 2024, 2025**
+  in addition to the already-imported 2026 one (see `docs/DATA_SOURCES.md` for exact CDN
+  IDs/URLs). Pull these to fill in older items still in inventory.
+
+**3. Accuracy audit, not just completeness** *(the data we "have" may be wrong)*
+- Confirmed real example: ~247 of 892 product images were corrupted (zero-byte) or were
+  mis-cropped composites grabbing the wrong product's box from the original catalog-page
+  OCR extraction — already partially fixed by re-pulling from gotfireworks.com/
+  worldclassfireworks.com directly (see `scripts/download_gotfireworks_images.py` /
+  `download_worldclass_images.py`), but the underlying OCR extraction
+  (`extract_catalog_images.py`, `apply_names_vision.py`) that produced the bad data in the
+  first place has not been reviewed or fixed, and may have caused other wrong-but-not-obviously-
+  broken data (names, categories, shot counts) too — not just images.
+- Needs a systematic pass: don't just check whether a field is populated, check whether
+  it's actually correct, brand by brand.
+
 ### Priority 1 — Must Have Before Heavy Use
 
 **Email inbox scraping** *(High — unlocks all missing documents)*
