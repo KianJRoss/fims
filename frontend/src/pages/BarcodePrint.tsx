@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import ProductImage from "../components/ProductImage";
 
 type Product = {
   id: string;
   name: string;
   item_number: string | null;
+  image_url: string | null;
 };
 
 type QueueItem = Product & {
@@ -185,8 +187,8 @@ export default function BarcodePrint() {
 
   return (
     <div className="min-h-full bg-gradient-to-br from-gray-950 via-gray-950 to-gray-900 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/90 backdrop-blur px-6 py-4">
-        <div className="flex items-center justify-between gap-4">
+      <div className="border-b border-gray-800 bg-gray-950/90 px-4 py-4 backdrop-blur sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Barcode Printing</h1>
             <p className="mt-1 text-sm text-gray-400">
@@ -215,7 +217,7 @@ export default function BarcodePrint() {
       </div>
 
       {tab === "sheet" ? (
-        <div className="grid gap-6 p-6 xl:grid-cols-[1.4fr_0.9fr]">
+        <div className="grid gap-6 px-4 py-6 sm:px-6 xl:grid-cols-[1.4fr_0.9fr]">
           <section className="space-y-6">
             <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-xl shadow-black/20">
               <div className="flex items-end gap-3">
@@ -243,9 +245,12 @@ export default function BarcodePrint() {
                       onClick={() => addToSheetQueue(product)}
                       className="flex items-center justify-between gap-3 rounded-xl border border-gray-800 bg-gray-950/80 px-4 py-3 text-left transition hover:border-orange-500/60 hover:bg-gray-800"
                     >
-                      <div>
-                        <div className="font-medium text-gray-100">{product.name}</div>
-                        <div className="mt-1 text-xs text-gray-500">{product.item_number || "No item number"}</div>
+                      <div className="flex items-center gap-3">
+                        <ProductImage imageUrl={product.image_url} name={product.name} size="xs" />
+                        <div>
+                          <div className="font-medium text-gray-100">{product.name}</div>
+                          <div className="mt-1 text-xs text-gray-500">{product.item_number || "No item number"}</div>
+                        </div>
                       </div>
                       <div className="rounded-full border border-orange-500/40 px-3 py-1 text-sm text-orange-300">
                         +
@@ -390,7 +395,7 @@ export default function BarcodePrint() {
           </aside>
         </div>
       ) : (
-        <div className="grid gap-6 p-6 xl:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid gap-6 px-4 py-6 sm:px-6 xl:grid-cols-[1.2fr_0.8fr]">
           <section className="space-y-6">
             <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-xl shadow-black/20">
               <div className="flex items-end gap-3">

@@ -286,7 +286,7 @@ export default function Deals() {
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-4 backdrop-blur sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Deals</div>
@@ -305,7 +305,7 @@ export default function Deals() {
         </div>
       </div>
 
-      <div className="space-y-4 px-6 py-6">
+      <div className="space-y-4 px-4 py-6 sm:px-6">
         {dealCards.map((deal) => (
           <div key={deal.id} className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
@@ -371,11 +371,11 @@ export default function Deals() {
                       </span>
                     )}
                   </div>
-                  {deal.notes && <p className="max-w-4xl text-sm text-gray-400">{deal.notes}</p>}
+                  {deal.notes && <p className="max-w-none text-sm text-gray-400 lg:max-w-4xl">{deal.notes}</p>}
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={() => toggleMutation.mutate(deal.id)}
                   className={`rounded-2xl px-3 py-2 text-sm font-semibold transition ${
@@ -409,8 +409,8 @@ export default function Deals() {
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70 px-4 py-8">
-          <div className="max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 shadow-2xl shadow-black/50">
+        <div className="fixed inset-0 z-40 flex items-start justify-center bg-black/70 px-3 py-3 sm:items-center sm:px-4 sm:py-8">
+          <div className="max-h-[calc(100vh-1.5rem)] w-full max-w-[calc(100vw-1rem)] overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 shadow-2xl shadow-black/50 sm:max-h-[90vh] sm:max-w-[56rem]">
             <div className="flex items-center justify-between border-b border-gray-800 px-5 py-4">
               <div>
                 <div className="text-xs uppercase tracking-[0.25em] text-gray-500">New Deal</div>
@@ -424,7 +424,7 @@ export default function Deals() {
               </button>
             </div>
 
-            <div className="max-h-[calc(90vh-81px)] overflow-auto p-5">
+            <div className="max-h-[calc(100vh-8rem)] overflow-auto p-4 sm:max-h-[calc(90vh-81px)] sm:p-5">
               <div className="grid gap-4 md:grid-cols-2">
                 <Field label="Name">
                   <input
@@ -666,7 +666,7 @@ export default function Deals() {
                 </section>
               </div>
 
-              <div className="mt-6 flex items-center justify-end gap-3">
+              <div className="mt-6 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
                 <button
                   onClick={closeModal}
                   className="rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3 text-sm text-gray-300 transition hover:border-gray-700 hover:text-gray-100"

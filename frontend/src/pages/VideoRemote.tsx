@@ -176,7 +176,7 @@ export default function VideoRemote() {
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-5 backdrop-blur">
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-5 backdrop-blur sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-orange-300/80">
@@ -212,7 +212,7 @@ export default function VideoRemote() {
         </div>
       </div>
 
-      <div className="space-y-6 px-6 py-6">
+      <div className="space-y-6 px-4 py-6 sm:px-6">
         <section className="rounded-3xl border border-gray-800 bg-gray-900 p-4 shadow-2xl shadow-black/20">
           <label className="flex items-center gap-3 rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3">
             <Search className="h-4 w-4 text-gray-500" />
@@ -241,7 +241,7 @@ export default function VideoRemote() {
               {search.trim() ? "No videos match the current search." : "No videos returned from the video Pi."}
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {filteredVideos.map((filename) => {
                 const active = filename === activeFilename;
 

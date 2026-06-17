@@ -4,6 +4,7 @@ from app.api.v1.endpoints import (
     barcodes,
     deals,
     documents,
+    costing,
     imports,
     inventory,
     kiosk,
@@ -25,6 +26,7 @@ api_router = APIRouter()
 api_router.include_router(products.router, prefix="/products", tags=["Products"])
 api_router.include_router(barcodes.router, prefix="/barcodes", tags=["Barcodes"])
 api_router.include_router(pricing.router, prefix="/pricing", tags=["Pricing"])
+api_router.include_router(costing.router, prefix="/costing", tags=["Costing"])
 api_router.include_router(brands_router, prefix="/brands", tags=["Brands"])
 api_router.include_router(importers_router, prefix="/importers", tags=["Importers"])
 api_router.include_router(manufacturers_router, prefix="/manufacturers", tags=["Manufacturers"])

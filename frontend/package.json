@@ -19,7 +19,8 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-toast": "^1.2.2",
     "lucide-react": "^0.468.0",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "qrcode.react": "^4.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

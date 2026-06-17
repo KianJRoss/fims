@@ -324,9 +324,9 @@ export default function Documents() {
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-81px)]">
+      <div className="flex min-h-[calc(100vh-81px)] flex-col lg:flex-row">
         {/* Sidebar */}
-        <aside className="w-56 shrink-0 border-r border-gray-800 bg-gray-900/90 px-4 py-5 space-y-1">
+        <aside className="w-full shrink-0 space-y-1 border-b border-gray-800 bg-gray-900/90 px-4 py-5 lg:w-56 lg:border-b-0 lg:border-r">
           <div className="mb-3 text-[11px] uppercase tracking-[0.25em] text-gray-600">Documents</div>
           <SidebarBtn active={view === "All"} onClick={() => setView("All")} label="All" count={docs.length} />
           {DOC_CATEGORIES.map(cat => (
@@ -346,13 +346,80 @@ export default function Documents() {
         <main className="flex-1 overflow-hidden">
           {view !== "imports" ? (
             // ── Document file explorer ──────────────────────────────────────
-            <div className="grid h-full lg:grid-cols-[minmax(0,1.3fr)_360px]">
-              <section className="overflow-auto px-6 py-6">
+            <div className="grid h-full grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_360px]">
+              <section className="overflow-auto px-4 py-6 sm:px-6">
                 {docsQuery.isLoading ? (
                   <LoadingCard text="Loading documents..." />
                 ) : (
-                  <div className="overflow-hidden rounded-3xl border border-gray-800 bg-gray-900">
-                    <table className="min-w-full divide-y divide-gray-800">
+                  <div className="space-y-3">
+                    <div className="space-y-3 lg:hidden">
+                      {filteredDocs.map((doc) => (
+                        <div
+                          key={doc.id}
+                          onClick={() => setSelectedDocId(doc.id)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter" || event.key === " ") {
+                              event.preventDefault();
+                              setSelectedDocId(doc.id);
+                            }
+                          }}
+                          className={`w-full rounded-3xl border p-4 text-left transition ${
+                            doc.id === selectedDocId
+                              ? "border-orange-500 bg-orange-500/10"
+                              : "border-gray-800 bg-gray-900 hover:border-gray-700 hover:bg-gray-800/50"
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            {fileIcon(doc)}
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate text-sm font-medium text-gray-50">{doc.name}</div>
+                              <div className="mt-1 text-xs text-gray-500">{doc.mime_type || "Unknown type"}</div>
+                            </div>
+                          </div>
+                          <div className="mt-4 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
+                            <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Category</div>
+                              <div className="mt-1 text-gray-100">{doc.category}</div>
+                            </div>
+                            <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Size</div>
+                              <div className="mt-1 text-gray-100">{formatBytes(doc.file_size)}</div>
+                            </div>
+                            <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Supplier</div>
+                              <div className="mt-1 text-gray-100">{doc.supplier_name || "—"}</div>
+                            </div>
+                            <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Date</div>
+                              <div className="mt-1 text-gray-100">{formatDate(doc.doc_date)}</div>
+                            </div>
+                          </div>
+                          <div className="mt-4 flex flex-wrap gap-2" onClick={(event) => event.stopPropagation()}>
+                            <button
+                              onClick={() => window.open(`${apiBase}/v1/documents/${doc.id}/download`, "_blank", "noopener")}
+                              className="inline-flex items-center gap-1 rounded-xl border border-gray-800 bg-gray-950 px-3 py-2 text-xs text-gray-200 hover:bg-gray-900"
+                            >
+                              <Download className="h-3.5 w-3.5" />
+                              Download
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (window.confirm("Delete this document?")) deleteDocMutation.mutate(doc.id);
+                              }}
+                              className="inline-flex items-center gap-1 rounded-xl border border-red-500/30 bg-red-500/5 px-3 py-2 text-xs text-red-200 hover:bg-red-500/10"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="hidden overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 lg:block">
+                      <table className="min-w-full divide-y divide-gray-800">
                       <thead className="bg-gray-950">
                         <tr className="text-left text-[11px] uppercase tracking-[0.2em] text-gray-500">
                           <th className="px-4 py-3">Name</th>
@@ -400,12 +467,13 @@ export default function Documents() {
                           <tr><td colSpan={6} className="px-4 py-12 text-center text-sm text-gray-500">No documents in this category.</td></tr>
                         )}
                       </tbody>
-                    </table>
+                      </table>
+                    </div>
                   </div>
                 )}
               </section>
 
-              <aside className="border-l border-gray-800 bg-gray-900/70 px-5 py-6">
+              <aside className="border-t border-gray-800 bg-gray-900/70 px-4 py-6 lg:border-l lg:border-t-0 lg:px-5">
                 {!selectedDoc ? (
                   <EmptyCard text="Select a document to preview it." />
                 ) : isPdf(selectedDoc) ? (
@@ -443,9 +511,9 @@ export default function Documents() {
             </div>
           ) : (
             // ── Catalog import view ──────────────────────────────────────────
-            <div className="flex h-full gap-0">
+            <div className="flex h-full flex-col gap-0 lg:flex-row">
               {/* Jobs list */}
-              <div className="w-64 shrink-0 border-r border-gray-800 flex flex-col">
+              <div className="flex w-full shrink-0 flex-col border-b border-gray-800 lg:w-64 lg:border-b-0 lg:border-r">
                 <div className="border-b border-gray-800 px-4 py-3 text-xs uppercase tracking-[0.25em] text-gray-500">Import Jobs</div>
                 <div className="flex-1 overflow-auto p-3 space-y-2">
                   {jobsQuery.isLoading && <div className="text-sm text-gray-500 p-3">Loading...</div>}
@@ -467,7 +535,7 @@ export default function Documents() {
               </div>
 
               {/* Right panel: import form + active job */}
-              <div className="flex-1 overflow-auto px-6 py-6 space-y-6">
+              <div className="flex-1 space-y-6 overflow-auto px-4 py-6 sm:px-6">
 
                 {/* Issuu scraper */}
                 <div className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
@@ -545,7 +613,7 @@ export default function Documents() {
                     {jobStatus === "done" && (
                       <div className="rounded-3xl border border-emerald-500/30 bg-emerald-500/10 p-5">
                         <div className="text-lg font-semibold text-emerald-100">Import complete</div>
-                        <div className="mt-3 grid grid-cols-3 gap-3">
+                        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
                           {Object.entries(activeJob.row_counts ?? {}).map(([k, v]) => (
                             <div key={k} className="rounded-2xl border border-white/10 bg-white/5 p-3">
                               <div className="text-xs uppercase tracking-[0.2em] text-white/50">{k}</div>
@@ -621,15 +689,15 @@ export default function Documents() {
 
       {/* Upload document modal */}
       {uploadOpen && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70 px-4">
-          <div className="w-full max-w-2xl overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 shadow-2xl">
+        <div className="fixed inset-0 z-40 flex items-start justify-center bg-black/70 px-3 py-3 sm:items-center sm:px-4">
+          <div className="max-h-[calc(100vh-1.5rem)] w-full max-w-[calc(100vw-1rem)] overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 shadow-2xl sm:max-h-[90vh] sm:max-w-[42rem]">
             <div className="flex items-center justify-between border-b border-gray-800 px-5 py-4">
               <div className="text-lg font-semibold text-gray-50">Upload Document</div>
               <button onClick={closeUploadModal} className="rounded-xl border border-gray-800 bg-gray-950 p-2 text-gray-400 hover:text-gray-100">
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="space-y-5 p-5">
+            <div className="max-h-[calc(100vh-7rem)] space-y-5 overflow-auto p-4 sm:max-h-[calc(90vh-81px)] sm:p-5">
               <div onDragEnter={() => setDragActive(true)} onDragLeave={() => setDragActive(false)}
                 onDragOver={e => e.preventDefault()} onDrop={onDropDoc}
                 className={`rounded-3xl border border-dashed p-6 transition ${dragActive ? "border-orange-500 bg-orange-500/10" : "border-gray-800 bg-gray-950"}`}>

@@ -6,6 +6,8 @@ RUN npm install
 COPY . .
 ARG VITE_API_URL=/api
 ENV VITE_API_URL=$VITE_API_URL
+ARG VITE_RECEIPT_BASE_URL=
+ENV VITE_RECEIPT_BASE_URL=$VITE_RECEIPT_BASE_URL
 RUN npm run build
 
 # Stage 2: serve the built dist

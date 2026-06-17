@@ -13,6 +13,7 @@ from app.db.session import Base
 
 if TYPE_CHECKING:
     from app.models.brand_hierarchy import BrandImporter, BrandManufacturer
+    from app.models.costing import ProductCosting
 
 
 def _uuid() -> str:
@@ -54,6 +55,7 @@ class Product(Base):
     # Display / search fields
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     item_number: Mapped[str | None] = mapped_column(String(80), index=True)
+    packing: Mapped[str | None] = mapped_column(String(20))
     description: Mapped[str | None] = mapped_column(Text)
     notes: Mapped[str | None] = mapped_column(Text)
 
@@ -68,6 +70,9 @@ class Product(Base):
 
     # Catalog reference
     catalog_page: Mapped[int | None] = mapped_column(Integer)
+
+    # Product image (relative path under MEDIA_ROOT, e.g. "product_images/1024433.png")
+    image_path: Mapped[str | None] = mapped_column(String(512))
 
     # Status
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
@@ -85,6 +90,7 @@ class Product(Base):
         back_populates="product", cascade="all, delete-orphan"
     )
     prices: Mapped[list["ProductPrice"]] = relationship(back_populates="product")  # type: ignore[name-defined]
+    costing: Mapped["ProductCosting | None"] = relationship(back_populates="product", uselist=False)  # type: ignore[name-defined]
     videos: Mapped[list["ProductVideo"]] = relationship(back_populates="product")  # type: ignore[name-defined]
     case_packs: Mapped[list["CasePack"]] = relationship(back_populates="product")  # type: ignore[name-defined]
     supplier_products: Mapped[list["SupplierProduct"]] = relationship(back_populates="product")  # type: ignore[name-defined]

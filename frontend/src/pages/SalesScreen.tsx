@@ -1,11 +1,12 @@
-import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Barcode, Loader2, Minus, Plus, Search, Trash2 } from "lucide-react";
+import { Barcode, CheckCircle2, Loader2, Minus, Plus, Search, Trash2 } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
 import { api } from "../api/client";
 import { useScannerStream } from "../hooks/useScannerStream";
+import ProductImage from "../components/ProductImage";
 
 type CartItem = {
   product_id: string;
@@ -19,6 +20,7 @@ type ProductSearchResult = {
   id: string;
   name: string;
   item_number: string | null;
+  image_url: string | null;
   category_name: string | null;
 };
 
@@ -124,6 +126,7 @@ export default function SalesScreen() {
   const [expandedProductId, setExpandedProductId] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState("CASH");
   const [flash, setFlash] = useState<{ kind: "success" | "error"; text: string } | null>(null);
+  const [completedReceiptToken, setCompletedReceiptToken] = useState<string | null>(null);
   const dealRequestId = useRef(0);
 
   useEffect(() => {
@@ -142,6 +145,10 @@ export default function SalesScreen() {
     const timer = window.setTimeout(() => setFlash(null), 2500);
     return () => window.clearTimeout(timer);
   }, [flash]);
+
+  const hasZeroPrice = cart.some((item) => item.unit_price === 0);
+  const receiptBase = import.meta.env.VITE_RECEIPT_BASE_URL || window.location.origin;
+  const receiptUrl = `${receiptBase}/receipt/${completedReceiptToken}`;
 
   const searchResultsQuery = useQuery({
     queryKey: ["sales-search", debouncedSearch],
@@ -177,11 +184,11 @@ export default function SalesScreen() {
       const { data } = await api.post("/v1/sales/", payload);
       return data;
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       setCart([]);
       setDealSummary(EMPTY_DEAL_SUMMARY);
       setBarcodeInput("");
-      setFlash({ kind: "success", text: "Sale completed." });
+      setCompletedReceiptToken(data.receipt_token ?? null);
       barcodeInputRef.current?.focus();
       await queryClient.invalidateQueries({ queryKey: ["sales"] });
     },
@@ -234,7 +241,7 @@ export default function SalesScreen() {
         }
         return [...current, { product_id: productId, name, quantity: 1, unit_price: retailPrice, category_id: categoryId }];
       });
-      void axios.post("/api/video-library/player/play", { product_id: productId }).catch(() => {});
+      void api.post("/v1/video-library/player/play", { product_id: productId }).catch(() => {});
       barcodeInputRef.current?.focus();
     } catch {
       setFlash({ kind: "error", text: "Product price not found." });
@@ -298,7 +305,7 @@ export default function SalesScreen() {
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-4 backdrop-blur sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Sales</div>
@@ -307,7 +314,7 @@ export default function SalesScreen() {
               Scan barcodes, search products, apply active deals automatically, and charge the order in one flow.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Metric label="Subtotal" value={formatMoney(subtotal)} />
             <Metric label="Discount" value={`-${formatMoney(totalDiscount)}`} tone="text-red-300" />
             <Metric label="Total" value={formatMoney(total)} tone="text-orange-300" />
@@ -317,7 +324,7 @@ export default function SalesScreen() {
 
       {flash && (
         <div
-          className={`mx-6 mt-4 rounded-2xl border px-4 py-3 text-sm ${
+          className={`mx-4 mt-4 rounded-2xl border px-4 py-3 text-sm sm:mx-6 ${
             flash.kind === "success"
               ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
               : "border-red-500/30 bg-red-500/10 text-red-200"
@@ -327,8 +334,8 @@ export default function SalesScreen() {
         </div>
       )}
 
-      <div className="grid min-h-[calc(100vh-145px)] grid-cols-1 gap-0 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-        <section className="border-r border-gray-800 bg-gray-900/40 px-5 py-5">
+      <div className="grid min-h-[calc(100vh-145px)] grid-cols-1 gap-4 px-4 py-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-0 xl:px-0 xl:py-0">
+        <section className="bg-gray-900/40 px-0 py-0 xl:border-r xl:border-gray-800 xl:px-5 xl:py-5">
           <div className="flex h-full flex-col gap-4">
             <div className="rounded-3xl border border-gray-800 bg-gray-900 p-4">
               <label className="mb-2 block text-xs uppercase tracking-[0.25em] text-gray-500">Barcode Input</label>
@@ -346,7 +353,7 @@ export default function SalesScreen() {
               <div className="border-b border-gray-800 px-4 py-3">
                 <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Cart</div>
               </div>
-              <div className="overflow-auto">
+              <div className="hidden overflow-auto lg:block">
                 <table className="min-w-full divide-y divide-gray-800 text-sm">
                   <thead className="bg-gray-950 text-xs uppercase tracking-[0.2em] text-gray-500">
                     <tr>
@@ -418,6 +425,72 @@ export default function SalesScreen() {
                   </tbody>
                 </table>
               </div>
+              <div className="space-y-3 p-3 lg:hidden">
+                {cart.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-gray-800 bg-gray-950 px-4 py-10 text-center text-sm text-gray-500">
+                    Scan products or add them from search.
+                  </div>
+                ) : (
+                  cart.map((item) => {
+                    const lineTotal = item.quantity * item.unit_price;
+                    return (
+                      <div key={item.product_id} className="rounded-2xl border border-gray-800 bg-gray-950 p-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="text-base font-medium text-gray-50">{item.name}</div>
+                            <div className="mt-1 text-xs text-gray-500">{item.product_id}</div>
+                          </div>
+                          <button
+                            onClick={() => removeFromCart(item.product_id)}
+                            className="rounded-xl border border-red-500/30 bg-red-500/5 p-2 text-red-200 transition hover:bg-red-500/10"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+
+                        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                          <div className="space-y-2">
+                            <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Qty</div>
+                            <div className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-900 px-2 py-1">
+                              <button
+                                onClick={() => updateCartQuantity(item.product_id, -1)}
+                                className="rounded-lg p-2 text-gray-300 transition hover:bg-gray-800 hover:text-gray-50"
+                              >
+                                <Minus className="h-3.5 w-3.5" />
+                              </button>
+                              <span className="min-w-6 text-center text-sm text-gray-100">{item.quantity}</span>
+                              <button
+                                onClick={() => updateCartQuantity(item.product_id, 1)}
+                                className="rounded-lg p-2 text-gray-300 transition hover:bg-gray-800 hover:text-gray-50"
+                              >
+                                <Plus className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-3 text-sm">
+                            <div className="rounded-2xl border border-gray-800 bg-gray-900 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Unit</div>
+                              <div className="mt-1 text-emerald-300">{formatMoney(item.unit_price)}</div>
+                            </div>
+                            <div className="rounded-2xl border border-gray-800 bg-gray-900 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Deal</div>
+                              <div className="mt-1 text-gray-300">
+                                {displayedDealSummary.total_discount > 0 ? "Applied" : "—"}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-gray-800 bg-gray-900 px-3 py-2">
+                          <span className="text-sm text-gray-400">Line total</span>
+                          <span className="text-sm font-semibold text-gray-100">{formatMoney(lineTotal)}</span>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             </div>
 
             <div className="rounded-3xl border border-gray-800 bg-gray-900 p-4">
@@ -456,9 +529,9 @@ export default function SalesScreen() {
                   <div className="text-3xl font-semibold text-orange-300">{formatMoney(total)}</div>
                 </div>
 
-                <div className="flex flex-col gap-3 sm:min-w-48">
+                <div className="flex flex-col gap-3">
                   <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Payment Method</div>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {[
                       { value: "CARD", label: "Credit / Debit" },
                       { value: "CASH", label: "Cash / Check" },
@@ -478,6 +551,12 @@ export default function SalesScreen() {
                     ))}
                   </div>
 
+                  {hasZeroPrice ? (
+                    <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+                      One or more items have no price set. Add prices before charging.
+                    </div>
+                  ) : null}
+
                   <button
                     onClick={() =>
                       saleMutation.mutate({
@@ -489,7 +568,7 @@ export default function SalesScreen() {
                         applied_deal_ids: displayedDealSummary.applied_deals.map((deal) => deal.deal_id),
                       })
                     }
-                    disabled={cart.length === 0 || saleMutation.isPending || applyDealsMutation.isPending}
+                    disabled={cart.length === 0 || saleMutation.isPending || applyDealsMutation.isPending || hasZeroPrice}
                     className="inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
                   >
                     {saleMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
@@ -508,7 +587,7 @@ export default function SalesScreen() {
           </div>
         </section>
 
-        <aside className="bg-gray-900/30 px-5 py-5">
+        <aside className="bg-gray-900/30 px-0 py-0 xl:px-5 xl:py-5">
           <div className="rounded-3xl border border-gray-800 bg-gray-900 p-4">
             <div className="flex items-center gap-3">
               <Search className="h-4 w-4 text-gray-500" />
@@ -554,6 +633,32 @@ export default function SalesScreen() {
           </div>
         </aside>
       </div>
+
+      {completedReceiptToken !== null ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-3xl border border-gray-800 bg-gray-900 p-8 text-center shadow-2xl">
+            <div className="flex items-center justify-center gap-2 text-2xl font-semibold text-gray-50">
+              <CheckCircle2 className="h-7 w-7 text-emerald-400" />
+              Sale Complete
+            </div>
+            <div className="mt-6 flex justify-center">
+              <QRCodeSVG value={receiptUrl} size={200} bgColor="#111827" fgColor="#f97316" level="M" />
+            </div>
+            <div className="mt-4 text-sm text-gray-400">Scan for digital receipt</div>
+            <div className="mt-2 font-mono text-xs text-gray-500">{completedReceiptToken}</div>
+            <button
+              type="button"
+              onClick={() => {
+                setCompletedReceiptToken(null);
+                barcodeInputRef.current?.focus();
+              }}
+              className="mt-4 w-full rounded-2xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-400"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -614,7 +719,8 @@ function SearchResultCard({
         className="block w-full cursor-pointer px-4 py-4 text-left transition hover:bg-gray-800/60"
       >
         <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
+          <ProductImage imageUrl={product.image_url} name={product.name} size="xs" className="mt-0.5" />
+          <div className="min-w-0 flex-1">
             <div className="truncate text-base font-semibold text-gray-50">{product.name}</div>
             <div className="mt-1 text-xs text-gray-500">{product.item_number || "No item number"}</div>
           </div>

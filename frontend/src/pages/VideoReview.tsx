@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PlayCircle, Search, VideoOff } from "lucide-react";
+import ProductImage from "../components/ProductImage";
 
 type QueueProduct = {
   id: string;
   name: string;
   item_number: string | null;
+  image_url: string | null;
   brand_name: string | null;
   category_name: string | null;
   barcode_count: number;
@@ -188,7 +190,7 @@ export default function VideoReview() {
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-4 backdrop-blur sm:px-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Video Review</div>
@@ -210,12 +212,12 @@ export default function VideoReview() {
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-81px)]">
-        <aside className="w-64 shrink-0 border-r border-gray-800 bg-gray-900/90">
+      <div className="flex min-h-[calc(100vh-81px)] flex-col lg:flex-row">
+        <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 lg:w-64 lg:border-b-0 lg:border-r">
           <div className="border-b border-gray-800 px-4 py-4">
             <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Review Queue</div>
           </div>
-          <div className="max-h-[calc(100vh-145px)] overflow-auto p-3">
+          <div className="max-h-72 overflow-auto p-3 lg:max-h-[calc(100vh-145px)]">
             {queue.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-8 text-center text-sm text-gray-500">
                 No products need videos right now.
@@ -234,10 +236,15 @@ export default function VideoReview() {
                           : "border-gray-800 bg-gray-950 hover:border-gray-700 hover:bg-gray-900"
                       }`}
                     >
-                      <div className="text-sm font-medium text-gray-50">{product.name}</div>
-                      <div className="mt-1 flex items-center justify-between gap-2 text-xs text-gray-500">
-                        <span className="truncate">{product.brand_name || "No brand"}</span>
-                        <span>#{index + 1}</span>
+                      <div className="flex items-center gap-2">
+                        <ProductImage imageUrl={product.image_url} name={product.name} size="xs" />
+                        <div className="min-w-0">
+                          <div className="text-sm font-medium text-gray-50 truncate">{product.name}</div>
+                          <div className="mt-1 flex items-center justify-between gap-2 text-xs text-gray-500">
+                            <span className="truncate">{product.brand_name || "No brand"}</span>
+                            <span>#{index + 1}</span>
+                          </div>
+                        </div>
                       </div>
                     </button>
                   );
@@ -247,7 +254,7 @@ export default function VideoReview() {
           </div>
         </aside>
 
-        <main className="flex-1 overflow-auto px-6 py-6">
+        <main className="flex-1 overflow-auto px-4 py-6 sm:px-6">
           {!selectedProductId ? (
             <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">
               Select a product from the queue.

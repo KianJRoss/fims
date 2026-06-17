@@ -7,7 +7,7 @@ from urllib.parse import quote
 import httpx
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy import column, or_, select, table
+from sqlalchemy import column, nullslast, or_, select, table
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -15,13 +15,13 @@ from app.models.pricing import PriceType, ProductPrice
 from app.models.product import Product
 
 router = APIRouter()
-player_router = APIRouter(prefix="/player")
-router.include_router(player_router)
 
 product_videos_table = table(
     "product_videos",
     column("product_id"),
     column("video_filename"),
+    column("is_primary"),
+    column("uploaded_at"),
 )
 
 
@@ -82,6 +82,33 @@ def _get_product_by_id(db: Session, product_id: str) -> Product:
     return product
 
 
+def _get_best_product_video_filename(db: Session, product_id: str) -> tuple[bool, str | None]:
+    rows = (
+        db.execute(
+            select(
+                product_videos_table.c.video_filename,
+                product_videos_table.c.is_primary,
+                product_videos_table.c.uploaded_at,
+            )
+            .where(product_videos_table.c.product_id == product_id)
+            .order_by(
+                product_videos_table.c.is_primary.desc(),
+                nullslast(product_videos_table.c.uploaded_at.desc()),
+            )
+        )
+        .all()
+    )
+    if not rows:
+        return False, None
+
+    for row in rows:
+        video_filename = (row.video_filename or "").strip()
+        if video_filename:
+            return True, video_filename
+
+    return True, None
+
+
 def _build_idle_playlist(item_numbers: list[str], video_filenames: list[str]) -> list[str]:
     playlist: list[str] = []
     seen_paths: set[str] = set()
@@ -123,6 +150,12 @@ def play_video(body: PlayRequest, db: Session = Depends(get_db)):
 
     if body.product_id:
         product = _get_product_by_id(db, body.product_id)
+        has_product_videos, video_filename = _get_best_product_video_filename(db, body.product_id)
+        if video_filename:
+            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{Path(video_filename).name}"})
+        if has_product_videos:
+            return {"status": "no_match", "product_id": body.product_id}
+
         item_number = (product.item_number or "").strip()
         if not item_number:
             return {"status": "no_match", "item_number": product.item_number}
@@ -196,7 +229,7 @@ def video_status():
     return get_from_video_pi("/status")
 
 
-@player_router.get("/videos")
+@router.get("/player/videos")
 def list_videos():
     video_pi_url = get_video_pi_url()
     if not video_pi_url:

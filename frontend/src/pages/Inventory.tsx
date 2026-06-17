@@ -4,6 +4,7 @@ import { Barcode, Loader2, Search, Link } from "lucide-react";
 
 import { api } from "../api/client";
 import { useScannerStream } from "../hooks/useScannerStream";
+import ProductImage from "../components/ProductImage";
 
 type InventorySummary = {
   total_products: number;
@@ -33,6 +34,7 @@ type ProductSearchResult = {
   id: string;
   name: string;
   item_number: string | null;
+  image_url: string | null;
   brand: string | null;
 };
 
@@ -163,7 +165,7 @@ export default function Inventory() {
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-5 backdrop-blur">
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-5 backdrop-blur sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-orange-300/80">
@@ -195,7 +197,7 @@ export default function Inventory() {
         </div>
       </div>
 
-      <div className="space-y-6 px-6 py-6">
+      <div className="space-y-6 px-4 py-6 sm:px-6">
         {/* Current scan result */}
         <section className="rounded-3xl border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-950 p-6 shadow-2xl shadow-black/20">
           <div className="flex min-h-[22rem] items-center justify-center">
@@ -208,7 +210,7 @@ export default function Inventory() {
                 <div className="mt-2 text-sm text-gray-500">The most recent scan will appear here.</div>
               </div>
             ) : currentScan.found ? (
-              <div className="w-full max-w-4xl rounded-[2rem] border border-gray-800 bg-gray-950/90 p-6">
+              <div className="w-full rounded-[2rem] border border-gray-800 bg-gray-950/90 p-4 sm:p-6 lg:max-w-[56rem]">
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0">
                     <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Latest Scan</div>
@@ -226,7 +228,7 @@ export default function Inventory() {
                       ) : null}
                     </div>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[28rem]">
+                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                     <MetaCard label="Brand" value={currentScan.product.brand || "None"} />
                     <MetaCard label="Supplier" value={currentScan.product.supplier || "None"} />
                     <MetaCard label="Category" value={currentScan.product.category || "None"} />
@@ -235,7 +237,7 @@ export default function Inventory() {
               </div>
             ) : (
               /* Unknown barcode — show link workflow */
-              <div className="w-full max-w-2xl space-y-4">
+              <div className="w-full space-y-4 sm:max-w-2xl">
                 <div className="rounded-[2rem] border border-red-500/30 bg-red-500/10 p-6">
                   <div className="text-xs uppercase tracking-[0.25em] text-red-200/70">Unknown Barcode</div>
                   <div className="mt-2 text-2xl font-semibold text-red-100 font-mono">{currentScan.barcode}</div>
@@ -268,8 +270,13 @@ export default function Inventory() {
                           disabled={linkMutation.isPending}
                           className="w-full rounded-2xl border border-gray-700 bg-gray-950 px-4 py-3 text-left transition hover:border-orange-500/40 hover:bg-gray-800 disabled:opacity-50"
                         >
-                          <div className="font-medium text-gray-100">{p.name}</div>
-                          <div className="mt-0.5 text-xs text-gray-500">{p.item_number} {p.brand ? `· ${p.brand}` : ""}</div>
+                          <div className="flex items-center gap-3">
+                            <ProductImage imageUrl={p.image_url} name={p.name} size="xs" />
+                            <div className="min-w-0">
+                              <div className="font-medium text-gray-100">{p.name}</div>
+                              <div className="mt-0.5 text-xs text-gray-500">{p.item_number} {p.brand ? `· ${p.brand}` : ""}</div>
+                            </div>
+                          </div>
                         </button>
                       ))}
                     </div>

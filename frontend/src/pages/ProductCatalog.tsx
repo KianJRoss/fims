@@ -12,6 +12,7 @@ type ProductSummary = {
   id: string;
   name: string;
   item_number: string | null;
+  image_url: string | null;
   category_name: string | null;
   brand_name: string | null;
   barcode_count: number;
@@ -200,7 +201,7 @@ export default function ProductCatalog() {
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-4 backdrop-blur sm:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Product Catalog</div>
@@ -231,8 +232,8 @@ export default function ProductCatalog() {
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-81px)]">
-        <aside className="w-56 shrink-0 border-r border-gray-800 bg-gray-900/90 px-4 py-5">
+      <div className="flex min-h-[calc(100vh-81px)] flex-col lg:flex-row">
+        <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 px-4 py-5 lg:w-56 lg:border-b-0 lg:border-r">
           <div className="space-y-5">
             <div>
               <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">
@@ -352,7 +353,7 @@ export default function ProductCatalog() {
                   Loading products...
                 </div>
               ) : (
-                <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                   {products.map((product) => {
                     const isActive = product.id === selectedProductId;
                     return (
@@ -366,7 +367,17 @@ export default function ProductCatalog() {
                         }`}
                       >
                         <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
+                          {product.image_url && (
+                            <div className="flex-shrink-0 h-16 w-16 rounded-xl bg-gray-800 overflow-hidden flex items-center justify-center">
+                              <img
+                                src={product.image_url}
+                                alt={product.name}
+                                className="h-full w-full object-contain p-1"
+                                onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0 flex-1">
                             <div className="truncate text-lg font-semibold text-gray-50">{product.name}</div>
                             <div className="mt-2 text-sm font-medium text-orange-300">{product.item_number || "No item number"}</div>
                           </div>
@@ -458,6 +469,16 @@ export default function ProductCatalog() {
                   ) : activeProduct ? (
                     <div className="space-y-5">
                       <div className="rounded-2xl border border-gray-800 bg-gray-950 p-4">
+                        {activeProduct.image_url && (
+                          <div className="mb-4 flex items-center justify-center rounded-xl bg-gray-900 overflow-hidden h-40">
+                            <img
+                              src={activeProduct.image_url}
+                              alt={activeProduct.name}
+                              className="h-full w-full object-contain p-2"
+                              onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+                            />
+                          </div>
+                        )}
                         <div className="flex items-center justify-between gap-3">
                           <div>
                             <div className="text-2xl font-semibold text-gray-50">{activeProduct.name}</div>

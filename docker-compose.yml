@@ -9,6 +9,7 @@ services:
     volumes:
       - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
       - /media/krioasns/VIDEOS/videos:/srv/external-videos:ro
+      - ./media:/app/media:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
@@ -22,6 +23,7 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_API_URL: /api
+        VITE_RECEIPT_BASE_URL: https://kianpotpi.taile4f97e.ts.net
     restart: unless-stopped
     ports:
       - "3000:3000"

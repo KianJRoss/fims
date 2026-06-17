@@ -1,408 +1,445 @@
 import { useEffect, useMemo, useState } from "react";
-import type { ChangeEvent, KeyboardEvent } from "react";
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ChevronDown, Loader2, Search } from "lucide-react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { BadgeDollarSign, Loader2, PencilLine, Plus, Save, X } from "lucide-react";
 
 import { api } from "../api/client";
+import ProductImage from "../components/ProductImage";
 
-type Brand = {
-  id: number;
-  name: string;
-};
-
-type PricingCode = "RETAIL" | "SALE" | "WHOLE" | "COST" | "TENT";
-
-type PricingRow = {
-  id: string;
-  name: string;
+type CostingRow = {
+  product_id: string;
   item_number: string | null;
-  brand_name: string | null;
+  image_url: string | null;
+  name: string;
+  packing: string | null;
+  boxes_per_case: number | null;
+  units_per_box: number | null;
+  case_cost: number | null;
+  markup_multiplier: number | null;
+  retail_price: number | null;
   category_name: string | null;
-  in_store: boolean;
-  catalog_page: number | null;
-  prices: Record<PricingCode, number | null>;
 };
 
-type PriceMutationInput = {
-  productId: string;
-  priceTypeCode: PricingCode;
-  amount: number;
+type CostingFormState = {
+  product_id: string;
+  boxes_per_case: string;
+  units_per_box: string;
+  case_cost: string;
+  markup_multiplier: string;
+  packing: string | null;
+  name: string;
 };
 
-const PRICE_COLUMNS: Array<{ code: PricingCode; label: string }> = [
-  { code: "RETAIL", label: "RETAIL" },
-  { code: "SALE", label: "SALE" },
-  { code: "WHOLE", label: "WHOLESALE" },
-  { code: "COST", label: "COST" },
-  { code: "TENT", label: "TENT" },
-];
-
-function formatAmount(value: number | null | undefined) {
+function formatMoney(value: number | null | undefined) {
   if (value === null || value === undefined || Number.isNaN(value)) {
     return "—";
   }
   return `$${value.toFixed(2)}`;
 }
 
+function formatPacking(packing: string | null, boxes?: number | null, units?: number | null) {
+  if (boxes !== undefined && boxes !== null && units !== undefined && units !== null) {
+    return `${boxes} / ${units}`;
+  }
+  if (!packing) {
+    return "—";
+  }
+  return packing.replace("/", " / ");
+}
+
+function parsePacking(packing: string | null) {
+  if (!packing) {
+    return { boxes: "", units: "" };
+  }
+  const [boxes, units] = packing.split("/");
+  return {
+    boxes: boxes?.trim() ?? "",
+    units: units?.trim() ?? "",
+  };
+}
+
+function computeRetailPreview(caseCost: string, boxesPerCase: string, unitsPerBox: string, markupMultiplier: string) {
+  const cost = Number(caseCost);
+  const boxes = Number(boxesPerCase);
+  const units = Number(unitsPerBox);
+  const markup = Number(markupMultiplier);
+  if (![cost, boxes, units, markup].every(Number.isFinite) || boxes <= 0 || units <= 0) {
+    return null;
+  }
+  const unitCost = cost / (boxes * units);
+  return Math.round(unitCost * markup) - 0.05;
+}
+
 export default function Pricing() {
   const queryClient = useQueryClient();
-  const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedBrandIds, setSelectedBrandIds] = useState<number[]>([]);
-  const [inStoreOnly, setInStoreOnly] = useState(false);
-  const [editingCell, setEditingCell] = useState<{
-    productId: string;
-    priceTypeCode: PricingCode;
-    value: string;
-  } | null>(null);
-  const [seeded, setSeeded] = useState(false);
+  const [editing, setEditing] = useState<CostingFormState | null>(null);
+
+  const costingQuery = useQuery({
+    queryKey: ["costing"],
+    queryFn: async (): Promise<CostingRow[]> => {
+      const { data } = await api.get<CostingRow[]>("/v1/costing/");
+      return data;
+    },
+  });
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setDebouncedSearch(search.trim()), 300);
-    return () => window.clearTimeout(timer);
-  }, [search]);
-
-  const brandsQuery = useQuery({
-    queryKey: ["pricing-brands"],
-    queryFn: async (): Promise<Brand[]> => {
-      const { data } = await api.get("/v1/brands/");
-      return data;
-    },
-  });
-
-  const categoriesQuery = useQuery({
-    queryKey: ["pricing-categories"],
-    queryFn: async (): Promise<string[]> => {
-      const { data } = await api.get("/v1/products/categories");
-      return data;
-    },
-  });
-
-  const productsQuery = useInfiniteQuery({
-    queryKey: ["pricing-products", debouncedSearch, selectedCategory, selectedBrandIds, inStoreOnly],
-    queryFn: async ({ pageParam = 0 }): Promise<PricingRow[]> => {
-      const params = new URLSearchParams();
-      params.set("skip", String(pageParam));
-      params.set("limit", "100");
-      if (debouncedSearch) {
-        params.set("q", debouncedSearch);
-      }
-      if (selectedCategory) {
-        params.set("category", selectedCategory);
-      }
-      if (inStoreOnly) {
-        params.set("in_store", "true");
-      }
-      for (const brandId of selectedBrandIds) {
-        params.append("brand_id", String(brandId));
-      }
-      const { data } = await api.get(`/v1/pricing/?${params.toString()}`);
-      return data;
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) => (lastPage.length === 100 ? allPages.length * 100 : undefined),
-  });
-
-  const products = useMemo(
-    () => productsQuery.data?.pages.flatMap((page) => page) ?? [],
-    [productsQuery.data]
-  );
-
-  useEffect(() => {
-    if (!editingCell) {
+    if (!editing) {
       return;
     }
-    const stillVisible = products.some(
-      (product) => product.id === editingCell.productId && product.prices[editingCell.priceTypeCode] !== undefined
-    );
+    const stillVisible = costingQuery.data?.some((row) => row.product_id === editing.product_id);
     if (!stillVisible) {
-      setEditingCell(null);
+      setEditing(null);
     }
-  }, [editingCell, products]);
+  }, [costingQuery.data, editing]);
 
-  const seedMutation = useMutation({
-    mutationFn: async () => {
-      const { data } = await api.post("/v1/pricing/seed-types");
-      return data as { count: number };
-    },
-    onSuccess: async () => {
-      setSeeded(true);
-      await queryClient.invalidateQueries({ queryKey: ["pricing-products"] });
-    },
-  });
+  const previewRetail = useMemo(() => {
+    if (!editing) {
+      return null;
+    }
+    return computeRetailPreview(editing.case_cost, editing.boxes_per_case, editing.units_per_box, editing.markup_multiplier);
+  }, [editing]);
 
-  const priceMutation = useMutation({
-    mutationFn: async (payload: PriceMutationInput) => {
-      const { data } = await api.put(`/v1/pricing/${payload.productId}/${payload.priceTypeCode}`, {
-        amount: payload.amount,
-      });
+  const upsertMutation = useMutation({
+    mutationFn: async (payload: {
+      product_id: string;
+      boxes_per_case: number;
+      units_per_box: number;
+      case_cost: number;
+      markup_multiplier: number;
+    }) => {
+      const { data } = await api.post<CostingRow>("/v1/costing/", payload);
       return data;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["pricing-products"] });
+      await queryClient.invalidateQueries({ queryKey: ["costing"] });
+      setEditing(null);
     },
-    onSettled: () => setEditingCell(null),
   });
 
-  function beginEdit(productId: string, priceTypeCode: PricingCode, currentValue: number | null) {
-    setEditingCell({
-      productId,
-      priceTypeCode,
-      value: currentValue === null ? "" : String(currentValue),
+  function beginEdit(row: CostingRow) {
+    const packing = parsePacking(row.packing);
+    setEditing({
+      product_id: row.product_id,
+      boxes_per_case: row.boxes_per_case?.toString() ?? packing.boxes,
+      units_per_box: row.units_per_box?.toString() ?? packing.units,
+      case_cost: row.case_cost?.toString() ?? "",
+      markup_multiplier: row.markup_multiplier?.toString() ?? "",
+      packing: row.packing,
+      name: row.name,
     });
   }
 
-  function updateEditingValue(event: ChangeEvent<HTMLInputElement>) {
-    if (!editingCell) {
-      return;
-    }
-    setEditingCell({ ...editingCell, value: event.target.value });
+  function updateField(field: keyof Omit<CostingFormState, "product_id" | "packing" | "name">, value: string) {
+    setEditing((current) => (current ? { ...current, [field]: value } : current));
   }
 
-  function saveEditingValue() {
-    if (!editingCell) {
+  function saveEditing() {
+    if (!editing) {
       return;
     }
-    if (editingCell.value.trim() === "") {
-      setEditingCell(null);
+    const boxes = Number(editing.boxes_per_case);
+    const units = Number(editing.units_per_box);
+    const caseCost = Number(editing.case_cost);
+    const markup = Number(editing.markup_multiplier);
+    if (![boxes, units, caseCost, markup].every(Number.isFinite) || boxes <= 0 || units <= 0) {
       return;
     }
-    const parsed = Number(editingCell.value);
-    if (!Number.isFinite(parsed)) {
-      setEditingCell(null);
-      return;
-    }
-    priceMutation.mutate({
-      productId: editingCell.productId,
-      priceTypeCode: editingCell.priceTypeCode,
-      amount: parsed,
+    upsertMutation.mutate({
+      product_id: editing.product_id,
+      boxes_per_case: boxes,
+      units_per_box: units,
+      case_cost: caseCost,
+      markup_multiplier: markup,
     });
-  }
-
-  function handleEditingKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === "Enter") {
-      event.currentTarget.blur();
-    }
-    if (event.key === "Escape") {
-      setEditingCell(null);
-    }
-  }
-
-  function toggleBrand(brandId: number) {
-    setSelectedBrandIds((current) =>
-      current.includes(brandId) ? current.filter((id) => id !== brandId) : [...current, brandId]
-    );
   }
 
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
-      <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Pricing</div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-50">Price matrix and inline editing</h1>
-            <p className="mt-2 max-w-3xl text-sm text-gray-400">
-              Search products, filter by brand or category, and edit price tiers directly in the grid.
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="rounded-2xl border border-gray-800 bg-gray-900 px-4 py-3">
-              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Loaded</div>
-              <div className="mt-1 text-2xl font-semibold text-gray-50">{products.length.toLocaleString()}</div>
+      <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-6 backdrop-blur sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3">
+          <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Pricing</div>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h1 className="text-3xl font-semibold tracking-tight text-gray-50">Costing and retail pricing</h1>
+              <p className="mt-2 max-w-3xl text-sm text-gray-400">
+                Maintain case cost, markup, and the derived retail price for in-store products.
+              </p>
             </div>
-            <button
-              onClick={() => seedMutation.mutate()}
-              disabled={seeded || seedMutation.isPending}
-              className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
-                seeded
-                  ? "border border-gray-700 bg-gray-800 text-gray-400"
-                  : "bg-orange-500 text-white hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
-              }`}
-            >
-              {seedMutation.isPending ? "Seeding..." : seeded ? "Price Types Seeded" : "Seed Price Types"}
-            </button>
+            <div className="rounded-3xl border border-gray-800 bg-gray-900 px-4 py-3">
+              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Visible products</div>
+              <div className="mt-1 text-2xl font-semibold text-gray-50">
+                {costingQuery.data?.length?.toLocaleString() ?? "0"}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh-81px)]">
-        <aside className="w-56 shrink-0 border-r border-gray-800 bg-gray-900/90 px-4 py-5">
-          <div className="space-y-5">
-            <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">
-                Search
-              </label>
-              <div className="relative">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-                <input
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Search products"
-                  className="w-full rounded-2xl border border-gray-800 bg-gray-950 py-2.5 pl-9 pr-3 text-sm text-gray-100 outline-none placeholder:text-gray-600 focus:border-orange-500"
-                />
-              </div>
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <div className="space-y-4 lg:hidden">
+          {costingQuery.isLoading ? (
+            <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">
+              Loading pricing...
             </div>
-
-            <div>
-              <div className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">Brands</div>
-              <div className="max-h-48 space-y-1 overflow-y-auto pr-1">
-                {(brandsQuery.data ?? []).map((brand) => {
-                  const checked = selectedBrandIds.includes(brand.id);
-                  return (
-                    <label
-                      key={brand.id}
-                      className={`flex cursor-pointer items-center justify-between rounded-xl border px-2.5 py-1.5 text-xs transition ${
-                        checked
-                          ? "border-orange-500/60 bg-orange-500/10 text-orange-100"
-                          : "border-gray-800 bg-gray-950 text-gray-400 hover:border-gray-700 hover:text-gray-200"
-                      }`}
+          ) : costingQuery.isError ? (
+            <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-red-200">
+              Unable to load pricing.
+            </div>
+          ) : (costingQuery.data ?? []).length === 0 ? (
+            <div className="rounded-3xl border border-dashed border-gray-800 bg-gray-900 p-8 text-center text-sm text-gray-500">
+              No in-store products found.
+            </div>
+          ) : (
+            costingQuery.data?.map((row) => {
+              const hasCosting = row.boxes_per_case !== null && row.units_per_box !== null && row.case_cost !== null;
+              return (
+                <div key={row.product_id} className="rounded-3xl border border-gray-800 bg-gray-900 p-4">
+                  <div className="flex items-start gap-3">
+                    <ProductImage imageUrl={row.image_url} name={row.name} size="xs" />
+                    <div className="min-w-0 flex-1">
+                      <div className="font-medium text-gray-50">{row.name}</div>
+                      <div className="mt-1 text-xs text-gray-500">
+                        {row.item_number || "No item number"}
+                        {row.category_name ? ` Â· ${row.category_name}` : ""}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => beginEdit(row)}
+                      className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2 text-sm font-medium text-gray-100 transition hover:border-orange-500 hover:text-orange-200"
                     >
-                      <span className="truncate pr-2">{brand.name}</span>
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => toggleBrand(brand.id)}
-                        className="accent-orange-500"
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
+                      {hasCosting ? <PencilLine className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                      {hasCosting ? "Edit" : "Add"}
+                    </button>
+                  </div>
 
-            <div>
-              <label className="mb-2 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">
-                <span>Category</span>
-                <ChevronDown className="h-4 w-4 text-gray-600" />
-              </label>
-              <select
-                value={selectedCategory}
-                onChange={(event) => setSelectedCategory(event.target.value)}
-                className="w-full rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-100 outline-none focus:border-orange-500"
-              >
-                <option value="">All categories</option>
-                {(categoriesQuery.data ?? []).map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
+                  <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Packing</div>
+                      <div className="mt-1 text-gray-300">
+                        {formatPacking(row.packing, row.boxes_per_case, row.units_per_box)}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Retail</div>
+                      <div className="mt-1 text-gray-300">{formatMoney(row.retail_price)}</div>
+                    </div>
+                    <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Case cost</div>
+                      <div className="mt-1 text-gray-300">{formatMoney(row.case_cost)}</div>
+                    </div>
+                    <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500">Markup</div>
+                      <div className="mt-1 text-gray-300">
+                        {row.markup_multiplier === null ? "—" : row.markup_multiplier.toFixed(4)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
 
-            <label className="flex cursor-pointer items-center justify-between rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-200 transition hover:border-gray-700">
-              <span>In Store only</span>
-              <input
-                type="checkbox"
-                checked={inStoreOnly}
-                onChange={(event) => setInStoreOnly(event.target.checked)}
-                className="accent-orange-500"
-              />
-            </label>
-          </div>
-        </aside>
-
-        <main className="flex-1 overflow-hidden">
-          <div className="flex h-full flex-col">
-            <div className="flex-1 overflow-auto px-6 py-6">
-              <div className="overflow-hidden rounded-3xl border border-gray-800 bg-gray-900">
-                <table className="min-w-full divide-y divide-gray-800">
-                  <thead className="sticky top-0 bg-gray-950">
-                    <tr className="text-left text-xs uppercase tracking-[0.2em] text-gray-500">
-                      <th className="px-4 py-3">Name</th>
-                      <th className="px-4 py-3">Item#</th>
-                      <th className="px-4 py-3">Catalog Page</th>
-                      <th className="px-4 py-3">Category</th>
-                      {PRICE_COLUMNS.map((column) => (
-                        <th key={column.code} className="px-4 py-3 text-right">
-                          {column.label}
-                        </th>
-                      ))}
+        <div className="hidden overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 lg:block">
+          <table className="min-w-full divide-y divide-gray-800">
+            <thead className="bg-gray-950">
+              <tr className="text-left text-xs uppercase tracking-[0.2em] text-gray-500">
+                <th className="px-4 py-3">Product name</th>
+                <th className="px-4 py-3">Packing</th>
+                <th className="px-4 py-3 text-right">Case Cost</th>
+                <th className="px-4 py-3 text-right">Markup</th>
+                <th className="px-4 py-3 text-right">Retail Price</th>
+                <th className="px-4 py-3 text-right">Edit</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-800">
+              {costingQuery.isLoading ? (
+                <tr>
+                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-gray-400">
+                    Loading pricing...
+                  </td>
+                </tr>
+              ) : costingQuery.isError ? (
+                <tr>
+                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-red-200">
+                    Unable to load pricing.
+                  </td>
+                </tr>
+              ) : (costingQuery.data ?? []).length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-gray-500">
+                    No in-store products found.
+                  </td>
+                </tr>
+              ) : (
+                costingQuery.data?.map((row) => {
+                  const hasCosting = row.boxes_per_case !== null && row.units_per_box !== null && row.case_cost !== null;
+                  return (
+                    <tr key={row.product_id} className="bg-transparent hover:bg-gray-800/40">
+                      <td className="px-4 py-4 align-middle">
+                        <div className="flex items-center gap-3">
+                          <ProductImage imageUrl={row.image_url} name={row.name} size="xs" />
+                          <div>
+                            <div className="font-medium text-gray-50">{row.name}</div>
+                            <div className="mt-1 text-xs text-gray-500">
+                              {row.item_number || "No item number"}
+                              {row.category_name ? ` · ${row.category_name}` : ""}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 align-middle text-sm text-gray-300">
+                        {formatPacking(row.packing, row.boxes_per_case, row.units_per_box)}
+                      </td>
+                      <td className="px-4 py-4 align-middle text-right text-sm text-gray-200">
+                        {formatMoney(row.case_cost)}
+                      </td>
+                      <td className="px-4 py-4 align-middle text-right text-sm text-gray-200">
+                        {row.markup_multiplier === null ? "—" : row.markup_multiplier.toFixed(4)}
+                      </td>
+                      <td className="px-4 py-4 align-middle text-right">
+                        {hasCosting ? (
+                          <span className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1 text-sm font-semibold text-orange-200">
+                            <BadgeDollarSign className="h-4 w-4" />
+                            {formatMoney(row.retail_price)}
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center rounded-full border border-gray-700 bg-gray-800 px-3 py-1 text-xs uppercase tracking-[0.2em] text-gray-400">
+                            No pricing
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-4 py-4 align-middle text-right">
+                        <button
+                          type="button"
+                          onClick={() => beginEdit(row)}
+                          className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2 text-sm font-medium text-gray-100 transition hover:border-orange-500 hover:text-orange-200"
+                        >
+                          {hasCosting ? <PencilLine className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                          {hasCosting ? "Edit" : "Add"}
+                        </button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-800">
-                    {products.map((product) => (
-                      <tr key={product.id} className="bg-transparent hover:bg-gray-800/40">
-                        <td className="px-4 py-3 align-middle">
-                          <div className="font-medium text-gray-50">{product.name}</div>
-                          <div className="mt-1 text-xs text-gray-500">{product.brand_name || "No brand"}</div>
-                        </td>
-                        <td className="px-4 py-3 align-middle text-sm text-gray-300">{product.item_number || "—"}</td>
-                        <td className="px-4 py-3 align-middle text-sm text-gray-300">
-                          {product.catalog_page ?? "—"}
-                        </td>
-                        <td className="px-4 py-3 align-middle text-sm text-gray-300">
-                          {product.category_name || "—"}
-                        </td>
-                        {PRICE_COLUMNS.map((column) => {
-                          const currentValue = product.prices[column.code];
-                          const isEditing =
-                            editingCell?.productId === product.id && editingCell.priceTypeCode === column.code;
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-                          return (
-                            <td key={column.code} className="px-4 py-3 align-middle text-right">
-                              {isEditing ? (
-                                <input
-                                  autoFocus
-                                  value={editingCell.value}
-                                  onChange={updateEditingValue}
-                                  onBlur={saveEditingValue}
-                                  onKeyDown={handleEditingKeyDown}
-                                  className="w-24 rounded-xl border border-orange-500 bg-gray-950 px-2 py-1 text-right text-sm text-gray-100 outline-none"
-                                />
-                              ) : (
-                                <button
-                                  onClick={() => beginEdit(product.id, column.code, currentValue)}
-                                  className={`rounded-xl px-2 py-1 text-sm transition ${
-                                    currentValue === null
-                                      ? "text-gray-500 hover:bg-gray-800 hover:text-gray-200"
-                                      : "font-medium text-emerald-300 hover:bg-emerald-500/10"
-                                  }`}
-                                >
-                                  {formatAmount(currentValue)}
-                                </button>
-                              )}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    ))}
-                    {products.length === 0 && !productsQuery.isLoading && (
-                      <tr>
-                        <td colSpan={9} className="px-4 py-12 text-center text-sm text-gray-500">
-                          No products match the current filters.
-                        </td>
-                      </tr>
-                    )}
-                    {productsQuery.isLoading && (
-                      <tr>
-                        <td colSpan={9} className="px-4 py-12 text-center text-sm text-gray-400">
-                          Loading pricing...
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+      {editing ? (
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 px-3 py-3 sm:items-center sm:px-4 sm:py-8">
+          <div className="max-h-[calc(100vh-1.5rem)] w-full max-w-[calc(100vw-1rem)] overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 shadow-2xl sm:max-h-[90vh] sm:max-w-[42rem]">
+            <div className="flex items-start justify-between gap-4 border-b border-gray-800 px-4 py-5 sm:px-6">
+              <div>
+                <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Edit pricing</div>
+                <h2 className="mt-2 text-2xl font-semibold text-gray-50">{editing.name}</h2>
+                <div className="mt-1 text-sm text-gray-400">{editing.packing || "No packing on file"}</div>
               </div>
+              <button
+                type="button"
+                onClick={() => setEditing(null)}
+                className="rounded-2xl border border-gray-800 bg-gray-950 p-2 text-gray-400 transition hover:border-gray-700 hover:text-gray-100"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
 
-              <div className="mt-6 flex items-center justify-center">
-                <button
-                  onClick={() => productsQuery.fetchNextPage()}
-                  disabled={!productsQuery.hasNextPage || productsQuery.isFetchingNextPage}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
-                >
-                  {productsQuery.isFetchingNextPage ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-                  {productsQuery.isFetchingNextPage
-                    ? "Loading..."
-                    : productsQuery.hasNextPage
-                      ? "Load 100 More"
-                      : "No More Products"}
-                </button>
+            <div className="max-h-[calc(100vh-14rem)] overflow-auto px-4 py-6 sm:max-h-none sm:px-6 md:grid md:grid-cols-2 md:gap-4">
+              <Field
+                label="Boxes per case"
+                value={editing.boxes_per_case}
+                onChange={(value) => updateField("boxes_per_case", value)}
+                type="number"
+                min="1"
+              />
+              <Field
+                label="Units per box"
+                value={editing.units_per_box}
+                onChange={(value) => updateField("units_per_box", value)}
+                type="number"
+                min="1"
+              />
+              <Field
+                label="Case cost"
+                value={editing.case_cost}
+                onChange={(value) => updateField("case_cost", value)}
+                type="number"
+                min="0"
+                step="0.01"
+              />
+              <Field
+                label="Markup multiplier"
+                value={editing.markup_multiplier}
+                onChange={(value) => updateField("markup_multiplier", value)}
+                type="number"
+                min="0"
+                step="0.0001"
+              />
+            </div>
+
+            <div className="border-t border-gray-800 px-4 py-4 sm:px-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Retail preview</div>
+                  <div className="mt-2 text-3xl font-semibold text-orange-200">
+                    {previewRetail === null ? "—" : formatMoney(previewRetail)}
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setEditing(null)}
+                    className="rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3 text-sm font-medium text-gray-200 transition hover:border-gray-700"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={saveEditing}
+                    disabled={upsertMutation.isPending}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
+                  >
+                    {upsertMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                    Save pricing
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      ) : null}
     </div>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  type,
+  min,
+  step,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  type: "number" | "text";
+  min?: string;
+  step?: string;
+}) {
+  return (
+    <label className="space-y-2 text-sm text-gray-300">
+      <span className="text-xs uppercase tracking-[0.25em] text-gray-500">{label}</span>
+      <input
+        type={type}
+        value={value}
+        min={min}
+        step={step}
+        onChange={(event) => onChange(event.target.value)}
+        className="w-full rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3 text-gray-100 outline-none transition placeholder:text-gray-600 focus:border-orange-500"
+      />
+    </label>
   );
 }
