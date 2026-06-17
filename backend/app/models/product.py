@@ -95,6 +95,7 @@ class Product(Base):
     case_packs: Mapped[list["CasePack"]] = relationship(back_populates="product")  # type: ignore[name-defined]
     supplier_products: Mapped[list["SupplierProduct"]] = relationship(back_populates="product")  # type: ignore[name-defined]
     inventory_events: Mapped[list["InventoryEvent"]] = relationship(back_populates="product")  # type: ignore[name-defined]
+    aliases: Mapped[list["ProductAlias"]] = relationship(back_populates="product", cascade="all, delete-orphan")
 
 
 class ProductBarcode(Base):
@@ -112,3 +113,19 @@ class ProductBarcode(Base):
     notes: Mapped[str | None] = mapped_column(String(255))
 
     product: Mapped["Product"] = relationship(back_populates="barcodes")
+
+
+class ProductAlias(Base):
+    """
+    Alternate name a product is known by across documents/suppliers
+    (e.g. "Game On!", "Game On", "GAME ON" all map to one product).
+    """
+    __tablename__ = "product_aliases"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    product_id: Mapped[str] = mapped_column(ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
+    alias_name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    source: Mapped[str | None] = mapped_column(String(60))  # e.g. "manual", "jakes_import"
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    product: Mapped["Product"] = relationship(back_populates="aliases")

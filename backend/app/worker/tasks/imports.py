@@ -149,4 +149,12 @@ def _match_row(db, raw: dict):
             if p:
                 return p.id, 0.9, "ITEM_NUM_BRAND"
 
+    # 4. Product name (exact match or known alias), normalized for case/whitespace
+    name = raw.get("name") or raw.get("product_name") or raw.get("description")
+    if name:
+        from app.services.product_matching import find_product_by_alias
+        p = find_product_by_alias(db, name)
+        if p:
+            return p.id, 0.7, "NAME_OR_ALIAS"
+
     return None, 0.0, "MANUAL"

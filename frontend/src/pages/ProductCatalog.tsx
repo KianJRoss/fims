@@ -50,6 +50,14 @@ type ProductVideo = {
   downloaded: boolean;
 };
 
+type ProductAlias = {
+  id: number;
+  product_id: string;
+  alias_name: string;
+  source: string | null;
+  created_at: string;
+};
+
 type ProductDetail = ProductSummary & {
   description: string | null;
   notes: string | null;
@@ -100,6 +108,7 @@ export default function ProductCatalog() {
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState<ProductSort>("name");
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [newAliasName, setNewAliasName] = useState("");
 
   useEffect(() => {
     const timer = window.setTimeout(() => setDebouncedSearch(search.trim()), 300);
@@ -183,6 +192,42 @@ export default function ProductCatalog() {
     onSuccess: async (_, variables) => {
       await queryClient.invalidateQueries({ queryKey: ["product-catalog"] });
       await queryClient.invalidateQueries({ queryKey: ["product-detail", variables.productId] });
+    },
+  });
+
+  const aliasesQuery = useQuery({
+    queryKey: ["product-aliases", selectedProductId],
+    queryFn: async (): Promise<ProductAlias[]> => {
+      if (!selectedProductId) {
+        throw new Error("Missing selected product");
+      }
+      const { data } = await api.get(`/v1/products/${selectedProductId}/aliases`);
+      return data;
+    },
+    enabled: Boolean(selectedProductId),
+    refetchOnWindowFocus: false,
+  });
+
+  const addAliasMutation = useMutation({
+    mutationFn: async (payload: { productId: string; aliasName: string }) => {
+      const { data } = await api.post(`/v1/products/${payload.productId}/aliases`, {
+        alias_name: payload.aliasName,
+        source: "manual",
+      });
+      return data as ProductAlias;
+    },
+    onSuccess: async (_, variables) => {
+      setNewAliasName("");
+      await queryClient.invalidateQueries({ queryKey: ["product-aliases", variables.productId] });
+    },
+  });
+
+  const removeAliasMutation = useMutation({
+    mutationFn: async (payload: { productId: string; aliasId: number }) => {
+      await api.delete(`/v1/products/${payload.productId}/aliases/${payload.aliasId}`);
+    },
+    onSuccess: async (_, variables) => {
+      await queryClient.invalidateQueries({ queryKey: ["product-aliases", variables.productId] });
     },
   });
 
@@ -359,7 +404,10 @@ export default function ProductCatalog() {
                     return (
                       <button
                         key={product.id}
-                        onClick={() => setSelectedProductId(product.id)}
+                        onClick={() => {
+                          setSelectedProductId(product.id);
+                          setNewAliasName("");
+                        }}
                         className={`group rounded-3xl border p-4 text-left transition ${
                           isActive
                             ? "border-orange-500 bg-orange-500/10 shadow-lg shadow-orange-950/20"
@@ -555,6 +603,61 @@ export default function ProductCatalog() {
                             ))}
                           </div>
                         )}
+                      </section>
+
+                      <section className="space-y-3 rounded-2xl border border-gray-800 bg-gray-950 p-4">
+                        <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">Also Known As</h3>
+                        {aliasesQuery.isLoading ? (
+                          <div className="text-sm text-gray-400">Loading aliases...</div>
+                        ) : (aliasesQuery.data ?? []).length === 0 ? (
+                          <EmptyNote text="No alternate names recorded." />
+                        ) : (
+                          <div className="flex flex-wrap gap-2">
+                            {(aliasesQuery.data ?? []).map((alias) => (
+                              <span
+                                key={alias.id}
+                                className="inline-flex items-center gap-2 rounded-full border border-gray-700 bg-gray-900 px-3 py-1.5 text-xs text-gray-200"
+                              >
+                                {alias.alias_name}
+                                <button
+                                  onClick={() =>
+                                    removeAliasMutation.mutate({
+                                      productId: activeProduct.id,
+                                      aliasId: alias.id,
+                                    })
+                                  }
+                                  className="text-gray-500 transition hover:text-orange-400"
+                                  aria-label={`Remove alias ${alias.alias_name}`}
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <form
+                          onSubmit={(event) => {
+                            event.preventDefault();
+                            const trimmed = newAliasName.trim();
+                            if (!trimmed) return;
+                            addAliasMutation.mutate({ productId: activeProduct.id, aliasName: trimmed });
+                          }}
+                          className="flex items-center gap-2"
+                        >
+                          <input
+                            value={newAliasName}
+                            onChange={(event) => setNewAliasName(event.target.value)}
+                            placeholder="Add alternate name"
+                            className="flex-1 rounded-xl border border-gray-800 bg-gray-900 px-3 py-2 text-sm text-gray-100 outline-none placeholder:text-gray-600 focus:border-orange-500"
+                          />
+                          <button
+                            type="submit"
+                            disabled={addAliasMutation.isPending || !newAliasName.trim()}
+                            className="rounded-xl bg-orange-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
+                          >
+                            Add
+                          </button>
+                        </form>
                       </section>
 
                       <section className="space-y-3 rounded-2xl border border-gray-800 bg-gray-950 p-4">

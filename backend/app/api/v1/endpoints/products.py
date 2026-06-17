@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from pydantic import BaseModel
 from sqlalchemy import exists, func, or_, select
 from sqlalchemy.orm import Session, joinedload
 
 from app.db.session import get_db
 from app.models.media import ProductVideo
-from app.models.product import Product, ProductBarcode, ProductBrand, ProductCategory
+from app.models.product import Product, ProductAlias, ProductBarcode, ProductBrand, ProductCategory
 
 router = APIRouter()
 
@@ -24,6 +24,11 @@ class BarcodeAddRequest(BaseModel):
 
 class ProductInStorePatch(BaseModel):
     in_store: bool
+
+
+class ProductAliasCreate(BaseModel):
+    alias_name: str
+    source: str | None = None
 
 
 def _serialize_video(video: ProductVideo) -> dict:
@@ -44,6 +49,16 @@ def _serialize_video(video: ProductVideo) -> dict:
         "is_primary": video.is_primary,
         "uploaded_at": video.uploaded_at,
         "downloaded": bool(video.file_path and video.confirmed),
+    }
+
+
+def _serialize_alias(alias: ProductAlias) -> dict:
+    return {
+        "id": alias.id,
+        "product_id": alias.product_id,
+        "alias_name": alias.alias_name,
+        "source": alias.source,
+        "created_at": alias.created_at,
     }
 
 
@@ -337,6 +352,68 @@ def add_barcode(product_id: str, payload: BarcodeAddRequest, db: Session = Depen
 
     db.commit()
     return {"ok": True, "product_id": product_id, "barcode": barcode}
+
+
+@router.get("/{product_id}/aliases")
+def list_product_aliases(product_id: str, db: Session = Depends(get_db)):
+    product = db.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    aliases = (
+        db.execute(
+            select(ProductAlias)
+            .where(ProductAlias.product_id == product_id)
+            .order_by(ProductAlias.alias_name.asc())
+        )
+        .scalars()
+        .all()
+    )
+    return [_serialize_alias(alias) for alias in aliases]
+
+
+@router.post("/{product_id}/aliases")
+def add_product_alias(product_id: str, payload: ProductAliasCreate, db: Session = Depends(get_db)):
+    product = db.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    alias_name = payload.alias_name.strip()
+    if not alias_name:
+        raise HTTPException(status_code=400, detail="Alias name required")
+
+    existing = db.execute(
+        select(ProductAlias).where(
+            ProductAlias.product_id == product_id,
+            func.lower(ProductAlias.alias_name) == alias_name.lower(),
+        )
+    ).scalars().first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Alias already exists for this product")
+
+    alias = ProductAlias(product_id=product_id, alias_name=alias_name, source=payload.source)
+    db.add(alias)
+    db.commit()
+    db.refresh(alias)
+    return _serialize_alias(alias)
+
+
+@router.delete("/{product_id}/aliases/{alias_id}")
+def delete_product_alias(product_id: str, alias_id: int, db: Session = Depends(get_db)):
+    alias = (
+        db.execute(
+            select(ProductAlias).where(
+                ProductAlias.id == alias_id, ProductAlias.product_id == product_id
+            )
+        )
+        .scalars()
+        .first()
+    )
+    if not alias:
+        raise HTTPException(status_code=404, detail="Alias not found")
+
+    db.delete(alias)
+    db.commit()
+    return Response(status_code=204)
 
 
 @router.get("/{product_id}")
