@@ -334,8 +334,8 @@ These are actively desired features. Build these next.
 
 | Device | Role | Connection |
 |--------|------|------------|
-| PC (MSI) | FIMS server, database, main UI | localhost / LAN IP |
-| Raspberry Pi | Video playback, customer display | LAN, WebSocket to FIMS |
+| Raspberry Pi | FIMS server, database, main UI | LAN IP (store WiFi), Tailscale 100.73.208.99 |
+| PC (MSI) | Development machine (code editing) | localhost |
 | Dejavoo Z8 | Credit card processing, receipt printing | TCP/IP or USB |
 | Royal 435DX | Cash handling only | Not integrated |
 | Barcode scanner | Sales scan, product lookup | USB HID → browser input |

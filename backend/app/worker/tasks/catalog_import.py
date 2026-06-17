@@ -250,8 +250,8 @@ def _insert_product(cur, row: dict, brand_id: int, category_id: int) -> str:
         """
         INSERT INTO products
             (id, name, item_number, description, shot_count, brand_id, category_id,
-             is_active, created_at, updated_at)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, true, %s, %s)
+             packing, image_path, is_active, created_at, updated_at)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, true, %s, %s)
         """,
         (
             product_id,
@@ -261,6 +261,8 @@ def _insert_product(cur, row: dict, brand_id: int, category_id: int) -> str:
             row.get("shot_count"),
             brand_id,
             category_id,
+            row.get("packing"),
+            row.get("image_path"),
             now,
             now,
         ),

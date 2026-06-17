@@ -60,5 +60,11 @@ scripts/catalogs/**/pages/
 !scripts/catalogs/**/.gitkeep
 !scripts/catalogs/**/vision.json
 
+# Raw catalog PDFs and extracted product images (large binaries, regeneratable from the
+# source PDF via extract_catalog_images.py / extract_product_images.py -- not needed for
+# live operation, only the live media/product_images/ copy is, which is already ignored above)
+scripts/catalogs/**/*.pdf
+scripts/catalogs/jakes/2026/product_images/
+
 # Celery schedule
 backend/celerybeat-schedule

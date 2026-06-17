@@ -8,7 +8,7 @@ Type=simple
 User=pi
 Group=pi
 WorkingDirectory=%h/fims
-ExecStart=/usr/bin/python3 %h/fims/scripts/scanner_reader.py
+ExecStart=/usr/bin/python3 -u %h/fims/scripts/scanner_reader.py
 Restart=always
 RestartSec=2
 Environment=PYTHONUNBUFFERED=1

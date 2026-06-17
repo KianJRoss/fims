@@ -109,7 +109,9 @@ def _insert_product_from_row(db: Session, raw_data: dict) -> Product:
     product = Product(
         name=raw_data.get("name") or raw_data.get("item_code") or "Imported Product",
         item_number=raw_data.get("item_code"),
+        packing=raw_data.get("packing"),
         description=raw_data.get("description"),
+        image_path=raw_data.get("image_path"),
         brand_id=brand.id,
         category_id=category.id,
         shot_count=raw_data.get("shot_count"),

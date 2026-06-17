@@ -4,15 +4,15 @@ import json
 import os
 import time
 
+import redis.asyncio as aioredis
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from redis import asyncio as aioredis
 from starlette.responses import StreamingResponse
 
 router = APIRouter()
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
-SCANNER_CHANNEL = "scanner:barcode"
+CHANNEL = "scanner:barcode"
 
 
 class ScannerInputRequest(BaseModel):
@@ -27,7 +27,7 @@ async def scanner_input(payload: ScannerInputRequest):
 
     redis = aioredis.from_url(REDIS_URL, decode_responses=True)
     try:
-        await redis.publish(SCANNER_CHANNEL, json.dumps({"barcode": barcode, "ts": time.time()}))
+        await redis.publish(CHANNEL, json.dumps({"barcode": barcode, "ts": time.time()}))
     finally:
         await redis.aclose()
 
@@ -38,7 +38,7 @@ async def _scanner_stream():
     redis = aioredis.from_url(REDIS_URL, decode_responses=True)
     pubsub = redis.pubsub()
     try:
-        await pubsub.subscribe(SCANNER_CHANNEL)
+        await pubsub.subscribe(CHANNEL)
         while True:
             message = await pubsub.get_message(ignore_subscribe_messages=True, timeout=15.0)
             if message is None:
@@ -50,7 +50,7 @@ async def _scanner_stream():
                 yield f"data: {data}\n\n"
     finally:
         try:
-            await pubsub.unsubscribe(SCANNER_CHANNEL)
+            await pubsub.unsubscribe(CHANNEL)
         finally:
             await pubsub.aclose()
             await redis.aclose()

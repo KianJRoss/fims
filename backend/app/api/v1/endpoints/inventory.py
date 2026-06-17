@@ -22,6 +22,10 @@ class InventoryScanRequest(BaseModel):
     barcode: str = Field(min_length=1)
 
 
+class InventoryScanConfirmRequest(BaseModel):
+    product_id: str = Field(min_length=1)
+
+
 def _video_pi_url() -> str | None:
     value = os.environ.get("VIDEO_PI_URL", "").strip()
     return value.rstrip("/") if value else None
@@ -45,10 +49,12 @@ def _serialize_product(product: Product, supplier_name: str | None, video_matche
         "id": product.id,
         "name": product.name,
         "item_number": product.item_number,
+        "image_url": f"/media/{product.image_path}" if product.image_path else None,
         "brand": product.brand.name if product.brand else None,
         "supplier": supplier_name,
         "category": product.category.name if product.category else None,
         "in_store": product.in_store,
+        "needs_data_review": product.needs_data_review,
         "video_matches": video_matches,
     }
 
@@ -241,14 +247,8 @@ def _pairing_exists(db: Session, product_id: str, video_filename: str) -> bool:
     return row is not None
 
 
-@router.post("/scan")
-def scan_inventory(payload: InventoryScanRequest, db: Session = Depends(get_db)):
-    barcode = payload.barcode.strip()
-    product = _get_product_by_barcode(db, barcode)
-    if not product:
-        return {"found": False, "barcode": barcode}
-
-    newly_marked = not product.in_store
+def _mark_in_store_and_pair_video(db: Session, product: Product) -> dict | None:
+    """Marks the product in_store and attempts a video pairing. Returns the video_match dict (or None)."""
     product.in_store = True
 
     remote_videos = _fetch_remote_videos()
@@ -257,13 +257,61 @@ def scan_inventory(payload: InventoryScanRequest, db: Session = Depends(get_db))
         _insert_video_pair(db, product.id, video_match_filename)
 
     db.commit()
+    return {"filename": video_match_filename} if video_match_filename else None
+
+
+@router.post("/scan")
+def scan_inventory(payload: InventoryScanRequest, db: Session = Depends(get_db)):
+    barcode = payload.barcode.strip()
+    product = _get_product_by_barcode(db, barcode)
+    if not product:
+        return {"found": False, "barcode": barcode}
 
     supplier_name = _get_supplier_name(db, product.id)
+
+    if not product.in_store:
+        # Catalog match found, but not yet confirmed as physically in the store —
+        # ask the operator to confirm before marking in_store / pairing video.
+        return {
+            "found": True,
+            "needs_confirmation": True,
+            "barcode": barcode,
+            "product": _serialize_product(product, supplier_name, video_matches=[]),
+            "video_match": None,
+            "newly_marked": False,
+        }
+
     video_matches = _get_product_video_filenames(db, product.id)
-    video_match = {"filename": video_match_filename} if video_match_filename else None
+    # Already in store — re-affirm and opportunistically (re)pair video, but no confirmation needed.
+    video_match = _mark_in_store_and_pair_video(db, product)
 
     return {
         "found": True,
+        "needs_confirmation": False,
+        "barcode": barcode,
+        "product": _serialize_product(product, supplier_name, video_matches),
+        "video_match": video_match,
+        "newly_marked": False,
+    }
+
+
+@router.post("/scan/confirm")
+def confirm_scan(payload: InventoryScanConfirmRequest, db: Session = Depends(get_db)):
+    """Operator confirmed 'yes, this is the correct product' on a needs_confirmation scan."""
+    product = db.execute(select(Product).where(Product.id == payload.product_id)).scalar_one_or_none()
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    newly_marked = not product.in_store
+    video_match = _mark_in_store_and_pair_video(db, product)
+
+    supplier_name = _get_supplier_name(db, product.id)
+    video_matches = _get_product_video_filenames(db, product.id)
+
+    return {
+        "found": True,
+        "needs_confirmation": False,
+        "barcode": None,
         "product": _serialize_product(product, supplier_name, video_matches),
         "video_match": video_match,
         "newly_marked": newly_marked,
@@ -283,12 +331,16 @@ def inventory_summary(db: Session = Depends(get_db)):
             exists(select(1).select_from(ProductVideo).where(ProductVideo.product_id == Product.id)),
         )
     ).scalar_one()
+    needs_review_count = db.execute(
+        select(func.count(Product.id)).where(Product.is_active.is_(True), Product.needs_data_review.is_(True))
+    ).scalar_one()
 
     return {
         "total_products": int(total_products or 0),
         "in_store_count": int(in_store_count or 0),
         "in_store_with_video": int(in_store_with_video or 0),
         "in_store_without_video": int((in_store_count or 0) - (in_store_with_video or 0)),
+        "needs_review_count": int(needs_review_count or 0),
     }
 
 
@@ -325,6 +377,7 @@ def bulk_pair_videos(db: Session = Depends(get_db)):
 @router.get("/products")
 def inventory_products(
     in_store: bool | None = None,
+    needs_data_review: bool | None = None,
     page: int = Query(default=1, ge=1),
     size: int = Query(default=50, ge=1, le=200),
     db: Session = Depends(get_db),
@@ -339,6 +392,8 @@ def inventory_products(
     )
     if in_store is not None:
         stmt = stmt.where(Product.in_store.is_(in_store))
+    if needs_data_review is not None:
+        stmt = stmt.where(Product.needs_data_review.is_(needs_data_review))
 
     products = db.execute(stmt.offset(offset).limit(size)).scalars().all()
     items = []
@@ -348,10 +403,12 @@ def inventory_products(
                 "id": product.id,
                 "name": product.name,
                 "item_number": product.item_number,
+                "image_url": f"/media/{product.image_path}" if product.image_path else None,
                 "brand": product.brand.name if product.brand else None,
                 "supplier": _get_supplier_name(db, product.id),
                 "category": product.category.name if product.category else None,
                 "in_store": product.in_store,
+                "needs_data_review": product.needs_data_review,
                 "video_matches": _get_product_video_filenames(db, product.id),
             }
         )

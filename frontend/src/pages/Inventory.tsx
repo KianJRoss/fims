@@ -1,36 +1,52 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Barcode, Loader2, Search, Link } from "lucide-react";
+import { Barcode, Loader2, Search, Link, PenLine, HelpCircle, ClipboardList } from "lucide-react";
 
 import { api } from "../api/client";
 import { useScannerStream } from "../hooks/useScannerStream";
 import ProductImage from "../components/ProductImage";
+import ManualProductEntry from "../components/ManualProductEntry";
 
 type InventorySummary = {
   total_products: number;
   in_store_count: number;
   in_store_with_video: number;
   in_store_without_video: number;
+  needs_review_count: number;
+};
+
+type ScannedProduct = {
+  id: string;
+  name: string;
+  item_number: string | null;
+  image_url: string | null;
+  brand: string | null;
+  supplier: string | null;
+  category: string | null;
+  in_store: boolean;
+  needs_data_review: boolean;
 };
 
 type InventoryScanResponse =
   | { found: false; barcode: string }
   | {
       found: true;
-      product: {
-        id: string;
-        name: string;
-        item_number: string | null;
-        brand: string | null;
-        supplier: string | null;
-        category: string | null;
-        in_store: boolean;
-      };
+      needs_confirmation: boolean;
+      barcode: string;
+      product: ScannedProduct;
       video_match: { filename: string } | null;
       newly_marked: boolean;
     };
 
 type ProductSearchResult = {
+  id: string;
+  name: string;
+  item_number: string | null;
+  image_url: string | null;
+  brand: string | null;
+};
+
+type ReviewQueueItem = {
   id: string;
   name: string;
   item_number: string | null;
@@ -58,6 +74,9 @@ export default function Inventory() {
   const [linkSearch, setLinkSearch] = useState("");
   const [linkResults, setLinkResults] = useState<ProductSearchResult[]>([]);
   const [linkSearching, setLinkSearching] = useState(false);
+  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [rejectedConfirmBarcode, setRejectedConfirmBarcode] = useState<string | null>(null);
+  const [showReviewQueue, setShowReviewQueue] = useState(false);
   const bufferRef = useRef("");
   const timerRef = useRef<number | null>(null);
   const searchTimerRef = useRef<number | null>(null);
@@ -74,8 +93,9 @@ export default function Inventory() {
       return data;
     },
     onSuccess: async (data) => {
+      setRejectedConfirmBarcode(null);
       setCurrentScan(data);
-      if (data.found) {
+      if (data.found && !data.needs_confirmation) {
         setSessionScans((cur) => [{ ...data, scanned_at: Date.now() }, ...cur]);
         setLinkSearch("");
         setLinkResults([]);
@@ -88,14 +108,35 @@ export default function Inventory() {
     scanMutation.mutate(barcode);
   }, [scanMutation.mutate]);
 
+  const confirmMutation = useMutation({
+    mutationFn: async (productId: string) => {
+      const { data } = await api.post<InventoryScanResponse>("/v1/inventory/scan/confirm", { product_id: productId });
+      return data;
+    },
+    onSuccess: async (data) => {
+      setCurrentScan(data);
+      if (data.found) {
+        setSessionScans((cur) => [{ ...data, scanned_at: Date.now() }, ...cur]);
+      }
+      await summaryQuery.refetch();
+    },
+  });
+
   const linkMutation = useMutation({
     mutationFn: async ({ productId, barcode }: { productId: string; barcode: string }) => {
       // Add the barcode to this product, then re-scan so it marks in_store + pairs video
       await api.post(`/v1/products/${productId}/barcodes`, { barcode, is_primary: true });
       const { data } = await api.post<InventoryScanResponse>("/v1/inventory/scan", { barcode });
+      if (data.found && data.needs_confirmation) {
+        // We just attached the barcode ourselves, so the operator has already
+        // confirmed this is the right product — skip the confirmation prompt.
+        const confirmed = await api.post<InventoryScanResponse>("/v1/inventory/scan/confirm", { product_id: data.product.id });
+        return confirmed.data;
+      }
       return data;
     },
     onSuccess: async (data) => {
+      setRejectedConfirmBarcode(null);
       setCurrentScan(data);
       if (data.found) {
         setSessionScans((cur) => [{ ...data, scanned_at: Date.now() }, ...cur]);
@@ -109,6 +150,22 @@ export default function Inventory() {
   const pairVideosMutation = useMutation({
     mutationFn: async () => (await api.post("/v1/inventory/pair-videos")).data,
     onSuccess: () => summaryQuery.refetch(),
+  });
+
+  const reviewQueueQuery = useQuery({
+    queryKey: ["inventory-review-queue"],
+    queryFn: async (): Promise<ReviewQueueItem[]> =>
+      (await api.get("/v1/inventory/products", { params: { needs_data_review: true, size: 100 } })).data,
+    enabled: showReviewQueue,
+    refetchOnWindowFocus: false,
+  });
+
+  const markReviewedMutation = useMutation({
+    mutationFn: async (productId: string) => api.patch(`/v1/products/${productId}`, { needs_data_review: false }),
+    onSuccess: async () => {
+      await reviewQueueQuery.refetch();
+      await summaryQuery.refetch();
+    },
   });
 
   useScannerStream(scanBarcode);
@@ -147,7 +204,7 @@ export default function Inventory() {
     searchTimerRef.current = window.setTimeout(async () => {
       setLinkSearching(true);
       try {
-        const { data } = await api.get("/v1/products", { params: { search: linkSearch.trim(), size: 8 } });
+        const { data } = await api.get("/v1/products", { params: { q: linkSearch.trim(), limit: 8 } });
         setLinkResults(Array.isArray(data) ? data : (data.items ?? []));
       } catch {
         setLinkResults([]);
@@ -159,8 +216,13 @@ export default function Inventory() {
     return () => { if (searchTimerRef.current !== null) window.clearTimeout(searchTimerRef.current); };
   }, [linkSearch]);
 
-  const unknownBarcode = currentScan && !currentScan.found ? currentScan.barcode : null;
+  const needsConfirmation = currentScan?.found && currentScan.needs_confirmation && !rejectedConfirmBarcode;
+  const showSearchPanel =
+    currentScan !== null &&
+    (!currentScan.found || (currentScan.needs_confirmation && rejectedConfirmBarcode === currentScan.barcode));
+  const searchPanelBarcode = currentScan ? currentScan.barcode : null;
   const inStoreCount = summaryQuery.data?.in_store_count ?? 0;
+  const needsReviewCount = summaryQuery.data?.needs_review_count ?? 0;
   const hasCurrentVideo = currentScan?.found ? Boolean(currentScan.video_match) : false;
 
   return (
@@ -184,6 +246,31 @@ export default function Inventory() {
               <span className="uppercase tracking-[0.25em]">{inStoreCount} in store</span>
             </div>
             <button
+              onClick={() => setShowReviewQueue((cur) => !cur)}
+              className={`inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm font-semibold transition ${
+                showReviewQueue
+                  ? "border-amber-500/50 bg-amber-500/10 text-amber-200"
+                  : "border-gray-800 bg-gray-900 text-gray-100 hover:border-amber-500/50 hover:bg-gray-800"
+              }`}
+            >
+              <ClipboardList className="h-4 w-4" />
+              Needs More Data
+              {needsReviewCount > 0 && (
+                <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs text-amber-200">{needsReviewCount}</span>
+              )}
+            </button>
+            <button
+              onClick={() => setShowManualEntry((cur) => !cur)}
+              className={`inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm font-semibold transition ${
+                showManualEntry
+                  ? "border-orange-500/50 bg-orange-500/10 text-orange-200"
+                  : "border-gray-800 bg-gray-900 text-gray-100 hover:border-orange-500/50 hover:bg-gray-800"
+              }`}
+            >
+              <PenLine className="h-4 w-4" />
+              Manual Entry
+            </button>
+            <button
               onClick={() => pairVideosMutation.mutate()}
               disabled={pairVideosMutation.isPending}
               className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-900 px-4 py-2 text-sm font-semibold text-gray-100 transition hover:border-orange-500/50 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
@@ -198,6 +285,86 @@ export default function Inventory() {
       </div>
 
       <div className="space-y-6 px-4 py-6 sm:px-6">
+        {showReviewQueue && (
+          <section className="rounded-3xl border border-amber-500/30 bg-amber-500/5 p-5 space-y-3">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-amber-200/80">
+                <ClipboardList className="h-3.5 w-3.5" />
+                Needs More Data ({reviewQueueQuery.data?.length ?? 0})
+              </div>
+              {reviewQueueQuery.isFetching && <Loader2 className="h-4 w-4 animate-spin text-amber-200/60" />}
+            </div>
+            {(reviewQueueQuery.data?.length ?? 0) === 0 ? (
+              <div className="rounded-2xl border border-dashed border-amber-500/20 bg-gray-950 px-4 py-6 text-center text-sm text-gray-500">
+                Nothing in the priority queue right now.
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {reviewQueueQuery.data!.map((item) => (
+                  <div key={item.id} className="flex items-center justify-between gap-3 rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <ProductImage imageUrl={item.image_url} name={item.name} size="xs" />
+                      <div className="min-w-0">
+                        <div className="font-medium text-gray-100 truncate">{item.name}</div>
+                        <div className="mt-0.5 text-xs text-gray-500">{formatScanNumber(item.item_number)} {item.brand ? `· ${item.brand}` : ""}</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => markReviewedMutation.mutate(item.id)}
+                      disabled={markReviewedMutation.isPending}
+                      className="shrink-0 rounded-xl border border-gray-700 bg-gray-900 px-3 py-1.5 text-xs font-semibold text-gray-300 transition hover:border-emerald-500/40 hover:text-emerald-200 disabled:opacity-50"
+                    >
+                      Mark Reviewed
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {showManualEntry && (
+          <ManualProductEntry
+            prefillBarcode={searchPanelBarcode}
+            flagAsNewInStoreItem
+            onClose={() => setShowManualEntry(false)}
+            onSaved={async (productId) => {
+              await summaryQuery.refetch();
+              if (searchPanelBarcode) {
+                scanBarcode(searchPanelBarcode);
+              } else {
+                try {
+                  const { data } = await api.get(`/v1/products/${productId}`);
+                  setSessionScans((cur) => [
+                    {
+                      found: true,
+                      needs_confirmation: false,
+                      barcode: "",
+                      product: {
+                        id: data.id,
+                        name: data.name,
+                        item_number: data.item_number,
+                        image_url: data.image_url,
+                        brand: data.brand_name,
+                        supplier: null,
+                        category: data.category_name,
+                        in_store: data.in_store,
+                        needs_data_review: data.needs_data_review,
+                      },
+                      video_match: null,
+                      newly_marked: false,
+                      scanned_at: Date.now(),
+                    },
+                    ...cur,
+                  ]);
+                } catch {
+                  // best-effort session list entry; ignore failures
+                }
+              }
+            }}
+          />
+        )}
+
         {/* Current scan result */}
         <section className="rounded-3xl border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-950 p-6 shadow-2xl shadow-black/20">
           <div className="flex min-h-[22rem] items-center justify-center">
@@ -208,6 +375,39 @@ export default function Inventory() {
                 </div>
                 <div className="mt-5 text-2xl font-semibold text-gray-50">Scan a barcode to begin</div>
                 <div className="mt-2 text-sm text-gray-500">The most recent scan will appear here.</div>
+              </div>
+            ) : needsConfirmation && currentScan.found ? (
+              /* Found a catalog match, but it's not marked in_store yet — confirm before trusting it */
+              <div className="w-full rounded-[2rem] border border-amber-500/30 bg-amber-500/5 p-6 sm:max-w-2xl">
+                <div className="text-xs uppercase tracking-[0.25em] text-amber-200/70">Is this the correct product?</div>
+                <div className="mt-4 flex items-center gap-4">
+                  <ProductImage imageUrl={currentScan.product.image_url} name={currentScan.product.name} size="md" />
+                  <div className="min-w-0">
+                    <h2 className="text-2xl font-semibold tracking-tight text-gray-50">{currentScan.product.name}</h2>
+                    <div className="mt-1 text-sm text-orange-200">{formatScanNumber(currentScan.product.item_number)}</div>
+                    <div className="mt-1 text-xs text-gray-500 font-mono">{currentScan.barcode}</div>
+                    {currentScan.product.brand && (
+                      <div className="mt-1 text-xs text-gray-500">{currentScan.product.brand}</div>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-6 flex items-center gap-3">
+                  <button
+                    onClick={() => confirmMutation.mutate(currentScan.product.id)}
+                    disabled={confirmMutation.isPending}
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-gray-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {confirmMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                    Yes, add to In Store
+                  </button>
+                  <button
+                    onClick={() => setRejectedConfirmBarcode(currentScan.barcode)}
+                    disabled={confirmMutation.isPending}
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-gray-700 bg-gray-950 px-5 py-3 text-sm font-semibold text-gray-200 transition hover:border-red-500/40 hover:text-red-200 disabled:opacity-60"
+                  >
+                    No, that's wrong
+                  </button>
+                </div>
               </div>
             ) : currentScan.found ? (
               <div className="w-full rounded-[2rem] border border-gray-800 bg-gray-950/90 p-4 sm:p-6 lg:max-w-[56rem]">
@@ -226,6 +426,9 @@ export default function Inventory() {
                       {currentScan.newly_marked ? (
                         <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-xs uppercase tracking-[0.22em] text-cyan-200">Newly Marked</span>
                       ) : null}
+                      {currentScan.product.needs_data_review ? (
+                        <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs uppercase tracking-[0.22em] text-amber-200">Needs More Data</span>
+                      ) : null}
                     </div>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -236,12 +439,18 @@ export default function Inventory() {
                 </div>
               </div>
             ) : (
-              /* Unknown barcode — show link workflow */
+              /* Unknown barcode, or a confirmation that was rejected — show link workflow */
               <div className="w-full space-y-4 sm:max-w-2xl">
                 <div className="rounded-[2rem] border border-red-500/30 bg-red-500/10 p-6">
-                  <div className="text-xs uppercase tracking-[0.25em] text-red-200/70">Unknown Barcode</div>
+                  <div className="text-xs uppercase tracking-[0.25em] text-red-200/70">
+                    {currentScan.found ? "Barcode Confirmed Incorrect" : "Unknown Barcode"}
+                  </div>
                   <div className="mt-2 text-2xl font-semibold text-red-100 font-mono">{currentScan.barcode}</div>
-                  <div className="mt-1 text-sm text-red-200/80">Search below to link this barcode to the correct product.</div>
+                  <div className="mt-1 text-sm text-red-200/80">
+                    {currentScan.found
+                      ? "Search below for the correct product — this barcode will be moved to whichever product you pick."
+                      : "Search below to link this barcode to the correct product."}
+                  </div>
                 </div>
 
                 <div className="rounded-3xl border border-gray-800 bg-gray-900 p-5 space-y-3">

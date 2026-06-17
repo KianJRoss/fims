@@ -78,6 +78,7 @@ class Product(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     in_store: Mapped[bool] = mapped_column(Boolean, default=False)
     no_video_confirmed: Mapped[bool] = mapped_column(Boolean, default=False)
+    needs_data_review: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow, onupdate=datetime.utcnow

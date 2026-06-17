@@ -31,6 +31,36 @@ class ProductAliasCreate(BaseModel):
     source: str | None = None
 
 
+class ProductCreateRequest(BaseModel):
+    name: str
+    item_number: str | None = None
+    packing: str | None = None
+    description: str | None = None
+    notes: str | None = None
+    category_name: str | None = None
+    brand_name: str | None = None
+    shot_count: int | None = None
+    duration_seconds: int | None = None
+    effects: str | None = None
+    barcode: str | None = None
+    in_store: bool = False
+    needs_data_review: bool = False
+
+
+class ProductUpdateRequest(BaseModel):
+    name: str | None = None
+    item_number: str | None = None
+    packing: str | None = None
+    description: str | None = None
+    notes: str | None = None
+    category_name: str | None = None
+    brand_name: str | None = None
+    shot_count: int | None = None
+    duration_seconds: int | None = None
+    effects: str | None = None
+    needs_data_review: bool | None = None
+
+
 def _serialize_video(video: ProductVideo) -> dict:
     return {
         "id": video.id,
@@ -81,6 +111,7 @@ def _serialize_product_detail(product: Product) -> dict:
         "is_active": product.is_active,
         "in_store": product.in_store,
         "no_video_confirmed": product.no_video_confirmed,
+        "needs_data_review": product.needs_data_review,
         "created_at": product.created_at,
         "updated_at": product.updated_at,
         "barcode_count": len(product.barcodes),
@@ -97,6 +128,32 @@ def _serialize_product_detail(product: Product) -> dict:
         ],
         "videos": [_serialize_video(video) for video in sorted(product.videos, key=lambda item: item.id)],
     }
+
+
+def _get_or_create_category(db: Session, name: str | None) -> int | None:
+    name = (name or "").strip()
+    if not name:
+        return None
+    category = db.execute(select(ProductCategory).where(ProductCategory.name == name)).scalars().first()
+    if category:
+        return category.id
+    category = ProductCategory(name=name)
+    db.add(category)
+    db.flush()
+    return category.id
+
+
+def _get_or_create_brand(db: Session, name: str | None) -> int | None:
+    name = (name or "").strip()
+    if not name:
+        return None
+    brand = db.execute(select(ProductBrand).where(ProductBrand.name == name)).scalars().first()
+    if brand:
+        return brand.id
+    brand = ProductBrand(name=name)
+    db.add(brand)
+    db.flush()
+    return brand.id
 
 
 def _get_product_detail(db: Session, product_id: str) -> Product:
@@ -264,6 +321,79 @@ def list_product_categories(db: Session = Depends(get_db)):
         .scalars()
         .all()
     )
+
+
+@router.get("/all-categories")
+def list_all_categories(db: Session = Depends(get_db)):
+    return [
+        {"id": row.id, "name": row.name}
+        for row in db.execute(select(ProductCategory).order_by(ProductCategory.name.asc())).scalars().all()
+    ]
+
+
+@router.get("/all-brands")
+def list_all_brands(db: Session = Depends(get_db)):
+    return [
+        {"id": row.id, "name": row.name}
+        for row in db.execute(select(ProductBrand).order_by(ProductBrand.name.asc())).scalars().all()
+    ]
+
+
+@router.post("/")
+def create_product(payload: ProductCreateRequest, db: Session = Depends(get_db)):
+    name = payload.name.strip()
+    if not name:
+        raise HTTPException(status_code=400, detail="Name is required")
+
+    product = Product(
+        name=name,
+        item_number=(payload.item_number or "").strip() or None,
+        packing=(payload.packing or "").strip() or None,
+        description=payload.description,
+        notes=payload.notes,
+        category_id=_get_or_create_category(db, payload.category_name),
+        brand_id=_get_or_create_brand(db, payload.brand_name),
+        shot_count=payload.shot_count,
+        duration_seconds=payload.duration_seconds,
+        effects=payload.effects,
+        in_store=payload.in_store,
+        needs_data_review=payload.needs_data_review,
+    )
+    db.add(product)
+    db.flush()
+
+    barcode = (payload.barcode or "").strip()
+    if barcode:
+        db.add(ProductBarcode(product_id=product.id, barcode=barcode, is_primary=True))
+
+    db.commit()
+    return _serialize_product_detail(_get_product_detail(db, product.id))
+
+
+@router.patch("/{product_id}")
+def update_product(product_id: str, payload: ProductUpdateRequest, db: Session = Depends(get_db)):
+    product = _get_product_detail(db, product_id)
+    update_data = payload.model_dump(exclude_unset=True)
+
+    if "category_name" in update_data:
+        product.category_id = _get_or_create_category(db, update_data.pop("category_name"))
+    if "brand_name" in update_data:
+        product.brand_id = _get_or_create_brand(db, update_data.pop("brand_name"))
+    if "name" in update_data:
+        stripped = (update_data.pop("name") or "").strip()
+        if not stripped:
+            raise HTTPException(status_code=400, detail="Name is required")
+        product.name = stripped
+    if "item_number" in update_data:
+        product.item_number = (update_data.pop("item_number") or "").strip() or None
+    if "packing" in update_data:
+        product.packing = (update_data.pop("packing") or "").strip() or None
+
+    for key, value in update_data.items():
+        setattr(product, key, value)
+
+    db.commit()
+    return _serialize_product_detail(_get_product_detail(db, product_id))
 
 
 @router.patch("/{product_id}/in-store")

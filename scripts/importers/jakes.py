@@ -250,10 +250,10 @@ def main(year: str = "2026"):
                     cur.execute(
                         """UPDATE products
                            SET name=%s, description=%s, shot_count=%s,
-                               brand_id=%s, category_id=%s, catalog_page=%s, updated_at=%s
+                               brand_id=%s, category_id=%s, catalog_page=%s, packing=%s, updated_at=%s
                            WHERE id=%s""",
                         (use_name, p.get("description"), p.get("shot_count"),
-                         brand_id, cat_id, page_num, now, pid),
+                         brand_id, cat_id, page_num, p.get("packing"), now, pid),
                     )
                     updated += 1
                 else:
@@ -261,10 +261,10 @@ def main(year: str = "2026"):
                     cur.execute(
                         """INSERT INTO products
                                (id, name, item_number, description, shot_count, brand_id,
-                                category_id, catalog_page, is_active, created_at, updated_at)
-                           VALUES (%s,%s,%s,%s,%s,%s,%s,%s,true,%s,%s)""",
+                                category_id, catalog_page, packing, is_active, created_at, updated_at)
+                           VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,true,%s,%s)""",
                         (pid, name, item_no, p.get("description"), p.get("shot_count"),
-                         brand_id, cat_id, page_num, now, now),
+                         brand_id, cat_id, page_num, p.get("packing"), now, now),
                     )
                     inserted += 1
 
