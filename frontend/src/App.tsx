@@ -12,6 +12,7 @@ import {
   Menu,
   ReceiptText,
   ScanBarcode,
+  Settings as SettingsIcon,
   SquareActivity,
   Tv2,
   X,
@@ -28,6 +29,7 @@ import BarcodePrint from "./pages/BarcodePrint";
 import VideoReview from "./pages/VideoReview";
 import Documents from "./pages/Documents";
 import Suppliers from "./pages/Suppliers";
+import Settings from "./pages/Settings";
 import VideoRemote from "./pages/VideoRemote";
 import ShopLayout from "./pages/shop/ShopLayout";
 import ShopHome from "./pages/shop/ShopHome";
@@ -48,6 +50,7 @@ const navItems = [
   { to: "/deals", label: "Deals", icon: ChevronRight },
   { to: "/reports", label: "Reports", icon: BarChart3 },
   { to: "/receipts", label: "Receipts", icon: ReceiptText },
+  { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
 export default function App() {
@@ -136,6 +139,7 @@ export default function App() {
           <Route path="/deals" element={<Deals />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/receipts" element={<Receipts />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
 

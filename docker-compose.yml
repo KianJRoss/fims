@@ -46,6 +46,7 @@ services:
       DATABASE_URL: postgresql+psycopg://fims:fims@postgres:5432/fims
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: change-me-in-production
+      EMAIL_ENCRYPTION_KEY: "${EMAIL_ENCRYPTION_KEY:-}"
       MEDIA_ROOT: /app/media
       ENVIRONMENT: development
       VIDEO_PI_URL: "${VIDEO_PI_URL:-}"
@@ -73,6 +74,7 @@ services:
       DATABASE_URL: postgresql+psycopg://fims:fims@postgres:5432/fims
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: change-me-in-production
+      EMAIL_ENCRYPTION_KEY: "${EMAIL_ENCRYPTION_KEY:-}"
       MEDIA_ROOT: /app/media
       VIDEO_PI_URL: "${VIDEO_PI_URL:-}"
     volumes:
@@ -99,8 +101,11 @@ services:
       DATABASE_URL: postgresql+psycopg://fims:fims@postgres:5432/fims
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: change-me-in-production
+      EMAIL_ENCRYPTION_KEY: "${EMAIL_ENCRYPTION_KEY:-}"
+      MEDIA_ROOT: /app/media
     volumes:
       - ./backend:/app
+      - ./media:/app/media
     depends_on:
       postgres:
         condition: service_healthy

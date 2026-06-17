@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from celery import Celery
 
 from app.core.config import settings
@@ -12,6 +14,7 @@ celery_app = Celery(
         "app.worker.tasks.video_search",
         "app.worker.tasks.reports",
         "app.worker.tasks.issuu_import",
+        "app.worker.tasks.email_sync",
     ],
 )
 
@@ -26,5 +29,12 @@ celery_app.conf.update(
         "catalog_import.*": {"queue": "imports"},
         "video_search.*": {"queue": "imports"},
         "app.worker.tasks.reports.*": {"queue": "reports"},
+        "app.worker.tasks.email_sync.*": {"queue": "imports"},
+    },
+    beat_schedule={
+        "sync-email-accounts-every-15-minutes": {
+            "task": "app.worker.tasks.email_sync.sync_email_accounts",
+            "schedule": timedelta(minutes=15),
+        },
     },
 )

@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "dev-secret-key"
     ENVIRONMENT: str = "development"
     MEDIA_ROOT: str = "./media"
+    EMAIL_ENCRYPTION_KEY: str | None = None
+    RECEIPT_PRINTER_HOST: str = ""
+    RECEIPT_PRINTER_PORT: int = 9100
 
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173"]
 

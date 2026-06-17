@@ -4,6 +4,7 @@ from app.api.v1.endpoints import (
     barcodes,
     deals,
     documents,
+    email_accounts,
     costing,
     imports,
     inventory,
@@ -43,3 +44,4 @@ api_router.include_router(kiosk.router, prefix="/kiosk", tags=["Kiosk (Pi)"])
 api_router.include_router(videos.router, prefix="/videos", tags=["Videos"])
 api_router.include_router(video_library.router, prefix="/video-library", tags=["Video Library"])
 api_router.include_router(documents.router, prefix="/documents", tags=["Documents"])
+api_router.include_router(email_accounts.router, prefix="/email-accounts", tags=["Email Accounts"])

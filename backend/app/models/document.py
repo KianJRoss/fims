@@ -18,6 +18,7 @@ class StoreDocument(Base):
     file_size: Mapped[int | None] = mapped_column(Integer)
     mime_type: Mapped[str | None] = mapped_column(String(100))
     notes: Mapped[str | None] = mapped_column(Text)
+    source: Mapped[str | None] = mapped_column(String(60))
     uploaded_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     supplier_name: Mapped[str | None] = mapped_column(String(120))
     doc_date: Mapped[str | None] = mapped_column(String(20))

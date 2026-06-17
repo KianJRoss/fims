@@ -11,6 +11,7 @@ from .user import User, UserRole
 from .audit import AuditLog
 from .import_job import ImportJob, ImportRow
 from .document import StoreDocument
+from .email_account import EmailAccount
 
 __all__ = [
     "Product", "ProductBarcode", "ProductCategory", "ProductBrand",
@@ -26,4 +27,5 @@ __all__ = [
     "AuditLog",
     "ImportJob", "ImportRow",
     "StoreDocument",
+    "EmailAccount",
 ]

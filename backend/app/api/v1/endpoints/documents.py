@@ -40,6 +40,7 @@ def _serialize_document(document: StoreDocument) -> dict:
         "file_size": document.file_size,
         "mime_type": document.mime_type,
         "notes": document.notes,
+        "source": document.source,
         "uploaded_at": document.uploaded_at,
         "supplier_name": document.supplier_name,
         "doc_date": document.doc_date,

@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any
 import uuid
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.db.session import get_db
 from app.models.pricing import PriceType
 from app.models.sales import Receipt, Sale, SaleItem
+from app.services.receipt_printer import print_receipt, receipt_print_payload
 
 router = APIRouter()
 
@@ -77,7 +78,11 @@ def _sale_query():
 
 
 @router.post("/")
-def create_sale(payload: SaleCreatePayload, db: Session = Depends(get_db)):
+def create_sale(
+    payload: SaleCreatePayload,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+):
     now = datetime.utcnow()
     retail_price_type_id = db.execute(select(PriceType.id).where(PriceType.code == "RETAIL")).scalar_one_or_none()
 
@@ -121,12 +126,19 @@ def create_sale(payload: SaleCreatePayload, db: Session = Depends(get_db)):
     refreshed_sale = (
         db.execute(
             select(Sale)
-            .options(joinedload(Sale.items), joinedload(Sale.receipt))
+            .options(
+                joinedload(Sale.items).joinedload(SaleItem.product),
+                joinedload(Sale.receipt),
+            )
             .where(Sale.id == sale.id)
         )
         .unique()
         .scalar_one()
     )
+    sale_for_print, items_for_print = receipt_print_payload(refreshed_sale)
+    background_tasks.add_task(print_receipt, sale_for_print, items_for_print, "customer")
+    if refreshed_sale.payment_method == "CARD":
+        background_tasks.add_task(print_receipt, sale_for_print, items_for_print, "merchant")
     return _serialize_sale(refreshed_sale)
 
 
