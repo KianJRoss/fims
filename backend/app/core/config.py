@@ -15,9 +15,5 @@ class Settings(BaseSettings):
 
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173"]
 
-    # Token settings
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 8  # 8-hour shift
-    ALGORITHM: str = "HS256"
-
 
 settings = Settings()

@@ -155,12 +155,14 @@ _Last reconciled against actual code/DB on 2026-06-17. The Pi (`KianPotPi`) is t
 
 ### Not Yet Built
 - Inventory — cases on hand, receiving workflow
-- Shift open/close / cash drawer reconciliation
 - Purchase order workflow
 - Email receipt to customer (SMTP send at checkout) — inbound email scraping is built, outbound is not
-- User authentication / manager vs. employee roles
 - "Build your show" tool
 - Year-over-year sales comparison (needs a full year of data first)
+
+### Explicitly Out of Scope
+- User authentication / manager vs. employee roles — single small pop-up store, not worth the complexity
+- Shift open/close / cash drawer reconciliation — same reason
 
 ---
 
@@ -319,10 +321,6 @@ completeness (missing data) and correctness (wrong data), not just for one brand
 - Simple integer field on products: `cases_on_hand`
 - Increment on receive, decrement on sale (by packing ratio)
 - Low stock alert in Reports
-
-**Shift reconciliation** *(Medium)*
-- Open register: count drawer, enter starting cash
-- Close register: count drawer, system shows expected vs. actual, prints reconciliation sheet
 
 ### Priority 3 — Customer Experience
 
