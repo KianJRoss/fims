@@ -370,11 +370,26 @@ completeness (missing data) and correctness (wrong data), not just for one brand
 
 | Device | Role | Connection |
 |--------|------|------------|
-| Raspberry Pi | FIMS server, database, main UI | LAN IP (store WiFi), Tailscale 100.73.208.99 |
-| PC (MSI) | Development machine (code editing) | localhost |
+| KianPotPi | FIMS server: Postgres, Redis, all docker containers (api/web/worker/beat/proxy) | LAN `192.168.0.105` (DHCP, can change), mDNS `kianpotpi.local`, Tailscale `100.73.208.99`, repo at `~/fims` |
+| Video Pi | Dedicated kiosk display driver — runs `player_service.py` (FastAPI/mpv), separate machine from KianPotPi | LAN `192.168.0.198`, SSH `pi@192.168.0.198`, service on **port 7777** (not the file's hardcoded default of 8090 — check `VIDEO_PI_URL` in KianPotPi's `.env`), videos live at `/media/pi/VIDEOS/videos/` |
+| Old kiosk Pi (USB drive) | Legacy "PyroSalesman" kiosk app — barcode-scan-interrupts-loop video player, predates the current system | Physically a USB drive plugged into **KianPotPi** as storage (not booted). Boot partition (`sda6`, FAT32) auto-mounts at `/media/krioasns/boot`; main rootfs (`sda7`, ext4) needs manual mount: `sudo mount -o ro /dev/sda7 /mnt/oldpi`. App at `/mnt/oldpi/home/pi/python/pyrosalesman_v40.py` (latest version; `BackUp/` has older versions + an old `redrhino.db`). **Unmount when done**: `sudo umount /mnt/oldpi` |
+| KianPuter (PC) | Secondary dev machine, separate git clone of fims | LAN `192.168.0.27`, Tailscale `100.99.89.118`, SSH alias `pc`, repo at `C:\FIMS` |
+| MSI Laptop | Primary dev machine (Claude Code runs here) | Local clone at `C:\Users\batma\Fireworks Store\fims`, local Docker Postgres for dev/testing |
 | Dejavoo Z8 | Credit card processing, receipt printing | TCP/IP or USB |
 | Royal 435DX | Cash handling only | Not integrated |
 | Barcode scanner | Sales scan, product lookup | USB HID → browser input |
+
+### Where to find things (as of 2026-06-18)
+- **Catalog data sourcing** (Issuu CDN IDs, wholesale site survey notes): `docs/DATA_SOURCES.md`
+- **No Name/RM scraped data**: `scripts/catalogs/noname/2026/` (`gotfireworks_links.json` = PDF→URL map, `gotfireworks_scraped.json` = pulled product data, `noname_parsed_preview.json` = OCR parse)
+- **Legacy Red Rhino kiosk data**: `scripts/catalogs/legacy/` (`redrhino_products.csv`, `videopi_filelist.txt`) — sourced from `redrhino.db` on the Video Pi (`/media/pi/VIDEOS/redrhino.db`)
+- **Product photo pullers** (always overwrite, not just fill gaps): `scripts/download_gotfireworks_images.py`, `scripts/download_worldclass_images.py`
+- **Barcode/SKU fix script**: `scripts/verify_worldclass_barcodes.py`
+- **Live served product images**: `media/product_images/` on whichever host (laptop/KianPotPi) — not the same as the raw OCR extraction dirs under `scripts/catalogs/**/product_images/` (gitignored, not needed for live operation)
+- **Inventory scan/confirm logic**: `backend/app/api/v1/endpoints/inventory.py`
+- **Video player control + idle-loop filter**: `backend/app/api/v1/endpoints/video_library.py`
+- **Main merged UI pages**: `frontend/src/pages/ProductCatalog.tsx` (Products: Catalog/Initialization/Data Entry/Pricing tabs), `frontend/src/pages/VideoReview.tsx` (Videos: Review Queue/Remote tabs)
+- **Standing data-quality concerns**: see Priority 0 in the roadmap below
 
 ---
 
