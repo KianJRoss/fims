@@ -126,67 +126,69 @@ fims/
 
 ## Current Implementation Status
 
+_Last reconciled against actual code/DB on 2026-06-17. The Pi (`KianPotPi`) is the real running deployment — see Hardware Reference below — and had drifted far ahead of this list for months; verify against code before trusting "not yet built" claims again._
+
 ### Built ✓
-- Product catalog with 548 World Class products (Jake's 2026 via Issuu text layer)
+- Product catalog: 543 World Class + 140 No Name + Pyro Box/Sunwing/Suns Fireworks/Supreme/Miracle/etc — ~870 products across 17 brands (live counts via `product_brands`)
 - Multi-brand checkbox filter, catalog sort by page number
 - Video review queue: YouTube search, confirm, download via yt-dlp
-- Sales screen: barcode scan, product search, cart, deal application, complete sale
-- Pricing: multi-type price management with history
+- Sales screen: barcode scan, product search, cart, deal application, complete sale, **$0-price guard** (frontend disables checkout; backend now also rejects mismatched/unknown prices server-side)
+- Pricing: multi-type price management with history; price types seeded via migration
 - Deal engine: BXGY, BUNDLE, PERCENT_OFF, FLAT_AMOUNT, CHEAPEST_FREE
 - Documents tab: file storage (upload/download/delete) + catalog import
-- Issuu scraper: fetches text layer by CDN ID, auto-imports Jake's or creates review rows
-- PDF import pipeline: upload → OCR → review rows → commit
-- Mobile network access: Caddy binds 0.0.0.0:80, VITE_API_URL is relative
+- Issuu scraper (Jake's) + PDF/OCR import pipeline (No Name) → review rows → commit
+- Mobile network access + **mobile-responsive nav** (hamburger drawer, bottom-safe header)
 - Barcode print page
+- **Reports page**: daily totals, transaction list + expandable detail, cash/card breakdown, date picker
+- **Transaction history / receipt lookup**: via Reports + dedicated Receipt/Receipts pages, QR-token lookup exposed publicly through Tailscale Funnel (`/receipt*`)
+- **Hold/park transaction**: park cart, recall or delete from parked list
+- **Supplier management**: CRUD API + reconciliation UI
+- **Product aliases**: alternate-name table, matched on import
+- **Email inbox scraping**: IMAP sync every 15 min (Celery beat), Settings page for account config, encrypted credential storage
+- **Dejavoo Z8 receipt printing**: printer service wired to sale/receipt endpoints (env vars now correctly passed to the `api` container)
+- **Customer-facing shop + QR flow**: public `/shop` and `/receipt` routes via Tailscale Funnel (Caddyfile), product images
+- **Pi kiosk / idle-loop video**: barcode scan drives video playback on the dedicated Video Pi, filterable idle-loop playlist
+- **Off-network access**: solved via Tailscale Funnel (`kianpotpi.taile4f97e.ts.net`), not Cloudflare Tunnel
 
 ### In Progress / Partial
-- Reports page — stub, "Coming soon"
-- Mobile-responsive nav — desktop sidebar only, no mobile bottom bar yet
-- Product names — ~400 products still named "Item {sku}" (OCR script in progress)
-- Receipt printing — no printer integration yet
-- Email scraping — planned, not started
+- Product names — some products may still need name cleanup (OCR/vision-assisted naming scripts exist: `apply_names_vision.py`, `fix_names_from_images.py`)
 
 ### Not Yet Built
-- Transaction history / receipt lookup
-- Inventory (cases on hand, receiving workflow)
+- Inventory — cases on hand, receiving workflow
 - Shift open/close / cash drawer reconciliation
-- Supplier management UI
 - Purchase order workflow
-- Dejavoo Z8 receipt printer integration
-- Cloudflare Tunnel for off-network access
-- Email inbox scraping for boss's invoices/price lists
-- Customer-facing product QR codes
-- Pi kiosk display (video plays when item scanned at register)
-- Product aliases / alternate name table
+- Email receipt to customer (SMTP send at checkout) — inbound email scraping is built, outbound is not
 - User authentication / manager vs. employee roles
+- "Build your show" tool
+- Year-over-year sales comparison (needs a full year of data first)
 
 ---
 
 ## Suppliers
 
+Live product counts by brand (`product_brands`, checked 2026-06-17 — re-run the query below rather than trusting this table long-term):
+`World Class 543, NO NAME 140, SUNS FIREWORKS 75, PYRO BOX 40, SUNWING 36, SUPREME 30, Miracle 22, TOP GUN 9, Boomer 6, ASIA PYRO 3, BLACK CAT 2, FORWARD 2, OTHER 2, BROTHERS 1, NITRO 1, GENERIC 1, THUNDERBOMB 1`
+
 | Supplier | Brand(s) | Notes |
 |----------|----------|-------|
 | Jake's Fireworks | World Class | 2026 catalog imported via Issuu |
-| RM Enterprises | No Name, others | Price lists needed; NoName2026.pdf exists |
-| Black Cat | Black Cat | No catalog yet |
-| Pyro Box | Pyro Box | No catalog yet |
-| Sunwing | Sunwing | No catalog yet |
+| RM Enterprises | No Name, others | Imported via PDF/OCR pipeline (`scripts/importers/noname.py`) + gotfireworks.com crosscheck/scrape scripts in `scripts/` |
+| Black Cat | Black Cat | Only 2 products in DB — catalog likely still incomplete |
+| Pyro Box | Pyro Box | 40 products in DB |
+| Sunwing | Sunwing | 36 products in DB |
 
 ---
 
 ## Alembic Migration Chain
 
+This list has gone stale every time it's been hand-maintained — 18 revision files exist as of 2026-06-17, far more than were ever drawn here. Don't hand-update this; instead run:
+
+```bash
+docker compose exec api alembic history
+docker compose exec api alembic current
 ```
-971c32055cad (base)
-  → 6f8d3b2a9c11
-    → a1b2c3d4e5f6 (video download_status)
-      → b2c3d4e5f6a1
-        → c3d4e5f6a1b2 (in_store)
-          → d4e5f6a1b2c3 (no_video_confirmed)
-            → e5f6a1b2c3d4 (store_documents)
-              → f6a1b2c3d4e5 (catalog_page)
-                → g7b2c3d4e5f6 (seed price types) [pending]
-```
+
+Current head as of 2026-06-17: `69888783a2f3` (merge point resolving a brief divergence between a `needs_data_review` migration and an `email accounts` migration — confirmed single head, no orphans).
 
 ---
 
