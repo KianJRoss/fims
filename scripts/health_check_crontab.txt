@@ -1,0 +1,4 @@
+# Install with: crontab -e, then paste the line below
+# Or append this file with: (crontab -l 2>/dev/null; cat scripts/health_check_crontab.txt) | crontab -
+# Assumes the repo is cloned to /home/krioasns/fims and python3 is available at /usr/bin/python3.
+*/5 * * * * cd /home/krioasns/fims && /usr/bin/python3 scripts/health_check.py >/dev/null 2>&1

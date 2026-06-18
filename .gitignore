@@ -68,3 +68,6 @@ scripts/catalogs/jakes/2026/product_images/
 
 # Celery schedule
 backend/celerybeat-schedule
+
+# Health check state
+scripts/.health_check_state.json
