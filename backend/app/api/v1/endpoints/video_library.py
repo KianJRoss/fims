@@ -216,6 +216,12 @@ def set_idle_filter(body: IdleFilterRequest, db: Session = Depends(get_db)):
     paths = [f"/media/pi/VIDEOS/videos/{Path(name).name}" for name in unique_filenames]
 
     post_to_video_pi("/idle/playlist", {"paths": paths})
+    # The idle loop only re-reads the playlist between full cycles, so without this a filter
+    # change wouldn't actually take effect until whatever was already playing finished its
+    # entire (possibly much larger/unfiltered) pass. /stop kills the current mpv process, which
+    # makes the idle loop's background thread immediately rebuild and respawn from the playlist
+    # we just set, instead of waiting.
+    post_to_video_pi("/stop")
     return {"status": "ok", "matched_products": len(matched_product_ids), "video_count": len(paths)}
 
 
