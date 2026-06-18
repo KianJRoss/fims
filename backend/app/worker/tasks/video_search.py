@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+from datetime import datetime, timezone
 
 import psycopg
 
@@ -55,8 +56,9 @@ def find_product_videos(product_id: str, product_name: str, item_number: str | N
                         INSERT INTO product_videos
                             (product_id, file_path, source, url, youtube_id, title,
                              thumbnail_url, search_query, confirmed, is_primary,
-                             original_filename, duration_seconds)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                             original_filename, duration_seconds, uploaded_at,
+                             video_filename)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                         """,
                         (
                             product_id,
@@ -71,6 +73,8 @@ def find_product_videos(product_id: str, product_name: str, item_number: str | N
                             False,
                             None,
                             None,
+                            datetime.now(timezone.utc).replace(tzinfo=None),
+                            youtube_id,
                         ),
                     )
         conn.commit()
