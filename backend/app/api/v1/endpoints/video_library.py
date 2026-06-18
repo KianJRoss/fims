@@ -12,9 +12,16 @@ from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.models.pricing import PriceType, ProductPrice
-from app.models.product import Product
+from app.models.product import Product, ProductCategory
 
 router = APIRouter()
+
+
+class IdleFilterRequest(BaseModel):
+    brand_id: list[int] = Field(default_factory=list)
+    category: str | None = None
+    in_store: bool | None = None
+    q: str | None = None
 
 product_videos_table = table(
     "product_videos",
@@ -171,6 +178,45 @@ def play_video(body: PlayRequest, db: Session = Depends(get_db)):
 @router.post("/player/stop")
 def stop_video():
     return post_to_video_pi("/stop")
+
+
+@router.post("/player/idle/filter")
+def set_idle_filter(body: IdleFilterRequest, db: Session = Depends(get_db)):
+    """Build the looping idle playlist from a product filter (brand/category/in_store/search)
+    instead of the fixed in-store-or-high-price algorithm in /idle/sync."""
+    video_pi_url = get_video_pi_url()
+    if not video_pi_url:
+        return {"status": "not_configured"}
+
+    stmt = select(Product.id).where(Product.is_active.is_(True))
+    if body.in_store is not None:
+        stmt = stmt.where(Product.in_store.is_(body.in_store))
+    if body.category:
+        stmt = stmt.where(Product.category.has(ProductCategory.name == body.category))
+    if body.brand_id:
+        stmt = stmt.where(Product.brand_id.in_(body.brand_id))
+    if body.q:
+        stmt = stmt.where(or_(Product.name.ilike(f"%{body.q}%"), Product.item_number.ilike(f"%{body.q}%")))
+
+    matched_product_ids = db.execute(stmt).scalars().all()
+    if not matched_product_ids:
+        post_to_video_pi("/idle/playlist", {"paths": []})
+        return {"status": "ok", "matched_products": 0, "video_count": 0}
+
+    video_filenames = (
+        db.execute(
+            select(product_videos_table.c.video_filename)
+            .where(product_videos_table.c.product_id.in_(matched_product_ids))
+            .where(product_videos_table.c.video_filename.isnot(None))
+        )
+        .scalars()
+        .all()
+    )
+    unique_filenames = sorted({name.strip() for name in video_filenames if name and name.strip()})
+    paths = [f"/media/pi/VIDEOS/videos/{Path(name).name}" for name in unique_filenames]
+
+    post_to_video_pi("/idle/playlist", {"paths": paths})
+    return {"status": "ok", "matched_products": len(matched_product_ids), "video_count": len(paths)}
 
 
 @router.post("/player/idle/sync")

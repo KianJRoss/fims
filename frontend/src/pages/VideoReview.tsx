@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, PlayCircle, Power, Search, Tv2, VideoOff } from "lucide-react";
+import { Barcode, Loader2, PlayCircle, Power, Repeat, Search, Tv2, VideoOff } from "lucide-react";
 
 import ProductImage from "../components/ProductImage";
+import { useScannerStream } from "../hooks/useScannerStream";
 
 const apiBase = (import.meta.env.VITE_API_URL ?? "/api").replace(/\/$/, "");
 const api = axios.create({ baseURL: apiBase });
@@ -401,6 +402,16 @@ type PlayResult =
 
 type VideoStatusResponse = Record<string, unknown> | null;
 
+type RemoteBrand = { id: number; name: string };
+
+type IdleFilterResult = { status: string; matched_products?: number; video_count?: number };
+
+function isEditableTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName.toLowerCase();
+  return target.isContentEditable || tag === "input" || tag === "textarea" || tag === "select";
+}
+
 function getFilename(value: string | null | undefined) {
   if (!value) return null;
   const trimmed = value.trim();
@@ -442,7 +453,15 @@ function RemoteView() {
   const [searching, setSearching] = useState(false);
   const [lastPlayed, setLastPlayed] = useState<RemoteProductResult | null>(null);
   const [playError, setPlayError] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filterBrandIds, setFilterBrandIds] = useState<number[]>([]);
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterInStoreOnly, setFilterInStoreOnly] = useState(true);
+  const [loopInfo, setLoopInfo] = useState<IdleFilterResult | null>(null);
+  const [scanMessage, setScanMessage] = useState<string | null>(null);
   const searchTimerRef = useRef<number | null>(null);
+  const bufferRef = useRef("");
+  const bufferTimerRef = useRef<number | null>(null);
 
   const statusQuery = useQuery({
     queryKey: ["video-remote-status"],
@@ -454,6 +473,16 @@ function RemoteView() {
   const statusData = statusQuery.data;
   const statusFilename = statusData ? extractStatusFilename(statusData) : null;
   const playing = statusData ? isPlayingStatus(statusData, statusFilename) : false;
+
+  const brandsQuery = useQuery({
+    queryKey: ["brands", "video-remote"],
+    queryFn: async (): Promise<RemoteBrand[]> => (await api.get("/v1/brands/")).data,
+  });
+
+  const categoriesQuery = useQuery({
+    queryKey: ["product-categories"],
+    queryFn: async (): Promise<string[]> => (await api.get("/v1/products/categories")).data,
+  });
 
   // Quick-access list: in-store products (small, fast, already paginated by the API)
   const inStoreQuery = useQuery({
@@ -509,6 +538,80 @@ function RemoteView() {
     },
   });
 
+  const loopFilterMutation = useMutation({
+    mutationFn: async (): Promise<IdleFilterResult> => {
+      const { data } = await api.post("/v1/video-library/player/idle/filter", {
+        brand_id: filterBrandIds,
+        category: filterCategory || null,
+        in_store: filterInStoreOnly ? true : null,
+      });
+      return data;
+    },
+    onSuccess: (data) => setLoopInfo(data),
+  });
+
+  // Scan a barcode anywhere on this page -> resolve to a product -> override and play immediately,
+  // same "scan interrupts the loop" behavior as the old kiosk's barcode-polling play_loop().
+  const scanPlayMutation = useMutation({
+    mutationFn: async (barcode: string) => {
+      const { data: matches } = await api.get(`/v1/products/lookup/barcode/${encodeURIComponent(barcode)}`);
+      const match = Array.isArray(matches) ? matches[0] : null;
+      if (!match) return { status: "not_found" as const, barcode };
+      const product: RemoteProductResult = {
+        id: match.id,
+        name: match.name,
+        item_number: match.item_number,
+        image_url: null,
+        brand_name: null,
+        in_store: true,
+      };
+      const { data } = await api.post("/v1/video-library/player/play", { product_id: product.id });
+      if (data?.status === "no_match") return { status: "no_match" as const, product };
+      return { status: "ok" as const, product };
+    },
+    onSuccess: async (result) => {
+      if (result.status === "not_found") {
+        setScanMessage(`Barcode ${result.barcode} isn't in the catalog.`);
+      } else if (result.status === "no_match") {
+        setScanMessage(`No video found for "${result.product.name}".`);
+        setLastPlayed(null);
+      } else {
+        setScanMessage(null);
+        setLastPlayed(result.product);
+      }
+      await statusQuery.refetch();
+    },
+    onError: () => setScanMessage("Could not look up that barcode."),
+  });
+
+  const flushScanBuffer = useCallback(() => {
+    if (bufferTimerRef.current !== null) { window.clearTimeout(bufferTimerRef.current); bufferTimerRef.current = null; }
+    const barcode = bufferRef.current.trim();
+    bufferRef.current = "";
+    if (barcode.length < 6) return;
+    scanPlayMutation.mutate(barcode);
+  }, [scanPlayMutation]);
+
+  useScannerStream((barcode) => scanPlayMutation.mutate(barcode));
+
+  // Keyboard-wedge barcode scanners just type characters fast then Enter, same as Inventory's listener
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isEditableTarget(event.target)) return;
+      if (event.key === "Enter") { event.preventDefault(); flushScanBuffer(); return; }
+      if (event.key.length !== 1 || event.metaKey || event.ctrlKey || event.altKey) return;
+      bufferRef.current += event.key;
+      if (bufferTimerRef.current !== null) window.clearTimeout(bufferTimerRef.current);
+      bufferTimerRef.current = window.setTimeout(flushScanBuffer, 100);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      if (bufferTimerRef.current !== null) window.clearTimeout(bufferTimerRef.current);
+    };
+  }, [flushScanBuffer]);
+
   const showResults = search.trim().length >= 2;
   const listToShow = showResults ? results : inStoreQuery.data ?? [];
 
@@ -524,15 +627,113 @@ function RemoteView() {
           <span className="uppercase tracking-[0.25em]">{playing ? "playing" : "idle"}</span>
           {playing && lastPlayed ? <span className="max-w-[18rem] truncate text-gray-300">- {lastPlayed.name}</span> : null}
         </div>
-        <button
-          onClick={() => stopMutation.mutate()}
-          disabled={stopMutation.isPending}
-          className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-900 px-4 py-3 text-sm font-semibold text-gray-100 transition hover:border-gray-700 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {stopMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Power className="h-4 w-4" />}
-          Return to Idle
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowFilters((cur) => !cur)}
+            className={`inline-flex items-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+              showFilters ? "border-orange-500/50 bg-orange-500/10 text-orange-200" : "border-gray-800 bg-gray-900 text-gray-100 hover:border-orange-500/50 hover:bg-gray-800"
+            }`}
+          >
+            <Repeat className="h-4 w-4" />
+            Loop Settings
+          </button>
+          <button
+            onClick={() => stopMutation.mutate()}
+            disabled={stopMutation.isPending}
+            className="inline-flex items-center gap-2 rounded-2xl border border-gray-800 bg-gray-900 px-4 py-3 text-sm font-semibold text-gray-100 transition hover:border-gray-700 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {stopMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Power className="h-4 w-4" />}
+            Return to Idle
+          </button>
+        </div>
       </div>
+
+      {scanMessage && (
+        <div className="flex items-center gap-2 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+          <Barcode className="h-4 w-4 shrink-0" />
+          {scanMessage}
+        </div>
+      )}
+
+      {showFilters && (
+        <section className="rounded-3xl border border-gray-800 bg-gray-900 p-5 space-y-4">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gray-400">
+            <Repeat className="h-3.5 w-3.5" />
+            Idle loop — choose what plays on repeat
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Brands</div>
+              <div className="max-h-40 overflow-y-auto space-y-1 pr-1 rounded-2xl border border-gray-800 bg-gray-950 p-2">
+                {(brandsQuery.data ?? []).map((brand) => {
+                  const checked = filterBrandIds.includes(brand.id);
+                  return (
+                    <label
+                      key={brand.id}
+                      className={`flex cursor-pointer items-center gap-2 rounded-xl border px-2.5 py-1.5 text-xs transition ${
+                        checked ? "border-orange-500/60 bg-orange-500/10 text-orange-100" : "border-gray-800 bg-gray-950 text-gray-400 hover:border-gray-700"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() =>
+                          setFilterBrandIds((prev) => (checked ? prev.filter((id) => id !== brand.id) : [...prev, brand.id]))
+                        }
+                        className="accent-orange-500"
+                      />
+                      <span className="truncate">{brand.name}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Category</div>
+              <select
+                value={filterCategory}
+                onChange={(event) => setFilterCategory(event.target.value)}
+                className="w-full rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-100 outline-none focus:border-orange-500"
+              >
+                <option value="">All categories</option>
+                {(categoriesQuery.data ?? []).map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+
+              <label className="mt-3 flex items-center gap-2 text-sm text-gray-300">
+                <input
+                  type="checkbox"
+                  checked={filterInStoreOnly}
+                  onChange={(event) => setFilterInStoreOnly(event.target.checked)}
+                  className="h-4 w-4 accent-orange-500"
+                />
+                In-store products only
+              </label>
+            </div>
+
+            <div className="flex flex-col justify-between gap-3">
+              <button
+                onClick={() => loopFilterMutation.mutate()}
+                disabled={loopFilterMutation.isPending}
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 px-4 py-3 text-sm font-semibold text-gray-950 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loopFilterMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Repeat className="h-4 w-4" />}
+                Start Loop
+              </button>
+              {loopInfo && (
+                <div className="rounded-2xl border border-gray-800 bg-gray-950 px-3 py-2 text-xs text-gray-400">
+                  Now looping <span className="text-gray-200 font-semibold">{loopInfo.video_count ?? 0}</span> video
+                  {loopInfo.video_count === 1 ? "" : "s"} across {loopInfo.matched_products ?? 0} matching product
+                  {loopInfo.matched_products === 1 ? "" : "s"}.
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="rounded-3xl border border-gray-800 bg-gray-900 p-4 shadow-2xl shadow-black/20">
         <label className="flex items-center gap-3 rounded-2xl border border-gray-800 bg-gray-950 px-4 py-3">
