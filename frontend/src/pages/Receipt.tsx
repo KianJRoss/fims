@@ -56,7 +56,7 @@ export default function Receipt() {
         throw new Error("Missing receipt token");
       }
 
-      const { data } = await api.get<ReceiptResponse>(`/receipts/${encodeURIComponent(token)}`);
+      const { data } = await api.get<ReceiptResponse>(`/v1/receipts/${encodeURIComponent(token)}`);
       return data;
     },
     retry: false,
