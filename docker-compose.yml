@@ -47,6 +47,8 @@ services:
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: change-me-in-production
       EMAIL_ENCRYPTION_KEY: "${EMAIL_ENCRYPTION_KEY:-}"
+      RECEIPT_PRINTER_HOST: "${RECEIPT_PRINTER_HOST:-}"
+      RECEIPT_PRINTER_PORT: "${RECEIPT_PRINTER_PORT:-9100}"
       MEDIA_ROOT: /app/media
       ENVIRONMENT: development
       VIDEO_PI_URL: "${VIDEO_PI_URL:-}"

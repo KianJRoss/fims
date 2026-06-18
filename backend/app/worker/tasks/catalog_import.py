@@ -18,6 +18,7 @@ PRICE_RE = re.compile(r"^\d+\.\d+$")
 SHOT_RE = re.compile(r"(\d+)\s*[Ss]hots?")
 
 DB_URL = "postgresql://fims:fims@postgres:5432/fims"
+TRANSIENT_PARSE_EXCEPTIONS = (OSError, psycopg.OperationalError)
 
 
 def is_item_code(line: str) -> bool:
@@ -350,7 +351,9 @@ def parse_catalog_pdf(self, job_id: int, pdf_path: str, media_root: str):
                 (str(exc), job_id),
             )
         conn.commit()
-        raise self.retry(exc=exc, countdown=30)
+        if isinstance(exc, TRANSIENT_PARSE_EXCEPTIONS):
+            raise self.retry(exc=exc, countdown=30)
+        raise
     finally:
         conn.close()
 

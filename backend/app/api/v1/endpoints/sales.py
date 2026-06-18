@@ -1,20 +1,24 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 from typing import Any
 import uuid
 
-from fastapi import APIRouter, BackgroundTasks, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
 
 from app.db.session import get_db
-from app.models.pricing import PriceType
+from app.models.pricing import PriceType, ProductPrice
 from app.models.sales import Receipt, Sale, SaleItem
 from app.services.receipt_printer import print_receipt, receipt_print_payload
 
 router = APIRouter()
+MONEY_CENT = Decimal("0.01")
+MONEY_TOLERANCE = Decimal("0.01")
 
 
 class SaleItemPayload(BaseModel):
@@ -32,6 +36,15 @@ class SaleCreatePayload(BaseModel):
     payment_method: str | None = None
     card_last4: str | None = None
     applied_deal_ids: list[int] = Field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class ValidatedSaleItem:
+    product_id: str
+    quantity: int
+    unit_price: Decimal
+    discount_amount: Decimal
+    line_total: Decimal
 
 
 def _serialize_sale(sale: Sale) -> dict[str, Any]:
@@ -77,6 +90,81 @@ def _sale_query():
     )
 
 
+def _money(value: float | int | Decimal) -> Decimal:
+    return Decimal(str(value)).quantize(MONEY_CENT, rounding=ROUND_HALF_UP)
+
+
+def _validate_sale_payload(
+    payload: SaleCreatePayload,
+    db: Session,
+) -> tuple[list[ValidatedSaleItem], Decimal, Decimal, Decimal]:
+    line_items: list[ValidatedSaleItem] = []
+    expected_subtotal = Decimal("0.00")
+    expected_discount = Decimal("0.00")
+    expected_total = Decimal("0.00")
+    product_ids = {item.product_id for item in payload.items}
+    price_rows = (
+        db.execute(
+            select(ProductPrice.product_id, ProductPrice.amount).where(
+                ProductPrice.product_id.in_(product_ids),
+            )
+        )
+        .all()
+        if product_ids
+        else []
+    )
+    prices_by_product: dict[str, set[Decimal]] = {}
+    for product_id, amount in price_rows:
+        prices_by_product.setdefault(product_id, set()).add(_money(amount))
+
+    for item in payload.items:
+        quantity = int(item.quantity)
+        unit_price = _money(item.unit_price)
+        line_discount = max(Decimal("0.00"), _money(item.discount_amount))
+        line_subtotal = _money(unit_price * quantity)
+        line_total = max(Decimal("0.00"), _money(line_subtotal - line_discount))
+
+        valid_prices = prices_by_product.get(item.product_id, set())
+        if unit_price not in valid_prices:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Submitted unit price {unit_price} does not match any product price for product {item.product_id}",
+            )
+
+        expected_subtotal += line_subtotal
+        expected_discount += line_discount
+        expected_total += line_total
+        line_items.append(
+            ValidatedSaleItem(
+                product_id=item.product_id,
+                quantity=quantity,
+                unit_price=unit_price,
+                discount_amount=line_discount,
+                line_total=line_total,
+            )
+        )
+
+    submitted_subtotal = _money(payload.subtotal)
+    submitted_discount = _money(payload.total_discount)
+    submitted_total = _money(payload.total)
+    if abs(expected_subtotal - submitted_subtotal) > MONEY_TOLERANCE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Submitted subtotal {submitted_subtotal} does not match line-item subtotal {expected_subtotal}",
+        )
+    if abs(expected_discount - submitted_discount) > MONEY_TOLERANCE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Submitted discount total {submitted_discount} does not match line-item discounts {expected_discount}",
+        )
+    if abs(expected_total - submitted_total) > MONEY_TOLERANCE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Submitted total {submitted_total} does not match line-item total {expected_total}",
+        )
+    return line_items, expected_subtotal, expected_discount, expected_total
+
+
 @router.post("/")
 def create_sale(
     payload: SaleCreatePayload,
@@ -85,14 +173,15 @@ def create_sale(
 ):
     now = datetime.utcnow()
     retail_price_type_id = db.execute(select(PriceType.id).where(PriceType.code == "RETAIL")).scalar_one_or_none()
+    line_items, subtotal, discount_total, grand_total = _validate_sale_payload(payload, db)
 
     sale = Sale(
         cashier_id=None,
         price_type_id=retail_price_type_id,
-        subtotal=payload.subtotal,
-        discount_total=payload.total_discount,
+        subtotal=subtotal,
+        discount_total=discount_total,
         tax_total=0,
-        grand_total=payload.total,
+        grand_total=grand_total,
         payment_method=payload.payment_method,
         card_last4=payload.card_last4 if payload.payment_method == "CARD" else None,
         status="completed",
@@ -101,17 +190,15 @@ def create_sale(
     db.add(sale)
     db.flush()
 
-    for item in payload.items:
-        line_discount = max(0.0, float(item.discount_amount))
-        line_total = max(0.0, item.quantity * item.unit_price - line_discount)
+    for item in line_items:
         db.add(
             SaleItem(
                 sale_id=sale.id,
                 product_id=item.product_id,
                 quantity=item.quantity,
                 unit_price=item.unit_price,
-                discount_amount=line_discount,
-                line_total=line_total,
+                discount_amount=item.discount_amount,
+                line_total=item.line_total,
             )
         )
 

@@ -864,8 +864,9 @@ function InitializeView() {
   });
 
   const scanBarcode = useCallback((barcode: string) => {
+    if (scanMutation.isPending) return;
     scanMutation.mutate(barcode);
-  }, [scanMutation.mutate]);
+  }, [scanMutation.isPending, scanMutation.mutate]);
 
   const confirmMutation = useMutation({
     mutationFn: async (productId: string) => {
