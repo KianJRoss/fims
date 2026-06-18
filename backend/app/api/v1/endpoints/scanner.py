@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import time
+from typing import Literal
 
 import redis.asyncio as aioredis
 from fastapi import APIRouter, HTTPException
@@ -13,10 +14,47 @@ router = APIRouter()
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CHANNEL = "scanner:barcode"
+TARGET_KEY = "scanner:target"
+ScannerTarget = Literal["video", "sales", "inventory"]
 
 
 class ScannerInputRequest(BaseModel):
     barcode: str = Field(min_length=1)
+
+
+class ScannerTargetRequest(BaseModel):
+    target: ScannerTarget
+
+
+class ScannerTargetResponse(BaseModel):
+    target: ScannerTarget
+
+
+async def _read_scanner_target(redis: aioredis.Redis) -> ScannerTarget:
+    value = await redis.get(TARGET_KEY)
+    if value in {"video", "sales", "inventory"}:
+        return value
+    return "video"
+
+
+@router.get("/target", response_model=ScannerTargetResponse)
+async def scanner_target():
+    redis = aioredis.from_url(REDIS_URL, decode_responses=True)
+    try:
+        target = await _read_scanner_target(redis)
+        return {"target": target}
+    finally:
+        await redis.aclose()
+
+
+@router.post("/target", response_model=ScannerTargetResponse)
+async def scanner_target_update(payload: ScannerTargetRequest):
+    redis = aioredis.from_url(REDIS_URL, decode_responses=True)
+    try:
+        await redis.set(TARGET_KEY, payload.target)
+        return {"target": payload.target}
+    finally:
+        await redis.aclose()
 
 
 @router.post("/input")
@@ -27,7 +65,8 @@ async def scanner_input(payload: ScannerInputRequest):
 
     redis = aioredis.from_url(REDIS_URL, decode_responses=True)
     try:
-        await redis.publish(CHANNEL, json.dumps({"barcode": barcode, "ts": time.time()}))
+        target = await _read_scanner_target(redis)
+        await redis.publish(CHANNEL, json.dumps({"barcode": barcode, "ts": time.time(), "target": target}))
     finally:
         await redis.aclose()
 

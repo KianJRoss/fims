@@ -592,7 +592,12 @@ function RemoteView() {
     scanPlayMutation.mutate(barcode);
   }, [scanPlayMutation]);
 
-  useScannerStream((barcode) => scanPlayMutation.mutate(barcode));
+  useScannerStream((barcode, target) => {
+    if (target !== "video") {
+      return;
+    }
+    scanPlayMutation.mutate(barcode);
+  });
 
   // Keyboard-wedge barcode scanners just type characters fast then Enter, same as Inventory's listener
   useEffect(() => {

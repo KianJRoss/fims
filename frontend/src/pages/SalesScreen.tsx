@@ -164,6 +164,23 @@ export default function SalesScreen() {
   }, []);
 
   useEffect(() => {
+    void api.post("/v1/scanner/target", { target: "sales" }).catch(() => {});
+
+    return () => {
+      void (async () => {
+        try {
+          const { data } = await api.get<{ target: "video" | "sales" | "inventory" }>("/v1/scanner/target");
+          if (data.target === "sales") {
+            await api.post("/v1/scanner/target", { target: "video" });
+          }
+        } catch {
+          // Ignore release failures on unmount.
+        }
+      })();
+    };
+  }, []);
+
+  useEffect(() => {
     if (!flash) {
       return;
     }
@@ -292,7 +309,12 @@ export default function SalesScreen() {
     [addProductToCart]
   );
 
-  useScannerStream(processBarcode);
+  useScannerStream((barcode, target) => {
+    if (target !== "sales") {
+      return;
+    }
+    void processBarcode(barcode);
+  });
 
   const handleBarcodeSubmit = useCallback(
     async (event: KeyboardEvent<HTMLInputElement>) => {

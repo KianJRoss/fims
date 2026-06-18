@@ -903,7 +903,29 @@ function InitializeView() {
     onSuccess: () => summaryQuery.refetch(),
   });
 
-  useScannerStream(scanBarcode);
+  useEffect(() => {
+    void api.post("/v1/scanner/target", { target: "inventory" }).catch(() => {});
+
+    return () => {
+      void (async () => {
+        try {
+          const { data } = await api.get<{ target: "video" | "sales" | "inventory" }>("/v1/scanner/target");
+          if (data.target === "inventory") {
+            await api.post("/v1/scanner/target", { target: "video" });
+          }
+        } catch {
+          // Ignore release failures on unmount.
+        }
+      })();
+    };
+  }, []);
+
+  useScannerStream((barcode, target) => {
+    if (target !== "inventory") {
+      return;
+    }
+    scanBarcode(barcode);
+  });
 
   useEffect(() => {
     const flushBuffer = () => {

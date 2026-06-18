@@ -2,12 +2,15 @@ import { useEffect, useRef } from "react";
 
 const STREAM_BASE_URL = (import.meta.env.VITE_API_URL ?? "/api").replace(/\/$/, "");
 
+export type ScannerTarget = "video" | "sales" | "inventory";
+
 type ScannerPayload = {
   barcode?: unknown;
   ts?: unknown;
+  target?: unknown;
 };
 
-export function useScannerStream(onBarcode: (barcode: string) => void) {
+export function useScannerStream(onBarcode: (barcode: string, target: ScannerTarget) => void) {
   const onBarcodeRef = useRef(onBarcode);
 
   useEffect(() => {
@@ -33,7 +36,8 @@ export function useScannerStream(onBarcode: (barcode: string) => void) {
         try {
           const payload = JSON.parse(event.data) as ScannerPayload;
           if (typeof payload.barcode === "string" && payload.barcode.trim()) {
-            onBarcodeRef.current(payload.barcode.trim());
+            const target = payload.target === "sales" || payload.target === "inventory" ? payload.target : "video";
+            onBarcodeRef.current(payload.barcode.trim(), target);
           }
         } catch {
           // ignore malformed messages
