@@ -166,11 +166,7 @@ export default function Suppliers() {
     <div className="min-h-full bg-gray-950 text-gray-100">
       {/* Header */}
       <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Suppliers</div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-50">Supplier Management</h1>
-          </div>
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-end">
           <button
             onClick={() => setCreateOpen(true)}
             className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-orange-400 transition"

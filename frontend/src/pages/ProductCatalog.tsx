@@ -5,6 +5,7 @@ import {
   Barcode,
   ChevronRight,
   ClipboardList,
+  Building2,
   FilterX,
   Link as LinkIcon,
   ListChecks,
@@ -18,6 +19,9 @@ import {
 } from "lucide-react";
 
 import { api } from "../api/client";
+import BarcodePrint from "./BarcodePrint";
+import Suppliers from "./Suppliers";
+import Deals from "./Deals";
 import { useScannerStream } from "../hooks/useScannerStream";
 import ProductImage from "../components/ProductImage";
 import ManualProductEntry from "../components/ManualProductEntry";
@@ -26,7 +30,7 @@ import ManualProductEntry from "../components/ManualProductEntry";
 // Shared types
 // ─────────────────────────────────────────────────────────────────────────
 
-type View = "catalog" | "initialize" | "data-entry" | "pricing";
+type View = "catalog" | "initialize" | "data-entry" | "pricing" | "barcodes" | "suppliers" | "deals";
 
 type Brand = { id: number; name: string };
 
@@ -123,6 +127,9 @@ const VIEW_TABS: { id: View; label: string; icon: typeof ListChecks }[] = [
   { id: "initialize", label: "Initialization", icon: ListChecks },
   { id: "data-entry", label: "Data Entry", icon: PenSquare },
   { id: "pricing", label: "Pricing", icon: BadgeDollarSign },
+  { id: "barcodes", label: "Barcodes", icon: Barcode },
+  { id: "suppliers", label: "Suppliers", icon: Building2 },
+  { id: "deals", label: "Deals", icon: ChevronRight },
 ];
 
 export default function ProductCatalog() {
@@ -136,12 +143,18 @@ export default function ProductCatalog() {
             <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Products</div>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-50">
               {view === "catalog"
-                ? "Catalog"
-                : view === "initialize"
-                ? "Product Initialization"
-                : view === "data-entry"
-                ? "Data Entry"
-                : "Pricing"}
+              ? "Catalog"
+              : view === "initialize"
+              ? "Product Initialization"
+              : view === "data-entry"
+              ? "Data Entry"
+              : view === "pricing"
+              ? "Pricing"
+              : view === "barcodes"
+              ? "Barcodes"
+              : view === "suppliers"
+              ? "Suppliers"
+              : "Deals"}
             </h1>
           </div>
           <div className="inline-flex items-center rounded-2xl border border-gray-800 bg-gray-900 p-1">
@@ -168,6 +181,9 @@ export default function ProductCatalog() {
       {view === "initialize" && <InitializeView />}
       {view === "data-entry" && <DataEntryView />}
       {view === "pricing" && <PricingView />}
+      {view === "barcodes" && <BarcodePrint />}
+      {view === "suppliers" && <Suppliers />}
+      {view === "deals" && <Deals />}
     </div>
   );
 }

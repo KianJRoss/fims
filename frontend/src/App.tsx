@@ -1,29 +1,19 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, NavLink, useLocation } from "react-router-dom";
 import {
-  BarChart3,
-  Barcode,
   BookText,
-  Building2,
-  ChevronRight,
   FileText,
   FolderOpen,
   Menu,
-  ReceiptText,
   Settings as SettingsIcon,
   SquareActivity,
   X,
 } from "lucide-react";
 import SalesScreen from "./pages/SalesScreen";
 import ProductCatalog from "./pages/ProductCatalog";
-import Deals from "./pages/Deals";
-import Reports from "./pages/Reports";
 import Receipt from "./pages/Receipt";
-import Receipts from "./pages/Receipts";
-import BarcodePrint from "./pages/BarcodePrint";
 import VideoReview from "./pages/VideoReview";
-import Documents from "./pages/Documents";
-import Suppliers from "./pages/Suppliers";
+import Office from "./pages/Office";
 import Settings from "./pages/Settings";
 import ShopLayout from "./pages/shop/ShopLayout";
 import ShopHome from "./pages/shop/ShopHome";
@@ -34,13 +24,8 @@ import ShopMap from "./pages/shop/ShopMap";
 const navItems = [
   { to: "/", label: "Sales", icon: SquareActivity },
   { to: "/products", label: "Products", icon: FolderOpen },
-  { to: "/barcodes", label: "Barcodes", icon: Barcode },
   { to: "/videos", label: "Videos", icon: FileText },
-  { to: "/documents", label: "Documents", icon: BookText },
-  { to: "/suppliers", label: "Suppliers", icon: Building2 },
-  { to: "/deals", label: "Deals", icon: ChevronRight },
-  { to: "/reports", label: "Reports", icon: BarChart3 },
-  { to: "/receipts", label: "Receipts", icon: ReceiptText },
+  { to: "/office", label: "Office", icon: BookText },
   { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
@@ -122,14 +107,15 @@ export default function App() {
           <Route path="/inventory" element={<Navigate to="/products" replace />} />
           <Route path="/products" element={<ProductCatalog />} />
           <Route path="/pricing" element={<Navigate to="/products" replace />} />
-          <Route path="/barcodes" element={<BarcodePrint />} />
+          <Route path="/barcodes" element={<Navigate to="/products" replace />} />
           <Route path="/videos" element={<VideoReview />} />
           <Route path="/video-remote" element={<Navigate to="/videos" replace />} />
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/suppliers" element={<Suppliers />} />
-          <Route path="/deals" element={<Deals />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/receipts" element={<Receipts />} />
+          <Route path="/office" element={<Office />} />
+          <Route path="/documents" element={<Navigate to="/office" replace />} />
+          <Route path="/suppliers" element={<Navigate to="/products" replace />} />
+          <Route path="/deals" element={<Navigate to="/products" replace />} />
+          <Route path="/reports" element={<Navigate to="/office" replace />} />
+          <Route path="/receipts" element={<Navigate to="/office" replace />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>

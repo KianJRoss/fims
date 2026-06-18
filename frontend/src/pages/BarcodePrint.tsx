@@ -188,13 +188,7 @@ export default function BarcodePrint() {
   return (
     <div className="min-h-full bg-gradient-to-br from-gray-950 via-gray-950 to-gray-900 text-gray-100">
       <div className="border-b border-gray-800 bg-gray-950/90 px-4 py-4 backdrop-blur sm:px-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Barcode Printing</h1>
-            <p className="mt-1 text-sm text-gray-400">
-              Build label sheets and one-off labels from active products.
-            </p>
-          </div>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
           <div className="inline-flex rounded-lg border border-gray-800 bg-gray-900 p-1">
             {[
               { key: "sheet", label: "Sheet Print" },

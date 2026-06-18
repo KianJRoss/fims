@@ -87,16 +87,8 @@ export default function Receipts() {
   return (
     <div className="min-h-full bg-gray-950 px-4 py-6 text-gray-100 sm:px-6">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
-        <header className="rounded-3xl border border-gray-800 bg-gray-900 px-6 py-6">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-3">
-              <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Receipts</div>
-              <h1 className="text-3xl font-semibold tracking-tight text-gray-50">Daily receipt ledger</h1>
-              <p className="max-w-3xl text-sm text-gray-400">
-                Review transaction totals for a specific day and expand any sale to inspect its line items.
-              </p>
-            </div>
-
+        <div className="rounded-3xl border border-gray-800 bg-gray-900 px-6 py-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-end">
             <label className="flex flex-col gap-2 text-sm text-gray-400">
               <span className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gray-500">
                 <CalendarDays className="h-4 w-4 text-orange-300/80" />
@@ -113,7 +105,7 @@ export default function Receipts() {
               />
             </label>
           </div>
-        </header>
+        </div>
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           <StatCard

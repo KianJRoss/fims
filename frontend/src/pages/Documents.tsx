@@ -297,13 +297,7 @@ export default function Documents() {
     <div className="min-h-full bg-gray-950 text-gray-100">
       {/* Header */}
       <div className="border-b border-gray-800 bg-gray-950/95 px-6 py-4 backdrop-blur">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Documents & Imports</div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-50">
-              {view === "imports" ? "Catalog Imports" : "Store Documents"}
-            </h1>
-          </div>
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-end">
           <div className="flex gap-2">
             {view !== "imports" && (
               <button

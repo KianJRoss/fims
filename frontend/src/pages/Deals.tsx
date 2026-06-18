@@ -287,14 +287,7 @@ export default function Deals() {
   return (
     <div className="min-h-full bg-gray-950 text-gray-100">
       <div className="border-b border-gray-800 bg-gray-950/95 px-4 py-4 backdrop-blur sm:px-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <div className="text-xs uppercase tracking-[0.35em] text-orange-300/80">Deals</div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-gray-50">Deal rules and promotions</h1>
-            <p className="mt-2 max-w-3xl text-sm text-gray-400">
-              Manage stackable promotions, trigger conditions, and reward rules from one screen.
-            </p>
-          </div>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-end">
           <button
             onClick={openModal}
             className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-orange-400"
