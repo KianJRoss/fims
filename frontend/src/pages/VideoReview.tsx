@@ -456,7 +456,7 @@ function RemoteView() {
   const [showFilters, setShowFilters] = useState(false);
   const [filterBrandIds, setFilterBrandIds] = useState<number[]>([]);
   const [filterCategory, setFilterCategory] = useState("");
-  const [filterInStoreOnly, setFilterInStoreOnly] = useState(true);
+  const [filterInStoreOnly, setFilterInStoreOnly] = useState(false);
   const [loopInfo, setLoopInfo] = useState<IdleFilterResult | null>(null);
   const [scanMessage, setScanMessage] = useState<string | null>(null);
   const searchTimerRef = useRef<number | null>(null);
