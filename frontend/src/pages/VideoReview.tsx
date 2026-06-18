@@ -350,10 +350,13 @@ function ReviewQueueView() {
                       <article key={video.id} className="overflow-hidden rounded-3xl border border-gray-800 bg-gray-900">
                         <div className="aspect-[16/9] bg-gray-950">
                           {video.youtube_id ? (
-                            <img
-                              src={video.thumbnail_url || `https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
-                              alt={video.title || "Video thumbnail"}
-                              className="h-full w-full object-cover"
+                            <iframe
+                              src={`https://www.youtube.com/embed/${video.youtube_id}`}
+                              title={video.title || "Video preview"}
+                              className="h-full w-full"
+                              loading="lazy"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
                             />
                           ) : (
                             <div className="flex h-full items-center justify-center text-sm text-gray-500">No thumbnail</div>
