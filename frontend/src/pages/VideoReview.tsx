@@ -68,6 +68,7 @@ type QueueProduct = {
   category_name: string | null;
   barcode_count: number;
   video_count: number;
+  candidate_count: number;
   in_store: boolean;
   shot_count: number | null;
   created_at: string;
@@ -128,34 +129,58 @@ function nextQueueId(queue: QueueProduct[], currentId: string | null) {
 
 function ReviewQueueView() {
   const queryClient = useQueryClient();
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [view, setView] = useState<"ready" | "needs_search">("ready");
+  const [selectedReadyProductId, setSelectedReadyProductId] = useState<string | null>(null);
+  const [selectedNeedsSearchProductId, setSelectedNeedsSearchProductId] = useState<string | null>(null);
 
-  const queueQuery = useQuery({
-    queryKey: ["video-review-queue"],
+  const readyQueueQuery = useQuery({
+    queryKey: ["video-review-queue", "has_candidates"],
     queryFn: async (): Promise<QueueProduct[]> => {
       const { data } = await api.get("/v1/products/", {
-        params: { no_video: true, limit: 1000, sort: "recent" },
+        params: { video_status: "has_candidates", limit: 1000, sort: "recent" },
       });
       return data;
     },
   });
 
-  const queue = queueQuery.data ?? [];
+  const needsSearchQueueQuery = useQuery({
+    queryKey: ["video-review-queue", "needs_search"],
+    queryFn: async (): Promise<QueueProduct[]> => {
+      const { data } = await api.get("/v1/products/", {
+        params: { video_status: "needs_search", limit: 1000, sort: "recent" },
+      });
+      return data;
+    },
+    enabled: view === "needs_search",
+  });
+
+  const readyQueue = readyQueueQuery.data ?? [];
+  const needsSearchQueue = needsSearchQueueQuery.data ?? [];
 
   useEffect(() => {
-    if (!queue.length) {
-      setSelectedProductId(null);
+    if (!readyQueue.length) {
+      setSelectedReadyProductId(null);
       return;
     }
-    if (!selectedProductId || !queue.some((item) => item.id === selectedProductId)) {
-      setSelectedProductId(queue[0].id);
+    if (!selectedReadyProductId || !readyQueue.some((item) => item.id === selectedReadyProductId)) {
+      setSelectedReadyProductId(readyQueue[0].id);
     }
-  }, [queue, selectedProductId]);
+  }, [readyQueue, selectedReadyProductId]);
 
-  const selectedProductQuery = useQuery({
-    queryKey: ["video-review-product", selectedProductId],
-    queryFn: async (): Promise<ProductDetail> => (await api.get(`/v1/products/${selectedProductId}`)).data,
-    enabled: Boolean(selectedProductId),
+  useEffect(() => {
+    if (!needsSearchQueue.length) {
+      setSelectedNeedsSearchProductId(null);
+      return;
+    }
+    if (!selectedNeedsSearchProductId || !needsSearchQueue.some((item) => item.id === selectedNeedsSearchProductId)) {
+      setSelectedNeedsSearchProductId(needsSearchQueue[0].id);
+    }
+  }, [needsSearchQueue, selectedNeedsSearchProductId]);
+
+  const selectedReadyProductQuery = useQuery({
+    queryKey: ["video-review-product", selectedReadyProductId],
+    queryFn: async (): Promise<ProductDetail> => (await api.get(`/v1/products/${selectedReadyProductId}`)).data,
+    enabled: view === "ready" && Boolean(selectedReadyProductId),
     refetchInterval: (query) => {
       const videos = (query.state.data?.videos as ProductVideo[] | undefined) ?? [];
       return videos.some((video) => !["done", "error"].includes(video.download_status)) ? 3000 : false;
@@ -163,14 +188,19 @@ function ReviewQueueView() {
     refetchOnWindowFocus: false,
   });
 
-  const activeProduct = selectedProductQuery.data;
+  const activeProduct = selectedReadyProductQuery.data;
   const activeVideos = activeProduct?.videos ?? [];
-  const reviewCount = queue.length;
+  const reviewCount = readyQueue.length;
+  const needsSearchCount = needsSearchQueue.length;
+  const selectedNeedsSearchProduct = useMemo(
+    () => needsSearchQueue.find((item) => item.id === selectedNeedsSearchProductId) ?? needsSearchQueue[0] ?? null,
+    [needsSearchQueue, selectedNeedsSearchProductId],
+  );
 
   const searchMutation = useMutation({
     mutationFn: async (productId: string) => (await api.post(`/v1/videos/product/${productId}/search`)).data,
     onSuccess: async () => {
-      if (selectedProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedProductId] });
+      await queryClient.invalidateQueries({ queryKey: ["video-review-queue"] });
     },
   });
 
@@ -180,9 +210,9 @@ function ReviewQueueView() {
       return { data, nextProductId: payload.nextProductId };
     },
     onSuccess: async (_, variables) => {
-      if (selectedProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedProductId] });
+      if (selectedReadyProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedReadyProductId] });
       await queryClient.invalidateQueries({ queryKey: ["video-review-queue"] });
-      setSelectedProductId(variables.nextProductId);
+      setSelectedReadyProductId(variables.nextProductId);
     },
   });
 
@@ -192,187 +222,321 @@ function ReviewQueueView() {
       return videoId;
     },
     onSuccess: async () => {
-      if (selectedProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedProductId] });
+      if (selectedReadyProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedReadyProductId] });
     },
   });
 
   const noVideoMutation = useMutation({
     mutationFn: async (productId: string) => (await api.post(`/v1/videos/product/${productId}/no-video`)).data,
     onSuccess: async () => {
-      if (selectedProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedProductId] });
+      if (selectedReadyProductId) await queryClient.invalidateQueries({ queryKey: ["video-review-product", selectedReadyProductId] });
       await queryClient.invalidateQueries({ queryKey: ["video-review-queue"] });
-      setSelectedProductId((current) => nextQueueId(queue, current));
+      setSelectedReadyProductId((current) => nextQueueId(readyQueue, current));
     },
   });
 
-  const selectedIndex = useMemo(() => queue.findIndex((item) => item.id === selectedProductId), [queue, selectedProductId]);
-  const headerSummary = activeProduct ?? queue[selectedIndex] ?? null;
-
   return (
-    <div className="flex min-h-[calc(100vh-81px)] flex-col lg:flex-row">
-      <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 lg:w-64 lg:border-b-0 lg:border-r">
-        <div className="border-b border-gray-800 px-4 py-4">
-          <div className="text-xs uppercase tracking-[0.25em] text-gray-500">{reviewCount.toLocaleString()} products need videos</div>
+    <div className="flex min-h-[calc(100vh-81px)] flex-col">
+      <div className="border-b border-gray-800 bg-gray-900/80 px-4 py-4 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Review Queue</div>
+            <div className="mt-1 text-sm text-gray-400">Search runs automatically. Review only the products that already have candidates.</div>
+          </div>
+          <div className="inline-flex items-center rounded-2xl border border-gray-800 bg-gray-950 p-1">
+            <button
+              onClick={() => setView("ready")}
+              className={`rounded-xl px-3 py-1.5 text-sm font-semibold transition ${
+                view === "ready" ? "bg-orange-500 text-gray-950" : "text-gray-400 hover:text-gray-100"
+              }`}
+            >
+              Ready for Review
+            </button>
+            <button
+              onClick={() => setView("needs_search")}
+              className={`rounded-xl px-3 py-1.5 text-sm font-semibold transition ${
+                view === "needs_search" ? "bg-orange-500 text-gray-950" : "text-gray-400 hover:text-gray-100"
+              }`}
+            >
+              Needs Search
+            </button>
+          </div>
         </div>
-        <div className="max-h-72 overflow-auto p-3 lg:max-h-[calc(100vh-145px)]">
-          {queue.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-8 text-center text-sm text-gray-500">
-              No products need videos right now.
+      </div>
+
+      {view === "ready" ? (
+        <div className="flex min-h-[calc(100vh-145px)] flex-col lg:flex-row">
+          <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 lg:w-72 lg:border-b-0 lg:border-r">
+            <div className="border-b border-gray-800 px-4 py-4">
+              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">{reviewCount.toLocaleString()} products ready for review</div>
             </div>
-          ) : (
-            <div className="space-y-2">
-              {queue.map((product, index) => {
-                const active = product.id === selectedProductId;
-                return (
-                  <button
-                    key={product.id}
-                    onClick={() => setSelectedProductId(product.id)}
-                    className={`w-full rounded-2xl border px-3 py-3 text-left transition ${
-                      active ? "border-orange-500 bg-orange-500/10" : "border-gray-800 bg-gray-950 hover:border-gray-700 hover:bg-gray-900"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <ProductImage imageUrl={product.image_url} name={product.name} size="xs" />
-                      <div className="min-w-0">
-                        <div className="text-sm font-medium text-gray-50 truncate">{product.name}</div>
-                        <div className="mt-1 flex items-center justify-between gap-2 text-xs text-gray-500">
-                          <span className="truncate">{product.brand_name || "No brand"}</span>
-                          <span>#{index + 1}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </aside>
-
-      <main className="flex-1 overflow-auto px-4 py-6 sm:px-6">
-        <div className="mb-4 flex justify-end">
-          <button
-            onClick={() => selectedProductId && searchMutation.mutate(selectedProductId)}
-            disabled={!selectedProductId || searchMutation.isPending}
-            className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
-          >
-            <Search className="h-4 w-4" />
-            Search YouTube
-          </button>
-        </div>
-
-        {!selectedProductId ? (
-          <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Select a product from the queue.</div>
-        ) : selectedProductQuery.isLoading ? (
-          <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Loading product...</div>
-        ) : headerSummary ? (
-          <div className="space-y-6">
-            <section className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div>
-                  <div className="text-3xl font-semibold text-gray-50">{headerSummary.name}</div>
-                  <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-gray-400">
-                    <span>{headerSummary.item_number || "No item number"}</span>
-                    <span>{headerSummary.brand_name || "No brand"}</span>
-                    <span>{headerSummary.shot_count != null ? `${headerSummary.shot_count} shots` : "Shot count unknown"}</span>
-                  </div>
+            <div className="max-h-72 overflow-auto p-3 lg:max-h-[calc(100vh-145px)]">
+              {readyQueue.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-8 text-center text-sm text-gray-500">
+                  No products are ready for review right now.
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <Badge label={headerSummary.category_name || "No category"} />
-                  <Badge label={headerSummary.in_store ? "In Store" : "Catalog"} tone="border-emerald-500/30 bg-emerald-500/10 text-emerald-200" />
-                </div>
-              </div>
-            </section>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Candidates</div>
-                  <div className="mt-1 text-sm text-gray-400">{activeVideos.length} video{activeVideos.length === 1 ? "" : "s"}</div>
-                </div>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {activeVideos.map((video) => (
-                  <article key={video.id} className="overflow-hidden rounded-3xl border border-gray-800 bg-gray-900">
-                    <div className="aspect-[16/9] bg-gray-950">
-                      {video.youtube_id ? (
-                        <img
-                          src={video.thumbnail_url || `https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
-                          alt={video.title || "Video thumbnail"}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-sm text-gray-500">No thumbnail</div>
-                      )}
-                    </div>
-
-                    <div className="space-y-3 p-4">
-                      <h3
-                        className="text-sm font-semibold text-gray-50"
-                        style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+              ) : (
+                <div className="space-y-2">
+                  {readyQueue.map((product, index) => {
+                    const active = product.id === selectedReadyProductId;
+                    return (
+                      <button
+                        key={product.id}
+                        onClick={() => setSelectedReadyProductId(product.id)}
+                        className={`w-full rounded-2xl border px-3 py-3 text-left transition ${
+                          active ? "border-orange-500 bg-orange-500/10" : "border-gray-800 bg-gray-950 hover:border-gray-700 hover:bg-gray-900"
+                        }`}
                       >
-                        {video.title || "Untitled video"}
-                      </h3>
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <span>{video.original_filename || "Unknown source"}</span>
-                        <span>{formatDuration(video.duration_seconds)}</span>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <button
-                          onClick={() => confirmMutation.mutate({ videoId: video.id, nextProductId: nextQueueId(queue, selectedProductId) })}
-                          disabled={confirmMutation.isPending}
-                          className="rounded-2xl bg-emerald-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:bg-gray-700"
-                        >
-                          This is it
-                        </button>
-                        <button
-                          onClick={() => deleteMutation.mutate(video.id)}
-                          disabled={deleteMutation.isPending}
-                          className="rounded-2xl border border-gray-700 bg-gray-950 px-3 py-2 text-sm font-semibold text-gray-300 transition hover:border-gray-600 hover:bg-gray-900 disabled:cursor-not-allowed disabled:text-gray-500"
-                        >
-                          Not this one
-                        </button>
-                      </div>
-                      <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">
-                        <span className="rounded-full border border-gray-700 px-2 py-1">{video.download_status}</span>
-                        <span>{video.confirmed ? "Confirmed" : "Unconfirmed"}</span>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-
-              {activeVideos.length === 0 && (
-                <div className="rounded-3xl border border-dashed border-gray-800 bg-gray-900 p-8 text-center text-sm text-gray-500">
-                  No candidates yet. Search YouTube to queue results.
+                        <div className="flex items-center gap-2">
+                          <ProductImage imageUrl={product.image_url} name={product.name} size="xs" />
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-sm font-medium text-gray-50">{product.name}</div>
+                            <div className="mt-1 flex items-center justify-between gap-2 text-xs text-gray-500">
+                              <span className="truncate">{product.brand_name || "No brand"}</span>
+                              <div className="flex items-center gap-1.5">
+                                <Badge label={`#${index + 1}`} />
+                                <Badge
+                                  label={`${product.candidate_count} candidates`}
+                                  tone="border-orange-500/30 bg-orange-500/10 text-orange-200"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
-            </section>
+            </div>
+          </aside>
 
-            <section className="rounded-3xl border border-red-500/40 bg-red-500/5 p-5">
-              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                  <div className="text-sm font-semibold text-red-200">No video exists</div>
-                  <div className="mt-1 text-sm text-red-100/70">
-                    Mark the product as having no confirmed video and advance to the next item in the queue.
+          <main className="flex-1 overflow-auto px-4 py-6 sm:px-6">
+            {!selectedReadyProductId ? (
+              <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Select a product from the queue.</div>
+            ) : selectedReadyProductQuery.isLoading ? (
+              <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Loading product...</div>
+            ) : activeProduct ? (
+              <div className="space-y-6">
+                <section className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <div className="text-3xl font-semibold text-gray-50">{activeProduct.name}</div>
+                      <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-gray-400">
+                        <span>{activeProduct.item_number || "No item number"}</span>
+                        <span>{activeProduct.brand_name || "No brand"}</span>
+                        <span>{activeProduct.shot_count != null ? `${activeProduct.shot_count} shots` : "Shot count unknown"}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge label={activeProduct.category_name || "No category"} />
+                      <Badge label={activeProduct.in_store ? "In Store" : "Catalog"} tone="border-emerald-500/30 bg-emerald-500/10 text-emerald-200" />
+                    </div>
                   </div>
-                </div>
-                <button
-                  onClick={() => selectedProductId && noVideoMutation.mutate(selectedProductId)}
-                  disabled={noVideoMutation.isPending}
-                  className="inline-flex items-center gap-2 rounded-2xl border border-red-400/60 px-4 py-3 text-sm font-semibold text-red-200 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:text-red-300/50"
-                >
-                  <VideoOff className="h-4 w-4" />
-                  No video exists
-                </button>
+                </section>
+
+                <section className="space-y-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Candidates</div>
+                      <div className="mt-1 text-sm text-gray-400">
+                        {activeVideos.length} video{activeVideos.length === 1 ? "" : "s"}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {activeVideos.map((video) => (
+                      <article key={video.id} className="overflow-hidden rounded-3xl border border-gray-800 bg-gray-900">
+                        <div className="aspect-[16/9] bg-gray-950">
+                          {video.youtube_id ? (
+                            <img
+                              src={video.thumbnail_url || `https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
+                              alt={video.title || "Video thumbnail"}
+                              className="h-full w-full object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-full items-center justify-center text-sm text-gray-500">No thumbnail</div>
+                          )}
+                        </div>
+
+                        <div className="space-y-3 p-4">
+                          <h3
+                            className="text-sm font-semibold text-gray-50"
+                            style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+                          >
+                            {video.title || "Untitled video"}
+                          </h3>
+                          <div className="flex items-center justify-between text-xs text-gray-500">
+                            <span>{video.original_filename || "Unknown source"}</span>
+                            <span>{formatDuration(video.duration_seconds)}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            <button
+                              onClick={() => confirmMutation.mutate({ videoId: video.id, nextProductId: nextQueueId(readyQueue, selectedReadyProductId) })}
+                              disabled={confirmMutation.isPending}
+                              className="rounded-2xl bg-emerald-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:bg-gray-700"
+                            >
+                              This is it
+                            </button>
+                            <button
+                              onClick={() => deleteMutation.mutate(video.id)}
+                              disabled={deleteMutation.isPending}
+                              className="rounded-2xl border border-gray-700 bg-gray-950 px-3 py-2 text-sm font-semibold text-gray-300 transition hover:border-gray-600 hover:bg-gray-900 disabled:cursor-not-allowed disabled:text-gray-500"
+                            >
+                              Not this one
+                            </button>
+                          </div>
+                          <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-500">
+                            <span className="rounded-full border border-gray-700 px-2 py-1">{video.download_status}</span>
+                            <span>{video.confirmed ? "Confirmed" : "Unconfirmed"}</span>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+
+                  {activeVideos.length === 0 && (
+                    <div className="rounded-3xl border border-dashed border-gray-800 bg-gray-900 p-8 text-center text-sm text-gray-500">
+                      No candidates available for this product.
+                    </div>
+                  )}
+                </section>
+
+                <section className="rounded-3xl border border-red-500/40 bg-red-500/5 p-5">
+                  <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                      <div className="text-sm font-semibold text-red-200">No video exists</div>
+                      <div className="mt-1 text-sm text-red-100/70">
+                        Mark the product as having no confirmed video and advance to the next item in the queue.
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => selectedReadyProductId && noVideoMutation.mutate(selectedReadyProductId)}
+                      disabled={noVideoMutation.isPending}
+                      className="inline-flex items-center gap-2 rounded-2xl border border-red-400/60 px-4 py-3 text-sm font-semibold text-red-200 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:text-red-300/50"
+                    >
+                      <VideoOff className="h-4 w-4" />
+                      No video exists
+                    </button>
+                  </div>
+                </section>
               </div>
-            </section>
-          </div>
-        ) : (
-          <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Could not load the selected product.</div>
-        )}
-      </main>
+            ) : (
+              <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Could not load the selected product.</div>
+            )}
+          </main>
+        </div>
+      ) : (
+        <div className="flex min-h-[calc(100vh-145px)] flex-col lg:flex-row">
+          <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 lg:w-72 lg:border-b-0 lg:border-r">
+            <div className="border-b border-gray-800 px-4 py-4">
+              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">{needsSearchCount.toLocaleString()} products waiting on search</div>
+              <div className="mt-2 text-xs text-gray-500">Search runs automatically every 15 minutes.</div>
+            </div>
+            <div className="max-h-72 overflow-auto p-3 lg:max-h-[calc(100vh-145px)]">
+              {needsSearchQueue.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-8 text-center text-sm text-gray-500">
+                  No products are waiting on search right now.
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {needsSearchQueue.map((product, index) => {
+                    const active = product.id === selectedNeedsSearchProduct?.id;
+                    return (
+                      <button
+                        key={product.id}
+                        onClick={() => setSelectedNeedsSearchProductId(product.id)}
+                        className={`w-full rounded-2xl border px-3 py-3 text-left transition ${
+                          active ? "border-orange-500 bg-orange-500/10" : "border-gray-800 bg-gray-950 hover:border-gray-700 hover:bg-gray-900"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <ProductImage imageUrl={product.image_url} name={product.name} size="xs" />
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-sm font-medium text-gray-50">{product.name}</div>
+                            <div className="mt-1 flex items-center justify-between gap-2 text-xs text-gray-500">
+                              <span className="truncate">{product.brand_name || "No brand"}</span>
+                              <div className="flex items-center gap-1.5">
+                                <Badge label={`#${index + 1}`} />
+                                <Badge label="Awaiting search" tone="border-sky-500/30 bg-sky-500/10 text-sky-200" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </aside>
+
+          <main className="flex-1 overflow-auto px-4 py-6 sm:px-6">
+            {!selectedNeedsSearchProduct ? (
+              <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Select a product to queue a manual search.</div>
+            ) : (
+              <div className="space-y-6">
+                <section className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <div className="text-3xl font-semibold text-gray-50">{selectedNeedsSearchProduct.name}</div>
+                      <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-gray-400">
+                        <span>{selectedNeedsSearchProduct.item_number || "No item number"}</span>
+                        <span>{selectedNeedsSearchProduct.brand_name || "No brand"}</span>
+                        <span>{selectedNeedsSearchProduct.shot_count != null ? `${selectedNeedsSearchProduct.shot_count} shots` : "Shot count unknown"}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge label="Waiting on search" tone="border-sky-500/30 bg-sky-500/10 text-sky-200" />
+                      <Badge label={selectedNeedsSearchProduct.category_name || "No category"} />
+                    </div>
+                  </div>
+                </section>
+
+                <section className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                      <div className="text-sm font-semibold text-gray-50">Search automatically runs every 15 minutes</div>
+                      <div className="mt-1 text-sm text-gray-400">Use the manual search button in the list if you need results sooner.</div>
+                    </div>
+                    <button
+                      onClick={() => searchMutation.mutate(selectedNeedsSearchProduct.id)}
+                      disabled={searchMutation.isPending}
+                      className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
+                    >
+                      <Search className="h-4 w-4" />
+                      Search now
+                    </button>
+                  </div>
+                </section>
+
+                <section className="rounded-3xl border border-gray-800 bg-gray-900 p-5">
+                  <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Product Info</div>
+                  <div className="mt-3 grid gap-3 text-sm text-gray-300 sm:grid-cols-2">
+                    <div>
+                      <div className="text-xs uppercase tracking-[0.18em] text-gray-500">Barcode Count</div>
+                      <div className="mt-1">{selectedNeedsSearchProduct.barcode_count}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-[0.18em] text-gray-500">Video Count</div>
+                      <div className="mt-1">{selectedNeedsSearchProduct.video_count}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-[0.18em] text-gray-500">Store Status</div>
+                      <div className="mt-1">{selectedNeedsSearchProduct.in_store ? "In Store" : "Catalog"}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-[0.18em] text-gray-500">Created</div>
+                      <div className="mt-1">{new Date(selectedNeedsSearchProduct.created_at).toLocaleString()}</div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+          </main>
+        </div>
+      )}
     </div>
   );
 }

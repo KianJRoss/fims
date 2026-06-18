@@ -23,7 +23,7 @@ class ProductVideo(Base):
     download_status: Mapped[str] = mapped_column(String(20), default="pending")
     original_filename: Mapped[str | None] = mapped_column(String(255))
     duration_seconds: Mapped[int | None] = mapped_column(Integer)
-    is_primary: Mapped[bool] = mapped_column(Boolean, default=True)
+    is_primary: Mapped[bool] = mapped_column(Boolean, default=False)
     uploaded_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     product: Mapped["Product"] = relationship(back_populates="videos")  # type: ignore[name-defined]

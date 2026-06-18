@@ -184,6 +184,7 @@ def list_products(
     brand_id: list[int] = Query(default=[]),
     in_store: bool | None = None,
     no_video: bool | None = None,
+    video_status: str | None = None,
     sort: str = "name",
     skip: int = 0,
     limit: int = 50,
@@ -201,12 +202,22 @@ def list_products(
         .correlate(Product)
         .scalar_subquery()
     )
+    candidate_count = (
+        select(func.count(ProductVideo.id))
+        .where(
+            ProductVideo.product_id == Product.id,
+            ProductVideo.confirmed.is_(False),
+        )
+        .correlate(Product)
+        .scalar_subquery()
+    )
 
     stmt = (
         select(
             Product,
             barcode_count.label("barcode_count"),
             video_count.label("video_count"),
+            candidate_count.label("candidate_count"),
         )
         .options(joinedload(Product.brand), joinedload(Product.category))
         .where(Product.is_active.is_(True))
@@ -222,7 +233,23 @@ def list_products(
         stmt = stmt.where(Product.brand_id.in_(brand_id))
     if in_store is not None:
         stmt = stmt.where(Product.in_store.is_(in_store))
-    if no_video:
+    if video_status is not None:
+        has_confirmed_video = exists(
+            select(1).select_from(ProductVideo).where(
+                ProductVideo.product_id == Product.id,
+                ProductVideo.confirmed.is_(True),
+            )
+        )
+        has_any_video = exists(
+            select(1).select_from(ProductVideo).where(ProductVideo.product_id == Product.id)
+        )
+        if video_status == "needs_search":
+            stmt = stmt.where(Product.no_video_confirmed.is_(False), ~has_confirmed_video, ~has_any_video)
+        elif video_status == "has_candidates":
+            stmt = stmt.where(Product.no_video_confirmed.is_(False), ~has_confirmed_video, candidate_count > 0)
+        else:
+            raise HTTPException(status_code=400, detail="Invalid video_status")
+    elif no_video:
         has_confirmed_video = exists(
             select(1).select_from(ProductVideo).where(
                 ProductVideo.product_id == Product.id,
@@ -258,12 +285,13 @@ def list_products(
             "brand_name": product.brand.name if product.brand else None,
             "barcode_count": int(barcode_count_value or 0),
             "video_count": int(video_count_value or 0),
+            "candidate_count": int(candidate_count_value or 0),
             "in_store": product.in_store,
             "shot_count": product.shot_count,
             "catalog_page": product.catalog_page,
             "created_at": product.created_at,
         }
-        for product, barcode_count_value, video_count_value in rows
+        for product, barcode_count_value, video_count_value, candidate_count_value in rows
     ]
 
 

@@ -28,12 +28,17 @@ celery_app.conf.update(
         "app.worker.tasks.imports.*": {"queue": "imports"},
         "catalog_import.*": {"queue": "imports"},
         "video_search.*": {"queue": "imports"},
+        "app.worker.tasks.video_search.*": {"queue": "imports"},
         "app.worker.tasks.reports.*": {"queue": "reports"},
         "app.worker.tasks.email_sync.*": {"queue": "imports"},
     },
     beat_schedule={
         "sync-email-accounts-every-15-minutes": {
             "task": "app.worker.tasks.email_sync.sync_email_accounts",
+            "schedule": timedelta(minutes=15),
+        },
+        "auto-search-missing-videos-every-15-minutes": {
+            "task": "app.worker.tasks.video_search.auto_search_missing_videos",
             "schedule": timedelta(minutes=15),
         },
     },

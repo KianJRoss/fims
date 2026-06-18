@@ -5,6 +5,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, Response
 from pydantic import BaseModel
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -80,6 +81,13 @@ def confirm_video(video_id: int, body: ConfirmBody, db: Session = Depends(get_db
     video = db.query(ProductVideo).filter(ProductVideo.id == video_id).first()
     if not video:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    if body.is_primary is True:
+        db.execute(
+            update(ProductVideo)
+            .where(ProductVideo.product_id == video.product_id, ProductVideo.id != video.id, ProductVideo.is_primary.is_(True))
+            .values(is_primary=False)
+        )
 
     video.confirmed = body.confirmed
     if body.is_primary is not None:

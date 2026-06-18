@@ -83,3 +83,40 @@ def find_product_videos(product_id: str, product_name: str, item_number: str | N
         raise
     finally:
         conn.close()
+
+
+@celery_app.task(name="app.worker.tasks.video_search.auto_search_missing_videos")
+def auto_search_missing_videos(batch_size: int = 25) -> dict:
+    conn = psycopg.connect(DB_URL, autocommit=False)
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT id, name, item_number
+                FROM products
+                WHERE is_active IS TRUE
+                  AND no_video_confirmed IS FALSE
+                  AND NOT EXISTS (
+                      SELECT 1
+                      FROM product_videos
+                      WHERE product_videos.product_id = products.id
+                        AND product_videos.confirmed IS TRUE
+                  )
+                  AND NOT EXISTS (
+                      SELECT 1
+                      FROM product_videos
+                      WHERE product_videos.product_id = products.id
+                  )
+                ORDER BY created_at DESC, LOWER(name)
+                LIMIT %s
+                """,
+                (batch_size,),
+            )
+            rows = cur.fetchall()
+
+        for product_id, product_name, item_number in rows:
+            find_product_videos.delay(str(product_id), product_name, item_number)
+
+        return {"queued": len(rows), "batch_size": batch_size}
+    finally:
+        conn.close()
