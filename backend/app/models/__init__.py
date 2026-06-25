@@ -13,6 +13,7 @@ from .audit import AuditLog
 from .import_job import ImportJob, ImportRow
 from .document import StoreDocument
 from .email_account import EmailAccount
+from .monitoring import AiMonitorConfig
 
 __all__ = [
     "Product", "ProductBarcode", "ProductCategory", "ProductBrand",
@@ -30,4 +31,5 @@ __all__ = [
     "ImportJob", "ImportRow",
     "StoreDocument",
     "EmailAccount",
+    "AiMonitorConfig",
 ]

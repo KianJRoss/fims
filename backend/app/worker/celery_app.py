@@ -15,6 +15,7 @@ celery_app = Celery(
         "app.worker.tasks.reports",
         "app.worker.tasks.issuu_import",
         "app.worker.tasks.email_sync",
+        "app.worker.tasks.monitoring",
     ],
 )
 
@@ -31,6 +32,7 @@ celery_app.conf.update(
         "app.worker.tasks.video_search.*": {"queue": "imports"},
         "app.worker.tasks.reports.*": {"queue": "reports"},
         "app.worker.tasks.email_sync.*": {"queue": "imports"},
+        "app.worker.tasks.monitoring.*": {"queue": "imports"},
     },
     beat_schedule={
         "sync-email-accounts-every-15-minutes": {

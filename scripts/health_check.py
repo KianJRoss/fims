@@ -195,6 +195,17 @@ def main():
         return 0
 
     send_alert(title, body)
+    try:
+        request = urllib.request.Request(
+            "http://localhost:8000/v1/monitoring/alert",
+            data=json.dumps({"subject": title, "detail": body}).encode("utf-8"),
+            method="POST",
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(request, timeout=5):
+            pass
+    except Exception:
+        pass
     now = time.time()
     for key, _detail in failures:
         state[key] = now

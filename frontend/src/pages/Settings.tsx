@@ -25,6 +25,21 @@ type EmailDocument = {
   uploaded_at: string;
 };
 
+type MonitoringConfig = {
+  enabled: boolean;
+  backend_type: "api_key" | "cli";
+  provider: "anthropic" | "claude";
+  has_api_key: boolean;
+  last_test_status: "ok" | "error" | null;
+  last_test_message: string | null;
+};
+
+type MonitoringDraft = {
+  enabled: boolean;
+  backendType: "api_key" | "cli";
+  apiKey: string;
+};
+
 type AccountDraft = {
   host: string;
   port: string;
@@ -85,6 +100,12 @@ export default function Settings() {
   const queryClient = useQueryClient();
   const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
   const [draft, setDraft] = useState<AccountDraft>(emptyDraft);
+  const [monitoringDraft, setMonitoringDraft] = useState<MonitoringDraft>({
+    enabled: false,
+    backendType: "api_key",
+    apiKey: "",
+  });
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const accountsQuery = useQuery({
     queryKey: ["email-accounts"],
@@ -109,6 +130,14 @@ export default function Settings() {
     enabled: selectedAccountId !== null,
   });
 
+  const monitoringQuery = useQuery({
+    queryKey: ["ai-monitoring-config"],
+    queryFn: async (): Promise<MonitoringConfig> => {
+      const { data } = await api.get("/v1/monitoring/config");
+      return data;
+    },
+  });
+
   useEffect(() => {
     if (selectedAccountId === null && accounts.length > 0) {
       setSelectedAccountId(accounts[0].id);
@@ -118,6 +147,15 @@ export default function Settings() {
   useEffect(() => {
     setDraft(draftFromAccount(selectedAccount));
   }, [selectedAccount]);
+
+  useEffect(() => {
+    if (!monitoringQuery.data) return;
+    setMonitoringDraft((current) => ({
+      ...current,
+      enabled: monitoringQuery.data.enabled,
+      backendType: monitoringQuery.data.backend_type,
+    }));
+  }, [monitoringQuery.data?.backend_type, monitoringQuery.data?.enabled]);
 
   const saveMutation = useMutation({
     mutationFn: async () => {
@@ -170,6 +208,54 @@ export default function Settings() {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["email-accounts"] });
       await queryClient.invalidateQueries({ queryKey: ["email-accounts", selectedAccountId, "sync-log"] });
+    },
+  });
+
+  const monitoringSaveMutation = useMutation({
+    mutationFn: async () => {
+      const backendType = monitoringDraft.backendType;
+      const provider = backendType === "api_key" ? "anthropic" : "claude";
+      const payload: {
+        enabled: boolean;
+        backend_type: "api_key" | "cli";
+        provider: "anthropic" | "claude";
+        api_key?: string;
+      } = {
+        enabled: monitoringDraft.enabled,
+        backend_type: backendType,
+        provider,
+      };
+      if (monitoringDraft.apiKey.trim()) {
+        payload.api_key = monitoringDraft.apiKey.trim();
+      }
+      const { data } = await api.put("/v1/monitoring/config", payload);
+      return data as MonitoringConfig;
+    },
+    onSuccess: async (config) => {
+      setMonitoringDraft((current) => ({
+        ...current,
+        enabled: config.enabled,
+        backendType: config.backend_type,
+        apiKey: "",
+      }));
+      await queryClient.invalidateQueries({ queryKey: ["ai-monitoring-config"] });
+    },
+  });
+
+  const monitoringTestMutation = useMutation({
+    mutationFn: async () => {
+      const { data } = await api.post("/v1/monitoring/test");
+      return data as { success: boolean; message: string };
+    },
+    onSuccess: (result) => {
+      setTestResult(result);
+      void queryClient.invalidateQueries({ queryKey: ["ai-monitoring-config"] });
+    },
+    onError: () => {
+      setTestResult({
+        success: false,
+        message: "Unable to test the AI backend.",
+      });
     },
   });
 
@@ -408,6 +494,122 @@ export default function Settings() {
               ) : (
                 <div className="px-5 py-10 text-sm text-gray-500">No email-imported documents yet.</div>
               )}
+            </section>
+
+            <section className="rounded-lg border border-gray-800 bg-gray-900">
+              <div className="flex flex-col gap-3 border-b border-gray-800 px-5 py-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <SettingsIcon className="h-4 w-4 text-orange-300" />
+                    <div className="text-xs uppercase tracking-[0.25em] text-gray-500">AI Monitoring</div>
+                  </div>
+                  <div className="mt-1 text-sm text-gray-400">
+                    Optional LLM interpretation layered on top of the existing cron health checks
+                  </div>
+                </div>
+                <div className="text-xs uppercase tracking-[0.25em] text-gray-500">
+                  Last test: {monitoringQuery.data?.last_test_status ?? "-"}
+                </div>
+              </div>
+
+              <div className="grid gap-4 p-5 md:grid-cols-2">
+                <label className="flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-950 px-3 py-3 text-sm text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={monitoringDraft.enabled}
+                    onChange={(event) =>
+                      setMonitoringDraft((current) => ({ ...current, enabled: event.target.checked }))
+                    }
+                    className="h-4 w-4 accent-orange-500"
+                  />
+                  Enabled
+                </label>
+
+                <Field label="Backend Type">
+                  <select
+                    value={monitoringDraft.backendType}
+                    onChange={(event) =>
+                      setMonitoringDraft((current) => ({
+                        ...current,
+                        backendType: event.target.value as "api_key" | "cli",
+                      }))
+                    }
+                    className="w-full rounded-lg border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-100 outline-none transition focus:border-orange-500"
+                  >
+                    <option value="api_key">API Key</option>
+                    <option value="cli">CLI Login</option>
+                  </select>
+                </Field>
+
+                {monitoringDraft.backendType === "api_key" ? (
+                  <>
+                    <Field label="Provider">
+                      <div className="rounded-lg border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-400">
+                        Anthropic
+                      </div>
+                    </Field>
+                    <Field label="Anthropic API Key">
+                      <input
+                        type="password"
+                        value={monitoringDraft.apiKey}
+                        onChange={(event) =>
+                          setMonitoringDraft((current) => ({ ...current, apiKey: event.target.value }))
+                        }
+                        placeholder={monitoringQuery.data?.has_api_key ? "Saved API key" : "Enter Anthropic API key"}
+                        className="w-full rounded-lg border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-100 outline-none transition focus:border-orange-500"
+                      />
+                    </Field>
+                  </>
+                ) : (
+                  <div className="md:col-span-2 rounded-lg border border-gray-800 bg-gray-950 px-4 py-4 text-sm text-gray-400">
+                    Run <span className="font-medium text-gray-200">claude login</span> once on the server so the
+                    worker container can reuse that authenticated session, then test the connection below.
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-3 border-t border-gray-800 px-5 py-4 md:flex-row md:items-center md:justify-between">
+                <div className="text-sm text-gray-500">
+                  {monitoringQuery.data?.last_test_message ?? "Save settings, then test the backend connection."}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => monitoringTestMutation.mutate()}
+                    disabled={monitoringTestMutation.isPending}
+                    className="inline-flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-950 px-3 py-2 text-sm text-gray-100 transition hover:border-orange-500 disabled:cursor-not-allowed disabled:text-gray-500"
+                  >
+                    {monitoringTestMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <RefreshCw className="h-4 w-4" />
+                    )}
+                    Test Connection
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => monitoringSaveMutation.mutate()}
+                    disabled={monitoringSaveMutation.isPending}
+                    className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:bg-gray-700"
+                  >
+                    {monitoringSaveMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Save className="h-4 w-4" />
+                    )}
+                    Save
+                  </button>
+                </div>
+              </div>
+              {testResult ? (
+                <div
+                  className={`border-t border-gray-800 px-5 py-3 text-sm ${
+                    testResult.success ? "text-emerald-300" : "text-red-200"
+                  }`}
+                >
+                  {testResult.message}
+                </div>
+              ) : null}
             </section>
           </main>
         </div>

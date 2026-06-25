@@ -10,6 +10,7 @@ from app.api.v1.endpoints import (
     inventory,
     kiosk,
     media,
+    monitoring,
     pricing,
     products,
     receipts,
@@ -38,6 +39,7 @@ api_router.include_router(receipts.router, prefix="/receipts", tags=["Receipts"]
 api_router.include_router(deals.router, prefix="/deals", tags=["Deals"])
 api_router.include_router(inventory.router, prefix="/inventory", tags=["Inventory"])
 api_router.include_router(media.router, prefix="/media", tags=["Media"])
+api_router.include_router(monitoring.router, prefix="/monitoring", tags=["AI Monitoring"])
 api_router.include_router(users.router, prefix="/users", tags=["Users"])
 api_router.include_router(reports.router, prefix="/reports", tags=["Reports"])
 api_router.include_router(kiosk.router, prefix="/kiosk", tags=["Kiosk (Pi)"])

@@ -23,9 +23,17 @@ def _key() -> bytes:
     return _generated_key
 
 
+def encrypt_secret(value: str) -> str:
+    return Fernet(_key()).encrypt(value.encode("utf-8")).decode("utf-8")
+
+
+def decrypt_secret(encrypted_value: str) -> str:
+    return Fernet(_key()).decrypt(encrypted_value.encode("utf-8")).decode("utf-8")
+
+
 def encrypt_email_password(password: str) -> str:
-    return Fernet(_key()).encrypt(password.encode("utf-8")).decode("utf-8")
+    return encrypt_secret(password)
 
 
 def decrypt_email_password(encrypted_password: str) -> str:
-    return Fernet(_key()).decrypt(encrypted_password.encode("utf-8")).decode("utf-8")
+    return decrypt_secret(encrypted_password)
