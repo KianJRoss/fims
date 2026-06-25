@@ -82,5 +82,11 @@ scripts/db/*.log
 # Staged videos for the Video Pi USB (large, regeneratable via stage_videos.py)
 media/videopi_staging/
 
+# Video Pi: generated apply artifacts + DB dumps (regeneratable from the apply scripts)
+scripts/videopi/apply_*.sql
+scripts/videopi/products.txt
+scripts/videopi/match_*.txt
+scripts/videopi/*.err
+
 # Stray git leftover from a previous re-init attempt
 .git-temp/
