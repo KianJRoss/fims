@@ -42,6 +42,9 @@ desktop.ini
 *.swp
 *.swo
 
+# Local agent/session config (Claude Code worktrees, etc.)
+.claude/
+
 # Test artifacts
 .pytest_cache/
 htmlcov/

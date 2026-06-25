@@ -270,6 +270,31 @@ completeness (missing data) and correctness (wrong data), not just for one brand
 - Needs a systematic pass: don't just check whether a field is populated, check whether
   it's actually correct, brand by brand.
 
+**4. Wrong product photos — esp. Jake's / World Class** *(known mess as of 2026-06-25)*
+- Beyond the zero-byte/mis-cropped issue in #3, a large number of product images are simply
+  the **wrong picture for the product** — the file is a valid image, just not this item.
+  Jake's (World Class) is the worst: many product photos are incorrect and it's a real mess.
+- Root cause is likely the catalog-page OCR crop/association step (`extract_catalog_images.py`)
+  pairing the wrong cropped box with an item number, and/or the gotfireworks/worldclass
+  image pullers matching on a loose key. Re-pulling alone won't fix it if the item→image
+  mapping itself is wrong.
+- Needs a verification pass that checks the image actually depicts the named product (e.g.
+  vision compare image vs. product name/catalog page), not just that a file exists. Flag
+  mismatches for re-pull or manual correction. Don't trust the existing mapping for Jake's.
+
+**5. YouTube video matching is too loose — confirms wrong/non-fireworks videos** *(known, 2026-06-25)*
+- The video finder (`backend/app/worker/tasks/video_search.py` + the review-queue auto-pairing)
+  links videos that are only vaguely related — "thinking it might be it" — and the confirmed
+  set includes **full news-media clips and content that isn't even fireworks**. So
+  `product_videos.confirmed = true` is NOT trustworthy as-is.
+- Impact: these feed the Video Pi kiosk (idle loop + scan-to-play, see `video_library.py`)
+  and were just staged for download — a wrong/irrelevant video will play for a customer.
+- Fix: tighten the search query (include item number + brand, fireworks keywords, channel/
+  duration heuristics, exclude news), and add a stricter confirmation gate — ideally a
+  human/vision review that the clip actually shows *this* firework before `confirmed` is set.
+  Re-audit the existing 450 confirmed rows; the 281 with a youtube_id were just staged, so
+  bad matches there should be un-confirmed and their staged files dropped.
+
 ### Priority 1 — Must Have Before Heavy Use
 
 **Email inbox scraping** *(High — unlocks all missing documents)*
