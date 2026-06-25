@@ -71,3 +71,13 @@ backend/celerybeat-schedule
 
 # Health check state
 scripts/.health_check_state.json
+
+# DB mesh: local snapshots/dumps (large, machine-local) and sync logs
+backups/
+scripts/db/*.log
+
+# Staged videos for the Video Pi USB (large, regeneratable via stage_videos.py)
+media/videopi_staging/
+
+# Stray git leftover from a previous re-init attempt
+.git-temp/
