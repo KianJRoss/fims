@@ -64,7 +64,8 @@ def score(pin, target_name):
     return s
 
 
-def build_plan(prods):
+def build_plan(prods, allowed_tiers=None):
+    allowed_tiers = allowed_tiers or set(TIER_SCORE)
     pins = json.load(open(PINS_JSON, encoding="utf-8"))
     audit = json.load(open(AUDIT_JSON, encoding="utf-8"))
     verdict = {a["item_number"]: a["verdict"] for a in audit.values()}
@@ -73,7 +74,7 @@ def build_plan(prods):
     losers = []
     dup_sources = []   # source's file shows an ALREADY-correct product -> source needs its own photo
     for src, v in pins.items():
-        if v["tier"] not in TIER_SCORE or not v.get("target_item"):
+        if v["tier"] not in allowed_tiers or not v.get("target_item"):
             continue
         tgt = v["target_item"]
         if tgt not in prods or src not in prods:
@@ -185,11 +186,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true", help="perform the DB repoint (writes!)")
     ap.add_argument("--rollback", action="store_true", help="restore image_path from fix_backup.json")
+    ap.add_argument("--tiers", default="HIGH,MED,NAME",
+                    help="comma-separated confidence tiers to include (e.g. 'HIGH,MED')")
     args = ap.parse_args()
     if args.rollback:
         return rollback()
+    allowed_tiers = {t.strip().upper() for t in args.tiers.split(",") if t.strip()}
     prods = load_products()
-    plan, losers, orphans, dup_need_photo = build_plan(prods)
+    plan, losers, orphans, dup_need_photo = build_plan(prods, allowed_tiers)
     out = write_plan(plan, losers, orphans, dup_need_photo, prods)
     print(f"Plan: {len(plan)} safe repoints, {len(losers)} conflict losers, "
           f"{len(dup_need_photo)} duplicate-sources, {len(orphans)} orphan sources, "
