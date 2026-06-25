@@ -85,7 +85,7 @@ def confirm_video(video_id: int, body: ConfirmBody, db: Session = Depends(get_db
     if body.is_primary is True:
         db.execute(
             update(ProductVideo)
-            .where(ProductVideo.product_id == video.product_id, ProductVideo.id != video.id, ProductVideo.is_primary.is_(True))
+            .where(ProductVideo.product_id == video.product_id, ProductVideo.id != video.id)
             .values(is_primary=False)
         )
 

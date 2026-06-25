@@ -29,12 +29,14 @@ STAGING=media/videopi_staging
 LIMIT=0
 REDOWNLOAD=0
 MAXH=720          # cap resolution -- store TV + USB size
+SRCFILTER=""      # optional: only stage rows with this source (e.g. instore_playlist)
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --limit) shift; LIMIT="$1" ;;
         --redownload) REDOWNLOAD=1 ;;
         --maxh) shift; MAXH="$1" ;;
+        --source) shift; SRCFILTER="$1" ;;
         *) echo "unknown arg: $1" >&2; exit 2 ;;
     esac
     shift
@@ -47,9 +49,11 @@ psql_pi() { docker run --rm -i -e PGPASSWORD=fims "$PGIMG" \
 
 echo "Fetching confirmed videos with a youtube_id from the Pi hub ..."
 # id|youtube_id  for every confirmed row that has a youtube id
+SRCCLAUSE=""
+[ -n "$SRCFILTER" ] && SRCCLAUSE="AND source = '$SRCFILTER'"
 ROWS=$(psql_pi -t -A -F'|' -c \
   "SELECT id, youtube_id FROM product_videos
-    WHERE confirmed AND youtube_id IS NOT NULL AND youtube_id <> ''
+    WHERE confirmed AND youtube_id IS NOT NULL AND youtube_id <> '' $SRCCLAUSE
     ORDER BY id")
 
 total=$(printf '%s\n' "$ROWS" | grep -c . || true)
@@ -81,6 +85,13 @@ while IFS='|' read -r id yid; do
         if yt-dlp --no-progress --quiet --no-warnings \
             -f "bestvideo[height<=${MAXH}][ext=mp4]+bestaudio[ext=m4a]/best[height<=${MAXH}][ext=mp4]/best[ext=mp4]/best" \
             --merge-output-format mp4 \
+            -o "$fpath" -- "$yid" 2>/dev/null && [ -s "$fpath" ]; then
+            ok=$((ok+1))
+        # fallback: YouTube SABR streaming returns HTTP 403 on some adaptive
+        # formats; the android/ios/tv clients still serve a progressive mp4
+        elif yt-dlp --no-progress --quiet --no-warnings \
+            --extractor-args "youtube:player_client=android,ios,tv" \
+            -f "best[height<=${MAXH}][ext=mp4]/best[ext=mp4]/best" \
             -o "$fpath" -- "$yid" 2>/dev/null && [ -s "$fpath" ]; then
             ok=$((ok+1))
         else
