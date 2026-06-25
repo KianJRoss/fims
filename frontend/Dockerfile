@@ -9,6 +9,7 @@ ENV VITE_API_URL=$VITE_API_URL
 ARG VITE_RECEIPT_BASE_URL=
 ENV VITE_RECEIPT_BASE_URL=$VITE_RECEIPT_BASE_URL
 RUN npm run build
+RUN mkdir -p dist/shop && cp dist/index.html dist/shop/index.html && cp -r dist/assets dist/shop/assets
 
 # Stage 2: serve the built dist
 FROM node:22-alpine AS runner

@@ -1,65 +1,84 @@
 :80 {
     # ── Public access via Tailscale Funnel (shop + receipts only) ─────────────
-    @public_host host kianpotpi.taile4f97e.ts.net
+    @public_shop {
+        host kianpotpi.taile4f97e.ts.net
+        path /shop*
+    }
+    handle @public_shop {
+        reverse_proxy web:3000 {
+            header_up Host {host}
+        }
+    }
 
+    @public_receipt {
+        host kianpotpi.taile4f97e.ts.net
+        path /receipt*
+    }
+    handle @public_receipt {
+        reverse_proxy web:3000 {
+            header_up Host {host}
+        }
+    }
+
+    @public_products {
+        host kianpotpi.taile4f97e.ts.net
+        path /api/v1/products*
+    }
+    handle @public_products {
+        uri strip_prefix /api
+        reverse_proxy api:8000 {
+            flush_interval -1
+        }
+    }
+
+    @public_categories {
+        host kianpotpi.taile4f97e.ts.net
+        path /api/v1/categories*
+    }
+    handle @public_categories {
+        uri strip_prefix /api
+        reverse_proxy api:8000 {
+            flush_interval -1
+        }
+    }
+
+    @public_deals {
+        host kianpotpi.taile4f97e.ts.net
+        path /api/v1/deals/*
+    }
+    handle @public_deals {
+        uri strip_prefix /api
+        reverse_proxy api:8000 {
+            flush_interval -1
+        }
+    }
+
+    @public_receipts {
+        host kianpotpi.taile4f97e.ts.net
+        path /api/v1/receipts/*
+    }
+    handle @public_receipts {
+        uri strip_prefix /api
+        reverse_proxy api:8000 {
+            flush_interval -1
+        }
+    }
+
+    @public_media {
+        host kianpotpi.taile4f97e.ts.net
+        path /media/*
+    }
+    handle @public_media {
+        uri strip_prefix /media
+        root * /app/media
+        file_server
+    }
+
+    @public_host {
+        host kianpotpi.taile4f97e.ts.net
+    }
     handle @public_host {
-        # Shop pages — public product browser
-        handle /shop* {
-            reverse_proxy web:3000 {
-                header_up Host {host}
-            }
-        }
-
-        # Digital receipt pages
-        handle /receipt* {
-            reverse_proxy web:3000 {
-                header_up Host {host}
-            }
-        }
-
-        # API: products (read-only, shop needs this)
-        handle /api/v1/products* {
-            uri strip_prefix /api
-            reverse_proxy api:8000 {
-                flush_interval -1
-            }
-        }
-
-        # API: categories (shop filter sidebar)
-        handle /api/v1/categories* {
-            uri strip_prefix /api
-            reverse_proxy api:8000 {
-                flush_interval -1
-            }
-        }
-
-        # API: deals (shop home page)
-        handle /api/v1/deals/* {
-            uri strip_prefix /api
-            reverse_proxy api:8000 {
-                flush_interval -1
-            }
-        }
-
-        # API: receipts (QR code token lookup)
-        handle /api/v1/receipts/* {
-            uri strip_prefix /api
-            reverse_proxy api:8000 {
-                flush_interval -1
-            }
-        }
-
-        # Static media (product images)
-        handle /media/* {
-            uri strip_prefix /media
-            root * /app/media
-            file_server
-        }
-
-        # Block everything else from public internet
-        handle {
-            respond 403
-        }
+        respond 403
     }
 
     # ── LAN access (store WiFi — full FIMS) ───────────────────────────────────
