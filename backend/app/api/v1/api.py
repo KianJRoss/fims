@@ -11,6 +11,7 @@ from app.api.v1.endpoints import (
     kiosk,
     media,
     monitoring,
+    payments,
     pricing,
     products,
     receipts,
@@ -35,6 +36,7 @@ api_router.include_router(manufacturers_router, prefix="/manufacturers", tags=["
 api_router.include_router(suppliers.router, prefix="/suppliers", tags=["Suppliers"])
 api_router.include_router(imports.router, prefix="/imports", tags=["Import Pipeline"])
 api_router.include_router(sales.router, prefix="/sales", tags=["Sales"])
+api_router.include_router(payments.router, prefix="/payments", tags=["Payments"])
 api_router.include_router(receipts.router, prefix="/receipts", tags=["Receipts"])
 api_router.include_router(deals.router, prefix="/deals", tags=["Deals"])
 api_router.include_router(inventory.router, prefix="/inventory", tags=["Inventory"])
