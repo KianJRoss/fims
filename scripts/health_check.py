@@ -1,6 +1,7 @@
 from pathlib import Path
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import time
@@ -12,6 +13,19 @@ NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}"
 STATE_FILE = Path("scripts/.health_check_state.json")
 COOLDOWN_SECONDS = 60 * 60
 QUEUE_NAMES = ("default", "imports", "reports")
+
+# Read-only commands the on-host claude investigator is allowed to run. Anything
+# not listed here is auto-denied in --print mode (it cannot prompt), so this list
+# is a hard boundary, not a suggestion.
+CLAUDE_ALLOWED_TOOLS = [
+    "Bash(docker compose logs:*)",
+    "Bash(docker compose ps:*)",
+    "Bash(docker compose exec -T redis redis-cli:*)",
+    "Bash(docker ps:*)",
+    "Bash(df:*)",
+    "Bash(free:*)",
+    "Bash(uptime:*)",
+]
 
 
 def run_command(args, capture_stderr=False):
@@ -158,18 +172,127 @@ def should_alert(failures, state):
     return False
 
 
-def send_alert(title, body):
+def post_ntfy(title, body, priority=None):
+    headers = {"Title": title}
+    if priority:
+        headers["Priority"] = priority
     request = urllib.request.Request(
         NTFY_URL,
         data=body.encode("utf-8"),
         method="POST",
-        headers={
-            "Title": title,
-            "Priority": "high",
-        },
+        headers=headers,
     )
     with urllib.request.urlopen(request, timeout=10):
         return
+
+
+def send_alert(title, body):
+    post_ntfy(title, body, priority="high")
+
+
+def resolve_claude_bin():
+    """Locate the claude CLI. cron has a minimal PATH, so which() alone is not enough."""
+    env_bin = os.environ.get("FIMS_CLAUDE_BIN")
+    if env_bin and Path(env_bin).exists():
+        return env_bin
+
+    which_bin = shutil.which("claude")
+    if which_bin:
+        return which_bin
+
+    for candidate in (
+        "/usr/local/bin/claude",
+        "/usr/bin/claude",
+        os.path.expanduser("~/.npm-global/bin/claude"),
+        os.path.expanduser("~/.local/bin/claude"),
+    ):
+        if Path(candidate).exists():
+            return candidate
+    return None
+
+
+def run_cli_investigation(title, body):
+    """Run the on-host claude CLI as a read-only investigator and push its insight to ntfy."""
+    claude_bin = resolve_claude_bin()
+    if not claude_bin:
+        print("claude CLI not found; skipping AI investigation")
+        return
+
+    prompt = (
+        "You are diagnosing a health alert on FIMS, a small fireworks store's backend\n"
+        "running in Docker on a Raspberry Pi. A cron health check just fired this alert:\n\n"
+        f"{body}\n\n"
+        "Investigate the most likely root cause using ONLY the read-only commands available\n"
+        "to you (docker compose logs/ps, redis queue lengths via redis-cli, df, free, uptime).\n"
+        "Do not attempt to change, restart, or fix anything.\n\n"
+        "Then reply with at most 5 short sentences in plain English for a non-technical store\n"
+        "owner: what is wrong, the likely cause, and what they should do. If it looks\n"
+        "transient or self-resolving, say so plainly."
+    )
+
+    # --allowedTools is variadic, so it must come last or it will swallow later flags.
+    cmd = [
+        claude_bin,
+        "-p",
+        prompt,
+        "--output-format",
+        "text",
+        "--permission-mode",
+        "default",
+        "--max-turns",
+        "20",
+        "--allowedTools",
+        *CLAUDE_ALLOWED_TOOLS,
+    ]
+
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=Path("."),
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+    except subprocess.TimeoutExpired:
+        print("claude CLI investigation timed out")
+        return
+    except Exception as exc:  # noqa: BLE001 - best effort, must never break the cron run
+        print(f"claude CLI investigation failed: {exc}")
+        return
+
+    insight = (result.stdout or "").strip()
+    if not insight:
+        stderr = (result.stderr or "").strip()
+        print(f"claude CLI investigation returned no output (exit {result.returncode}): {stderr}")
+        return
+
+    try:
+        post_ntfy("FIMS AI Insight", insight)
+    except Exception as exc:  # noqa: BLE001 - best effort
+        print(f"failed to post AI insight to ntfy: {exc}")
+
+
+def queue_api_investigation(title, body):
+    """Fallback backend: hand the alert to the containerized Celery/Anthropic-API path."""
+    try:
+        request = urllib.request.Request(
+            "http://localhost:8000/v1/monitoring/alert",
+            data=json.dumps({"subject": title, "detail": body}).encode("utf-8"),
+            method="POST",
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(request, timeout=5):
+            pass
+    except Exception:
+        pass
+
+
+def run_ai_investigation(title, body):
+    backend = (os.environ.get("FIMS_AI_MONITOR") or "cli").strip().lower()
+    if backend in ("cli", "both"):
+        run_cli_investigation(title, body)
+    if backend in ("api", "both"):
+        queue_api_investigation(title, body)
 
 
 def main():
@@ -195,21 +318,11 @@ def main():
         return 0
 
     send_alert(title, body)
-    try:
-        request = urllib.request.Request(
-            "http://localhost:8000/v1/monitoring/alert",
-            data=json.dumps({"subject": title, "detail": body}).encode("utf-8"),
-            method="POST",
-            headers={"Content-Type": "application/json"},
-        )
-        with urllib.request.urlopen(request, timeout=5):
-            pass
-    except Exception:
-        pass
     now = time.time()
     for key, _detail in failures:
         state[key] = now
     save_state(state)
+    run_ai_investigation(title, body)
     return 0
 
 

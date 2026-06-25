@@ -47,26 +47,68 @@ python3 scripts/health_check.py --dry-run
 
 Already installed on KianPotPi (`crontab -l` to confirm).
 
-## Tier 2 — AI insight layer (opt-in)
+## Tier 2 — AI insight layer
 
-Disabled by default. Configure it on the **Settings** page in the web UI.
+When an alert fires, `health_check.py` hands it to an AI backend selected by the
+`FIMS_AI_MONITOR` env var (default `cli`):
 
-- **Backend = API key (recommended):** paste an Anthropic key. Stored encrypted
-  (`encrypted_api_key`), used to call `claude-sonnet-4-6` directly from the
-  worker. This is the only backend that works inside the containerized worker.
-- **Backend = CLI:** runs `claude -p` as a subprocess. ⚠️ Only works if the
-  `claude` CLI is installed *inside the Celery worker container* — by default it
-  is not, so this mode will fail there. Use API-key mode unless you've baked the
-  CLI into the worker image.
+| `FIMS_AI_MONITOR` | Behavior |
+|-------------------|----------|
+| `cli` (default)   | Host-side `claude` CLI investigator (recommended) |
+| `api`             | Containerized Celery → Anthropic API summarizer (fallback) |
+| `both`            | Run both |
+| `none`            | Tier 1 only — no AI |
+
+### Backend `cli` — host-side investigator (recommended)
+
+Runs the `claude` CLI **on the Pi host** (where it has real access), gives it a
+**read-only** shell whitelist, and lets it actually investigate the failure —
+tail container logs, check `docker compose ps`, read queue depths — then pushes a
+plain-English root-cause to ntfy titled "FIMS AI Insight".
+
+This is strictly more useful than the API summarizer: a one-shot API call only
+sees the alert text, while the host agent can read logs and find the real cause.
+It also bills against your **Claude subscription** (CLI login), not the API.
+
+- Allowed tools (hard boundary — anything else is auto-denied in `--print` mode):
+  `docker compose logs/ps`, `docker compose exec -T redis redis-cli`,
+  `docker ps`, `df`, `free`, `uptime`. It cannot restart, edit, or change
+  anything.
+- Env: `FIMS_CLAUDE_BIN` overrides the CLI path. The script also probes
+  `which claude`, `/usr/local/bin`, `/usr/bin`, `~/.npm-global/bin`,
+  `~/.local/bin`. If it can't find `claude` it skips silently (Tier 1 still works).
+
+**Install + auth on the Pi (one-time, as the cron user):**
+
+```bash
+npm i -g @anthropic-ai/claude-code   # Node already present on KianPotPi
+claude                               # log in once (subscription OAuth); creds persist in ~/.claude
+which claude                         # note the path
+```
+
+**cron caveat:** cron runs with a minimal `PATH`, so it may not find `claude`
+even after install. Either add `PATH=...` to the crontab, or set
+`FIMS_CLAUDE_BIN=/full/path/to/claude` in the crontab line, e.g.:
+
+```cron
+*/5 * * * * cd /home/krioasns/fims && FIMS_CLAUDE_BIN=$(npm prefix -g)/bin/claude /usr/bin/python3 scripts/health_check.py >/dev/null 2>&1
+```
+
+### Backend `api` — containerized summarizer (fallback)
+
+Disabled by default; configure on the **Settings** page. Paste an Anthropic key
+(stored encrypted as `encrypted_api_key`) to call `claude-sonnet-4-6` from the
+worker. The Settings "CLI" option here runs `claude -p` *inside the worker
+container*, which has no CLI installed — so it will fail; prefer API-key mode for
+this backend, or use the host `cli` backend above instead.
 
 Flow: `/v1/monitoring/alert` (`backend/app/api/v1/endpoints/monitoring.py`)
 queues `analyze_and_notify` (`backend/app/worker/tasks/monitoring.py`), which
 reads `AiMonitorConfig`, calls `app/services/ai_monitor.py`, and pushes the
 result to ntfy. If config is missing or `enabled = false`, the task is a no-op,
-so Tier 1 alerts still arrive raw.
-
-Use the **Test** button in Settings to verify connectivity (sends "Reply with
-exactly: OK"). Result is stored in `last_test_status` / `last_test_message`.
+so Tier 1 alerts still arrive raw. Use the **Test** button in Settings to verify
+connectivity (sends "Reply with exactly: OK"); result is stored in
+`last_test_status` / `last_test_message`.
 
 ## Files
 
