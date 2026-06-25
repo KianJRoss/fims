@@ -106,13 +106,41 @@ command.
 ## Media (product images)
 
 `dbsync.py` syncs DB rows, not the `media/product_images/*.webp` files. Mirror
-those separately over Tailscale, e.g.:
+those separately with `media_sync.sh` (tar-over-ssh; works where there's no
+rsync, e.g. the laptop's git-bash). It transfers only the files the node is
+missing, so repeat runs are cheap and never overwrite existing files:
 
 ```bash
-# pull new images from the Pi to this machine (adjust ssh target/path to your Pi)
-rsync -av --ignore-existing <pi-user>@100.73.208.99:~/fims/media/product_images/ \
-  "media/product_images/"
+scripts/db/media_sync.sh            # pull missing images from the Pi hub -> here
+scripts/db/media_sync.sh --push     # push local-only images up to the Pi
+scripts/db/media_sync.sh --dir documents   # sync media/documents instead
 ```
+
+All three nodes mirrored to **1694 images** on 2026-06-25. On the PC (no
+git-bash for the script) it was filled directly from the laptop via
+`tar -C media/product_images -cf - . | ssh pc "tar -C C:\FIMS\media\product_images -xf -"`.
+
+## Video Pi staging (`scripts/videopi/`)
+
+The kiosk plays a product's demo video from the Video Pi's flat
+`/media/pi/VIDEOS/videos/` dir, matched by `product_videos.video_filename`.
+Two scripts stage and deploy those:
+
+```bash
+scripts/videopi/stage_videos.sh        # download confirmed videos (<=720p) flat as
+                                       # {youtube_id}.mp4 into media/videopi_staging/
+                                       # and set video_filename/duration/download_status
+                                       # on the Pi hub DB. Idempotent + resumable.
+scripts/videopi/deploy_to_videopi.sh   # when the Video Pi is plugged in: copy only the
+                                       # files it's missing onto its USB, then reload the
+                                       # idle playlist. --check to preview counts.
+```
+
+The staging dir (`media/videopi_staging/`) is gitignored — large and
+regeneratable. `video_filename` is set to `{youtube_id}.mp4` (youtube_ids are
+filesystem-safe; item numbers contain `/` and spaces). Setting it before the
+files reach the Video Pi is safe: the idle-playlist builder only matches names
+that actually exist on the device.
 
 ## Caveats
 
