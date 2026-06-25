@@ -1,0 +1,3495 @@
+{
+ "1000104": {
+  "item_number": "1000104",
+  "name": "WORLD CLASS ROCKETS 6 OZ",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001015"
+  ],
+  "qwen_name": "Night Stalker",
+  "image_path": "product_images/1000104.png",
+  "target_item": "1001015",
+  "target_name": "NIGHT STALKER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000108": {
+  "item_number": "1000108",
+  "name": "JET SCREAMER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Stinger",
+  "image_path": "product_images/1000108.png",
+  "tier": "NONE"
+ },
+ "1000109": {
+  "item_number": "1000109",
+  "name": "JETS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "SR-3",
+   "SWG2060"
+  ],
+  "qwen_name": "Premium Moon Traveler",
+  "image_path": "product_images/1000109.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000155": {
+  "item_number": "1000155",
+  "name": "SMILING FROM EAR TO EAR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "PARACHUTES",
+  "image_path": "product_images/1000155.png",
+  "tier": "NONE"
+ },
+ "1000202": {
+  "item_number": "1000202",
+  "name": "M-5000 CRACKER MAX. LOAD 36 COUNT",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000524",
+   "1000571",
+   "1000572",
+   "1013107"
+  ],
+  "qwen_name": "SPECIAL FIRECRACKERS",
+  "image_path": "product_images/1000202.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000203": {
+  "item_number": "1000203",
+  "name": "M-5000 CRACKER MAX. LOAD 12 COUNT",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1000553"
+  ],
+  "qwen_name": "JUMBO M-5000",
+  "image_path": "product_images/1000203.png",
+  "target_item": "1000553",
+  "target_name": "JUMBO M-5000 RED",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000207": {
+  "item_number": "1000207",
+  "name": "DYNO MIGHTY MITE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004311"
+  ],
+  "qwen_name": "Shell Shockers",
+  "image_path": "product_images/1000207.png",
+  "target_item": "1004311",
+  "target_name": "SHELL SHOCKERS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000342": {
+  "item_number": "1000342",
+  "name": "#300 FOUR ASST. EFFECTS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001408"
+  ],
+  "qwen_name": "SUPER MAGNUM",
+  "image_path": "product_images/1000342.png",
+  "target_item": "1001408",
+  "target_name": "SUPER MAGNUM",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000343": {
+  "item_number": "1000343",
+  "name": "#5 SIX ASST. EFFECTS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "1\" MAGNUM ARTILLERY SHELL",
+  "image_path": "product_images/1000343.png",
+  "tier": "NONE"
+ },
+ "1000401": {
+  "item_number": "1000401",
+  "name": "KTNG",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1024513"
+  ],
+  "qwen_name": "The KING",
+  "image_path": "product_images/1000401.png",
+  "target_item": "1024513",
+  "target_name": "THE KING",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000402": {
+  "item_number": "1000402",
+  "name": "USA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003968"
+  ],
+  "qwen_name": "Major Mojo",
+  "image_path": "product_images/1000402.png",
+  "target_item": "1003968",
+  "target_name": "MAJOR MOJO",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000405": {
+  "item_number": "1000405",
+  "name": "LITTLE BIG",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1024513"
+  ],
+  "qwen_name": "The King",
+  "image_path": "product_images/1000405.png",
+  "target_item": "1024513",
+  "target_name": "THE KING",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000420": {
+  "item_number": "1000420",
+  "name": "GREAT NIGHT EXTRAVAGANZA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "USA",
+  "image_path": "product_images/1000420.png",
+  "tier": "NONE"
+ },
+ "1000421": {
+  "item_number": "1000421",
+  "name": "KIDS DELIGHT",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Thriller Assortment",
+  "image_path": "product_images/1000421.png",
+  "tier": "NONE"
+ },
+ "1000438": {
+  "item_number": "1000438",
+  "name": "ALL STAR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "NEON LIGHTS",
+  "image_path": "product_images/1000438.png",
+  "tier": "NONE"
+ },
+ "1000442": {
+  "item_number": "1000442",
+  "name": "WHAT BOYS ARE MADE OF",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003972"
+  ],
+  "qwen_name": "More For Your Money",
+  "image_path": "product_images/1000442.png",
+  "target_item": "1003972",
+  "target_name": "MORE FOR YOUR MONEY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000443": {
+  "item_number": "1000443",
+  "name": "WHAT A GIRL WANTS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000544"
+  ],
+  "qwen_name": "MIGHTY CRACKER",
+  "image_path": "product_images/1000443.png",
+  "target_item": "1000544",
+  "target_name": "MIGHTY CRACKER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000458": {
+  "item_number": "1000458",
+  "name": "KILLER VALUE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000471"
+  ],
+  "qwen_name": "FOUR TO GO",
+  "image_path": "product_images/1000458.png",
+  "target_item": "1000471",
+  "target_name": "FOUR TO GO",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000468": {
+  "item_number": "1000468",
+  "name": "Family-safe",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1003976"
+  ],
+  "name_matches": [
+   "1003976"
+  ],
+  "qwen_name": "BEST BET",
+  "image_path": "product_images/1000468.png",
+  "target_item": "1003976",
+  "target_name": "BEST BET",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1000469": {
+  "item_number": "1000469",
+  "name": "TWO FOR THE SHOW",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000470"
+  ],
+  "qwen_name": "THREE TO GET READY",
+  "image_path": "product_images/1000469.png",
+  "target_item": "1000470",
+  "target_name": "THREE TO GET READY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000470": {
+  "item_number": "1000470",
+  "name": "THREE TO GET READY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000469"
+  ],
+  "qwen_name": "TWO For The Show",
+  "image_path": "product_images/1000470.png",
+  "target_item": "1000469",
+  "target_name": "TWO FOR THE SHOW",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000471": {
+  "item_number": "1000471",
+  "name": "FOUR TO GO",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000458",
+   "1003969"
+  ],
+  "qwen_name": "KILLER VALUE",
+  "image_path": "product_images/1000471.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000472": {
+  "item_number": "1000472",
+  "name": "DAZZLER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000446",
+   "1024517"
+  ],
+  "qwen_name": "CAESAR",
+  "image_path": "product_images/1000472.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000473": {
+  "item_number": "1000473",
+  "name": "SIZZLER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003979"
+  ],
+  "qwen_name": "MAXIMUM IMPACT",
+  "image_path": "product_images/1000473.png",
+  "target_item": "1003979",
+  "target_name": "MAXIMUM IMPACT",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1000479": {
+  "item_number": "1000479",
+  "name": "JUNK IN THE TRUNK",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001435",
+   "1003354"
+  ],
+  "qwen_name": "Premium Artillery Shell",
+  "image_path": "product_images/1000479.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000510": {
+  "item_number": "1000510",
+  "name": "THUNDER BOMB",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000202",
+   "1000203"
+  ],
+  "qwen_name": "M-5000 CRACKER",
+  "image_path": "product_images/1000510.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000524": {
+  "item_number": "1000524",
+  "name": "SPECIAL FIRECRACKERS 16000",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004307",
+   "MS008",
+   "SP700"
+  ],
+  "qwen_name": "SALUTE",
+  "image_path": "product_images/1000524.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1000553": {
+  "item_number": "1000553",
+  "name": "JUMBO M-5000 RED",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004312"
+  ],
+  "name_matches": [
+   "1004312"
+  ],
+  "qwen_name": "Boom Boom Crackers",
+  "image_path": "product_images/1000553.png",
+  "target_item": "1004312",
+  "target_name": "BOOM BOOM CRACKERS",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1000556": {
+  "item_number": "1000556",
+  "name": "JUMB0 M-5000 SILVER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000510",
+   "1000516",
+   "1000525"
+  ],
+  "qwen_name": "Thunder Bomb",
+  "image_path": "product_images/1000556.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1001232": {
+  "item_number": "1001232",
+  "name": "CUCK00",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1001246",
+   "1003325",
+   "1011469"
+  ],
+  "name_matches": [
+   "1003325"
+  ],
+  "qwen_name": "NIGHT SABER",
+  "image_path": "product_images/1001232.png",
+  "target_item": "1001246",
+  "target_name": "KILLER BEE",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1001300": {
+  "item_number": "1001300",
+  "name": "REFLECTION",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "MAMA MOIA",
+  "image_path": "product_images/1001300.png",
+  "tier": "NONE"
+ },
+ "1001301": {
+  "item_number": "1001301",
+  "name": "LAND OF FREE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003498"
+  ],
+  "qwen_name": "ANGRY WIFE",
+  "image_path": "product_images/1001301.png",
+  "target_item": "1003498",
+  "target_name": "ANGRY WIFE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001304": {
+  "item_number": "1001304",
+  "name": "COLOR PEARL FLOWER 48 SHOTS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001301"
+  ],
+  "qwen_name": "Land of Free",
+  "image_path": "product_images/1001304.png",
+  "target_item": "1001301",
+  "target_name": "LAND OF FREE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001309": {
+  "item_number": "1001309",
+  "name": "100 SHOT MAGICAL BARRAGE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003366"
+  ],
+  "qwen_name": "Tequila Party",
+  "image_path": "product_images/1001309.png",
+  "target_item": "1003366",
+  "target_name": "TEQUILA PARTY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001334": {
+  "item_number": "1001334",
+  "name": "DESERT AT NIGHT",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013380"
+  ],
+  "qwen_name": "Executioner",
+  "image_path": "product_images/1001334.png",
+  "target_item": "1013380",
+  "target_name": "EXECUTIONER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001340": {
+  "item_number": "1001340",
+  "name": "GARDEN IN SPRING",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003107"
+  ],
+  "qwen_name": "American Muscle",
+  "image_path": "product_images/1001340.png",
+  "target_item": "1003107",
+  "target_name": "AMERICAN MUSCLE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001401": {
+  "item_number": "1001401",
+  "name": "EXCALIBUR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003547"
+  ],
+  "qwen_name": "GROWLER",
+  "image_path": "product_images/1001401.png",
+  "target_item": "1003547",
+  "target_name": "GROWLER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001404": {
+  "item_number": "1001404",
+  "name": "GOLIATH",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1001492"
+  ],
+  "name_matches": [
+   "1001492"
+  ],
+  "qwen_name": "King Arthur",
+  "image_path": "product_images/1001404.png",
+  "target_item": "1001492",
+  "target_name": "KING ARTHUR",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1001413": {
+  "item_number": "1001413",
+  "name": "CRACKLING ARTILLERY SHELL",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1003352"
+  ],
+  "qwen_name": "Festival Ball Artillery Shell",
+  "image_path": "product_images/1001413.png",
+  "target_item": "1003352",
+  "target_name": "FESTIVAL BALL",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001416": {
+  "item_number": "1001416",
+  "name": "WHISTLING JAKE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001435",
+   "1003354"
+  ],
+  "qwen_name": "PREMIUM ARTILLERY SHELL",
+  "image_path": "product_images/1001416.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1001421": {
+  "item_number": "1001421",
+  "name": "FESTIVAL BALLS SLIM BOX",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004329"
+  ],
+  "name_matches": [
+   "1004329"
+  ],
+  "qwen_name": "Victory Vault",
+  "image_path": "product_images/1001421.png",
+  "target_item": "1004329",
+  "target_name": "VICTORY VAULT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1001423": {
+  "item_number": "1001423",
+  "name": "W515B SLIM BOX",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001435",
+   "1003354"
+  ],
+  "qwen_name": "Premium Artillery Shells",
+  "image_path": "product_images/1001423.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1001435": {
+  "item_number": "1001435",
+  "name": "PREMIUM ARTILLERY SHELLS",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1001416"
+  ],
+  "qwen_name": "Whistling Jake Artillery Shell",
+  "image_path": "product_images/1001435.png",
+  "target_item": "1001416",
+  "target_name": "WHISTLING JAKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001489": {
+  "item_number": "1001489",
+  "name": "TRILOGY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "WORLD-CLASS FIREWORKS",
+  "image_path": "product_images/1001489.png",
+  "tier": "NONE"
+ },
+ "1001508": {
+  "item_number": "1001508",
+  "name": "SIDEWINDER MISSILE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001519"
+  ],
+  "qwen_name": "STRIKE",
+  "image_path": "product_images/1001508.png",
+  "target_item": "1001519",
+  "target_name": "STRIKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001517": {
+  "item_number": "1001517",
+  "name": "STAR SH00TER 10",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1001521",
+   "1001522"
+  ],
+  "name_matches": [
+   "NN3004"
+  ],
+  "qwen_name": "Tomahawk",
+  "image_path": "product_images/1001517.png",
+  "target_item": "1001521",
+  "target_name": "APACHE 12\"",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1001519": {
+  "item_number": "1001519",
+  "name": "STRIKE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Sidewind Miss II",
+  "image_path": "product_images/1001519.png",
+  "tier": "NONE"
+ },
+ "1001611": {
+  "item_number": "1001611",
+  "name": "CLIMBING PANDA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001654"
+  ],
+  "qwen_name": "Champagne Party Popper",
+  "image_path": "product_images/1001611.png",
+  "target_item": "1001654",
+  "target_name": "CHAMPAGNE PARTY POPPER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001632": {
+  "item_number": "1001632",
+  "name": "TANK WITH REPORT",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "BOOMER TANK WITH STAR",
+  "image_path": "product_images/1001632.png",
+  "tier": "NONE"
+ },
+ "1001653": {
+  "item_number": "1001653",
+  "name": "CRACKLING BALLS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1002227"
+  ],
+  "qwen_name": "Poopy Puppy",
+  "image_path": "product_images/1001653.png",
+  "target_item": "1002227",
+  "target_name": "POOPY PUPPY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001659": {
+  "item_number": "1001659",
+  "name": "HOT RACER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003631"
+  ],
+  "qwen_name": "Jurassic Land",
+  "image_path": "product_images/1001659.png",
+  "target_item": "1003631",
+  "target_name": "JURASSIC LAND",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001688": {
+  "item_number": "1001688",
+  "name": "Colored Snake Assortment",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1002209"
+  ],
+  "qwen_name": "Two Color Space Ship",
+  "image_path": "product_images/1001688.png",
+  "target_item": "1002209",
+  "target_name": "TWO COLOR SPACE SHIP",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001701": {
+  "item_number": "1001701",
+  "name": "7 LANTERN PARACHUTE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004295"
+  ],
+  "qwen_name": "OLD GLORY GLIDER",
+  "image_path": "product_images/1001701.png",
+  "target_item": "1004295",
+  "target_name": "OLD GLORY GLIDER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001710": {
+  "item_number": "1001710",
+  "name": "PARACHUTE BATTALION",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004296"
+  ],
+  "name_matches": [
+   "1004296"
+  ],
+  "qwen_name": "FLAMINGO FLING",
+  "image_path": "product_images/1001710.png",
+  "target_item": "1004296",
+  "target_name": "FLAMINGO FLING",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1001803": {
+  "item_number": "1001803",
+  "name": "5 BALL BANG",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001813"
+  ],
+  "qwen_name": "M-5000 CRACKLING CANDLE",
+  "image_path": "product_images/1001803.png",
+  "target_item": "1001813",
+  "target_name": "M-5000 CRACKLING CANDLE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001804": {
+  "item_number": "1001804",
+  "name": "10 BALL BANG",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "COLOR PEARL W/BANG",
+  "image_path": "product_images/1001804.png",
+  "tier": "NONE"
+ },
+ "1001813": {
+  "item_number": "1001813",
+  "name": "M-5000 CRACKLING CANDLE",
+  "verdict": "UNCERTAIN",
+  "candidates": [
+   "1001803",
+   "1001804"
+  ],
+  "name_matches": [],
+  "qwen_name": "Color Pearl W/Bang",
+  "image_path": "product_images/1001813.png",
+  "target_item": "1001803",
+  "target_name": "5 BALL BANG",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1001823": {
+  "item_number": "1001823",
+  "name": "WORLD CLASS 4 ASST. ROMAN CANDLE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1030002"
+  ],
+  "qwen_name": "BUBBLE BLASTER",
+  "image_path": "product_images/1001823.png",
+  "target_item": "1030002",
+  "target_name": "BUBBLE BLASTER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001833": {
+  "item_number": "1001833",
+  "name": "BOOM BOOM CANDLE 10 BALL",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "5 Ball Boom Bang",
+  "image_path": "product_images/1001833.png",
+  "tier": "NONE"
+ },
+ "1001841": {
+  "item_number": "1001841",
+  "name": "PYRAMID OF POWER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001806",
+   "1001823",
+   "1001860",
+   "1001862",
+   "1003497",
+   "1004082",
+   "J500",
+   "NN6001",
+   "NN6002",
+   "NN6006",
+   "NNT6236",
+   "NNT6515",
+   "ROM-001"
+  ],
+  "qwen_name": "Roman Candle",
+  "image_path": "product_images/1001841.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1001854": {
+  "item_number": "1001854",
+  "name": "BALLS OF FIRE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1004082"
+  ],
+  "qwen_name": "AIR BALL",
+  "image_path": "product_images/1001854.png",
+  "target_item": "1004082",
+  "target_name": "AIR BALL ROMAN CANDLE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001860": {
+  "item_number": "1001860",
+  "name": "10 BALL ROMAN CANDLE ASST.",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1001806",
+   "1001823",
+   "1001862",
+   "1003497",
+   "1004082",
+   "J500",
+   "NN6001",
+   "NN6002",
+   "NN6006",
+   "NNT6236",
+   "NNT6515",
+   "ROM-001"
+  ],
+  "qwen_name": "Roman Candle",
+  "image_path": "product_images/1001860.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1001862": {
+  "item_number": "1001862",
+  "name": "5 BALL ROMAN CANDLE ASST.",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "MISSILES",
+  "image_path": "product_images/1001862.png",
+  "tier": "NONE"
+ },
+ "1001906": {
+  "item_number": "1001906",
+  "name": "14\" MORNING GLORY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004307"
+  ],
+  "qwen_name": "Salute to 250",
+  "image_path": "product_images/1001906.png",
+  "target_item": "1004307",
+  "target_name": "SALUTE TO 250",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1001908": {
+  "item_number": "1001908",
+  "name": "GOLD BAMBOO SPARKLER 10\"",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "M0750",
+   "NN8503",
+   "SP18NS",
+   "TG7023",
+   "TG7023B-3"
+  ],
+  "qwen_name": "SPARKLERS",
+  "image_path": "product_images/1001908.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1001922": {
+  "item_number": "1001922",
+  "name": "8\" GOLD METAL SPARKLER",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "No.40 Golden Sparkler",
+  "image_path": "product_images/1001922.png",
+  "tier": "NONE"
+ },
+ "1001923": {
+  "item_number": "1001923",
+  "name": "10\" GOLD METAL SPARKLER",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "M0750"
+  ],
+  "qwen_name": "COLOR SPARKLERS",
+  "image_path": "product_images/1001923.png",
+  "target_item": "M0750",
+  "target_name": "10# COLOR SPARKLERS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1002002": {
+  "item_number": "1002002",
+  "name": "Clay Color Smoke Balls",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1011386"
+  ],
+  "qwen_name": "GUSHING SMOKE",
+  "image_path": "product_images/1002002.png",
+  "target_item": "1011386",
+  "target_name": "GUSHING SMOKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1002008": {
+  "item_number": "1002008",
+  "name": "WORLD CLASS PAPER SMOKE BALLS",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1011386"
+  ],
+  "qwen_name": "GUSHING SMOKE",
+  "image_path": "product_images/1002008.png",
+  "target_item": "1011386",
+  "target_name": "GUSHING SMOKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1002013": {
+  "item_number": "1002013",
+  "name": "JUMBO COLOR SMOKE BALL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003942"
+  ],
+  "qwen_name": "RED, WHITE, BLUE SMOKE",
+  "image_path": "product_images/1002013.png",
+  "target_item": "1003942",
+  "target_name": "RED, WHITE, BLUE SMOKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1002102": {
+  "item_number": "1002102",
+  "name": "GROUND BLOOM FLOWER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001653"
+  ],
+  "qwen_name": "Crackling Balls",
+  "image_path": "product_images/1002102.png",
+  "target_item": "1001653",
+  "target_name": "CRACKLING BALLS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1002227": {
+  "item_number": "1002227",
+  "name": "POOPY PUPPY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001653"
+  ],
+  "qwen_name": "Crackling Balls",
+  "image_path": "product_images/1002227.png",
+  "target_item": "1001653",
+  "target_name": "CRACKLING BALLS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003102": {
+  "item_number": "1003102",
+  "name": "Armed Forces",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Magic",
+  "image_path": "product_images/1003102.png",
+  "tier": "NONE"
+ },
+ "1003107": {
+  "item_number": "1003107",
+  "name": "AMERICAN MUSCLE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001340"
+  ],
+  "qwen_name": "GARDEN IN SPRING",
+  "image_path": "product_images/1003107.png",
+  "target_item": "1001340",
+  "target_name": "GARDEN IN SPRING",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003110": {
+  "item_number": "1003110",
+  "name": "SHOW OF FORCE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003119"
+  ],
+  "qwen_name": "MADNESS",
+  "image_path": "product_images/1003110.png",
+  "target_item": "1003119",
+  "target_name": "MADNESS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003111": {
+  "item_number": "1003111",
+  "name": "FLAMETHROWER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004397"
+  ],
+  "qwen_name": "9 BALL BARRAGE ROMAN CANDLE",
+  "image_path": "product_images/1003111.png",
+  "target_item": "1004397",
+  "target_name": "9 BALL BARRAGE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003112": {
+  "item_number": "1003112",
+  "name": "INFERNO PUNCH",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015086"
+  ],
+  "qwen_name": "ORIENTAL DRAGON",
+  "image_path": "product_images/1003112.png",
+  "target_item": "1015086",
+  "target_name": "ORIENTAL DRAGON",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003114": {
+  "item_number": "1003114",
+  "name": "HEAVY METAL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003110"
+  ],
+  "qwen_name": "SHOW OF FORCE",
+  "image_path": "product_images/1003114.png",
+  "target_item": "1003110",
+  "target_name": "SHOW OF FORCE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003119": {
+  "item_number": "1003119",
+  "name": "MADNESS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003110"
+  ],
+  "qwen_name": "SHOW OF FORCE",
+  "image_path": "product_images/1003119.png",
+  "target_item": "1003110",
+  "target_name": "SHOW OF FORCE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003121": {
+  "item_number": "1003121",
+  "name": "IT'S A GIRL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "World-Class Fireworks",
+  "image_path": "product_images/1003121.png",
+  "tier": "NONE"
+ },
+ "1003122": {
+  "item_number": "1003122",
+  "name": "Rapid-",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000108"
+  ],
+  "qwen_name": "JET SCREAMER",
+  "image_path": "product_images/1003122.png",
+  "target_item": "1000108",
+  "target_name": "JET SCREAMER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003123": {
+  "item_number": "1003123",
+  "name": "MAVERICK",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000108"
+  ],
+  "qwen_name": "Jet Screamer",
+  "image_path": "product_images/1003123.png",
+  "target_item": "1000108",
+  "target_name": "JET SCREAMER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003128": {
+  "item_number": "1003128",
+  "name": "THIN BLUE LINE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "MAD SCIENTIST",
+  "image_path": "product_images/1003128.png",
+  "tier": "NONE"
+ },
+ "1003130": {
+  "item_number": "1003130",
+  "name": "AMAZING",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003314"
+  ],
+  "qwen_name": "EVIL PRIEST",
+  "image_path": "product_images/1003130.png",
+  "target_item": "1003314",
+  "target_name": "EVIL PRIEST",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003201": {
+  "item_number": "1003201",
+  "name": "MOBSTERS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "WORLD-CLASS FIREWORKS",
+  "image_path": "product_images/1003201.png",
+  "tier": "NONE"
+ },
+ "1003294": {
+  "item_number": "1003294",
+  "name": "ULTIMATE WARRIOR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015451"
+  ],
+  "qwen_name": "CHICKABOO",
+  "image_path": "product_images/1003294.png",
+  "target_item": "1015451",
+  "target_name": "Chickaboo",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003311": {
+  "item_number": "1003311",
+  "name": "ONE BAD GRANNY",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004395"
+  ],
+  "name_matches": [
+   "1004395",
+   "Maga0866"
+  ],
+  "qwen_name": "GOD BLESS AMERICA",
+  "image_path": "product_images/1003311.png",
+  "target_item": "1004395",
+  "target_name": "GOD BLESS AMERICA",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1003313": {
+  "item_number": "1003313",
+  "name": "NAUGHTY OR NICE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1012053",
+   "JJ",
+   "NN5082"
+  ],
+  "qwen_name": "NIGHTMARE",
+  "image_path": "product_images/1003313.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1003314": {
+  "item_number": "1003314",
+  "name": "EVIL PRIEST",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003130",
+   "1011455"
+  ],
+  "qwen_name": "AMAZING",
+  "image_path": "product_images/1003314.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1003315": {
+  "item_number": "1003315",
+  "name": "FAMILY TRUCKSTER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000443"
+  ],
+  "qwen_name": "What A Girl Wants",
+  "image_path": "product_images/1003315.png",
+  "target_item": "1000443",
+  "target_name": "WHAT A GIRL WANTS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003323": {
+  "item_number": "1003323",
+  "name": "PATRIOT STICKS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "ROMAN CANDLES",
+  "image_path": "product_images/1003323.png",
+  "tier": "NONE"
+ },
+ "1003325": {
+  "item_number": "1003325",
+  "name": "NIGHT SABER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011377"
+  ],
+  "qwen_name": "FROG PRINCE & PRINCESS",
+  "image_path": "product_images/1003325.png",
+  "target_item": "1011377",
+  "target_name": "FROG PRINCE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003332": {
+  "item_number": "1003332",
+  "name": "PREMIUM MOON TRAVELLERS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "SMILINGFIRE EAR TO EAR",
+  "image_path": "product_images/1003332.png",
+  "tier": "NONE"
+ },
+ "1003347": {
+  "item_number": "1003347",
+  "name": "Mechanic",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004277"
+  ],
+  "name_matches": [
+   "1004277"
+  ],
+  "qwen_name": "Energy Match",
+  "image_path": "product_images/1003347.png",
+  "target_item": "1004277",
+  "target_name": "ENERGY MATCH",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1003352": {
+  "item_number": "1003352",
+  "name": "FESTIVAL BALL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001413"
+  ],
+  "qwen_name": "CRACKLING ARTILLERY SHELL",
+  "image_path": "product_images/1003352.png",
+  "target_item": "1001413",
+  "target_name": "CRACKLING ARTILLERY SHELL",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003354": {
+  "item_number": "1003354",
+  "name": "PREMIUM ARTILLERY SHELLS",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Boomer Artillery Shells",
+  "image_path": "product_images/1003354.png",
+  "tier": "NONE"
+ },
+ "1003366": {
+  "item_number": "1003366",
+  "name": "TEQUILA PARTY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001436",
+   "1001703",
+   "1001705",
+   "1001706",
+   "1001806"
+  ],
+  "qwen_name": "BOOMER",
+  "image_path": "product_images/1003366.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1003374": {
+  "item_number": "1003374",
+  "name": "EDUCATETHEIRLEGACY.",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003506"
+  ],
+  "qwen_name": "Deadly Strike",
+  "image_path": "product_images/1003374.png",
+  "target_item": "1003506",
+  "target_name": "DEADLY STRIKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003380": {
+  "item_number": "1003380",
+  "name": "FAITH OVER FEAR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003506"
+  ],
+  "qwen_name": "DEADLY STRIKE",
+  "image_path": "product_images/1003380.png",
+  "target_item": "1003506",
+  "target_name": "DEADLY STRIKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003381": {
+  "item_number": "1003381",
+  "name": "CRITICAL ACCLAIM",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001408",
+   "1001478"
+  ],
+  "qwen_name": "SUPER MAGNUM W/ TAIL ARTILLERY SHELL",
+  "image_path": "product_images/1003381.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1003497": {
+  "item_number": "1003497",
+  "name": "10 BALL ROMAN CANDLE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001854"
+  ],
+  "qwen_name": "BALLS OF FIRE",
+  "image_path": "product_images/1003497.png",
+  "target_item": "1001854",
+  "target_name": "BALLS OF FIRE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003504": {
+  "item_number": "1003504",
+  "name": "UNITED WE RIDE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "BOSS Lady",
+  "image_path": "product_images/1003504.jpg",
+  "tier": "NONE"
+ },
+ "1003523": {
+  "item_number": "1003523",
+  "name": "SCREWBALL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "World-Class Fireworks",
+  "image_path": "product_images/1003523.png",
+  "tier": "NONE"
+ },
+ "1003542": {
+  "item_number": "1003542",
+  "name": "MR. POOP",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Consumer Fireworks Box",
+  "image_path": "product_images/1003542.jpg",
+  "tier": "NONE"
+ },
+ "1003546": {
+  "item_number": "1003546",
+  "name": "DRAGON",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "SKUNK",
+  "image_path": "product_images/1003546.png",
+  "tier": "NONE"
+ },
+ "1003550": {
+  "item_number": "1003550",
+  "name": "SKULL FOUNTAIN",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Skull",
+  "image_path": "product_images/1003550.jpg",
+  "tier": "NONE"
+ },
+ "1003551": {
+  "item_number": "1003551",
+  "name": "UNICORN FOUNTAIN",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Consumer Fireworks",
+  "image_path": "product_images/1003551.png",
+  "tier": "NONE"
+ },
+ "1003658": {
+  "item_number": "1003658",
+  "name": "AEPHE MALE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "ALPHA MALE",
+  "image_path": "product_images/1003658.jpg",
+  "tier": "NONE"
+ },
+ "1003676": {
+  "item_number": "1003676",
+  "name": "SKELETON CREW",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Soulless Sailor Smokey Shades",
+  "image_path": "product_images/1003676.png",
+  "tier": "NONE"
+ },
+ "1003705": {
+  "item_number": "1003705",
+  "name": "LEGENDS NEVER DIE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003915",
+   "1024435"
+  ],
+  "qwen_name": "American Pyro",
+  "image_path": "product_images/1003705.jpg",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1003706": {
+  "item_number": "1003706",
+  "name": "BOOTLEGGERS' DREAM",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003705"
+  ],
+  "qwen_name": "Legends Never Die",
+  "image_path": "product_images/1003706.png",
+  "target_item": "1003705",
+  "target_name": "LEGENDS NEVER DIE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003894": {
+  "item_number": "1003894",
+  "name": "FIRE THIEF",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1003904"
+  ],
+  "name_matches": [
+   "1003904"
+  ],
+  "qwen_name": "DINO-MIGHT",
+  "image_path": "product_images/1003894.png",
+  "target_item": "1003904",
+  "target_name": "DINO-MIGHT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1003895": {
+  "item_number": "1003895",
+  "name": "SCORPION",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "",
+  "image_path": "product_images/1003895.png",
+  "tier": "NONE"
+ },
+ "1003901": {
+  "item_number": "1003901",
+  "name": "POSER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015309"
+  ],
+  "qwen_name": "COME ON",
+  "image_path": "product_images/1003901.png",
+  "target_item": "1015309",
+  "target_name": "COME ON",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003902": {
+  "item_number": "1003902",
+  "name": "Playing With",
+  "verdict": "UNCERTAIN",
+  "candidates": [
+   "1003903"
+  ],
+  "name_matches": [
+   "1003903"
+  ],
+  "qwen_name": "LADIES NIGHT",
+  "image_path": "product_images/1003902.png",
+  "target_item": "1003903",
+  "target_name": "LADIES NIGHT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1003909": {
+  "item_number": "1003909",
+  "name": "GIRL BOSS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003657"
+  ],
+  "qwen_name": "AMERICA PRAYING",
+  "image_path": "product_images/1003909.png",
+  "target_item": "1003657",
+  "target_name": "America Praying",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003920": {
+  "item_number": "1003920",
+  "name": "FIGHT IN THE SKY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004079"
+  ],
+  "qwen_name": "SPACE COWBOY",
+  "image_path": "product_images/1003920.png",
+  "target_item": "1004079",
+  "target_name": "SPACE COWBOY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003921": {
+  "item_number": "1003921",
+  "name": "COLORFUL SMOKE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "",
+  "image_path": "product_images/1003921.png",
+  "tier": "NONE"
+ },
+ "1003935": {
+  "item_number": "1003935",
+  "name": "PROCEED WITH CAUTION",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003653"
+  ],
+  "qwen_name": "BABY DINO",
+  "image_path": "product_images/1003935.png",
+  "target_item": "1003653",
+  "target_name": "BABY DINO",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003942": {
+  "item_number": "1003942",
+  "name": "RED, WHITE, BLUE SMOKE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1003921"
+  ],
+  "qwen_name": "COLORFUL SMOKE",
+  "image_path": "product_images/1003942.png",
+  "target_item": "1003921",
+  "target_name": "COLORFUL SMOKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003968": {
+  "item_number": "1003968",
+  "name": "MAJOR MOJO",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1001435",
+   "1003354"
+  ],
+  "qwen_name": "Premium Artillery Shell",
+  "image_path": "product_images/1003968.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1003969": {
+  "item_number": "1003969",
+  "name": "KILLER VALUE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003692"
+  ],
+  "qwen_name": "Snappers",
+  "image_path": "product_images/1003969.png",
+  "target_item": "1003692",
+  "target_name": "ADULT SNAPPERS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1003972": {
+  "item_number": "1003972",
+  "name": "MORE FOR YOUR MONEY",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1000443"
+  ],
+  "name_matches": [
+   "1000443"
+  ],
+  "qwen_name": "What A Girl Wants",
+  "image_path": "product_images/1003972.png",
+  "target_item": "1000443",
+  "target_name": "WHAT A GIRL WANTS",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1003978": {
+  "item_number": "1003978",
+  "name": "ROCK STAR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "EQUALIZER",
+  "image_path": "product_images/1003978.png",
+  "tier": "NONE"
+ },
+ "1003998": {
+  "item_number": "1003998",
+  "name": "IN THE DOGHOUSE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003999"
+  ],
+  "qwen_name": "MONEY MAKER",
+  "image_path": "product_images/1003998.jpg",
+  "target_item": "1003999",
+  "target_name": "MONEY MAKER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004036": {
+  "item_number": "1004036",
+  "name": "REPTILE DYSFUNCTION",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Jurassic Raptor",
+  "image_path": "product_images/1004036.jpg",
+  "tier": "NONE"
+ },
+ "1004044": {
+  "item_number": "1004044",
+  "name": "FREEDOM CONVOY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003915"
+  ],
+  "qwen_name": "MERICA",
+  "image_path": "product_images/1004044.png",
+  "target_item": "1003915",
+  "target_name": "Merica",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004081": {
+  "item_number": "1004081",
+  "name": "CRASH TEST DUMMY",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "High Class Fireworks",
+  "image_path": "product_images/1004081.png",
+  "tier": "NONE"
+ },
+ "1004083": {
+  "item_number": "1004083",
+  "name": "PURE VENOM",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003547"
+  ],
+  "qwen_name": "GROWLER",
+  "image_path": "product_images/1004083.png",
+  "target_item": "1003547",
+  "target_name": "GROWLER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004102": {
+  "item_number": "1004102",
+  "name": "ROYAL REEFER",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004104"
+  ],
+  "name_matches": [
+   "1004104"
+  ],
+  "qwen_name": "BUCK WILD!",
+  "image_path": "product_images/1004102.png",
+  "target_item": "1004104",
+  "target_name": "BUCK WILD",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004103": {
+  "item_number": "1004103",
+  "name": "RED WHITE RAWWWR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004034"
+  ],
+  "qwen_name": "PYRO CIRCUS",
+  "image_path": "product_images/1004103.png",
+  "target_item": "1004034",
+  "target_name": "PYRO CIRCUS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004104": {
+  "item_number": "1004104",
+  "name": "BUCK WILD",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004102"
+  ],
+  "name_matches": [
+   "1004118"
+  ],
+  "qwen_name": "Waterfall Wonder",
+  "image_path": "product_images/1004104.png",
+  "target_item": "1004102",
+  "target_name": "ROYAL REEFER",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1004105": {
+  "item_number": "1004105",
+  "name": "FUEGO BRILLANTE",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004039"
+  ],
+  "name_matches": [
+   "1004039"
+  ],
+  "qwen_name": "Back The Blue",
+  "image_path": "product_images/1004105.png",
+  "target_item": "1004039",
+  "target_name": "Back The Blue",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004109": {
+  "item_number": "1004109",
+  "name": "SMOKE SABER",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1004077"
+  ],
+  "qwen_name": "STAR SPANGLED SMOKE",
+  "image_path": "product_images/1004109.png",
+  "target_item": "1004077",
+  "target_name": "STAR SPANGLED SMOKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004117": {
+  "item_number": "1004117",
+  "name": "PRETTY POISON",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004135"
+  ],
+  "qwen_name": "FOOTBALL FOUNTAIN",
+  "image_path": "product_images/1004117.jpg",
+  "target_item": "1004135",
+  "target_name": "FOOTBALL FOUNTAIN",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004118": {
+  "item_number": "1004118",
+  "name": "WATERFALL WONDER",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004102"
+  ],
+  "name_matches": [
+   "1004102"
+  ],
+  "qwen_name": "ROYAL REEFER",
+  "image_path": "product_images/1004118.png",
+  "target_item": "1004102",
+  "target_name": "ROYAL REEFER",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004124": {
+  "item_number": "1004124",
+  "name": "BIGGEN",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Wild-Clan Fireworks",
+  "image_path": "product_images/1004124.png",
+  "tier": "NONE"
+ },
+ "1004135": {
+  "item_number": "1004135",
+  "name": "FOOTBALL FOUNTAIN",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004117"
+  ],
+  "qwen_name": "PRETTY POISON",
+  "image_path": "product_images/1004135.jpg",
+  "target_item": "1004117",
+  "target_name": "PRETTY POISON",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004136": {
+  "item_number": "1004136",
+  "name": "FOREVER REMEMBERED",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "FOREVER REMEMBERED",
+  "image_path": "product_images/1004136.jpg",
+  "tier": "NONE"
+ },
+ "1004137": {
+  "item_number": "1004137",
+  "name": "DO NOT DISTURB",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003523"
+  ],
+  "qwen_name": "Screwball",
+  "image_path": "product_images/1004137.png",
+  "target_item": "1003523",
+  "target_name": "SCREWBALL",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004269": {
+  "item_number": "1004269",
+  "name": "ALIEN ASCEND",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004328"
+  ],
+  "name_matches": [
+   "1004328"
+  ],
+  "qwen_name": "COMET ME BRO!",
+  "image_path": "product_images/1004269.png",
+  "target_item": "1004328",
+  "target_name": "COMET ME BRO!",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004270": {
+  "item_number": "1004270",
+  "name": "UNITED FIREWORKS CHAMPION",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004273"
+  ],
+  "name_matches": [
+   "1004273"
+  ],
+  "qwen_name": "CLAW ENFORCEMENT",
+  "image_path": "product_images/1004270.png",
+  "target_item": "1004273",
+  "target_name": "CLAW ENFORCEMENT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004273": {
+  "item_number": "1004273",
+  "name": "CLAW ENFORCEMENT",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004270",
+   "1004271",
+   "1004272"
+  ],
+  "name_matches": [
+   "1004271"
+  ],
+  "qwen_name": "HAIL RAISER",
+  "image_path": "product_images/1004273.png",
+  "target_item": "1004270",
+  "target_name": "UNITED FIREWORKS CHAMPION",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1004289": {
+  "item_number": "1004289",
+  "name": "SPECIAL OPS SMOKE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1004109"
+  ],
+  "qwen_name": "SMOKE SABER",
+  "image_path": "product_images/1004289.png",
+  "target_item": "1004109",
+  "target_name": "SMOKE SABER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004295": {
+  "item_number": "1004295",
+  "name": "OLD GLORY GLIDER",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004296",
+   "1004297"
+  ],
+  "name_matches": [
+   "1004297"
+  ],
+  "qwen_name": "Princess Parachute",
+  "image_path": "product_images/1004295.png",
+  "target_item": "1004296",
+  "target_name": "FLAMINGO FLING",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1004296": {
+  "item_number": "1004296",
+  "name": "FLAMINGO FLING",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001710",
+   "SS0160"
+  ],
+  "qwen_name": "Parachute Battalion",
+  "image_path": "product_images/1004296.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1004297": {
+  "item_number": "1004297",
+  "name": "PRINCESS PARACHUTE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "7' PARACHUTE WITH COLOUR CHANGING FLARES",
+  "image_path": "product_images/1004297.png",
+  "tier": "NONE"
+ },
+ "1004300": {
+  "item_number": "1004300",
+  "name": "VETERANS",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004303"
+  ],
+  "name_matches": [],
+  "qwen_name": "GRILLIN' & CHILLIN'",
+  "image_path": "product_images/1004300.png",
+  "target_item": "1004303",
+  "target_name": "GRILLIN' AND CHILLIN'",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1004306": {
+  "item_number": "1004306",
+  "name": "WINGS OF FREEDOM",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003919"
+  ],
+  "qwen_name": "TREE FORT",
+  "image_path": "product_images/1004306.png",
+  "target_item": "1003919",
+  "target_name": "TREE FORT",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004313": {
+  "item_number": "1004313",
+  "name": "They Hate Us",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004314"
+  ],
+  "name_matches": [
+   "1004314"
+  ],
+  "qwen_name": "Gorilla Jams",
+  "image_path": "product_images/1004313.png",
+  "target_item": "1004314",
+  "target_name": "GORILLA JAMS",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004315": {
+  "item_number": "1004315",
+  "name": "I IDENTIFY AS A FIREWORK",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004321"
+  ],
+  "name_matches": [
+   "1004321"
+  ],
+  "qwen_name": "I DONUT CARE",
+  "image_path": "product_images/1004315.png",
+  "target_item": "1004321",
+  "target_name": "I DONUT CARE",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004316": {
+  "item_number": "1004316",
+  "name": "MILF",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004317",
+   "1004318"
+  ],
+  "name_matches": [
+   "1004318"
+  ],
+  "qwen_name": "NEON STRIPES",
+  "image_path": "product_images/1004316.png",
+  "target_item": "1004317",
+  "target_name": "LOVE IT OR LEAVE IT",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1004317": {
+  "item_number": "1004317",
+  "name": "LOVE IT OR LEAVE IT",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004318"
+  ],
+  "name_matches": [
+   "1004318"
+  ],
+  "qwen_name": "NEON STRIPES",
+  "image_path": "product_images/1004317.png",
+  "target_item": "1004318",
+  "target_name": "NEON STRIPES",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004318": {
+  "item_number": "1004318",
+  "name": "NEON STRIPES",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004317"
+  ],
+  "name_matches": [
+   "1004317"
+  ],
+  "qwen_name": "Love It Or Leave It",
+  "image_path": "product_images/1004318.png",
+  "target_item": "1004317",
+  "target_name": "LOVE IT OR LEAVE IT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004321": {
+  "item_number": "1004321",
+  "name": "I DONUT CARE",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004315"
+  ],
+  "name_matches": [
+   "1004315"
+  ],
+  "qwen_name": "I IDENTIFY AS A FIREWORK",
+  "image_path": "product_images/1004321.png",
+  "target_item": "1004315",
+  "target_name": "I IDENTIFY AS A FIREWORK",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004323": {
+  "item_number": "1004323",
+  "name": "MYSTIC WILLOW",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004269"
+  ],
+  "name_matches": [
+   "1004269"
+  ],
+  "qwen_name": "ALIEN ASCEND",
+  "image_path": "product_images/1004323.png",
+  "target_item": "1004269",
+  "target_name": "ALIEN ASCEND",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004325": {
+  "item_number": "1004325",
+  "name": "BEAD BANDIT",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004327"
+  ],
+  "name_matches": [
+   "1004327"
+  ],
+  "qwen_name": "Sunflower Delight",
+  "image_path": "product_images/1004325.png",
+  "target_item": "1004327",
+  "target_name": "SUNFLOWER DELIGHT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004327": {
+  "item_number": "1004327",
+  "name": "SUNFLOWER DELIGHT",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004325"
+  ],
+  "name_matches": [
+   "1004325"
+  ],
+  "qwen_name": "Bead Bandit",
+  "image_path": "product_images/1004327.png",
+  "target_item": "1004325",
+  "target_name": "BEAD BANDIT",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004351": {
+  "item_number": "1004351",
+  "name": "SKUL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004108"
+  ],
+  "qwen_name": "Supersonic Screamer",
+  "image_path": "product_images/1004351.png",
+  "target_item": "1004108",
+  "target_name": "SUPERSONIC SCREAMER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004366": {
+  "item_number": "1004366",
+  "name": "BLAZIN' EAGLE",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004283"
+  ],
+  "name_matches": [
+   "1004283"
+  ],
+  "qwen_name": "Warrior's Wrath",
+  "image_path": "product_images/1004366.png",
+  "target_item": "1004283",
+  "target_name": "WARRIOR'S WRATH",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1004372": {
+  "item_number": "1004372",
+  "name": "ALL-AMERICAN ATHLETICS",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004373",
+   "1004374"
+  ],
+  "name_matches": [
+   "1004373"
+  ],
+  "qwen_name": "OL' GLORY",
+  "image_path": "product_images/1004372.png",
+  "target_item": "1004373",
+  "target_name": "OL' GLORY",
+  "via": "SKU+name",
+  "tier": "MED"
+ },
+ "1004386": {
+  "item_number": "1004386",
+  "name": "WE THE PEOPLE",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004387",
+   "1004388"
+  ],
+  "name_matches": [
+   "1004387"
+  ],
+  "qwen_name": "AVIATION NATION",
+  "image_path": "product_images/1004386.png",
+  "target_item": "1004387",
+  "target_name": "AVIATION NATION",
+  "via": "SKU+name",
+  "tier": "MED"
+ },
+ "1004390": {
+  "item_number": "1004390",
+  "name": "LEARNNG LEADERS",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004391",
+   "1004393"
+  ],
+  "name_matches": [
+   "1004391"
+  ],
+  "qwen_name": "American Vision",
+  "image_path": "product_images/1004390.png",
+  "target_item": "1004391",
+  "target_name": "AMERICAN VISION",
+  "via": "SKU+name",
+  "tier": "MED"
+ },
+ "1004395": {
+  "item_number": "1004395",
+  "name": "GOD BLESS AMERICA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003675"
+  ],
+  "qwen_name": "TEEN FREAK",
+  "image_path": "product_images/1004395.png",
+  "target_item": "1003675",
+  "target_name": "TEEN FREAK",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004398": {
+  "item_number": "1004398",
+  "name": "SPARKLER OF INDEPENDENCE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004307"
+  ],
+  "qwen_name": "Salute to 250",
+  "image_path": "product_images/1004398.jpg",
+  "target_item": "1004307",
+  "target_name": "SALUTE TO 250",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1004400": {
+  "item_number": "1004400",
+  "name": "THE PEOPLE'S ARTILLERY SHELL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "World-Class Fireworks",
+  "image_path": "product_images/1004400.jpg",
+  "tier": "NONE"
+ },
+ "1011302": {
+  "item_number": "1011302",
+  "name": "FRISKY STARBURST",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011458"
+  ],
+  "qwen_name": "RIPPLE EFFECT",
+  "image_path": "product_images/1011302.png",
+  "target_item": "1011458",
+  "target_name": "RIPPLE EFFECT",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011303": {
+  "item_number": "1011303",
+  "name": "PIP SQUEAK",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011416"
+  ],
+  "qwen_name": "Taste The Rainbow",
+  "image_path": "product_images/1011303.png",
+  "target_item": "1011416",
+  "target_name": "TASTE THE RAINBOW",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011360": {
+  "item_number": "1011360",
+  "name": "LEMON LIME DELIGHT",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Alien Head",
+  "image_path": "product_images/1011360.png",
+  "tier": "NONE"
+ },
+ "1011362": {
+  "item_number": "1011362",
+  "name": "FISH OUT OF THE WATER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003915",
+   "1024435"
+  ],
+  "qwen_name": "American's Fountain",
+  "image_path": "product_images/1011362.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1011365": {
+  "item_number": "1011365",
+  "name": "MESMERIZE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011418"
+  ],
+  "qwen_name": "GO GIRL GO",
+  "image_path": "product_images/1011365.png",
+  "target_item": "1011418",
+  "target_name": "GO GIRL GO",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011369": {
+  "item_number": "1011369",
+  "name": "AMIERICAN'S FOUNTAIN",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011377"
+  ],
+  "qwen_name": "Frog Prince",
+  "image_path": "product_images/1011369.png",
+  "target_item": "1011377",
+  "target_name": "FROG PRINCE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011377": {
+  "item_number": "1011377",
+  "name": "FROG PRINCE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "FISH OUT OF WATER",
+  "image_path": "product_images/1011377.png",
+  "tier": "NONE"
+ },
+ "1011378": {
+  "item_number": "1011378",
+  "name": "WORLD'S HIGHEST FOUNTAIN",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Chaken",
+  "image_path": "product_images/1011378.png",
+  "tier": "NONE"
+ },
+ "1011386": {
+  "item_number": "1011386",
+  "name": "GUSHING SMOKE",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1002002",
+   "1002008"
+  ],
+  "qwen_name": "Smoke Balls",
+  "image_path": "product_images/1011386.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1011416": {
+  "item_number": "1011416",
+  "name": "TASTE THE RAINBOW",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011303"
+  ],
+  "qwen_name": "PIP-SQUEAK",
+  "image_path": "product_images/1011416.png",
+  "target_item": "1011303",
+  "target_name": "PIP SQUEAK",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011418": {
+  "item_number": "1011418",
+  "name": "GO GIRL GO",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "THATCHAMACALLI",
+  "image_path": "product_images/1011418.png",
+  "tier": "NONE"
+ },
+ "1011420": {
+  "item_number": "1011420",
+  "name": "FOOL'S GOLD",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1012047"
+  ],
+  "qwen_name": "FLIPPIN' AWESOME",
+  "image_path": "product_images/1011420.png",
+  "target_item": "1012047",
+  "target_name": "FLIPPIN' AWESOME",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011422": {
+  "item_number": "1011422",
+  "name": "MID SOMMER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004114"
+  ],
+  "qwen_name": "JUNGLE SAFARI",
+  "image_path": "product_images/1011422.png",
+  "target_item": "1004114",
+  "target_name": "JUNGLE SAFARI",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011425": {
+  "item_number": "1011425",
+  "name": "MAMA MIA",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1011302"
+  ],
+  "name_matches": [
+   "1001300"
+  ],
+  "qwen_name": "Reflection",
+  "image_path": "product_images/1011425.png",
+  "target_item": "1011302",
+  "target_name": "FRISKY STARBURST",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1011426": {
+  "item_number": "1011426",
+  "name": "BREATHLESS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011379"
+  ],
+  "qwen_name": "WORLD'S STRONGEST FOUNTAIN",
+  "image_path": "product_images/1011426.png",
+  "target_item": "1011379",
+  "target_name": "WORLD'S STRONGEST FOUNTAIN",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011427": {
+  "item_number": "1011427",
+  "name": "M AND M",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1012002"
+  ],
+  "qwen_name": "HATCHAMACALLI",
+  "image_path": "product_images/1011427.png",
+  "target_item": "1012002",
+  "target_name": "WHATCHAMACALLIT",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1011449": {
+  "item_number": "1011449",
+  "name": "FROG PRINCESS",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1003702",
+   "1030130"
+  ],
+  "name_matches": [
+   "1030130"
+  ],
+  "qwen_name": "ALIEN FOUNTAIN",
+  "image_path": "product_images/1011449.png",
+  "target_item": "1003702",
+  "target_name": "JUMPING FISH",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1011455": {
+  "item_number": "1011455",
+  "name": "AMAZING",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1003999"
+  ],
+  "name_matches": [
+   "1003998"
+  ],
+  "qwen_name": "IN THE DOGHOUSE",
+  "image_path": "product_images/1011455.png",
+  "target_item": "1003999",
+  "target_name": "MONEY MAKER",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1011458": {
+  "item_number": "1011458",
+  "name": "RIPPLE EFFECT",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011302"
+  ],
+  "qwen_name": "Frisky Starburst",
+  "image_path": "product_images/1011458.png",
+  "target_item": "1011302",
+  "target_name": "FRISKY STARBURST",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1012002": {
+  "item_number": "1012002",
+  "name": "WHATCHAMACALLIT",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "M&W",
+  "image_path": "product_images/1012002.png",
+  "tier": "NONE"
+ },
+ "1012047": {
+  "item_number": "1012047",
+  "name": "FLIPPIN' AWESOME",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011420"
+  ],
+  "qwen_name": "Fool's Gold",
+  "image_path": "product_images/1012047.png",
+  "target_item": "1011420",
+  "target_name": "FOOL'S GOLD",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1012053": {
+  "item_number": "1012053",
+  "name": "NIGHTMARE",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1003313",
+   "1012052"
+  ],
+  "name_matches": [
+   "1003313"
+  ],
+  "qwen_name": "Naughty or Nice",
+  "image_path": "product_images/1012053.png",
+  "target_item": "1003313",
+  "target_name": "NAUGHTY OR NICE",
+  "via": "SKU+name",
+  "tier": "MED"
+ },
+ "1012054": {
+  "item_number": "1012054",
+  "name": "CALL ME",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004115"
+  ],
+  "name_matches": [
+   "1004115"
+  ],
+  "qwen_name": "YIPPEE KI YAY",
+  "image_path": "product_images/1012054.png",
+  "target_item": "1004115",
+  "target_name": "YIPPEE KI YAY",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1013126": {
+  "item_number": "1013126",
+  "name": "BADA BING",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "A.I.",
+  "image_path": "product_images/1013126.png",
+  "tier": "NONE"
+ },
+ "1013129": {
+  "item_number": "1013129",
+  "name": "WRECKLESS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013126"
+  ],
+  "qwen_name": "BADA BING",
+  "image_path": "product_images/1013129.png",
+  "target_item": "1013126",
+  "target_name": "BADA BING",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013154": {
+  "item_number": "1013154",
+  "name": "61 SHOTS ASST. CAKE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Deuces Wild",
+  "image_path": "product_images/1013154.png",
+  "tier": "NONE"
+ },
+ "1013167": {
+  "item_number": "1013167",
+  "name": "Grapes Over Vineyard",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003294"
+  ],
+  "qwen_name": "ULTIMATE WARRIOR",
+  "image_path": "product_images/1013167.png",
+  "target_item": "1003294",
+  "target_name": "ULTIMATE WARRIOR",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013177": {
+  "item_number": "1013177",
+  "name": "CRAZY EXCITING",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013129"
+  ],
+  "qwen_name": "WRECKLESS",
+  "image_path": "product_images/1013177.png",
+  "target_item": "1013129",
+  "target_name": "WRECKLESS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013185": {
+  "item_number": "1013185",
+  "name": "One Bad Mother",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013223"
+  ],
+  "qwen_name": "NOT IN MY YARD",
+  "image_path": "product_images/1013185.png",
+  "target_item": "1013223",
+  "target_name": "Not In My Yard",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013187": {
+  "item_number": "1013187",
+  "name": "Extreme Machine",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015453"
+  ],
+  "qwen_name": "American Riders",
+  "image_path": "product_images/1013187.png",
+  "target_item": "1015453",
+  "target_name": "AMERICAN RIDERS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013211": {
+  "item_number": "1013211",
+  "name": "GRAVE DIGGER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013187"
+  ],
+  "qwen_name": "EXTREME MACHINE",
+  "image_path": "product_images/1013211.png",
+  "target_item": "1013187",
+  "target_name": "Extreme Machine",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013225": {
+  "item_number": "1013225",
+  "name": "AMERICAN TRUCKER",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1015456"
+  ],
+  "qwen_name": "America's Pastime",
+  "image_path": "product_images/1013225.png",
+  "target_item": "1015456",
+  "target_name": "AMERICA'S PASTIME",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013306": {
+  "item_number": "1013306",
+  "name": "All In One",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001436",
+   "1001703",
+   "1001705",
+   "1001706",
+   "1001806"
+  ],
+  "qwen_name": "BOOMER",
+  "image_path": "product_images/1013306.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1013371": {
+  "item_number": "1013371",
+  "name": "GIGGLES",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "BOMBCHICKABOMBS",
+  "image_path": "product_images/1013371.png",
+  "tier": "NONE"
+ },
+ "1013422": {
+  "item_number": "1013422",
+  "name": "Hot Dog",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1004068"
+  ],
+  "qwen_name": "HOT TAKE",
+  "image_path": "product_images/1013422.png",
+  "target_item": "1004068",
+  "target_name": "HOT TAKE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013423": {
+  "item_number": "1013423",
+  "name": "Think Twice",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004007"
+  ],
+  "qwen_name": "Mismatch",
+  "image_path": "product_images/1013423.png",
+  "target_item": "1004007",
+  "target_name": "Mismatch",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1013434": {
+  "item_number": "1013434",
+  "name": "BUG EYED",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Boss Lady",
+  "image_path": "product_images/1013434.png",
+  "tier": "NONE"
+ },
+ "1013435": {
+  "item_number": "1013435",
+  "name": "ANGRY BEAVER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Passenger Princess",
+  "image_path": "product_images/1013435.png",
+  "tier": "NONE"
+ },
+ "1015006": {
+  "item_number": "1015006",
+  "name": "RHYTHM AND BLUES",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1004000"
+  ],
+  "qwen_name": "Friday Night Lights",
+  "image_path": "product_images/1015006.png",
+  "target_item": "1004000",
+  "target_name": "FRIDAY NIGHT LIGHTS",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015037": {
+  "item_number": "1015037",
+  "name": "One Bad Mother-In-Law",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1015073"
+  ],
+  "name_matches": [
+   "1015073"
+  ],
+  "qwen_name": "Sexy Rider",
+  "image_path": "product_images/1015037.png",
+  "target_item": "1015073",
+  "target_name": "SEXY RIDER",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1015039": {
+  "item_number": "1015039",
+  "name": "CRAZY EXCITING ON STEROIDS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013211"
+  ],
+  "qwen_name": "GRAVE DIGGER",
+  "image_path": "product_images/1015039.png",
+  "target_item": "1013211",
+  "target_name": "GRAVE DIGGER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015048": {
+  "item_number": "1015048",
+  "name": "THE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015125"
+  ],
+  "qwen_name": "MIGRAINE",
+  "image_path": "product_images/1015048.png",
+  "target_item": "1015125",
+  "target_name": "MIGRAINE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015058": {
+  "item_number": "1015058",
+  "name": "America\u2019s Celebration",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013185"
+  ],
+  "qwen_name": "Really One Bad Mother",
+  "image_path": "product_images/1015058.png",
+  "target_item": "1013185",
+  "target_name": "One Bad Mother",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015061": {
+  "item_number": "1015061",
+  "name": "Big Unit",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Packing Heat",
+  "image_path": "product_images/1015061.png",
+  "tier": "NONE"
+ },
+ "1015073": {
+  "item_number": "1015073",
+  "name": "SEXY RIDER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003649"
+  ],
+  "qwen_name": "Utterly in Love",
+  "image_path": "product_images/1015073.png",
+  "target_item": "1003649",
+  "target_name": "UTTERLY IN LOVE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015081": {
+  "item_number": "1015081",
+  "name": "MIDNIGHT SUNBURN",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015123"
+  ],
+  "qwen_name": "American Intensity",
+  "image_path": "product_images/1015081.png",
+  "target_item": "1015123",
+  "target_name": "AMERICAN INTENSITY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015086": {
+  "item_number": "1015086",
+  "name": "ORIENTAL DRAGON",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1015406"
+  ],
+  "name_matches": [
+   "1015406"
+  ],
+  "qwen_name": "Breathing Fire",
+  "image_path": "product_images/1015086.png",
+  "target_item": "1015406",
+  "target_name": "Breathing",
+  "via": "SKU+name",
+  "tier": "HIGH"
+ },
+ "1015123": {
+  "item_number": "1015123",
+  "name": "AMERICAN INTENSITY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015137"
+  ],
+  "qwen_name": "FIGHTING ROOSTER",
+  "image_path": "product_images/1015123.png",
+  "target_item": "1015137",
+  "target_name": "FIGHTING ROOSTER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015146": {
+  "item_number": "1015146",
+  "name": "BOSS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015465"
+  ],
+  "qwen_name": "KILL BILL",
+  "image_path": "product_images/1015146.png",
+  "target_item": "1015465",
+  "target_name": "KILL BILL",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015147": {
+  "item_number": "1015147",
+  "name": "GORILLA WARFARE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015081"
+  ],
+  "qwen_name": "Midnight Sunburn",
+  "image_path": "product_images/1015147.png",
+  "target_item": "1015081",
+  "target_name": "MIDNIGHT SUNBURN",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015305": {
+  "item_number": "1015305",
+  "name": "Captain Jake",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015454"
+  ],
+  "qwen_name": "SAY WHAT???",
+  "image_path": "product_images/1015305.png",
+  "target_item": "1015454",
+  "target_name": "SAY WHAT??",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015310": {
+  "item_number": "1015310",
+  "name": "DACOZ",
+  "verdict": "MISMATCH",
+  "candidates": [
+   "1004015"
+  ],
+  "name_matches": [
+   "1004013"
+  ],
+  "qwen_name": "MAKE MY DAY",
+  "image_path": "product_images/1015310.png",
+  "target_item": "1004015",
+  "target_name": "DOUBLE BUBBLE",
+  "via": "SKU",
+  "tier": "MED"
+ },
+ "1015405": {
+  "item_number": "1015405",
+  "name": "COURTESYOF THE",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1015085"
+  ],
+  "qwen_name": "Flicker",
+  "image_path": "product_images/1015405.png",
+  "target_item": "1015085",
+  "target_name": "FLICKER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015406": {
+  "item_number": "1015406",
+  "name": "Breathing",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003648"
+  ],
+  "qwen_name": "JUNGLE CAT",
+  "image_path": "product_images/1015406.png",
+  "target_item": "1003648",
+  "target_name": "JUNGLE CAT",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015439": {
+  "item_number": "1015439",
+  "name": "FUTURE WARRIOR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003521"
+  ],
+  "qwen_name": "FIGHTER",
+  "image_path": "product_images/1015439.png",
+  "target_item": "1003521",
+  "target_name": "FIGHTER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015445": {
+  "item_number": "1015445",
+  "name": "SNAKE CHARMER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003657"
+  ],
+  "qwen_name": "AMERICA PRAYING",
+  "image_path": "product_images/1015445.png",
+  "target_item": "1003657",
+  "target_name": "America Praying",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015453": {
+  "item_number": "1015453",
+  "name": "AMERICAN RIDERS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013187"
+  ],
+  "qwen_name": "EXTREME MACHINE",
+  "image_path": "product_images/1015453.png",
+  "target_item": "1013187",
+  "target_name": "Extreme Machine",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015454": {
+  "item_number": "1015454",
+  "name": "SAY WHAT??",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1013225"
+  ],
+  "qwen_name": "American Trucker",
+  "image_path": "product_images/1015454.png",
+  "target_item": "1013225",
+  "target_name": "AMERICAN TRUCKER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1015456": {
+  "item_number": "1015456",
+  "name": "AMERICA'S PASTIME",
+  "verdict": "UNCERTAIN",
+  "candidates": [],
+  "name_matches": [
+   "1013225"
+  ],
+  "qwen_name": "American Trucker",
+  "image_path": "product_images/1015456.png",
+  "target_item": "1013225",
+  "target_name": "AMERICAN TRUCKER",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1016059": {
+  "item_number": "1016059",
+  "name": "CHICKEN BLOWING BALLOON",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1001611"
+  ],
+  "qwen_name": "CLIMBING PANDA",
+  "image_path": "product_images/1016059.png",
+  "target_item": "1001611",
+  "target_name": "CLIMBING PANDA",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1024400": {
+  "item_number": "1024400",
+  "name": "MAJOR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "USA Fireworks",
+  "image_path": "product_images/1024400.png",
+  "tier": "NONE"
+ },
+ "1024420": {
+  "item_number": "1024420",
+  "name": "SHINING SKY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000479"
+  ],
+  "qwen_name": "Junk in the trunk",
+  "image_path": "product_images/1024420.png",
+  "target_item": "1000479",
+  "target_name": "JUNK IN THE TRUNK",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1024433": {
+  "item_number": "1024433",
+  "name": "American Envy",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003915",
+   "1024435"
+  ],
+  "qwen_name": "American King",
+  "image_path": "product_images/1024433.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1024435": {
+  "item_number": "1024435",
+  "name": "AMERICA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "TOTAL DESTRUCTION",
+  "image_path": "product_images/1024435.png",
+  "tier": "NONE"
+ },
+ "1024511": {
+  "item_number": "1024511",
+  "name": "NEON NIGHTS",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000438",
+   "1003917"
+  ],
+  "qwen_name": "ALLSTAR",
+  "image_path": "product_images/1024511.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1024513": {
+  "item_number": "1024513",
+  "name": "THE KING",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000405",
+   "1024516"
+  ],
+  "qwen_name": "Little Big",
+  "image_path": "product_images/1024513.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1024514": {
+  "item_number": "1024514",
+  "name": "SALT",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000420",
+   "1003967",
+   "1024522"
+  ],
+  "qwen_name": "Great Night Extravaganza",
+  "image_path": "product_images/1024514.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1024515": {
+  "item_number": "1024515",
+  "name": "STAR AND STRIPES",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1024420"
+  ],
+  "qwen_name": "SHINING SKY",
+  "image_path": "product_images/1024515.png",
+  "target_item": "1024420",
+  "target_name": "SHINING SKY",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1024517": {
+  "item_number": "1024517",
+  "name": "CAESAR",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1000472",
+   "1024518"
+  ],
+  "qwen_name": "Dazzler Assortment",
+  "image_path": "product_images/1024517.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1024521": {
+  "item_number": "1024521",
+  "name": "ENCORE PRESENTATION",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Great Night Fireworks",
+  "image_path": "product_images/1024521.png",
+  "tier": "NONE"
+ },
+ "1024522": {
+  "item_number": "1024522",
+  "name": "GREAT NIGHT EXTRAVAGANZA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003978"
+  ],
+  "qwen_name": "ROCK STAR",
+  "image_path": "product_images/1024522.png",
+  "target_item": "1003978",
+  "target_name": "ROCK STAR",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1024523": {
+  "item_number": "1024523",
+  "name": "SUPER CHARGED",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003915",
+   "1024435"
+  ],
+  "qwen_name": "AMERICA FIREWORKS ASSORTMENT",
+  "image_path": "product_images/1024523.png",
+  "via": "name?",
+  "tier": "NAME_AMBIG"
+ },
+ "1030002": {
+  "item_number": "1030002",
+  "name": "BUBBLE BLASTER",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "Candle 10 Shots",
+  "image_path": "product_images/1030002.png",
+  "tier": "NONE"
+ },
+ "1030029": {
+  "item_number": "1030029",
+  "name": "CHASING BOOTY",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1003380"
+  ],
+  "qwen_name": "Faith Over Fear",
+  "image_path": "product_images/1030029.png",
+  "target_item": "1003380",
+  "target_name": "FAITH OVER FEAR",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1030035": {
+  "item_number": "1030035",
+  "name": "TANK GIRL",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1030038"
+  ],
+  "qwen_name": "BENT RAIL",
+  "image_path": "product_images/1030035.png",
+  "target_item": "1030038",
+  "target_name": "Bent Rail",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1030038": {
+  "item_number": "1030038",
+  "name": "Bent Rail",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [],
+  "qwen_name": "World-Class Fireworks",
+  "image_path": "product_images/1030038.png",
+  "tier": "NONE"
+ },
+ "1030056": {
+  "item_number": "1030056",
+  "name": "MADE IN THE USA",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011377"
+  ],
+  "qwen_name": "Frog Prince",
+  "image_path": "product_images/1030056.png",
+  "target_item": "1011377",
+  "target_name": "FROG PRINCE",
+  "via": "name",
+  "tier": "NAME"
+ },
+ "1030130": {
+  "item_number": "1030130",
+  "name": "ALIEN FOUNTAIN",
+  "verdict": "MISMATCH",
+  "candidates": [],
+  "name_matches": [
+   "1011360"
+  ],
+  "qwen_name": "Lemon Lime Delight",
+  "image_path": "product_images/1030130.png",
+  "target_item": "1011360",
+  "target_name": "LEMON LIME DELIGHT",
+  "via": "name",
+  "tier": "NAME"
+ }
+}

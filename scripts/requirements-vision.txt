@@ -1,0 +1,7 @@
+numpy
+pillow
+rembg
+onnxruntime
+pymupdf
+pyzbar
+zxing-cpp
