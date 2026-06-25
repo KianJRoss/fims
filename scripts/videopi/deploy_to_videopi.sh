@@ -43,8 +43,9 @@ echo "  to copy        : $nm"
 if [ "$CHECK" -eq 1 ]; then echo "(--check: nothing copied)"; exit 0; fi
 [ "$nm" -eq 0 ] && { echo "Video Pi already has every staged file."; exit 0; }
 
-# stream only the missing files via tar over ssh
-( cd "$STAGING" && printf '%s\n' "$missing" | tar -T - -cf - ) \
+# stream only the missing files via tar over ssh. Prefix each name with "./" so
+# YouTube IDs that start with '-' (e.g. -GlVylTKTWA.mp4) aren't parsed as tar options.
+( cd "$STAGING" && printf '%s\n' "$missing" | sed 's#^#./#' | tar -T - -cf - ) \
     | ssh -o ConnectTimeout=8 "$VPI_SSH" "tar -C '$VPI_DIR' -xf -"
 
 echo "Copied $nm file(s) to $VPI_DIR on the Video Pi."

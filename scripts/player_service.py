@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import glob
+import json
 import os
 import random
 import subprocess
@@ -14,6 +15,10 @@ from fastapi import FastAPI, HTTPException
 VIDEO_DIR = "/media/pi/VIDEOS/videos"
 IDLE_RETURN_SECONDS = 60
 IDLE_POLL_SECONDS = 0.5
+# The curated idle playlist (pushed via POST /idle/playlist) is persisted here so
+# it survives a service restart / Pi reboot. Without this the idle loop falls back
+# to shuffling EVERY file in VIDEO_DIR (the whole ~14k library), not the in-store set.
+IDLE_PLAYLIST_FILE = os.path.expanduser("~/.config/fims/idle_playlist.json")
 TRANSITION_CACHE_DIR = "/tmp/fims_transitions"
 TRANSITION_DURATION = 4  # seconds each brand card is shown
 
@@ -255,6 +260,28 @@ def _idle_loop() -> None:
                 _current_source = None
 
 
+def _save_idle_playlist(paths: list[str]) -> None:
+    try:
+        os.makedirs(os.path.dirname(IDLE_PLAYLIST_FILE), exist_ok=True)
+        tmp = IDLE_PLAYLIST_FILE + ".tmp"
+        with open(tmp, "w") as fh:
+            json.dump(paths, fh)
+        os.replace(tmp, IDLE_PLAYLIST_FILE)
+    except Exception:
+        pass
+
+
+def _load_idle_playlist() -> list[str]:
+    try:
+        with open(IDLE_PLAYLIST_FILE) as fh:
+            data = json.load(fh)
+        if isinstance(data, list):
+            return [str(p) for p in data if str(p)]
+    except Exception:
+        pass
+    return []
+
+
 @app.on_event("startup")
 def _startup() -> None:
     global _idle_thread_started
@@ -263,6 +290,12 @@ def _startup() -> None:
         if _idle_thread_started:
             return
         _idle_thread_started = True
+        # Restore the last curated idle playlist so a restart doesn't revert to
+        # shuffling the entire library.
+        if not _idle_playlist:
+            saved = _load_idle_playlist()
+            if saved:
+                _idle_playlist[:] = saved
 
     thread = threading.Thread(target=_idle_loop, daemon=True)
     thread.start()
@@ -325,6 +358,7 @@ def update_idle_playlist(body: dict[str, Any]) -> dict[str, Any]:
     with _lock:
         _idle_playlist[:] = cleaned_paths
 
+    _save_idle_playlist(cleaned_paths)
     return {"status": "ok", "count": len(cleaned_paths)}
 
 
