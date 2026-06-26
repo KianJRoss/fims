@@ -75,6 +75,12 @@ def selected(rec: dict[str, Any], mode: str) -> bool:
         return status == "conflict"
     if mode == "no-candidates":
         return status == "rejected" and value.startswith("NO_CANDIDATES:")
+    if mode == "replace-recommended":
+        return sentry_status == "replace_recommended"
+    if mode == "merge-recommended":
+        return sentry_status == "merge_recommended"
+    if mode == "keep-current":
+        return sentry_status == "keep_current"
     return True
 
 
@@ -123,6 +129,8 @@ def print_text(records: list[dict[str, Any]], args: argparse.Namespace) -> None:
         print(f"value: {compact(rec.get('value'), args.value_limit)}")
         print(f"status: {rec.get('status', '')}  sentry_status: {rec.get('sentry_status', '')}")
         print(f"reason: {compact(reason, args.value_limit)}")
+        if rec.get("current_value") is not None:
+            print(f"current_value: {compact(rec.get('current_value'), args.value_limit)}")
         print(f"confidence: {rec.get('confidence', '')}")
         print(f"identity_check: {compact(rec.get('identity_check'), args.value_limit)}")
         print(f"source: {rec.get('source', '')}")
@@ -153,7 +161,18 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Audit exact enrichment candidates and denial reasons")
     parser.add_argument(
         "--mode",
-        choices=("denied", "sentry-rejected", "auto-rejected", "pending", "conflict", "no-candidates", "all"),
+        choices=(
+            "denied",
+            "sentry-rejected",
+            "auto-rejected",
+            "pending",
+            "conflict",
+            "no-candidates",
+            "replace-recommended",
+            "merge-recommended",
+            "keep-current",
+            "all",
+        ),
         default="denied",
     )
     parser.add_argument("--sku", default="", help="filter by exact item number/SKU")

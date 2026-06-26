@@ -122,18 +122,43 @@ def value_is_structurally_bad(field: str, value: Any) -> str | None:
     return None
 
 
+def normalize_for_compare(field: str, value: Any) -> str:
+    text = norm_text(value, FIELD_VALUE_LIMITS.get(field, 800)).lower()
+    if field in {"shot_count", "duration_seconds"}:
+        try:
+            return str(int(str(value).strip()))
+        except (TypeError, ValueError):
+            return text
+    if field == "packing":
+        match = re.search(r"\d+\s*/\s*\d+", text)
+        return match.group(0).replace(" ", "") if match else text
+    return re.sub(r"[^a-z0-9]+", " ", text).strip()
+
+
+def values_equivalent(field: str, left: Any, right: Any) -> bool:
+    return bool(normalize_for_compare(field, left)) and normalize_for_compare(field, left) == normalize_for_compare(field, right)
+
+
 def candidate_groups(
     ledger: list[dict[str, Any]],
     limit: int | None,
     only_skus: set[str] | None = None,
     only_product_ids: set[str] | None = None,
+    include_filled: bool = False,
 ) -> list[dict[str, Any]]:
     db = fetch_db_state()
     grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    current_values: dict[tuple[str, str], Any] = {}
     for index, rec in enumerate(ledger):
         if rec.get("status") in {"applied", "rejected"}:
             continue
-        if rec.get("sentry_status") in {"approved", "rejected"}:
+        if rec.get("sentry_status") in {
+            "approved",
+            "rejected",
+            "replace_recommended",
+            "merge_recommended",
+            "keep_current",
+        }:
             continue
         item = str(rec.get("item_number") or "")
         product_id = str(rec.get("product_id") or "")
@@ -147,8 +172,14 @@ def candidate_groups(
             if not (sku_match or product_id_match):
                 continue
         cur = db.get(product_key)
-        if not cur or not db_field_empty(cur.get(field)):
+        if not cur:
             continue
+        current_value = cur.get(field)
+        if not include_filled and not db_field_empty(current_value):
+            continue
+        if include_filled and db_field_empty(current_value):
+            continue
+        current_values[(product_key, field)] = current_value
         grouped[(product_key, field)].append({**rec, "_ledger_index": index})
 
     out: list[dict[str, Any]] = []
@@ -178,6 +209,8 @@ def candidate_groups(
                 "product_key": product_key,
                 "name": first.get("name", ""),
                 "field": field,
+                "current_value": current_values.get((product_key, field)),
+                "current_is_empty": db_field_empty(current_values.get((product_key, field))),
                 "candidates": candidates,
             }
         )
@@ -304,6 +337,8 @@ def prompt_for_group(group: dict[str, Any]) -> str:
             "category": group.get("db_context", {}).get("category_name", ""),
         },
         "field": group["field"],
+        "current_database_value": group.get("current_value"),
+        "current_is_empty": group.get("current_is_empty", True),
         "vision_context": group.get("vision_context"),
         "candidates": [
             {
@@ -321,6 +356,10 @@ def prompt_for_group(group: dict[str, Any]) -> str:
     return (
         "You are the safety sentry for a fireworks-store product database. "
         "Approve exactly one candidate only if it is clearly information about the exact product. "
+        "If current_database_value is not empty, compare the candidate to the existing value. "
+        "Use recommended_action='keep_current' when the existing value is better or equally good, "
+        "recommended_action='replace' when the candidate is clearly better/correcter, and "
+        "recommended_action='merge' when the candidate adds useful missing detail without invalidating the current value. "
         "Exact SKU/barcode identity is strongest. When a SKU is missing or questionable, a candidate may still be "
         "approved only if the evidence shows strong product identity from product name + brand + at least one known "
         "fact such as shot count, duration, category, effects, package text, OCR, or barcode context. "
@@ -330,8 +369,9 @@ def prompt_for_group(group: dict[str, Any]) -> str:
         "willows, strobes, brocades, crackle, palms, peonies, comets, reports, whistles, etc. "
         "Reject marketing descriptions, fuse/package descriptions, and generic labels like Effects Holders. "
         "Use vision_context only as supporting identity evidence; do not invent missing facts from it. "
-        "If unsure, approve false. Return JSON only with keys: "
-        "approved (boolean), candidate_index (integer or null), reason (short string).\n\n"
+        "If unsure, approve false and recommended_action='reject'. Return JSON only with keys: "
+        "approved (boolean), candidate_index (integer or null), recommended_action "
+        "('fill_empty', 'replace', 'merge', 'keep_current', or 'reject'), reason (short string).\n\n"
         + json.dumps(payload, ensure_ascii=False, indent=2)
     )
 
@@ -340,13 +380,28 @@ def dry_decision(group: dict[str, Any]) -> dict[str, Any]:
     for index, candidate in enumerate(group["candidates"]):
         if candidate["quick_reject_reason"]:
             continue
+        if not group.get("current_is_empty", True) and values_equivalent(
+            group["field"], group.get("current_value"), candidate.get("value")
+        ):
+            return {
+                "approved": False,
+                "candidate_index": None,
+                "recommended_action": "keep_current",
+                "reason": "candidate matches current database value",
+            }
         if candidate["status"] == "verified":
             return {
                 "approved": False,
                 "candidate_index": None,
+                "recommended_action": "reject",
                 "reason": "dry-run backend does not approve writes",
             }
-    return {"approved": False, "candidate_index": None, "reason": "no structurally clean verified candidate"}
+    return {
+        "approved": False,
+        "candidate_index": None,
+        "recommended_action": "reject",
+        "reason": "no structurally clean verified candidate",
+    }
 
 
 def decide(group: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
@@ -364,6 +419,9 @@ def decide(group: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
 
 def normalize_decision(group: dict[str, Any], decision: dict[str, Any]) -> dict[str, Any]:
     approved = bool(decision.get("approved"))
+    action = norm_text(decision.get("recommended_action"), 40).lower().replace("-", "_").replace(" ", "_")
+    if action not in {"fill_empty", "replace", "merge", "keep_current", "reject"}:
+        action = "fill_empty" if approved and group.get("current_is_empty", True) else "reject"
     try:
         chosen = int(decision.get("candidate_index"))
     except (TypeError, ValueError):
@@ -387,7 +445,24 @@ def normalize_decision(group: dict[str, Any], decision: dict[str, Any]) -> dict[
         ):
             approved = False
             reason = "chosen candidate lacks exact SKU/barcode or strong non-SKU identity"
-    return {"approved": approved, "candidate_index": chosen if approved else None, "reason": reason}
+        elif not group.get("current_is_empty", True) and values_equivalent(
+            group["field"], group.get("current_value"), chosen_candidate.get("value")
+        ):
+            approved = False
+            action = "keep_current"
+            reason = "candidate matches current database value"
+    if approved and not group.get("current_is_empty", True) and action == "fill_empty":
+        action = "replace"
+    if not approved and action not in {"keep_current", "reject"}:
+        action = "reject"
+    if approved and group.get("current_is_empty", True) and action in {"replace", "merge"}:
+        action = "fill_empty"
+    return {
+        "approved": approved,
+        "candidate_index": chosen if approved else None,
+        "recommended_action": action,
+        "reason": reason,
+    }
 
 
 def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision: dict[str, Any], model_label: str) -> None:
@@ -400,10 +475,26 @@ def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision
         rec["sentry_at"] = now_iso()
         rec["sentry_model"] = model_label
         rec["sentry_reason"] = reason
+        if not group.get("current_is_empty", True):
+            rec["current_value"] = group.get("current_value")
         if approved and index == chosen:
-            rec["sentry_status"] = "approved"
+            if not group.get("current_is_empty", True) and decision.get("recommended_action") == "replace":
+                rec["sentry_status"] = "replace_recommended"
+            elif not group.get("current_is_empty", True) and decision.get("recommended_action") == "merge":
+                rec["sentry_status"] = "merge_recommended"
+            elif not group.get("current_is_empty", True):
+                rec["sentry_status"] = "keep_current"
+            else:
+                rec["sentry_status"] = "approved"
         else:
-            rec["sentry_status"] = "rejected"
+            if (
+                decision.get("recommended_action") == "keep_current"
+                and not group.get("current_is_empty", True)
+                and values_equivalent(group["field"], group.get("current_value"), candidate.get("value"))
+            ):
+                rec["sentry_status"] = "keep_current"
+            else:
+                rec["sentry_status"] = "rejected"
             if candidate["quick_reject_reason"]:
                 rec["status"] = "rejected"
                 rec["rejected_reason"] = candidate["quick_reject_reason"]
@@ -425,6 +516,7 @@ def run_once(args: argparse.Namespace) -> int:
         args.limit,
         parse_csv(args.only_sku, upper=True),
         parse_csv(args.only_product_id),
+        args.review_filled,
     )
     add_context(groups, args)
     model_label = args.backend if args.backend != "ollama" else f"ollama:{args.model}"
@@ -452,6 +544,8 @@ def run_once(args: argparse.Namespace) -> int:
                         "name": group["name"],
                     },
                     "field": group["field"],
+                    "current_value": group.get("current_value"),
+                    "current_is_empty": group.get("current_is_empty", True),
                     "candidates": [
                         {
                             "value": candidate.get("value"),
@@ -471,7 +565,8 @@ def run_once(args: argparse.Namespace) -> int:
             )
         print(
             f"SENTRY {group.get('item_number') or group.get('product_id')} {group['field']}: "
-            f"{'APPROVE' if decision.get('approved') else 'reject'} - {norm_text(decision.get('reason'), 120)}"
+            f"{'APPROVE' if decision.get('approved') else 'reject'} "
+            f"[{decision.get('recommended_action', 'reject')}] - {norm_text(decision.get('reason'), 120)}"
         )
         time.sleep(max(0.0, args.sleep))
     if not args.preview:
@@ -495,6 +590,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--vision-steps", default="ocr,codes,vlm")
     parser.add_argument("--media-root", default=str(DEFAULT_MEDIA_ROOT))
     parser.add_argument("--apply", action="store_true", help="apply AI-approved verified facts after review")
+    parser.add_argument(
+        "--review-filled",
+        action="store_true",
+        help="review candidates against already-filled DB fields and log keep/replace/merge recommendations only",
+    )
     parser.add_argument("--preview", action="store_true", help="print decisions without changing ledger or DB")
     parser.add_argument("--watch", action="store_true", help="keep reviewing new evidence until stopped")
     parser.add_argument("--watch-sleep", type=float, default=120.0)

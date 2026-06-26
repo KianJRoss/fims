@@ -53,7 +53,12 @@
     "confidence": 0.19999999999999998,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:12:58.661998+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:39.430319+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": 10,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -66,7 +71,13 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:12:58.662019+00:00",
-    "status": "pending"
+    "status": "rejected",
+    "sentry_at": "2026-06-26T10:59:40.609415+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate differs from current value; not selected for replacement or merge",
+    "current_value": "10 Shots - Brocade crown with crackling.",
+    "sentry_status": "rejected",
+    "rejected_reason": "junk/html/placeholder text"
   },
   {
     "product_id": "",
@@ -79,7 +90,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:12:58.662034+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:40.609437+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate differs from current value; not selected for replacement or merge",
+    "current_value": "10 Shots - Brocade crown with crackling.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -92,7 +108,12 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:12:58.662039+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:39.430341+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate differs from current value; not selected for replacement or merge",
+    "current_value": 10,
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -105,7 +126,12 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:12:58.662045+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:41.704809+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "confidence too low and current value seems plausible",
+    "current_value": "24/1",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -118,7 +144,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:12:58.662060+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:40.609444+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate differs from current value; not selected for replacement or merge",
+    "current_value": "10 Shots - Brocade crown with crackling.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -131,7 +162,12 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:12:58.662069+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:40.609449+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate differs from current value; not selected for replacement or merge",
+    "current_value": "10 Shots - Brocade crown with crackling.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -144,7 +180,12 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN2028)",
     "captured_at": "2026-06-26T09:12:58.662073+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:39.430345+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": 10,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -170,7 +211,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2028)",
     "captured_at": "2026-06-26T09:12:58.662085+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:40.609454+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": "10 Shots - Brocade crown with crackling.",
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -183,7 +229,12 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN2028)",
     "captured_at": "2026-06-26T09:12:58.662089+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:39.430348+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": 10,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -209,7 +260,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2028)",
     "captured_at": "2026-06-26T09:12:58.662099+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:40.609459+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": "10 Shots - Brocade crown with crackling.",
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -222,7 +278,12 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN2043)",
     "captured_at": "2026-06-26T09:13:07.853523+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:43.030755+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "current_value": 12,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -248,7 +309,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2043)",
     "captured_at": "2026-06-26T09:13:07.853561+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:44.181173+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -261,7 +327,12 @@
     "confidence": 0.19999999999999998,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:13:07.853567+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:43.030771+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "current_value": 12,
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -274,7 +345,12 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:13:07.853592+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:44.181191+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate differs from current value; not selected for replacement or merge",
+    "current_value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -315,7 +391,12 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN5059)",
     "captured_at": "2026-06-26T09:13:55.326582+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:45.305754+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact shot count matches current value.",
+    "current_value": 24,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -328,7 +409,12 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN5059)",
     "captured_at": "2026-06-26T09:13:55.326608+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:46.444828+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Current value is already correct with exact match and confidence.",
+    "current_value": 30,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -354,7 +440,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN5059)",
     "captured_at": "2026-06-26T09:13:55.326653+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:47.501856+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact SKU match, detailed effects description.",
+    "current_value": "24 Shots - Red strobe willow, red strobe willow with",
+    "sentry_status": "replace_recommended"
   },
   {
     "product_id": "",
@@ -423,7 +514,12 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (SSRP2301)",
     "captured_at": "2026-06-26T09:14:08.972295+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:48.676819+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": 8,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -436,7 +532,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (SSRP2301)",
     "captured_at": "2026-06-26T09:14:08.972314+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:50.510609+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide specific and relevant product details for PARTY TIME by SUNS FIREWORKS. All candidates either contain unrelated content or lack identity evidence beyond name-brand match.",
+    "current_value": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -449,7 +550,12 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:08.972320+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:59:48.676833+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "candidate matches current database value",
+    "current_value": 8,
+    "sentry_status": "keep_current"
   },
   {
     "product_id": "",
@@ -462,7 +568,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:08.972327+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:50.510633+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide specific and relevant product details for PARTY TIME by SUNS FIREWORKS. All candidates either contain unrelated content or lack identity evidence beyond name-brand match.",
+    "current_value": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -505,7 +616,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:08.972344+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:50.510639+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide specific and relevant product details for PARTY TIME by SUNS FIREWORKS. All candidates either contain unrelated content or lack identity evidence beyond name-brand match.",
+    "current_value": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -518,7 +634,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:08.972356+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:50.510644+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide specific and relevant product details for PARTY TIME by SUNS FIREWORKS. All candidates either contain unrelated content or lack identity evidence beyond name-brand match.",
+    "current_value": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -531,7 +652,12 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:14:08.972365+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:59:50.510648+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide specific and relevant product details for PARTY TIME by SUNS FIREWORKS. All candidates either contain unrelated content or lack identity evidence beyond name-brand match.",
+    "current_value": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4975,5 +5101,173 @@
     "status": "rejected",
     "rejected_reason": "no candidate records found",
     "captured_at": "2026-06-26T10:32:26.449944+00:00"
+  },
+  {
+    "product_id": "2008034c-52a7-44c5-859e-b96af50de5c9",
+    "item_number": "",
+    "name": "Corona Killer",
+    "field": "description",
+    "value": "NO_CANDIDATES:2008034c-52a7-44c5-859e-b96af50de5c9",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:38:52.764222+00:00"
+  },
+  {
+    "product_id": "31ca71fa-8ae1-4338-9029-2fdf77fc167f",
+    "item_number": "",
+    "name": "One Bad Baby",
+    "field": "description",
+    "value": "NO_CANDIDATES:31ca71fa-8ae1-4338-9029-2fdf77fc167f",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:40:11.642560+00:00"
+  },
+  {
+    "product_id": "46bbd52f-6577-44ae-b01b-5d2195af77b6",
+    "item_number": "",
+    "name": "Bumble Bee",
+    "field": "description",
+    "value": "NO_CANDIDATES:46bbd52f-6577-44ae-b01b-5d2195af77b6",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:41:30.718777+00:00"
+  },
+  {
+    "product_id": "527412ec-e813-46d2-b1f2-2753b0e36a49",
+    "item_number": "",
+    "name": "T.N.T.B.A.M",
+    "field": "description",
+    "value": "NO_CANDIDATES:527412ec-e813-46d2-b1f2-2753b0e36a49",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:42:49.718706+00:00"
+  },
+  {
+    "product_id": "5b3db354-fffd-4385-bce9-d5dfde11b500",
+    "item_number": "",
+    "name": "Voodoo",
+    "field": "description",
+    "value": "NO_CANDIDATES:5b3db354-fffd-4385-bce9-d5dfde11b500",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:44:08.463160+00:00"
+  },
+  {
+    "product_id": "5f60ca17-1ca0-457c-ab60-49583b1d2bad",
+    "item_number": "",
+    "name": "Uruk Hai",
+    "field": "description",
+    "value": "NO_CANDIDATES:5f60ca17-1ca0-457c-ab60-49583b1d2bad",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:45:12.508849+00:00"
+  },
+  {
+    "product_id": "5fb28596-c5fa-47c2-9786-ebb258ce70fe",
+    "item_number": "",
+    "name": "Devil Side",
+    "field": "description",
+    "value": "NO_CANDIDATES:5fb28596-c5fa-47c2-9786-ebb258ce70fe",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:46:31.497449+00:00"
+  },
+  {
+    "product_id": "63d7b92b-3cab-4fae-973c-80a070258533",
+    "item_number": "",
+    "name": "Panda Tai",
+    "field": "description",
+    "value": "NO_CANDIDATES:63d7b92b-3cab-4fae-973c-80a070258533",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:47:51.207330+00:00"
+  },
+  {
+    "product_id": "7ac6f710-aa6b-41e3-8607-5561a58551c4",
+    "item_number": "",
+    "name": "Gold Digger",
+    "field": "description",
+    "value": "NO_CANDIDATES:7ac6f710-aa6b-41e3-8607-5561a58551c4",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:49:10.052145+00:00"
+  },
+  {
+    "product_id": "81f2144e-c224-432a-b87b-995693979b3b",
+    "item_number": "1004279",
+    "name": "REDNECK SAFARI",
+    "field": "description",
+    "value": "NO_CANDIDATES:1004279",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:51:45.601142+00:00"
+  },
+  {
+    "product_id": "81f5d477-31f4-45dd-922d-d134fd0c80fe",
+    "item_number": "1003706",
+    "name": "BOOTLEGGERS' DREAM",
+    "field": "description",
+    "value": "NO_CANDIDATES:1003706",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:54:04.112463+00:00"
+  },
+  {
+    "product_id": "82065a3b-0536-466f-b409-98cfa27f2413",
+    "item_number": "1004368",
+    "name": "WOMEN OF VALOR",
+    "field": "description",
+    "value": "NO_CANDIDATES:1004368",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:56:52.163447+00:00"
   }
 ]
