@@ -251,8 +251,20 @@ export default function SalesScreen() {
       barcodeInputRef.current?.focus();
       await queryClient.invalidateQueries({ queryKey: ["sales"] });
     },
-    onError: () => {
-      setFlash({ kind: "error", text: "Charge failed." });
+    onError: (error: unknown) => {
+      const detail = (error as { response?: { data?: { detail?: unknown } } })?.response?.data?.detail;
+      const reason = typeof detail === "string" ? detail : null;
+      // A totals/tax mismatch almost always means this tab is running an old
+      // build — tell the cashier to refresh rather than just "Charge failed".
+      const looksStale = reason?.toLowerCase().includes("tax") || reason?.toLowerCase().includes("total");
+      setFlash({
+        kind: "error",
+        text: looksStale
+          ? "Charge failed — please refresh this page (Ctrl+Shift+R) and try again."
+          : reason
+            ? `Charge failed: ${reason}`
+            : "Charge failed.",
+      });
     },
   });
 
