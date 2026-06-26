@@ -40,6 +40,7 @@ type FormState = {
   description: string;
   notes: string;
   barcode: string;
+  price: string;
 };
 
 const EMPTY_FORM: FormState = {
@@ -54,9 +55,10 @@ const EMPTY_FORM: FormState = {
   description: "",
   notes: "",
   barcode: "",
+  price: "",
 };
 
-function detailToForm(detail: ProductDetail, barcode: string): FormState {
+function detailToForm(detail: ProductDetail, barcode: string, price: string): FormState {
   return {
     name: detail.name ?? "",
     item_number: detail.item_number ?? "",
@@ -69,7 +71,17 @@ function detailToForm(detail: ProductDetail, barcode: string): FormState {
     description: detail.description ?? "",
     notes: detail.notes ?? "",
     barcode,
+    price,
   };
+}
+
+/** Parse a price input into a non-negative number, or null if blank/invalid. */
+function parsePrice(value: string): number | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const n = Number(trimmed);
+  if (!Number.isFinite(n) || n < 0) return null;
+  return n;
 }
 
 type Props = {
@@ -98,6 +110,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const searchTimerRef = useRef<number | null>(null);
   const loadedEditIdRef = useRef<string | null>(null);
+  const loadedPriceRef = useRef<string>("");
 
   const categoryOptionsQuery = useQuery({
     queryKey: ["all-categories"],
@@ -131,10 +144,26 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
   }, [search]);
 
   const loadDetailMutation = useMutation({
-    mutationFn: async (productId: string): Promise<ProductDetail> => (await api.get(`/v1/products/${productId}`)).data,
-    onSuccess: (detail) => {
+    mutationFn: async (productId: string): Promise<{ detail: ProductDetail; price: string }> => {
+      const detail: ProductDetail = (await api.get(`/v1/products/${productId}`)).data;
+      // Pull the current retail price so it prefills the form. Pricing lives on a
+      // separate endpoint; tolerate it being missing/empty.
+      let price = "";
+      try {
+        const pricing = (await api.get(`/v1/pricing/${productId}`)).data;
+        const retail = Array.isArray(pricing?.prices)
+          ? pricing.prices.find((p: { price_type_code?: string }) => p.price_type_code === "RETAIL")
+          : null;
+        if (retail?.amount != null) price = String(retail.amount);
+      } catch {
+        // no pricing yet — leave blank
+      }
+      return { detail, price };
+    },
+    onSuccess: ({ detail, price }) => {
       setEditingId(detail.id);
-      setForm(detailToForm(detail, ""));
+      loadedPriceRef.current = price;
+      setForm(detailToForm(detail, "", price));
       setMode("edit");
       setStatusMessage(null);
     },
@@ -167,6 +196,10 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
         in_store: Boolean(flagAsNewInStoreItem),
         needs_data_review: Boolean(flagAsNewInStoreItem),
       });
+      const amount = parsePrice(payload.price);
+      if (amount != null) {
+        await api.put(`/v1/pricing/${data.id}/RETAIL`, { amount, reason: "Set during product entry" });
+      }
       return data;
     },
     onSuccess: (data) => {
@@ -195,6 +228,14 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
       if (payload.barcode.trim()) {
         await api.post(`/v1/products/${productId}/barcodes`, { barcode: payload.barcode.trim(), is_primary: true });
       }
+      // Only touch pricing if the retail price actually changed, to avoid spurious
+      // price-history entries on a plain info edit.
+      if (payload.price.trim() !== loadedPriceRef.current.trim()) {
+        const amount = parsePrice(payload.price);
+        if (amount != null) {
+          await api.put(`/v1/pricing/${productId}/RETAIL`, { amount, reason: "Updated during product entry" });
+        }
+      }
       return data;
     },
     onSuccess: (data) => {
@@ -208,6 +249,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
     setMode("search");
     setEditingId(null);
     setForm(EMPTY_FORM);
+    loadedPriceRef.current = "";
     setSearch("");
     setResults([]);
   }
@@ -215,6 +257,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
   function startCreate() {
     setForm({ ...EMPTY_FORM, barcode: prefillBarcode ?? "" });
     setEditingId(null);
+    loadedPriceRef.current = "";
     setStatusMessage(null);
     setMode("create");
   }
@@ -312,6 +355,13 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
         <div className="space-y-3">
           <FieldWithVoice label="Name" value={form.name} onChange={(v) => updateField("name", v)} required />
           <div className="grid gap-3 sm:grid-cols-2">
+            <Field
+              label="Retail Price ($)"
+              value={form.price}
+              onChange={(v) => updateField("price", v)}
+              type="number"
+              placeholder="e.g. 24.99"
+            />
             <Field label="Item Number" value={form.item_number} onChange={(v) => updateField("item_number", v)} />
             <Field label="Packing" value={form.packing} onChange={(v) => updateField("packing", v)} placeholder="e.g. 12/1" />
           </div>
@@ -357,6 +407,10 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
             <button
               onClick={() => {
                 if (!form.name.trim()) { setStatusMessage("Name is required."); return; }
+                if (form.price.trim() && parsePrice(form.price) == null) {
+                  setStatusMessage("Price must be a number of 0 or more.");
+                  return;
+                }
                 if (mode === "create") createMutation.mutate(form);
                 else if (editingId) updateMutation.mutate({ productId: editingId, payload: form });
               }}
