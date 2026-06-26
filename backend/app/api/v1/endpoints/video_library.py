@@ -155,13 +155,20 @@ def play_video(body: PlayRequest, db: Session = Depends(get_db)):
     if not video_pi_url:
         return {"status": "not_configured"}
 
+    remote_videos = _fetch_remote_videos()
+
     if body.product_id:
         product = _get_product_by_id(db, body.product_id)
         has_product_videos, video_filename = _get_best_product_video_filename(db, body.product_id)
         if video_filename:
-            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{Path(video_filename).name}"})
+            filename = Path(video_filename).name
+            if not remote_videos or filename in remote_videos:
+                return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{filename}"})
         if has_product_videos:
-            return {"status": "no_match", "product_id": body.product_id}
+            item_number = (product.item_number or "").strip()
+            if item_number:
+                return post_to_video_pi("/play", {"item_number": item_number})
+            return {"status": "no_match", "product_id": body.product_id, "reason": "video_not_available"}
 
         item_number = (product.item_number or "").strip()
         if not item_number:
