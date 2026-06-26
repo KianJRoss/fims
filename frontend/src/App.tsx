@@ -5,10 +5,12 @@ import {
   FileText,
   FolderOpen,
   Menu,
+  RefreshCw,
   Settings as SettingsIcon,
   SquareActivity,
   X,
 } from "lucide-react";
+import { useBuildVersionWatcher } from "./hooks/useBuildVersionWatcher";
 import SalesScreen from "./pages/SalesScreen";
 import ProductCatalog from "./pages/ProductCatalog";
 import Receipt from "./pages/Receipt";
@@ -32,6 +34,7 @@ const navItems = [
 export default function App() {
   const location = useLocation();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const updateAvailable = useBuildVersionWatcher();
 
   useEffect(() => {
     setMobileNavOpen(false);
@@ -60,6 +63,7 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-950 text-gray-100 font-sans lg:h-screen lg:flex-row">
+      {updateAvailable ? <UpdateBanner /> : null}
       <header className="sticky top-0 z-40 border-b border-gray-800 bg-gray-950/95 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <div>
@@ -168,6 +172,22 @@ export default function App() {
           </div>
         </div>
       ) : null}
+    </div>
+  );
+}
+
+function UpdateBanner() {
+  return (
+    <div className="fixed inset-x-0 top-0 z-[60] flex items-center justify-center gap-3 bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-lg">
+      <RefreshCw className="h-4 w-4" />
+      <span>A new version of FIMS is available.</span>
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide hover:bg-white/30"
+      >
+        Reload now
+      </button>
     </div>
   );
 }
