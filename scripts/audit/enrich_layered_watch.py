@@ -46,6 +46,7 @@ def main() -> int:
     while True:
         scrape_cmd = [
             sys.executable,
+            "-u",
             str(SCRAPER),
             "--limit",
             str(args.scrape_limit),
@@ -54,6 +55,7 @@ def main() -> int:
 
         sentry_cmd = [
             sys.executable,
+            "-u",
             str(SENTRY),
             "--backend",
             args.backend,
