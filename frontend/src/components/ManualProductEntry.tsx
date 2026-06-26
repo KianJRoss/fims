@@ -14,6 +14,13 @@ type ProductSearchResult = {
   brand_name: string | null;
 };
 
+type BarcodeRow = {
+  id: number;
+  barcode: string;
+  barcode_type: string | null;
+  is_primary: boolean;
+};
+
 type ProductDetail = {
   id: string;
   name: string;
@@ -26,6 +33,7 @@ type ProductDetail = {
   shot_count: number | null;
   duration_seconds: number | null;
   effects: string | null;
+  barcodes?: BarcodeRow[];
 };
 
 type FormState = {
@@ -107,6 +115,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
   const [searching, setSearching] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const [barcodes, setBarcodes] = useState<BarcodeRow[]>([]);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const searchTimerRef = useRef<number | null>(null);
   const loadedEditIdRef = useRef<string | null>(null);
@@ -164,8 +173,23 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
       setEditingId(detail.id);
       loadedPriceRef.current = price;
       setForm(detailToForm(detail, "", price));
+      setBarcodes(detail.barcodes ?? []);
       setMode("edit");
       setStatusMessage(null);
+    },
+  });
+
+  const unlinkBarcodeMutation = useMutation({
+    mutationFn: async ({ productId, barcodeId }: { productId: string; barcodeId: number }) => {
+      await api.delete(`/v1/products/${productId}/barcodes/${barcodeId}`);
+      return barcodeId;
+    },
+    onSuccess: (barcodeId) => {
+      setBarcodes((current) => current.filter((b) => b.id !== barcodeId));
+      setStatusMessage("Barcode unlinked.");
+    },
+    onError: () => {
+      setStatusMessage("Could not unlink barcode.");
     },
   });
 
@@ -249,6 +273,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
     setMode("search");
     setEditingId(null);
     setForm(EMPTY_FORM);
+    setBarcodes([]);
     loadedPriceRef.current = "";
     setSearch("");
     setResults([]);
@@ -257,6 +282,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
   function startCreate() {
     setForm({ ...EMPTY_FORM, barcode: prefillBarcode ?? "" });
     setEditingId(null);
+    setBarcodes([]);
     loadedPriceRef.current = "";
     setStatusMessage(null);
     setMode("create");
@@ -394,6 +420,40 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
               <BarcodeIcon className="h-3.5 w-3.5" />
               {mode === "create" ? "Barcode (optional)" : "Attach / Replace Barcode (optional)"}
             </div>
+
+            {mode === "edit" && barcodes.length > 0 && (
+              <div className="space-y-1.5">
+                <div className="text-[10px] uppercase tracking-[0.2em] text-gray-600">Linked barcodes</div>
+                {barcodes.map((b) => (
+                  <div
+                    key={b.id}
+                    className="flex items-center justify-between gap-2 rounded-xl border border-gray-800 bg-gray-900 px-3 py-2"
+                  >
+                    <div className="min-w-0">
+                      <span className="font-mono text-sm text-gray-100">{b.barcode}</span>
+                      {b.is_primary && (
+                        <span className="ml-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-orange-200">
+                          Primary
+                        </span>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (editingId) unlinkBarcodeMutation.mutate({ productId: editingId, barcodeId: b.id });
+                      }}
+                      disabled={unlinkBarcodeMutation.isPending}
+                      title="Unlink this barcode from the product"
+                      className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-red-500/30 bg-red-500/5 px-2.5 py-1.5 text-xs font-semibold text-red-200 transition hover:bg-red-500/15 disabled:opacity-50"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                      Unlink
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <input
               type="text"
               placeholder="Scan or type barcode..."

@@ -514,6 +514,24 @@ def add_barcode(product_id: str, payload: BarcodeAddRequest, db: Session = Depen
     return {"ok": True, "product_id": product_id, "barcode": barcode}
 
 
+@router.delete("/{product_id}/barcodes/{barcode_id}")
+def delete_barcode(product_id: str, barcode_id: int, db: Session = Depends(get_db)):
+    """Unlink a barcode from a product (e.g. it was attached to the wrong item)."""
+    row = db.execute(
+        select(ProductBarcode).where(
+            ProductBarcode.id == barcode_id,
+            ProductBarcode.product_id == product_id,
+        )
+    ).scalars().first()
+    if not row:
+        raise HTTPException(status_code=404, detail="Barcode not found for this product")
+
+    barcode_value = row.barcode
+    db.delete(row)
+    db.commit()
+    return {"ok": True, "product_id": product_id, "barcode": barcode_value}
+
+
 @router.get("/{product_id}/aliases")
 def list_product_aliases(product_id: str, db: Session = Depends(get_db)):
     product = db.get(Product, product_id)
