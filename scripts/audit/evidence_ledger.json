@@ -4247,7 +4247,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699174+00:00",
-    "status": "verified"
+    "status": "applied",
+    "sentry_at": "2026-06-26T10:05:13.951611+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact SKU match and high confidence",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -4260,7 +4264,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699195+00:00",
-    "status": "conflict"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T10:05:15.036800+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4273,7 +4281,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699200+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:05:13.951680+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact SKU match and high confidence",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4286,7 +4298,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699206+00:00",
-    "status": "verified"
+    "status": "rejected",
+    "sentry_at": "2026-06-26T10:05:15.039316+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "all candidates failed deterministic checks",
+    "sentry_status": "rejected",
+    "rejected_reason": "no recognizable fireworks effect/color terms"
   },
   {
     "product_id": "",
@@ -4299,7 +4316,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699213+00:00",
-    "status": "conflict"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T10:05:15.036844+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4312,7 +4333,11 @@
     "confidence": 0.19999999999999998,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:46:49.699217+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:05:13.951691+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact SKU match and high confidence",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4325,7 +4350,11 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:46:49.699222+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:05:15.036852+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4338,7 +4367,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699225+00:00",
-    "status": "verified"
+    "status": "verified",
+    "sentry_at": "2026-06-26T10:05:13.951699+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact SKU match and high confidence",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4351,7 +4384,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699229+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:05:15.971151+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic packing description, not specific effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4364,7 +4401,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP2877)",
     "captured_at": "2026-06-26T09:46:49.699234+00:00",
-    "status": "conflict"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T10:05:15.036857+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4377,7 +4418,11 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:47:03.672985+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:05:17.260068+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "No exact product description found",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4390,7 +4435,11 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:47:03.673005+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:05:17.260093+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "No exact product description found",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4403,7 +4452,11 @@
     "confidence": 0.19999999999999998,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:47:03.673018+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:05:18.537061+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "chosen candidate is not ledger-verified yet",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -4416,7 +4469,11 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:47:03.673027+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T10:05:17.260099+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "No exact product description found",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
