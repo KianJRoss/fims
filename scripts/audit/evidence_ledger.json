@@ -1,0 +1,41 @@
+[
+  {
+    "product_id": "",
+    "item_number": "1001401",
+    "name": "EXCALIBUR",
+    "field": "shot_count",
+    "value": 24,
+    "source": "jakesfireworks.com (World Class official)",
+    "url": "https://www.jakesfireworks.com/firework/excalibur-fireworks-artillery-shells/",
+    "confidence": 0.95,
+    "identity_check": "page barcode 80525301401 contains SKU 01401; name+brand match",
+    "captured_at": "2026-06-26T08:41:37.360907+00:00",
+    "status": "applied"
+  },
+  {
+    "product_id": "",
+    "item_number": "1001401",
+    "name": "EXCALIBUR",
+    "field": "effects",
+    "value": "Brocade crown, chrysanthemum, crackling, dahlia, dragon balls, glitter, palm, peony, pistil, whirlwind, willow",
+    "source": "jakesfireworks.com (World Class official)",
+    "url": "https://www.jakesfireworks.com/firework/excalibur-fireworks-artillery-shells/",
+    "confidence": 0.92,
+    "identity_check": "page barcode 80525301401 contains SKU 01401; name+brand match",
+    "captured_at": "2026-06-26T08:41:37.361068+00:00",
+    "status": "applied"
+  },
+  {
+    "product_id": "",
+    "item_number": "1024435",
+    "name": "AMERICA",
+    "field": "shot_count",
+    "value": 12,
+    "source": "americanfireworks.com (Americas Celebration)",
+    "url": "https://americanfireworks.com/americas-celebration/",
+    "confidence": 0.4,
+    "identity_check": "NAME-ONLY guess; SKU 1024435 NOT confirmed on page; multiple WC America-* products exist",
+    "captured_at": "2026-06-26T08:41:37.361089+00:00",
+    "status": "pending"
+  }
+]

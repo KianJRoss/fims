@@ -1,0 +1,13 @@
+{
+  "note": "reverse: move move_row back to original_product_id; delete inserted_youtube_ids",
+  "move_row": {
+    "id": 13490,
+    "original_product_id": "1222afeb-35cf-4e14-bd7f-0961eed16de4",
+    "youtube_id": "OZyI23kMCkY"
+  },
+  "inserted_youtube_ids": [
+    "s5PUPb-0i84",
+    "ebYpd94LqiI",
+    "XsgYYxuiRD0"
+  ]
+}

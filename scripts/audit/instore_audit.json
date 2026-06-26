@@ -1,0 +1,2174 @@
+{
+ "generated": "in-store audit",
+ "count": 135,
+ "flag_counts": {
+  "NO_ITEM#": 23,
+  "NO_PHOTO": 26,
+  "NO_CATEGORY": 62,
+  "NO_DESC": 31,
+  "UNCONF_VIDS": 96,
+  "NO_CONFIRMED_VIDEO": 17,
+  "DUP_NAME": 10,
+  "NO_BRAND": 10
+ },
+ "fully_clean": 8,
+ "products": [
+  {
+   "id": "8de6a5c5-22ca-410f-88da-7b42bfd4e312",
+   "item_number": null,
+   "name": "King Cobra",
+   "brand": "Fire Factory",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "8fd3bdc5-1498-4e10-bd25-812efbe4f253",
+   "item_number": null,
+   "name": "Inferno Run",
+   "brand": "Great Grizzly",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "19fd55d8-98e8-458f-9e68-7ea94bc09dc7",
+   "item_number": null,
+   "name": "Joltix",
+   "brand": "Great Grizzly",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "5b3db354-fffd-4385-bce9-d5dfde11b500",
+   "item_number": null,
+   "name": "Voodoo",
+   "brand": "Great Grizzly",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "46bbd52f-6577-44ae-b01b-5d2195af77b6",
+   "item_number": null,
+   "name": "Bumble Bee",
+   "brand": "Legend",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "5fb28596-c5fa-47c2-9786-ebb258ce70fe",
+   "item_number": null,
+   "name": "Devil Side",
+   "brand": "Legend",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "865a120c-7c4f-46b2-96c1-814ad00d4040",
+   "item_number": null,
+   "name": "Key Break",
+   "brand": "Legend",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "d8142c7c-d625-4af6-b716-e984599f8682",
+   "item_number": null,
+   "name": "Mummy Blaster",
+   "brand": "Legend",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "208b190d-1cc6-4ae2-8d0c-0a0be97100b7",
+   "item_number": "M5050",
+   "name": "LUCK OF THE IRISH",
+   "brand": "Miracle",
+   "cat": null,
+   "image_path": "product_images/M5050.png",
+   "description": "16 Shots - Nice cake with a lot of green and gold. Ti-gold palm with green pearls + green strobe/purple pearls + green",
+   "conf": 1,
+   "unconf": 10,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(10)"
+   ]
+  },
+  {
+   "id": "295d6e08-756e-442b-bc3d-fc833b9a84ec",
+   "item_number": "M5047",
+   "name": "MAY THE 4TH BE WITH YOU",
+   "brand": "Miracle",
+   "cat": null,
+   "image_path": "product_images/M5047.png",
+   "description": "16 Shots - Stunning cake for your backyard show on the",
+   "conf": 1,
+   "unconf": 12,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(12)"
+   ]
+  },
+  {
+   "id": "c585d4bf-b983-40f5-90d7-02ffddf1913a",
+   "item_number": "M513",
+   "name": "NEVER SAY DIE",
+   "brand": "Miracle",
+   "cat": null,
+   "image_path": "product_images/M513.png",
+   "description": "33 Shots - One LOUD 500gram cake! Brocade willow with colorful tips; Time rain mine up to time rain. 7",
+   "conf": 1,
+   "unconf": 9,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(9)"
+   ]
+  },
+  {
+   "id": "021eb21d-51cb-4672-a3bc-5cb2565f0b3b",
+   "item_number": "NN2043",
+   "name": "49ER",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2043.jpg",
+   "description": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "233976ef-c677-441c-a158-c03868b67d13",
+   "item_number": "NN2033",
+   "name": "BRAIN FREEZE",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2033.jpg",
+   "description": "16 Shots - Brocade crown with white strobes.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "fcf1a18e-8ff1-448b-9aff-d0ab9e67241d",
+   "item_number": "NN2027",
+   "name": "DEMONIC",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2027.jpg",
+   "description": "10 Shots - Green strobe with blue pearls.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "5233c8ed-d422-4466-8c77-8e593853df18",
+   "item_number": "NN5018",
+   "name": "Eye See You",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN5018.jpg",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "f2972f78-3ef4-490d-9e86-8fd1b10e298d",
+   "item_number": "NN4024",
+   "name": "FESTIVAL BALLS 6 SHOT (BAG)",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN4024.jpg",
+   "description": "Classic 1.75\" festival balls. 6 balls in a poly bag with header.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "46c460a6-ef03-4e84-b369-32313b0f7485",
+   "item_number": "NN2034",
+   "name": "GAME ON!",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2034.jpg",
+   "description": "16 Shots - Red tail to silver chrysanthemum with red pearls. Green tail to silver chrysanthemum with green pearls. Red tail",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "9a485fe9-e545-4284-ad9d-5ccd38437bcf",
+   "item_number": "NN5062",
+   "name": "GORILLA WARFARE",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN5062.jpg",
+   "description": "25 Shots - 1. Blue tail to red dahlia with crackling 2. Blue tail to time rain willow 3. Blue tail to gold willow with red, green,",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "64436ce3-51b8-48d7-b964-6494ebe7eccd",
+   "item_number": "NN2036",
+   "name": "KICK ASS",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2036.jpg",
+   "description": "16 Shots - Gold willow with gold strobe. Gold willow with red strobe. Gold willow with white strobe. Silver chrysanthemum. 22",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "d9571ada-d2f9-4496-a658-bae3b193d041",
+   "item_number": "NN2032",
+   "name": "MIGHTY SHRIMP",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2032.jpg",
+   "description": "16 Shots - Silver tail to white strobe. 23",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "e3870b9e-5182-4b57-8562-a0dbd8f1a50d",
+   "item_number": "NN2005",
+   "name": "MUDDIN!",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2005.jpg",
+   "description": "16 Shots - Red tail to lemon and blue pearls with gold strobes. Green tails to brocade crown with green strobe. Yellow tail to",
+   "conf": 1,
+   "unconf": 10,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(10)"
+   ]
+  },
+  {
+   "id": "2ed9b57d-c28e-4eb1-bb35-39b0fc9bcb97",
+   "item_number": "NN2031",
+   "name": "MUMMY",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2031.jpg",
+   "description": "10 Shots - Time rain with purple pearls.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "06abccce-d700-469b-9b00-ee2be77fa9db",
+   "item_number": "NN5059",
+   "name": "OH SNAP!",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN5059.jpg",
+   "description": "24 Shots - Red strobe willow, red strobe willow with",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "d56559ec-13cf-4fb4-b9bd-f77aa28f2fa4",
+   "item_number": "NN2035",
+   "name": "SLICE OF PIE",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2035.jpg",
+   "description": "16 Shots - Gold palm with green strobe. Silver wave with crackling. Red strobe. Time rain. 25",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "eff580a5-121d-4490-90af-bc3fe1bb3cbb",
+   "item_number": "NN2030",
+   "name": "SMOKED",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2030.jpg",
+   "description": "10 Shots - Brocade crown with gold strobe.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "f9d96c4d-e7c3-4fb6-8880-bc8254bb9b38",
+   "item_number": "NN2037",
+   "name": "SNITCH",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2037.jpg",
+   "description": "16 Shots - Red wave with white strobe. Crackling with yellow",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "89ab5e18-4ca5-4269-89f9-8ab7cfe061eb",
+   "item_number": "NN2007",
+   "name": "THE CHASE",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2007.jpg",
+   "description": "16 Shots - Green tail to green pearl w/ crackling, red tail to",
+   "conf": 1,
+   "unconf": 10,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(10)"
+   ]
+  },
+  {
+   "id": "00d1116d-86c3-4b61-a083-3cb8da871e2e",
+   "item_number": "NN2028",
+   "name": "TOXIC",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2028.jpg",
+   "description": "10 Shots - Brocade crown with crackling.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "2ceac66d-8a14-46f2-a236-4d3094e29a2a",
+   "item_number": "NN2039",
+   "name": "UDDER TUGGER",
+   "brand": "NO NAME",
+   "cat": null,
+   "image_path": "product_images/NN2039.jpg",
+   "description": "25 Shots - White strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green and blue pearls. Gold chrysanthemum. Brocade crown with chrysanthemum. 27",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "de493aa0-3ed1-46a3-9bf4-2329f8b64603",
+   "item_number": "MA016",
+   "name": "CEO - 1500 GRAM FINALE SET",
+   "brand": "PYRO BOX",
+   "cat": null,
+   "image_path": "product_images/MA016.jpg",
+   "description": "3pc 500 Gram Finale Set is designed to leave your audience in awe with 75 shots. These 3 Cakes, totaling 1,500 Grams are designed to produce a coordinated 80 second, finale. With 1500Gs, this Finale Set of Silver tail to gold pine/Gold Ti",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "b9b941aa-ce77-4011-b375-0d132d5a1c1b",
+   "item_number": "MC5101",
+   "name": "CHEVELLE",
+   "brand": "PYRO BOX",
+   "cat": null,
+   "image_path": "product_images/MC5101.png",
+   "description": "Gold palm tail to gigantic gold palm, gold pine and gold",
+   "conf": 1,
+   "unconf": 7,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(7)"
+   ]
+  },
+  {
+   "id": "3c04baa5-3d5b-4c23-b377-e51f44a0b0ce",
+   "item_number": "MA018",
+   "name": "FJB - 1500 GRAM FINALE SET",
+   "brand": "PYRO BOX",
+   "cat": null,
+   "image_path": "product_images/MA018.jpg",
+   "description": "This set of 3-500 Gram Cake is designed work together for a massive 1500 gram finally will captivate and mesmerize,",
+   "conf": 1,
+   "unconf": 6,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(6)"
+   ]
+  },
+  {
+   "id": "c106511b-29f1-402c-ab28-6c8c9cc5eff3",
+   "item_number": "MA014",
+   "name": "MVP",
+   "brand": "PYRO BOX",
+   "cat": null,
+   "image_path": "product_images/MA014.png",
+   "description": "3pc 500 Gram Finale Set is designed to leave your audience in awe with 108 shots in rapid succession. These 3 Cakes, totaling 1,500 Grams, are designed to produce a coordinated 30 second, finale. With 1500Gs, this Finale Set of Gold Ti Willow w/NEON pearls (Red, Blue and Silver)",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "e92be486-2b1f-4a96-a51d-d35873e54be5",
+   "item_number": "MS021",
+   "name": "SEVEN 7 - 7\" Cannister Shell",
+   "brand": "PYRO BOX",
+   "cat": null,
+   "image_path": "product_images/MS021.jpg",
+   "description": "7 inch Canister KIT Salute mines to crackle breaks to gold willow to red Salute mines to salute breaks to green pearls w/red lace Salute mines to salute breaks to gold crown w/color pearls Salute mines to green dahlias silver strobe breaks to gold willow w/color palms Silver tail to red dahlias breaks to silver crown to blue 6.Purple, pink crossette to gigantic brocade crown",
+   "conf": 1,
+   "unconf": 7,
+   "prim": 0,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(7)"
+   ]
+  },
+  {
+   "id": "516c86af-5832-464b-ae56-0e32fa0794ee",
+   "item_number": "PH2109",
+   "name": "Blaze It",
+   "brand": "Pyro High",
+   "cat": null,
+   "image_path": "product_images/PH2109.jpg",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "920bc97d-7863-43c7-bb6a-75a97fb18ff4",
+   "item_number": null,
+   "name": "Strawberry Diesel",
+   "brand": "Pyro High",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "6238a50c-3aea-44e0-add8-74ccb331baf7",
+   "item_number": "MF510",
+   "name": "Dream Weaver",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "4/1s",
+   "image_path": "product_images/1bedcb57-660d-473f-80d3-36151fd69237.webp",
+   "description": "4/1 (mixed bore)",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "d855424a-b430-4929-9db1-8183896614d2",
+   "item_number": "FC3017",
+   "name": "Enforcer",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "Cakes",
+   "image_path": "product_images/fb022595-abe2-4ff9-8b89-1fe16ec04617.webp",
+   "description": "16/1 50 shots",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "ed6086fb-b6d1-4b3f-9892-1a3f1bb750e2",
+   "item_number": "CHF2008",
+   "name": "Fruity Pebbles",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "Cakes",
+   "image_path": "product_images/0b933ab2-28e1-4db8-9baa-40ec8899b548.webp",
+   "description": "24/1 25 shot",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "64cc9166-cfa7-4ea1-a305-e4e4fb49aea9",
+   "item_number": "CRC52325",
+   "name": "Hell Raiser",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "6/1s",
+   "image_path": "product_images/a15f006d-e75c-428e-9873-37bb1b2c4e8d.webp",
+   "description": "49 shot",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "cdd33133-0847-4a46-9239-9f0025a83ed2",
+   "item_number": "PED5503 were",
+   "name": "Hells Bells",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "4/1s",
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_PHOTO",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "0590d8a1-6b1d-4389-a2fb-c503b7302c68",
+   "item_number": "22F221",
+   "name": "Lights Out",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "Cakes",
+   "image_path": null,
+   "description": "12/1 25 shot",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "NO_PHOTO",
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "643584c4-4fc7-4dd6-a258-e661a32e4975",
+   "item_number": "26FW809A",
+   "name": "Monster Shells",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "Mortars",
+   "image_path": "product_images/1ded4f3b-7e84-4e67-a1a6-e4d4064a7397.webp",
+   "description": "10/6 9 inch (4 color 2 noise)",
+   "conf": 2,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "67ac3167-a061-4ee1-961c-1d0d2b69b3a6",
+   "item_number": "23FE502",
+   "name": "Tiki Bomb",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "1/1s",
+   "image_path": "product_images/f10d1d2f-6424-4332-af46-664a87856d81.webp",
+   "description": "192 shots",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "214490c5-a465-447e-a9f1-203f989d1e91",
+   "item_number": "SQ5504",
+   "name": "Zeppelin",
+   "brand": "Pyromaniacs Wholesale",
+   "cat": "4/1s",
+   "image_path": null,
+   "description": "4/1 64 shots",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "NO_PHOTO",
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "085b0ea7-6087-4986-914f-1d79ec982f44",
+   "item_number": "SSRP2301",
+   "name": "PARTY TIME",
+   "brand": "SUNS FIREWORKS",
+   "cat": null,
+   "image_path": "product_images/SSRP2301.jpg",
+   "description": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "5d1642ed-8ca8-4dbf-b7eb-66a641040c1d",
+   "item_number": "SW10163T",
+   "name": "Clowning Around",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SW10163T.png",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "5e5b7f76-7259-4adb-b7e1-a04111461f45",
+   "item_number": "SWC2635",
+   "name": "Gold Rush",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SWC2635.png",
+   "description": "Strike gold in the sky with Gold Rushwhere every shot is a treasure! Experience the thrill of striking gold with the SUNWING Gold Rush, featured in the Joyful Wonderland catalog! This 500G Linkable Finale Set is engineered for performance, delivering a spectacular 420 seconds plus a dazzling 24-second, 1000-gram finale that will leave your audience breathless. With an impressive 444 shots packed into each case, Gold Rush brings the brilliance and excitement of a treasure-filled sky to your celebration. Whether you're hosting a grand event or simply want to create unforgettable memories, this product is designed to inspire awe and joy for all who witness its magic. Connect multiple sets for an even larger display, and let your festivities shine brighter than ever. SUNWINGs Gold Rush is more than fireworksits your ticket to a night of wonder, celebration, and golden memories. Check out the preview video for a glimpse of the spectacular show youll deliver!",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "9dc8d668-0419-4efd-a766-e8da2d6aeb90",
+   "item_number": "SWC2179",
+   "name": "HUCKLEBERRY / FEARLESS",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SWC2179.jpg",
+   "description": "This 12 Shot, 200 Gram Cake that's designed to dazzle and",
+   "conf": 2,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "5f7f1469-04c8-4045-bf6c-c6e28cc310cd",
+   "item_number": "SWC2630",
+   "name": "LET FREEDOM RING",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SWC2630.png",
+   "description": "A 22-shot display of stunning circular peonies in dazzling red, white, and blue, combined with the most beautiful golden spider effects. The finale uses advanced pyrotechnic technology to paint a perfect circle in the sky, with colorful falling leaves gently descendinga symbol of reunion and",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "34c8d93a-80d4-486d-a86e-e433dd5cff9c",
+   "item_number": "SWC2196",
+   "name": "NEON STROBE",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SWC2196.jpg",
+   "description": "This 200 Gram Cake that will dazzle and delight. With 18",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "e3d89d05-f167-4032-bd41-9175d3e5021a",
+   "item_number": "SWC2199",
+   "name": "NEVER RETREAT NEVER SURRENDER",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SWC2199.jpg",
+   "description": "20 Shots - This 500 Gram cake has a gold coco to green strobe mine blasts, into gold coco to red, gold coco to green,",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "98f1461e-4843-429c-bf76-5246e7b227c9",
+   "item_number": "SWC2636A/B/C",
+   "name": "QUANTUM BURST",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": "product_images/SWC2636A-B-C.png",
+   "description": "A 1,500g set featuring a total of 108 shots in a red, white, and blue Super Dahlia series. The set includes three 500g cakes in one box. They can be fired individually, in pairs, or all together, offering multiple ways to enjoy and endless fun! The most dazzling Dahlia effects burst brilliantly in the sky, lighting up the night.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "527412ec-e813-46d2-b1f2-2753b0e36a49",
+   "item_number": null,
+   "name": "T.N.T.B.A.M",
+   "brand": "SUNWING",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "c88f2f24-e62c-4aec-9a28-c117eb085463",
+   "item_number": "P5192",
+   "name": "Pulse Pounder",
+   "brand": "Winda",
+   "cat": null,
+   "image_path": "product_images/P5192.png",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "10090c5f-16a1-4582-891a-31cedbb376c5",
+   "item_number": "1004372",
+   "name": "ALL-AMERICAN ATHLETICS",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004372.png",
+   "description": "DESCRIPTION: Red, white and blue mines breaking into red peony, white glitter and blue peony brilliance.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "8aa7af45-22ed-4e7a-b4e9-0ecc45f58573",
+   "item_number": "1024435",
+   "name": "AMERICA",
+   "brand": "World Class",
+   "cat": "Assortments",
+   "image_path": "product_images/1024435.png",
+   "description": "DESCRIPTION: Mid-sized pack with 200g cakes, fountains, aerials, and missiles - crowd favorites like Garden in Spring and Desert at Night.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "990b91fc-c7f1-4086-9445-9a8a9c39b75b",
+   "item_number": "1003498",
+   "name": "ANGRY WIFE",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1003498.jpg",
+   "description": "DESCRIPTION: Angry Wife snaps with red-sky blue and purple-green dahlias plus multi-color chrysanthemums - beautiful and terrifying.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "2bd651c4-4406-4144-9997-bac6ee6f83c5",
+   "item_number": "1004325",
+   "name": "BEAD BANDIT",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004327.png",
+   "description": "DESCRIPTION: Bead Bandit sneaks in golden glitter tails and spears glowing purple or white, with a corolla finish that steals the spotlight every time.",
+   "conf": 1,
+   "unconf": 9,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(9)"
+   ]
+  },
+  {
+   "id": "81f5d477-31f4-45dd-922d-d134fd0c80fe",
+   "item_number": "1003706",
+   "name": "BOOTLEGGERS' DREAM",
+   "brand": "World Class",
+   "cat": "Show To Go Cartons",
+   "image_path": "product_images/1003706.png",
+   "description": "DESCRIPTION: Seventeen cakes and 299 shots ignite nonstop color, crackle, and willows - bootleg-level chaos for those who love the loud life.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "dbc1b2cb-c863-44a2-ab4d-e173fdc5679f",
+   "item_number": "1015406",
+   "name": "Breathing",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015086.png",
+   "description": "DESCRIPTION: Breathing Fire erupts brocade crowns, white glitter, and silver chrysanthemums - simple, fierce, dragon-level heat.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "7ef72b6a-1859-4c5e-9faa-d4e31838b2ce",
+   "item_number": "1030029",
+   "name": "CHASING BOOTY",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1030029.png",
+   "description": "DESCRIPTION: Chasing Booty flashes brocade to red- green blooms with golden flower willows and white glitter",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "265a2a92-9a4f-4cc7-b268-864c4ed663a8",
+   "item_number": "1004328",
+   "name": "COMET ME BRO!",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004328.png",
+   "description": "DESCRIPTION: Comet Me Bro blasts red and silver plum blooms with green, red, and purple comets, finishing in a golden willow flex that dares the sky to react.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "810a8ee2-c794-4432-b759-5297e2502f4a",
+   "item_number": "1001413",
+   "name": "CRACKLING ARTILLERY SHELL",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1001413.png",
+   "description": "DESCRIPTION: Artillery shells featuring strong crackling peony breaks.",
+   "conf": 3,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "1f21aef9-459a-447a-bb8d-cda8b965e4ff",
+   "item_number": "1015039",
+   "name": "CRAZY EXCITING ON STEROIDS",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015039.png",
+   "description": "DESCRIPTION: Crazy Exciting On Steroids erupts 16 crackling mines into red, green, and silver waves with a 4-shot crackle finale - amped sky chaos.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "f27e2ffa-3e60-4938-bd1b-c4895eef9c6b",
+   "item_number": null,
+   "name": "Chill Out",
+   "brand": "World Class",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "41477d29-02b2-4aaa-8244-6ca3adb8071f",
+   "item_number": "1003506",
+   "name": "DEADLY STRIKE",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1003506.jpg",
+   "description": "DESCRIPTION: Deadly Strike hits with glittering crowns, blue pistils, green pearls, and brocade tails - precision power with bite.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "8b03bb8b-5124-471a-84e9-3bf2acb6738c",
+   "item_number": "1001401",
+   "name": "EXCALIBUR",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1001401.png",
+   "description": "DESCRIPTION: 24 legendary canister shells - #1 selling kit with unmatched power, color, and sky-filling breaks.",
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "33b71e39-3841-42a2-95bd-f5f3e48bd39d",
+   "item_number": "1003570",
+   "name": "EXCALIBUR PLATINUM",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1003570.jpg",
+   "description": "DESCRIPTION: 24 massive 5\u201d shells with huge high- altitude breaks; bigger, louder, brighter Excalibur",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "ee9610bf-1036-4c69-a651-a13ac57d738b",
+   "item_number": "1015137",
+   "name": "FIGHTING ROOSTER",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015137.png",
+   "description": "DESCRIPTION: Fighting Rooster cracks blue mines into white glitter and red dahlias - fiery barnyard attitude that refuses to back down.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "d72dbdd7-2320-4b85-956a-9a1f38b4b2e4",
+   "item_number": "1015085",
+   "name": "FLICKER",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015085.png",
+   "description": "DESCRIPTION: Flicker mixes gold and silver palms, crackling stars, blue breaks, green glitter, and sea-blue flashes - playful shimmer in motion.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "3b453244-4f70-471c-8f10-d1b3666ee6b5",
+   "item_number": "1012047",
+   "name": "FLIPPIN' AWESOME",
+   "brand": "World Class",
+   "cat": "Fountains",
+   "image_path": "product_images/1011420.png",
+   "description": "DESCRIPTION: Crossette pops and blue-star chrys make this flip absolutely awesome.",
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "10f4875f-f185-49e2-932e-2f0b1a3b9cf9",
+   "item_number": "1004369",
+   "name": "FRONTIER MASTERS",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004369.png",
+   "description": "DESCRIPTION: Red, white and blue mines rise into bold red peonies, white glitter and blue peony bursts.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "77810729-2d8f-469d-9f72-f20ba987fa47",
+   "item_number": "1015439",
+   "name": "FUTURE WARRIOR",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015439.png",
+   "description": "DESCRIPTION: Future Warrior charges golden tails into",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "d870cb83-a065-475f-8b4e-8118c7804e27",
+   "item_number": "1004278",
+   "name": "GOATS GONE WILD",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1004278.jpg",
+   "description": "DESCRIPTION: Fifty baaa-nanas shots of gold tails, red- green peonies, blue-purple bursts, and glitter pops - pure barnyard brilliance in the sky.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "2ebce2d5-c7f5-4a14-80f7-f63e9aeaa2cc",
+   "item_number": "1004116",
+   "name": "GOLDEN BOY",
+   "brand": "World Class",
+   "cat": "500 Gram Fountains",
+   "image_path": "product_images/1004116.jpg",
+   "description": "DESCRIPTION: A triple-threat fountain and mine combo packed with golden crackle, red and green sparkler bursts, silver mines, and bold chrysanthemum brilliance.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "1879dd7d-987d-4296-be3c-f61daab1af3e",
+   "item_number": "1004314",
+   "name": "GORILLA JAMS",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004313.png",
+   "description": "DESCRIPTION: Gorilla Jams drops red-white-blue and purple-green-blue beats, then hits a silver chrysanthemum and 2-shot finale that goes full jungle mode.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "1222afeb-35cf-4e14-bd7f-0961eed16de4",
+   "item_number": "1015147",
+   "name": "GORILLA WARFARE",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015147.png",
+   "description": "DESCRIPTION: Gorilla Warfare slams blue mines into red dahlias with bright white glitter - jungle-strong bursts made for sky combat.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "28f5a3c9-a085-4001-93d6-639825fb6691",
+   "item_number": "1003547",
+   "name": "GROWLER",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1003547.jpg",
+   "description": "DESCRIPTION: 5\u201d max-load shells with thunderous breaks and intense color for deep, growling sky impact.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "7ac6f710-aa6b-41e3-8607-5561a58551c4",
+   "item_number": null,
+   "name": "Gold Digger",
+   "brand": "World Class",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "4b18410b-79aa-404c-8b91-cbd092727d32",
+   "item_number": "1003701",
+   "name": "HARRY BEAVER",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1003701.png",
+   "description": "DESCRIPTION: Harry Beaver bursts purple, green, red, blue, yellow, and silver plums with crackling chrysanthemums - hilariously wild energy.",
+   "conf": 1,
+   "unconf": 6,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(6)"
+   ]
+  },
+  {
+   "id": "6f5d81c7-02eb-4dd1-af82-00cc536d905d",
+   "item_number": "1001348",
+   "name": "HOSTILE TAKEOVER",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1001348.png",
+   "description": "DESCRIPTION: Hostile Takeover detonates reds, blues, greens, glitter, and brocade crowns - ending with a finale that dominates the skyline.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "d8869404-817a-49ac-b08e-af634e3fa16e",
+   "item_number": "1003112",
+   "name": "INFERNO PUNCH",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1003112.png",
+   "description": "DESCRIPTION: Inferno Punch strikes with color stars, blue and red dahlias, jade greens, lemon glitter, and deep crackling blooms - fiery knockout energy.",
+   "conf": 0,
+   "unconf": 7,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(7)"
+   ]
+  },
+  {
+   "id": "1127c33e-bfc7-4dab-ada4-0da34ef0016c",
+   "item_number": "1000553",
+   "name": "JUMBO M-5000 RED",
+   "brand": "World Class",
+   "cat": "Firecrackers",
+   "image_path": "product_images/1000203.png",
+   "description": "DESCRIPTION: Big, bold, and booming - Jumbo M-5000 Red unleashes heavy-hitting bangs and fiery red flair for fans of maximum noise.",
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "f29f4d6f-5544-4cd3-8f4e-05784755aea0",
+   "item_number": "1001301",
+   "name": "LAND OF FREE",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1001304.png",
+   "description": "DESCRIPTION: Land Of Free blasts red, white, and blue stars with reports - short, loud, patriotic firepower.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "3ead4541-14ad-485e-9d40-28759372e0e8",
+   "item_number": "1015389",
+   "name": "LOUD AND PROUD",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015389.png",
+   "description": "DESCRIPTION: Loud and Proud blasts brocade crowns and silver chrysanthemums - bold, booming confidence painted across the sky.",
+   "conf": 1,
+   "unconf": 2,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(2)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "becd0bb7-3a38-48bd-92d9-0da35d1f9cee",
+   "item_number": "1004317",
+   "name": "LOVE IT OR LEAVE IT",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004318.png",
+   "description": "DESCRIPTION: Love It or Leave It blends golden and silver titanium willows with red lace and blue accents for a patriotic shimmer that demands loyalty.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "626541b8-0d9c-43d9-8690-be3acccd9d71",
+   "item_number": "1013121",
+   "name": "LOYAL TO NONE",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1013121.png",
+   "description": "DESCRIPTION: Loyal to None fires red tips, snowflakes, pearls, and crackling gold-silver fish before ending in bold wave shells and dramatic tail magic.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "99415a73-8df6-4969-aafa-82e8e731d92f",
+   "item_number": "1003893",
+   "name": "MADE IN AMERICA",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1003893.png",
+   "description": "DESCRIPTION: Made In America waves red, white, and blue peonies, crackling bursts, sky-blue blooms, and brocade crowns with proud glitter.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "2517ad40-7044-4cc3-a579-23589a53b7d3",
+   "item_number": "1004318",
+   "name": "NEON STRIPES",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004317.png",
+   "description": "DESCRIPTION: Neon Stripes flashes red, blue, lemon, green, and neon orange glitter, ending in silver chrysanthemum pops that glow like electric paint.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "097326a9-4c84-4f3d-ba3e-46ed50f40e98",
+   "item_number": null,
+   "name": "Nature's Rampage",
+   "brand": "World Class",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "ee603c14-0cb1-480c-9c21-cd2ba6879e84",
+   "item_number": "1004373",
+   "name": "OL' GLORY",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004373.png",
+   "description": "DESCRIPTION: Red and blue tails erupt into red glitter, white shimmer and bright blue peony willows.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "31ca71fa-8ae1-4338-9029-2fdf77fc167f",
+   "item_number": null,
+   "name": "One Bad Baby",
+   "brand": "World Class",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "611c34d8-48f1-49d7-b5f5-5a6ee6f86c53",
+   "item_number": "1013185",
+   "name": "One Bad Mother",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015058.png",
+   "description": "DESCRIPTION: One Bad Mother packs gold willows, crackling blooms, and a fast 4-shot finale - big attitude, bigger sky power.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "cb4ef23a-166c-44c9-8d1b-487f2d7fa212",
+   "item_number": "1004113",
+   "name": "PANDA FOUNTAIN",
+   "brand": "World Class",
+   "cat": "Novelties",
+   "image_path": "product_images/1004113.jpg",
+   "description": "DESCRIPTION: Panda Fountain tags in gold and silver titanium fountains with sparkling red and blue accents - cute but powerful.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "707272f2-79e3-4f42-abdf-49450bd2baa2",
+   "item_number": "1004004",
+   "name": "PREDATOR",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1004004.jpg",
+   "description": "DESCRIPTION: Predator stalks with white-glitter mines",
+   "conf": 2,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "bda24651-c31b-452c-ada4-da64327bbefc",
+   "item_number": "1003354",
+   "name": "PREMIUM ARTILLERY SHELLS",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1003354.png",
+   "description": "DESCRIPTION: Premium shells delivering bold red, green, yellow, blue, white, and multicolor peonies.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "UNCONF_VIDS(5)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "5d795b00-7912-4763-861d-88fa07068f3b",
+   "item_number": "1004083",
+   "name": "PURE VENOM",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1004083.png",
+   "description": "DESCRIPTION: 24 unique 6\u201d max-load shells packing massive boom, fierce color, and venomous sky coverage.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "63d7b92b-3cab-4fae-973c-80a070258533",
+   "item_number": null,
+   "name": "Panda Tai",
+   "brand": "World Class",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "8ead0fc1-f83e-4601-931f-7c44020edb22",
+   "item_number": "1004103",
+   "name": "RED WHITE RAWWWR",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004103.png",
+   "description": "DESCRIPTION: Red White Rawwwr sends wolf whistles into titanium golden palms, red or green sparkles, and silver chrysanthemums for a patriotic roar.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "81f2144e-c224-432a-b87b-995693979b3b",
+   "item_number": "1004279",
+   "name": "REDNECK SAFARI",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1004279.jpg",
+   "description": "DESCRIPTION: Redneck Safari rips 100 shots of silver stars, crackling mines, bold reds, and whistles - country chaos built for big trucks, big land, big booms.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "1140e026-617f-4b90-ac18-178fb0a311f7",
+   "item_number": "1004036",
+   "name": "REPTILE DYSFUNCTION",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004036.jpg",
+   "description": "DESCRIPTION: Jurassic Raptor rips whistles, time-rain willows, glitter palms, and brocade crackling stars - prehistoric power in every shot.",
+   "conf": 0,
+   "unconf": 4,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(4)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "ee5d102e-9353-45d3-8a4e-58d2dca00aab",
+   "item_number": "1004019",
+   "name": "Reptile Dysfunction",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004019.jpg",
+   "description": "DESCRIPTION: Reptile Dysfunction fires red glitter mines to red plum and RGB stars, then leaps into silver spiders with bold green-blue star tails.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "d8552f78-d351-4868-bb62-da002480a9cc",
+   "item_number": "1013515",
+   "name": "Road Trip",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1013515.png",
+   "description": "DESCRIPTION: Road Trip launches 25 crackling mines into silver chrysanthemums - perfect for kicking off your sky-high adventure.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "f8c0dc9f-1e9a-44d0-8b0c-c16600abe5c9",
+   "item_number": "1004033",
+   "name": "SHOW BIZ BABY",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004033.png",
+   "description": "DESCRIPTION: Show Biz Baby rolls red-blue crackle, yellow waves, and blue tails into a crackle willow finale - lights, camera, sky-action!",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "6639cddd-c3d2-490e-9f56-2f68fac58639",
+   "item_number": "1004037",
+   "name": "SHOWBOATIN",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004037.jpg",
+   "description": "DESCRIPTION: Showboatin\u2019 cruises comet tails, glittering comets, falling leaves, and huge willow and palm breaks - smooth, flashy, and full of flair.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "c1cbabb6-8228-4a25-9b6a-b66ef6f12c11",
+   "item_number": "1001493",
+   "name": "SIR LANCELOT",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1001493.png",
+   "description": "DESCRIPTION: 6 premium HDPE-launched canister shells delivering elite Excalibur-quality performance.",
+   "conf": 2,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "ce54675b-c503-4af7-b40e-c8b847eaf7de",
+   "item_number": "1004008",
+   "name": "SOMETHIN' IN MY TEETH",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1004008.jpg",
+   "description": "DESCRIPTION: Somethin\u2019 In My Teeth bites with rising tails, silver spiders, and glitter pops - 25 shots of jaw- dropping sky flavor.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "6a8bf4f7-c687-47d9-a550-2e3bc9924011",
+   "item_number": "1003704",
+   "name": "STATUE OF LIBERTY",
+   "brand": "World Class",
+   "cat": "Show To Go Cartons",
+   "image_path": "product_images/1003704.jpg",
+   "description": "DESCRIPTION: Freedom-sized finale: 11 cakes and 157 shots of red, blue, gold, glitter, and willows - an all-out tribute to the land of the free.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "509012cc-2e12-4ae6-89dc-0dbd3bcbf2bd",
+   "item_number": "1004327",
+   "name": "SUNFLOWER DELIGHT",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004325.png",
+   "description": "DESCRIPTION: Sunflower Delight blooms with TI-golden willows and palm crosses, finishing in a bright silver sunflower that lights up the garden sky.",
+   "conf": 1,
+   "unconf": 7,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(7)"
+   ]
+  },
+  {
+   "id": "a4cbce12-0346-4df0-89e3-257ed13dcc22",
+   "item_number": "1001408",
+   "name": "SUPER MAGNUM",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1001408.jpg",
+   "description": "DESCRIPTION: 12 assorted high-performance artillery effects.",
+   "conf": 2,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "f42f1efe-be0f-4a2d-987b-4b3f220dd982",
+   "item_number": null,
+   "name": "Spaz",
+   "brand": "World Class",
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC"
+   ]
+  },
+  {
+   "id": "87e86ee5-dc31-416d-9b9c-0e188c1d5ae5",
+   "item_number": "1000470",
+   "name": "THREE TO GET READY",
+   "brand": "World Class",
+   "cat": "Assortments",
+   "image_path": "product_images/1000469.png",
+   "description": "DESCRIPTION: Fun mix of snaps, sparklers, candles, missiles, and small aerials - perfect starter show.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "ab728e78-4daf-4981-943f-248ac023e688",
+   "item_number": "1015402",
+   "name": "Trigger Happy",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1015402.png",
+   "description": "DESCRIPTION: Trigger Happy fires red, lemon, and green sparklers with brocade crowns - fast shots that never miss their mark.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "42234ef5-178a-4264-9674-c8824bd0d1ec",
+   "item_number": "1003505",
+   "name": "UNITED WE RIDE",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1003505.jpg",
+   "description": "DESCRIPTION: United We Ride blasts bold red-blue-white glitter, comet mines, palms, and a brocade finale - patriot power on full throttle.",
+   "conf": 0,
+   "unconf": 4,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(4)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "630938e5-791f-4b02-a9d5-76a917294841",
+   "item_number": "1001427",
+   "name": "UNITED WE STAND",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1001427.png",
+   "description": "DESCRIPTION: 48 shells packed with crackle, color- changes, palms, chrysanthemums, and sky-filling double breaks.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "e8a1d226-8552-47c1-b9a8-7d69bba7cd43",
+   "item_number": "1003754",
+   "name": "USA STRONG SERIES",
+   "brand": "World Class",
+   "cat": "Show To Go Cartons",
+   "image_path": "product_images/1003754.jpg",
+   "description": "DESCRIPTION: Four elite effects: sunglow willows, waterfall bursts, glitter mines, and bold red-green-blue peonies - American power packed into every shot.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "cfef014c-8618-4125-9fa8-a62698a8af4b",
+   "item_number": "1004329",
+   "name": "VICTORY VAULT",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1004329.jpg",
+   "description": "DESCRIPTION: 24-shell mix of 4\u20136\u201d bursts delivering sky-filling color, crackle, and power for a triumph-worthy",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "475d54f1-a00d-416e-91cc-041b9a34b0b5",
+   "item_number": "1004283",
+   "name": "WARRIOR'S WRATH",
+   "brand": "World Class",
+   "cat": "200 Gram Cakes",
+   "image_path": "product_images/1004283.jpg",
+   "description": "DESCRIPTION: Warriors Wrath hammers 7 titanium-gold",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "14caf670-2bf6-42bf-b2e5-26c13da21288",
+   "item_number": "1004386",
+   "name": "WE THE PEOPLE",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004386.png",
+   "description": "DESCRIPTION: Red, white and blue smoke mines crackle into bright bursts of national pride.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)",
+    "DUP_NAME"
+   ]
+  },
+  {
+   "id": "8f2e0196-a209-4e4a-8b38-15f05cc5dd43",
+   "item_number": "1004376",
+   "name": "WE THE PEOPLE LOVE FIREWORKS",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004376.png",
+   "description": "DESCRIPTION: Whistling tails burst into red peony, white glitter and blue peony patriotic pride.",
+   "conf": 1,
+   "unconf": 5,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "400718bc-de9c-4baf-b4ff-1e3c1896e82a",
+   "item_number": "1001416",
+   "name": "WHISTLING JAKE",
+   "brand": "World Class",
+   "cat": "Artillery Shells",
+   "image_path": "product_images/1001435.png",
+   "description": "DESCRIPTION: Whistling tails rising to red, green, yellow, blue, white, and multicolor peony bursts.",
+   "conf": 2,
+   "unconf": 0,
+   "prim": 1,
+   "flags": []
+  },
+  {
+   "id": "7d99568f-ecdb-4bff-966e-4c538901609b",
+   "item_number": "1013224",
+   "name": "WIDOW MAKER",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1013224.png",
+   "description": "DESCRIPTION: Widow Maker unleashes 16 silver chrysanthemum blasts topped with colorful crackling palms - dangerously dramatic.",
+   "conf": 1,
+   "unconf": 1,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(1)"
+   ]
+  },
+  {
+   "id": "a28c5ef0-9686-4a70-bd3c-c3a24473cc8e",
+   "item_number": "1004306",
+   "name": "WINGS OF FREEDOM",
+   "brand": "World Class",
+   "cat": "Fountains",
+   "image_path": "product_images/1004306.png",
+   "description": "DESCRIPTION: Whistles, sword-like silver sprays, crackling chrys bursts, and blue flowers - high-flying patriotic pride in motion.",
+   "conf": 0,
+   "unconf": 5,
+   "prim": 0,
+   "flags": [
+    "NO_CONFIRMED_VIDEO",
+    "UNCONF_VIDS(5)"
+   ]
+  },
+  {
+   "id": "82065a3b-0536-466f-b409-98cfa27f2413",
+   "item_number": "1004368",
+   "name": "WOMEN OF VALOR",
+   "brand": "World Class",
+   "cat": "500 Gram Cakes",
+   "image_path": "product_images/1004368.png",
+   "description": "DESCRIPTION: Whistling tails erupt into red, white and blue peonies with glitter and chrysanthemum bursts of strength.",
+   "conf": 1,
+   "unconf": 4,
+   "prim": 1,
+   "flags": [
+    "UNCONF_VIDS(4)"
+   ]
+  },
+  {
+   "id": "72241cee-6053-4a86-925c-4d650de08bef",
+   "item_number": "BP-A135",
+   "name": "Class Clown",
+   "brand": null,
+   "cat": null,
+   "image_path": "product_images/BP-A135.jpg",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "2008034c-52a7-44c5-859e-b96af50de5c9",
+   "item_number": null,
+   "name": "Corona Killer",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "f7b44232-3bf8-447b-b544-7ac9c4d9ecee",
+   "item_number": null,
+   "name": "Furs for Losers",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "c6d87dc4-85b3-406a-a362-246840000815",
+   "item_number": "BP2787",
+   "name": "Gold Alert",
+   "brand": null,
+   "cat": null,
+   "image_path": "product_images/BP2787.png",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "a145eeb0-ad71-4bbd-a949-d0f403947f91",
+   "item_number": null,
+   "name": "Infinity War",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "564f1c2f-1672-4981-a5fc-92a62f82d67e",
+   "item_number": "BP2877",
+   "name": "Last Man Standing",
+   "brand": null,
+   "cat": null,
+   "image_path": "product_images/BP2877.jpg",
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "155d7983-0fec-43e5-8396-631c68d940c4",
+   "item_number": null,
+   "name": "Thor",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "bfd90a09-30ba-46a8-b992-95524f0c8933",
+   "item_number": null,
+   "name": "Toadally Awesome",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "f7e6f39a-9fca-4c26-87bd-c7de7e6da93f",
+   "item_number": null,
+   "name": "Turbo",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  },
+  {
+   "id": "5f60ca17-1ca0-457c-ab60-49583b1d2bad",
+   "item_number": null,
+   "name": "Uruk Hai",
+   "brand": null,
+   "cat": null,
+   "image_path": null,
+   "description": null,
+   "conf": 1,
+   "unconf": 0,
+   "prim": 1,
+   "flags": [
+    "NO_ITEM#",
+    "NO_PHOTO",
+    "NO_CATEGORY",
+    "NO_DESC",
+    "NO_BRAND"
+   ]
+  }
+ ]
+}

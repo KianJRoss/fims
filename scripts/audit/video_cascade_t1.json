@@ -1,0 +1,872 @@
+[
+  {
+    "product_id": "dbc1b2cb-c863-44a2-ab4d-e173fdc5679f",
+    "item_number": "1015406",
+    "name": "Breathing",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 166,
+        "youtube_id": null,
+        "title": "breathing_fire",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "de493aa0-3ed1-46a3-9bf4-2329f8b64603",
+    "item_number": "MA016",
+    "name": "CEO - 1500 GRAM FINALE SET",
+    "brand": "PYRO BOX",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 903,
+        "youtube_id": "bZkVdNxm5r0",
+        "title": "BOX FULL OF FIREWORKS YOU LIGHT AT SAME TIME! - 1500 Gram Finale Set B",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 904,
+        "youtube_id": "yFOTxvJ0khg",
+        "title": "{cake finale set} 1500 gram finale red white blue cake set FP6256 from Fisherman",
+        "score": 95,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [
+      {
+        "video_id": 906,
+        "youtube_id": "neme_kglYJ4",
+        "title": "TESTING HUGE FIREWORK BOXES FROM AROUND THE INTERNET (Finales, 2min+, Assortments)",
+        "score": -80,
+        "reason": "no product-name overlap"
+      }
+    ],
+    "uncertain": [
+      {
+        "video_id": 905,
+        "youtube_id": "jfytOAw8aVc",
+        "title": "RA500394 Navy Seals Raccoon 2025 New 1500G Consumer Finale Set 156 Shots",
+        "score": 15,
+        "reason": "name_overlap=0.25; fireworks_ctx"
+      },
+      {
+        "video_id": 907,
+        "youtube_id": "u8IvCvh8edM",
+        "title": "GM1035 Party Pyro Pack - 500 Gram Finale Assortment 256 total shots - Winda Fireworks 2024",
+        "score": 30,
+        "reason": "name_overlap=0.50; brand_match; fireworks_ctx"
+      }
+    ]
+  },
+  {
+    "product_id": "8b03bb8b-5124-471a-84e9-3bf2acb6738c",
+    "item_number": "1001401",
+    "name": "EXCALIBUR",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 24,
+        "youtube_id": null,
+        "title": "Excalibur",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "f2972f78-3ef4-490d-9e86-8fd1b10e298d",
+    "item_number": "NN4024",
+    "name": "FESTIVAL BALLS 6 SHOT (BAG)",
+    "brand": "NO NAME",
+    "n_unconfirmed": 5,
+    "keep": [],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 850,
+        "youtube_id": "TBGb4T9_WBs",
+        "title": "KBF0008-6 - FESTIVAL BALL - 1.75\" INCH",
+        "score": 10,
+        "reason": "name_overlap=0.25"
+      },
+      {
+        "video_id": 851,
+        "youtube_id": "2zgnvzgHH-4",
+        "title": "Festival Ball By Black Cat Fireworks- 6 Asst. Ball Shells (Box- No Window) 15/6 MEBC6411",
+        "score": 15,
+        "reason": "name_overlap=0.25; fireworks_ctx"
+      },
+      {
+        "video_id": 852,
+        "youtube_id": "7RjeIaVybPE",
+        "title": "DM-0008-6 1.75\" Ball Festival Balls Reloadable Artillery By Dominator Fireworks",
+        "score": 25,
+        "reason": "name_overlap=0.50; fireworks_ctx"
+      },
+      {
+        "video_id": 853,
+        "youtube_id": "7QHkuAe6R7w",
+        "title": "Jeff's Fireworks - Mad OX 1.75\" Ball Festival Balls - OX0008-6",
+        "score": 25,
+        "reason": "name_overlap=0.50; fireworks_ctx"
+      },
+      {
+        "video_id": 854,
+        "youtube_id": "btTzHPMpaH4",
+        "title": "Bagged 6 Shot Artillery",
+        "score": 15,
+        "reason": "name_overlap=0.25; fireworks_ctx"
+      }
+    ]
+  },
+  {
+    "product_id": "ee9610bf-1036-4c69-a651-a13ac57d738b",
+    "item_number": "1015137",
+    "name": "FIGHTING ROOSTER",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 43,
+        "youtube_id": null,
+        "title": "Fighting Rooster",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "d72dbdd7-2320-4b85-956a-9a1f38b4b2e4",
+    "item_number": "1015085",
+    "name": "FLICKER",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 53,
+        "youtube_id": null,
+        "title": "JAKES2 2015  8 WC FLICKER",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "10f4875f-f185-49e2-932e-2f0b1a3b9cf9",
+    "item_number": "1004369",
+    "name": "FRONTIER MASTERS",
+    "brand": "World Class",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 2055,
+        "youtube_id": "F0S8tCg_PHY",
+        "title": "FRONTIER MASTERS 25 shot firework cake 🔥🔥🦾 NEW 2026 BANGER BY WORLD CLASS FIREWORKS ",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2056,
+        "youtube_id": "j3gJ1SXlLkg",
+        "title": "WC1004369 World Class Frontier Masters 500g Aerial Repeater",
+        "score": 100,
+        "reason": "item# in title"
+      },
+      {
+        "video_id": 2057,
+        "youtube_id": "EzoQE0Myifo",
+        "title": "Frontier Masters - 500g Finale Cake 25 shots - Red White Blue Performance - World Class Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 2058,
+        "youtube_id": "Xe-RZky1w1Q",
+        "title": "61853 - Final Frontier",
+        "score": 20,
+        "reason": "name_overlap=0.50"
+      },
+      {
+        "video_id": 2059,
+        "youtube_id": "JLI8XotdOMg",
+        "title": "Frontier Fireworks 100mm Blue Dahlia w Green Strobe Stars",
+        "score": 25,
+        "reason": "name_overlap=0.50; fireworks_ctx"
+      }
+    ]
+  },
+  {
+    "product_id": "77810729-2d8f-469d-9f72-f20ba987fa47",
+    "item_number": "1015439",
+    "name": "FUTURE WARRIOR",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 84,
+        "youtube_id": null,
+        "title": "WC FUTURE WARRIOR",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "1222afeb-35cf-4e14-bd7f-0961eed16de4",
+    "item_number": "1015147",
+    "name": "GORILLA WARFARE",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 49,
+        "youtube_id": null,
+        "title": "Gorilla Warfare",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "9a485fe9-e545-4284-ad9d-5ccd38437bcf",
+    "item_number": "NN5062",
+    "name": "GORILLA WARFARE",
+    "brand": "NO NAME",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 421,
+        "youtube_id": "XsgYYxuiRD0",
+        "title": "Jake's Fireworks - Gorilla Warfare",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 422,
+        "youtube_id": "eQdPDdMwAb0",
+        "title": "GORILLA WARFARE - 500G CAKE - WORLD CLASS FIREWORKS - CLASSIC ITEM",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 423,
+        "youtube_id": "myTZqMNkfYo",
+        "title": "Gorilla Warfare (World Class Fireworks)",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 425,
+        "youtube_id": "MJj2uw7oLi8",
+        "title": "Gorilla Warfare 30 shot 500 gram cake THANKS JAM!!!!!",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 424,
+        "youtube_id": "jVScMlICQAI",
+        "title": "Gorilla Warfare",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      }
+    ]
+  },
+  {
+    "product_id": "6f5d81c7-02eb-4dd1-af82-00cc536d905d",
+    "item_number": "1001348",
+    "name": "HOSTILE TAKEOVER",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 52,
+        "youtube_id": null,
+        "title": "Hostile Takeover",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "d8869404-817a-49ac-b08e-af634e3fa16e",
+    "item_number": "1003112",
+    "name": "INFERNO PUNCH",
+    "brand": "World Class",
+    "n_unconfirmed": 7,
+    "keep": [
+      {
+        "video_id": 2192,
+        "youtube_id": "YG8n1BiemB0",
+        "title": "Inferno Punch - World Class Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2193,
+        "youtube_id": "94bNHaCYCLU",
+        "title": "1️⃣6️⃣shot 500gram: INFERNO PUNCH👊 (World Class) Awesome Colors🎨",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2195,
+        "youtube_id": "8ddI7NeBmIs",
+        "title": "Inferno Punch By World Class Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2196,
+        "youtube_id": "eX3mrDOs3cQ",
+        "title": "Inferno Punch World Class Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [
+      {
+        "video_id": 2207,
+        "youtube_id": "TiVW8uUK708",
+        "title": "1003113 Polar Attack",
+        "score": -80,
+        "reason": "no product-name overlap"
+      }
+    ],
+    "uncertain": [
+      {
+        "video_id": 2194,
+        "youtube_id": "QtyHVavZnNk",
+        "title": "Product Demo: Inferno Punch",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      },
+      {
+        "video_id": 2208,
+        "youtube_id": "XtxLiQF8SPQ",
+        "title": "Inferno Punch",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      }
+    ]
+  },
+  {
+    "product_id": "f29f4d6f-5544-4cd3-8f4e-05784755aea0",
+    "item_number": "1001301",
+    "name": "LAND OF FREE",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 21,
+        "youtube_id": null,
+        "title": "Land of the Free",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "3ead4541-14ad-485e-9d40-28759372e0e8",
+    "item_number": "1015389",
+    "name": "LOUD AND PROUD",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 61,
+        "youtube_id": null,
+        "title": "Loud and Proud.mov",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "626541b8-0d9c-43d9-8690-be3acccd9d71",
+    "item_number": "1013121",
+    "name": "LOYAL TO NONE",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 62,
+        "youtube_id": null,
+        "title": "Loyal To None",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "2ed9b57d-c28e-4eb1-bb35-39b0fc9bcb97",
+    "item_number": "NN2031",
+    "name": "MUMMY",
+    "brand": "NO NAME",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 771,
+        "youtube_id": "nNzWCuVUQh0",
+        "title": "Mummy Dust - Updated 2025 by Black Cat Fireworks 4/1 MEBC6477",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 772,
+        "youtube_id": "aV7VbDXQZ2E",
+        "title": "Mummy Dust - Black Cat Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 773,
+        "youtube_id": "BFCNEskvYb4",
+        "title": "Mummy Awakes by FireHawk 🔥 Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 770,
+        "youtube_id": "nv1FkMze0MM",
+        "title": "The Mummy - Alien",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      },
+      {
+        "video_id": 774,
+        "youtube_id": "LZpCG78Lv7Y",
+        "title": "Mummy Maker 6pk",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      }
+    ]
+  },
+  {
+    "product_id": "34c8d93a-80d4-486d-a86e-e433dd5cff9c",
+    "item_number": "SWC2196",
+    "name": "NEON STROBE",
+    "brand": "SUNWING",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 1373,
+        "youtube_id": "wc98ONH6veE",
+        "title": "Neon Strobe *SUNWING FIREWORKS*",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 1374,
+        "youtube_id": "BOt6csudbRo",
+        "title": "NEON STROBE 18 SHOT SUNWING M2-SW-C2196",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 1375,
+        "youtube_id": "4yRYUqUgzKk",
+        "title": "Neon Strobe by Sunwing Fireworks - 18 Shots",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 1372,
+        "youtube_id": "zimmhR2OeQw",
+        "title": "SW C2196 Neon Strobe",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      },
+      {
+        "video_id": 1376,
+        "youtube_id": "YAcjHVSHxfk",
+        "title": "6lb Strobe Rocket to 6\" Ballshell - After Party 2023 Moapa - Kugelbombe 150mm",
+        "score": 20,
+        "reason": "name_overlap=0.50"
+      }
+    ]
+  },
+  {
+    "product_id": "cb4ef23a-166c-44c9-8d1b-487f2d7fa212",
+    "item_number": "1004113",
+    "name": "PANDA FOUNTAIN",
+    "brand": "World Class",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 2498,
+        "youtube_id": "oxnBAUmVgmM",
+        "title": "Panda Fountain",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2499,
+        "youtube_id": "ebrXKlsGN5U",
+        "title": "Panda 🐼 fountain by Big Fireworks 🎆",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2500,
+        "youtube_id": "OZv1r0z26BI",
+        "title": "PANDA FOUNTAIN MRW#89",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2501,
+        "youtube_id": "zveV1ddiC44",
+        "title": "Panda Pal Fountain Firework - Colorful Crackle Performance - World Class Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2502,
+        "youtube_id": "VQ2kYwgbmoA",
+        "title": "MINI PANDA FOUNTAIN SS FTN2022 from Suns Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "1140e026-617f-4b90-ac18-178fb0a311f7",
+    "item_number": "1004036",
+    "name": "REPTILE DYSFUNCTION",
+    "brand": "World Class",
+    "n_unconfirmed": 4,
+    "keep": [
+      {
+        "video_id": 2603,
+        "youtube_id": "3AtcopyO7Pg",
+        "title": "Reptile Dysfunction Firework Demo | World Class Fireworks 25 Shot Cake",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 2602,
+        "youtube_id": "kTrlCOmA5JI",
+        "title": "🦎Reptile  dysfunction 25s 🦎",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      },
+      {
+        "video_id": 2604,
+        "youtube_id": "OUJ-cmLZmLQ",
+        "title": "Reptile Dysfunction - 3048 (World Class)",
+        "score": 45,
+        "reason": "name_overlap=1.00; brand_match"
+      },
+      {
+        "video_id": 2606,
+        "youtube_id": "DWlqJCqTyFs",
+        "title": "Reptile Dysfunction",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      }
+    ]
+  },
+  {
+    "product_id": "d8552f78-d351-4868-bb62-da002480a9cc",
+    "item_number": "1013515",
+    "name": "Road Trip",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 72,
+        "youtube_id": null,
+        "title": "Road Trip.mov",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "c1cbabb6-8228-4a25-9b6a-b66ef6f12c11",
+    "item_number": "1001493",
+    "name": "SIR LANCELOT",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 104,
+        "youtube_id": null,
+        "title": "sir_lancelot",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "f550dd21-cc8e-495b-adf5-2af605c5d365",
+    "item_number": "1001478",
+    "name": "SUPER MAGNUM W/ TAIL",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 106,
+        "youtube_id": null,
+        "title": "super_magnum_tail",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "87e86ee5-dc31-416d-9b9c-0e188c1d5ae5",
+    "item_number": "1000470",
+    "name": "THREE TO GET READY",
+    "brand": "World Class",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 2849,
+        "youtube_id": "sYQsw-H8Yu0",
+        "title": "Boomer Fireworks - Three To Get Ready Assortment Unboxing",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [
+      {
+        "video_id": 2850,
+        "youtube_id": "9fELdiKPj_0",
+        "title": "Pyrotechnics Pro Explains the Art of a Massive Fireworks Show | WIRED",
+        "score": -80,
+        "reason": "no product-name overlap"
+      },
+      {
+        "video_id": 2851,
+        "youtube_id": "rNNx0WpcbXo",
+        "title": "We Almost Set The House On Fire With Fireworks On The 4th Of July!",
+        "score": -80,
+        "reason": "no product-name overlap"
+      },
+      {
+        "video_id": 2852,
+        "youtube_id": "KYtqB4IXS_U",
+        "title": "Wholesale Fireworks Adventure Part 3 of 3",
+        "score": -80,
+        "reason": "no product-name overlap"
+      }
+    ],
+    "uncertain": [
+      {
+        "video_id": 2853,
+        "youtube_id": "-5kYJxw7kTc",
+        "title": "Getting ready for New Year's Eve party in Las Vegas",
+        "score": 13,
+        "reason": "name_overlap=0.33"
+      }
+    ]
+  },
+  {
+    "product_id": "ab728e78-4daf-4981-943f-248ac023e688",
+    "item_number": "1015402",
+    "name": "Trigger Happy",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 78,
+        "youtube_id": null,
+        "title": "Trigger Happy.mov",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "42234ef5-178a-4264-9674-c8824bd0d1ec",
+    "item_number": "1003505",
+    "name": "UNITED WE RIDE",
+    "brand": "World Class",
+    "n_unconfirmed": 4,
+    "keep": [
+      {
+        "video_id": 3319,
+        "youtube_id": "8nBdEY7axVo",
+        "title": "United We Ride Firework",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 3320,
+        "youtube_id": "mGMJV6SMo1s",
+        "title": "United We Ride 42 shot by World Class",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 3321,
+        "youtube_id": "VmVIf8LreCA",
+        "title": "United we ride 42 shot 200 g world class fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 3323,
+        "youtube_id": "PoujXHHDUWI",
+        "title": "UNITED WE RIDE - World Class Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "630938e5-791f-4b02-a9d5-76a917294841",
+    "item_number": "1001427",
+    "name": "UNITED WE STAND",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 105,
+        "youtube_id": null,
+        "title": "united_we_stand",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "400718bc-de9c-4baf-b4ff-1e3c1896e82a",
+    "item_number": "1001416",
+    "name": "WHISTLING JAKE",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 107,
+        "youtube_id": null,
+        "title": "whistling_jake",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "7d99568f-ecdb-4bff-966e-4c538901609b",
+    "item_number": "1013224",
+    "name": "WIDOW MAKER",
+    "brand": "World Class",
+    "n_unconfirmed": 1,
+    "keep": [
+      {
+        "video_id": 91,
+        "youtube_id": null,
+        "title": "Widow Maker",
+        "score": 100,
+        "reason": "curated source"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": []
+  },
+  {
+    "product_id": "a28c5ef0-9686-4a70-bd3c-c3a24473cc8e",
+    "item_number": "1004306",
+    "name": "WINGS OF FREEDOM",
+    "brand": "World Class",
+    "n_unconfirmed": 5,
+    "keep": [
+      {
+        "video_id": 2983,
+        "youtube_id": "DQzbgXEHEQo",
+        "title": "Wings of Freedom Fountain Firework - World Class",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2986,
+        "youtube_id": "2sM9ZxLuqJk",
+        "title": "Freedom's Wings by World Class Fireworks 500g",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      },
+      {
+        "video_id": 2987,
+        "youtube_id": "4jCs3OGvNmo",
+        "title": "Wings of Freedom - Rizer Fireworks",
+        "score": 100,
+        "reason": "strong name + fireworks context"
+      }
+    ],
+    "quarantine": [],
+    "uncertain": [
+      {
+        "video_id": 2984,
+        "youtube_id": "kyJ7xbPt6iE",
+        "title": "Wings Of Freedom",
+        "score": 40,
+        "reason": "name_overlap=1.00"
+      },
+      {
+        "video_id": 2985,
+        "youtube_id": "kIkpKKwfXeM",
+        "title": "WINGS OF THE BRAVE 250 shot firework cake 🔥🔥🦾 NEW 2026 BANGER BY WORLD CLASS FIREWORKS",
+        "score": 30,
+        "reason": "name_overlap=0.50; brand_match; fireworks_ctx"
+      }
+    ]
+  }
+]

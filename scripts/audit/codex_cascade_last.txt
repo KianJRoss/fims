@@ -1,0 +1,16 @@
+Implemented the single requested file: [scripts/audit/video_cascade.py](C:\Users\batma\Fireworks Store\fims\scripts\audit\video_cascade.py).
+
+What’s in it:
+- Tier 1 read-only classifier using `psycopg` and parameterized SQL
+- JSON and Markdown artifact writers:
+  - [scripts/audit/video_cascade_t1.json](C:\Users\batma\Fireworks Store\fims\scripts\audit\video_cascade_t1.json)
+  - [scripts/audit/video_cascade_t1.md](C:\Users\batma\Fireworks Store\fims\scripts\audit\video_cascade_t1.md)
+- Tunable constants at the top for stopwords, blocklist, fireworks context, and overlap threshold
+- `--tier {1,2,3}` CLI behavior with clear `NotImplementedError` stubs for Tier 2 and 3
+- `--product <item_or_id>` filter support
+- UTF-8-safe writing and no DB writes
+
+Validation:
+- Syntax check passed with `python -m py_compile scripts/audit/video_cascade.py`
+
+I did not run the cascade itself or make any database/network calls.
