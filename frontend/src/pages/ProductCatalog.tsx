@@ -845,7 +845,6 @@ function InitializeView() {
   const bufferRef = useRef("");
   const timerRef = useRef<number | null>(null);
   const searchTimerRef = useRef<number | null>(null);
-  const autoCloseTimerRef = useRef<number | null>(null);
 
   const summaryQuery = useQuery({
     queryKey: ["inventory-summary"],
@@ -992,20 +991,7 @@ function InitializeView() {
     currentScan !== null &&
     !creatingNew &&
     (!currentScan.found || (currentScan.needs_confirmation && rejectedConfirmBarcode === currentScan.barcode));
-  const isFinalSuccess = currentScan !== null && currentScan.found && !needsConfirmation && !showSearchPanel;
   const searchPanelBarcode = currentScan ? currentScan.barcode : null;
-
-  useEffect(() => {
-    if (autoCloseTimerRef.current !== null) { window.clearTimeout(autoCloseTimerRef.current); autoCloseTimerRef.current = null; }
-    if (isFinalSuccess) {
-      autoCloseTimerRef.current = window.setTimeout(() => {
-        setCurrentScan(null);
-      }, 1400);
-    }
-    return () => {
-      if (autoCloseTimerRef.current !== null) window.clearTimeout(autoCloseTimerRef.current);
-    };
-  }, [isFinalSuccess, currentScan]);
 
   function closeModal() {
     setCurrentScan(null);
@@ -1082,7 +1068,7 @@ function InitializeView() {
 
       {modalOpen && currentScan && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" onClick={closeModal}>
-          <div className="w-full max-w-xl rounded-[2rem] border border-gray-800 bg-gray-950 p-6 shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
+          <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-[2rem] border border-gray-800 bg-gray-950 p-6 shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
             <div className="mb-4 flex items-center justify-end">
               <button onClick={closeModal} className="rounded-xl border border-gray-800 bg-gray-900 p-1.5 text-gray-400 hover:text-gray-200">
                 <X className="h-4 w-4" />
@@ -1204,7 +1190,7 @@ function InitializeView() {
                 }}
               />
             ) : currentScan.found ? (
-              <div>
+              <div className="space-y-5">
                 <div className="flex items-center gap-4">
                   <ProductImage imageUrl={currentScan.product.image_url} name={currentScan.product.name} size="md" />
                   <div className="min-w-0">
@@ -1213,7 +1199,7 @@ function InitializeView() {
                     <div className="mt-1 text-sm text-orange-200">{formatScanNumber(currentScan.product.item_number)}</div>
                   </div>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2">
                   <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs uppercase tracking-[0.22em] text-emerald-200">In Store</span>
                   <span className={`rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.22em] ${
                     hasCurrentVideo ? "border-orange-500/40 bg-orange-500/10 text-orange-200" : "border-gray-700 bg-gray-900 text-gray-300"
@@ -1227,6 +1213,14 @@ function InitializeView() {
                     <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs uppercase tracking-[0.22em] text-amber-200">Needs More Data</span>
                   ) : null}
                 </div>
+                <ManualProductEntry
+                  initialEditProductId={currentScan.product.id}
+                  onClose={closeModal}
+                  onSaved={async () => {
+                    await refreshAfterChange();
+                    closeModal();
+                  }}
+                />
               </div>
             ) : null}
           </div>
