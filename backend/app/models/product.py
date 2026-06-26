@@ -77,6 +77,9 @@ class Product(Base):
     # Status
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     in_store: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Pinned as a one-tap button on the Sales screen — for products with no
+    # barcode to scan (single-color cakes, etc.).
+    quick_add: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
     no_video_confirmed: Mapped[bool] = mapped_column(Boolean, default=False)
     needs_data_review: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session, joinedload
 
 from app.db.session import get_db
 from app.models.media import ProductVideo
+from app.models.pricing import PriceType, ProductPrice
 from app.models.product import Product, ProductAlias, ProductBarcode, ProductBrand, ProductCategory
 
 router = APIRouter()
@@ -24,6 +25,10 @@ class BarcodeAddRequest(BaseModel):
 
 class ProductInStorePatch(BaseModel):
     in_store: bool
+
+
+class ProductQuickAddPatch(BaseModel):
+    quick_add: bool
 
 
 class ProductAliasCreate(BaseModel):
@@ -110,6 +115,7 @@ def _serialize_product_detail(product: Product) -> dict:
         "catalog_page": product.catalog_page,
         "is_active": product.is_active,
         "in_store": product.in_store,
+        "quick_add": product.quick_add,
         "no_video_confirmed": product.no_video_confirmed,
         "needs_data_review": product.needs_data_review,
         "created_at": product.created_at,
@@ -369,6 +375,42 @@ def list_all_brands(db: Session = Depends(get_db)):
     ]
 
 
+@router.get("/quick-add")
+def list_quick_add_products(db: Session = Depends(get_db)):
+    """Products pinned as one-tap buttons on the Sales screen (no barcode to scan)."""
+    retail_price = (
+        select(ProductPrice.amount)
+        .join(PriceType, PriceType.id == ProductPrice.price_type_id)
+        .where(
+            ProductPrice.product_id == Product.id,
+            ProductPrice.is_active.is_(True),
+            PriceType.code == "RETAIL",
+        )
+        .correlate(Product)
+        .order_by(ProductPrice.effective_from.desc())
+        .limit(1)
+        .scalar_subquery()
+    )
+    rows = db.execute(
+        select(Product, retail_price.label("retail_price"))
+        .options(joinedload(Product.category))
+        .where(Product.is_active.is_(True), Product.quick_add.is_(True))
+        .order_by(func.lower(Product.name))
+    ).all()
+    return [
+        {
+            "id": product.id,
+            "name": product.name,
+            "item_number": product.item_number,
+            "image_url": f"/media/{product.image_path}" if product.image_path else None,
+            "category_id": product.category_id,
+            "category_name": product.category.name if product.category else None,
+            "retail_price": float(price) if price is not None else 0.0,
+        }
+        for product, price in rows
+    ]
+
+
 @router.post("/")
 def create_product(payload: ProductCreateRequest, db: Session = Depends(get_db)):
     name = payload.name.strip()
@@ -434,6 +476,19 @@ def set_product_in_store(
 ):
     product = _get_product_detail(db, product_id)
     product.in_store = payload.in_store
+    db.commit()
+    return _serialize_product_detail(_get_product_detail(db, product_id))
+
+
+@router.patch("/{product_id}/quick-add")
+def set_product_quick_add(
+    product_id: str,
+    payload: ProductQuickAddPatch,
+    db: Session = Depends(get_db),
+):
+    """Pin/unpin a product as a one-tap button on the Sales screen."""
+    product = _get_product_detail(db, product_id)
+    product.quick_add = payload.quick_add
     db.commit()
     return _serialize_product_detail(_get_product_detail(db, product_id))
 

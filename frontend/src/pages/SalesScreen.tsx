@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Barcode, CheckCircle2, Loader2, Minus, PauseCircle, Plus, Search, Trash2, X } from "lucide-react";
+import { Barcode, CheckCircle2, Loader2, Minus, PauseCircle, Plus, Search, Star, Trash2, X, Zap } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
 import { api } from "../api/client";
@@ -25,6 +25,16 @@ type ProductSearchResult = {
   item_number: string | null;
   image_url: string | null;
   category_name: string | null;
+};
+
+type QuickAddProduct = {
+  id: string;
+  name: string;
+  item_number: string | null;
+  image_url: string | null;
+  category_id: number | null;
+  category_name: string | null;
+  retail_price: number;
 };
 
 type PricingResponse = {
@@ -165,6 +175,7 @@ export default function SalesScreen() {
   const [completedReceiptToken, setCompletedReceiptToken] = useState<string | null>(null);
   const [parkedCarts, setParkedCarts] = useState<ParkedCart[]>(loadParkedCarts);
   const [showParkedList, setShowParkedList] = useState(false);
+  const [editQuickAdd, setEditQuickAdd] = useState(false);
   const dealRequestId = useRef(0);
 
   useEffect(() => {
@@ -216,6 +227,24 @@ export default function SalesScreen() {
       return data;
     },
     enabled: debouncedSearch.length > 0,
+  });
+
+  const quickAddQuery = useQuery({
+    queryKey: ["sales-quick-add"],
+    queryFn: async (): Promise<QuickAddProduct[]> => {
+      const { data } = await api.get<QuickAddProduct[]>("/v1/products/quick-add");
+      return data;
+    },
+  });
+
+  const setQuickAddMutation = useMutation({
+    mutationFn: async ({ productId, quickAdd }: { productId: string; quickAdd: boolean }) => {
+      await api.patch(`/v1/products/${productId}/quick-add`, { quick_add: quickAdd });
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["sales-quick-add"] });
+    },
+    onError: () => setFlash({ kind: "error", text: "Could not update quick-add buttons." }),
   });
 
   const applyDealsMutation = useMutation({
@@ -283,6 +312,12 @@ export default function SalesScreen() {
   const subtotal = useMemo(
     () => cart.reduce((sum, item) => sum + item.quantity * item.unit_price, 0),
     [cart]
+  );
+
+  const quickAddProducts = quickAddQuery.data ?? [];
+  const quickAddIds = useMemo(
+    () => new Set(quickAddProducts.map((product) => product.id)),
+    [quickAddProducts]
   );
 
   const displayedDealSummary = applyDealsMutation.isPending && cart.length > 0 ? EMPTY_DEAL_SUMMARY : dealSummary;
@@ -808,6 +843,62 @@ export default function SalesScreen() {
         </section>
 
         <aside className="bg-gray-900/30 px-0 py-0 xl:px-5 xl:py-5">
+          <div className="mb-4 rounded-3xl border border-gray-800 bg-gray-900 p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gray-500">
+                <Zap className="h-4 w-4 text-orange-400" />
+                Quick Add
+              </div>
+              {quickAddProducts.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setEditQuickAdd((value) => !value)}
+                  className={`rounded-xl border px-3 py-1 text-xs font-medium transition ${
+                    editQuickAdd
+                      ? "border-orange-500/40 bg-orange-500/10 text-orange-200"
+                      : "border-gray-800 bg-gray-950 text-gray-400 hover:text-gray-100"
+                  }`}
+                >
+                  {editQuickAdd ? "Done" : "Edit"}
+                </button>
+              )}
+            </div>
+            {quickAddProducts.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-gray-800 bg-gray-950 px-3 py-4 text-center text-xs text-gray-500">
+                No quick buttons yet. Search a product below and tap the{" "}
+                <Star className="inline h-3 w-3 text-gray-400" /> to pin it here — handy for items with no barcode.
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {quickAddProducts.map((product) => (
+                  <div key={product.id} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => void addProductToCart(product.id)}
+                      disabled={editQuickAdd}
+                      className="flex h-full w-full flex-col justify-between gap-1 rounded-2xl border border-gray-800 bg-gray-950 px-3 py-3 text-left transition hover:border-orange-500/40 hover:bg-orange-500/5 disabled:opacity-60"
+                    >
+                      <span className="line-clamp-2 text-sm font-semibold text-gray-50">{product.name}</span>
+                      <span className="text-xs font-medium text-orange-200">
+                        {product.retail_price > 0 ? formatMoney(product.retail_price) : "No price"}
+                      </span>
+                    </button>
+                    {editQuickAdd && (
+                      <button
+                        type="button"
+                        onClick={() => setQuickAddMutation.mutate({ productId: product.id, quickAdd: false })}
+                        className="absolute -right-2 -top-2 rounded-full border border-red-500/40 bg-gray-950 p-1 text-red-300 shadow-lg transition hover:bg-red-500/20"
+                        aria-label={`Remove ${product.name} from quick add`}
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="rounded-3xl border border-gray-800 bg-gray-900 p-4">
             <div className="flex items-center gap-3">
               <Search className="h-4 w-4 text-gray-500" />
@@ -841,6 +932,13 @@ export default function SalesScreen() {
                     setExpandedProductId((current) => (current === product.id ? null : product.id))
                   }
                   onAdd={() => void addProductToCart(product.id)}
+                  pinned={quickAddIds.has(product.id)}
+                  onTogglePin={() =>
+                    setQuickAddMutation.mutate({
+                      productId: product.id,
+                      quickAdd: !quickAddIds.has(product.id),
+                    })
+                  }
                 />
               ))
             )}
@@ -897,11 +995,15 @@ function SearchResultCard({
   expanded,
   onToggleExpanded,
   onAdd,
+  pinned,
+  onTogglePin,
 }: {
   product: ProductSearchResult;
   expanded: boolean;
   onToggleExpanded: () => void;
   onAdd: () => void;
+  pinned: boolean;
+  onTogglePin: () => void;
 }) {
   const detailQuery = useQuery({
     queryKey: ["search-product-detail", product.id],
@@ -944,16 +1046,33 @@ function SearchResultCard({
             <div className="truncate text-base font-semibold text-gray-50">{product.name}</div>
             <div className="mt-1 text-xs text-gray-500">{product.item_number || "No item number"}</div>
           </div>
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              onToggleExpanded();
-            }}
-            className="rounded-xl border border-gray-800 bg-gray-950 p-2 text-gray-300 transition hover:border-gray-700 hover:text-gray-50"
-          >
-            <Barcode className="h-4 w-4" />
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              title={pinned ? "Remove quick-add button" : "Pin as quick-add button"}
+              onClick={(event) => {
+                event.stopPropagation();
+                onTogglePin();
+              }}
+              className={`rounded-xl border p-2 transition ${
+                pinned
+                  ? "border-orange-500/40 bg-orange-500/10 text-orange-300"
+                  : "border-gray-800 bg-gray-950 text-gray-300 hover:border-gray-700 hover:text-gray-50"
+              }`}
+            >
+              <Star className={`h-4 w-4 ${pinned ? "fill-orange-300" : ""}`} />
+            </button>
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                onToggleExpanded();
+              }}
+              className="rounded-xl border border-gray-800 bg-gray-950 p-2 text-gray-300 transition hover:border-gray-700 hover:text-gray-50"
+            >
+              <Barcode className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         <div className="mt-3 flex items-center justify-between gap-3">
