@@ -116,6 +116,33 @@ def _get_best_product_video_filename(db: Session, product_id: str) -> tuple[bool
     return True, None
 
 
+def _get_product_video_filenames(db: Session, product_id: str) -> list[str]:
+    """All non-empty video filenames for a product, best first.
+
+    Ordered primary-then-newest, but callers should pick the first one that
+    actually exists on the Video Pi rather than assuming the top row is playable
+    — the "primary" row is frequently a loosely-matched YouTube download that was
+    never synced to the Pi, while the real clip sits on the Pi as a non-primary row.
+    """
+    rows = (
+        db.execute(
+            select(product_videos_table.c.video_filename)
+            .where(product_videos_table.c.product_id == product_id)
+            .order_by(
+                product_videos_table.c.is_primary.desc(),
+                nullslast(product_videos_table.c.uploaded_at.desc()),
+            )
+        )
+        .all()
+    )
+    filenames: list[str] = []
+    for row in rows:
+        name = (row.video_filename or "").strip()
+        if name and name not in filenames:
+            filenames.append(name)
+    return filenames
+
+
 def _build_idle_playlist(item_numbers: list[str], video_filenames: list[str]) -> list[str]:
     playlist: list[str] = []
     seen_paths: set[str] = set()
@@ -174,21 +201,31 @@ def play_video(body: PlayRequest, db: Session = Depends(get_db)):
 
     if body.product_id:
         product = _get_product_by_id(db, body.product_id)
-        has_product_videos, video_filename = _get_best_product_video_filename(db, body.product_id)
-        if video_filename:
-            filename = Path(video_filename).name
-            if not remote_videos or filename in remote_videos:
-                return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{filename}"})
-        if has_product_videos:
-            item_number = (product.item_number or "").strip()
-            if item_number:
-                return post_to_video_pi("/play", {"item_number": item_number})
-            return {"status": "no_match", "product_id": body.product_id, "reason": "video_not_available"}
+        candidates = _get_product_video_filenames(db, body.product_id)
 
+        # Prefer a video file that physically exists on the Video Pi, matched
+        # case-insensitively, instead of blindly trusting the is_primary row
+        # (which is often an unsynced YouTube download). This is what makes the
+        # remote actually play the real clip, e.g. "Excalibur.mp4".
+        remote_by_lower = {name.lower(): name for name in remote_videos}
+        for candidate in candidates:
+            base = Path(candidate).name
+            actual = remote_by_lower.get(base.lower())
+            if actual:
+                return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{actual}"})
+
+        # Couldn't list the Pi's videos (it was unreachable), but we do have a
+        # filename on record — try the best one directly rather than giving up.
+        if not remote_videos and candidates:
+            base = Path(candidates[0]).name
+            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{base}"})
+
+        # No known file is on the Pi — fall back to item-number matching, which is
+        # how the legacy kiosk paired clips.
         item_number = (product.item_number or "").strip()
-        if not item_number:
-            return {"status": "no_match", "item_number": product.item_number}
-        return post_to_video_pi("/play", {"item_number": item_number})
+        if item_number:
+            return post_to_video_pi("/play", {"item_number": item_number})
+        return {"status": "no_match", "product_id": body.product_id, "reason": "video_not_available"}
 
     if body.file_path:
         video_url = build_video_url(body.file_path)
