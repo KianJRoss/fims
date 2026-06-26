@@ -883,6 +883,24 @@ def process_product(
         records.extend(page_records)
 
     added = add_records(records) if records else 0
+    if not records:
+        add_records(
+            [
+                {
+                    "product_id": "",
+                    "item_number": item_number,
+                    "name": name,
+                    "field": "description",
+                    "value": f"NO_CANDIDATES:{item_number}",
+                    "source": "scrape_enrich.no_candidates",
+                    "url": "",
+                    "confidence": 0,
+                    "identity_check": "no candidate records found during product-scoped scrape",
+                    "status": "rejected",
+                    "rejected_reason": "no candidate records found",
+                }
+            ]
+        )
     fields_found = sorted({rec["field"] for rec in records}, key=lambda field: FIELD_ORDER.get(field, 99))
     print(f"{item_number}, {name}, pages={fetched_pages}, fields={','.join(fields_found)}")
     return {
@@ -927,6 +945,16 @@ def parse_args() -> argparse.Namespace:
         "--apply-verified",
         action="store_true",
         help="run evidence verification and apply any newly verified facts after each batch",
+    )
+    parser.add_argument(
+        "--one",
+        action="store_true",
+        help="process exactly one eligible product and exit",
+    )
+    parser.add_argument(
+        "--json-result",
+        action="store_true",
+        help="print the final processed product result as JSON",
     )
     return parser.parse_args()
 
@@ -983,8 +1011,14 @@ def main() -> None:
                 seen_this_run.add(product["item_number"])
             if index < len(products) - 1:
                 time.sleep(random.uniform(PRODUCT_SLEEP_MIN, PRODUCT_SLEEP_MAX))
+            if args.one:
+                break
 
         write_json(RUN_LOG_PATH, run_log)
+        if args.json_result and run_log:
+            print("JSON_RESULT " + json.dumps(run_log[-1], ensure_ascii=False, default=json_default))
+        if args.one:
+            break
         if not args.watch:
             break
         time.sleep(max(1.0, args.watch_sleep))

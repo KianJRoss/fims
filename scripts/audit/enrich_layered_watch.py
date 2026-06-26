@@ -12,6 +12,7 @@ This keeps scraping, AI arbitration, and DB writes separated.
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 import time
@@ -23,16 +24,37 @@ SCRAPER = AUDIT_DIR / "scrape_enrich.py"
 SENTRY = AUDIT_DIR / "ai_enrich_sentry.py"
 
 
-def run_step(args: list[str]) -> int:
+def run_step(args: list[str]) -> tuple[int, str]:
     print("$ " + " ".join(args), flush=True)
-    result = subprocess.run(args, cwd=str(AUDIT_DIR.parents[1]), text=True)
-    return result.returncode
+    result = subprocess.run(
+        args,
+        cwd=str(AUDIT_DIR.parents[1]),
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    output = result.stdout or ""
+    if output:
+        print(output, end="" if output.endswith("\n") else "\n", flush=True)
+    return result.returncode, output
+
+
+def parse_scrape_result(output: str) -> dict[str, object] | None:
+    for line in reversed(output.splitlines()):
+        if not line.startswith("JSON_RESULT "):
+            continue
+        try:
+            parsed = json.loads(line[len("JSON_RESULT ") :])
+        except json.JSONDecodeError:
+            return None
+        return parsed if isinstance(parsed, dict) else None
+    return None
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Layered scraper + AI sentry enrichment watcher")
-    parser.add_argument("--scrape-limit", type=int, default=10)
-    parser.add_argument("--sentry-limit", type=int, default=20)
+    parser.add_argument("--product-limit", type=int, default=0, help="products per process run; 0 means unlimited")
+    parser.add_argument("--sentry-limit", type=int, default=20, help="max field groups reviewed for each product")
     parser.add_argument("--backend", choices=("ollama", "claude-cli", "dry-run"), default="ollama")
     parser.add_argument("--model", default=None)
     parser.add_argument("--ollama-host", default=None)
@@ -45,15 +67,26 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    processed = 0
     while True:
         scrape_cmd = [
             sys.executable,
             "-u",
             str(SCRAPER),
+            "--one",
+            "--json-result",
             "--limit",
-            str(args.scrape_limit),
+            "1",
         ]
-        scrape_rc = run_step(scrape_cmd)
+        scrape_rc, scrape_output = run_step(scrape_cmd)
+        scrape_result = parse_scrape_result(scrape_output)
+        item_number = str(scrape_result.get("item_number", "")).strip() if scrape_result else ""
+        if scrape_rc != 0 or not item_number:
+            print(f"product transaction stopped with scrape_rc={scrape_rc}; no product result", flush=True)
+            if args.once:
+                return 1
+            time.sleep(max(1.0, args.sleep))
+            continue
 
         sentry_cmd = [
             sys.executable,
@@ -64,6 +97,8 @@ def main() -> int:
             "--limit",
             str(args.sentry_limit),
             "--apply",
+            "--only-sku",
+            item_number,
         ]
         if args.model:
             sentry_cmd.extend(["--model", args.model])
@@ -72,11 +107,15 @@ def main() -> int:
         if args.vision:
             sentry_cmd.append("--vision")
             sentry_cmd.extend(["--vision-steps", args.vision_steps])
-        sentry_rc = run_step(sentry_cmd)
+        sentry_rc, _sentry_output = run_step(sentry_cmd)
 
         if scrape_rc != 0 or sentry_rc != 0:
-            print(f"cycle finished with scrape_rc={scrape_rc} sentry_rc={sentry_rc}", flush=True)
-        if args.once:
+            print(
+                f"product transaction {item_number} finished with scrape_rc={scrape_rc} sentry_rc={sentry_rc}",
+                flush=True,
+            )
+        processed += 1
+        if args.once or (args.product_limit and processed >= args.product_limit):
             return 0 if scrape_rc == 0 and sentry_rc == 0 else 1
         time.sleep(max(1.0, args.sleep))
 

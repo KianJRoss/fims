@@ -122,7 +122,11 @@ def value_is_structurally_bad(field: str, value: Any) -> str | None:
     return None
 
 
-def candidate_groups(ledger: list[dict[str, Any]], limit: int | None) -> list[dict[str, Any]]:
+def candidate_groups(
+    ledger: list[dict[str, Any]],
+    limit: int | None,
+    only_skus: set[str] | None = None,
+) -> list[dict[str, Any]]:
     db = fetch_db_state()
     grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
     for index, rec in enumerate(ledger):
@@ -133,6 +137,8 @@ def candidate_groups(ledger: list[dict[str, Any]], limit: int | None) -> list[di
         item = str(rec.get("item_number") or "")
         field = str(rec.get("field") or "")
         if not item or not field:
+            continue
+        if only_skus and item.upper() not in only_skus:
             continue
         cur = db.get(item)
         if not cur or not db_field_empty(cur.get(field)):
@@ -377,9 +383,14 @@ def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision
                 rec["rejected_reason"] = candidate["quick_reject_reason"]
 
 
+def parse_skus(value: str) -> set[str] | None:
+    parsed = {part.strip().upper() for part in value.split(",") if part.strip()}
+    return parsed or None
+
+
 def run_once(args: argparse.Namespace) -> int:
     ledger = verify(load_ledger(), save=not args.preview)
-    groups = candidate_groups(ledger, args.limit)
+    groups = candidate_groups(ledger, args.limit, parse_skus(args.only_sku))
     add_context(groups, args)
     model_label = args.backend if args.backend != "ollama" else f"ollama:{args.model}"
     reviewed = 0
@@ -426,6 +437,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ollama-host", default=os.getenv("OLLAMA_HOST", DEFAULT_OLLAMA_HOST))
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--only-sku", default="", help="comma-separated SKUs to review")
     parser.add_argument("--sleep", type=float, default=0.0)
     parser.add_argument("--vision", action="store_true", help="include local OCR/barcode/VLM product image context")
     parser.add_argument("--vision-steps", default="ocr,codes,vlm")
