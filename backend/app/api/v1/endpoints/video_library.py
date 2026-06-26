@@ -149,6 +149,21 @@ def _build_idle_playlist_from_filenames(video_filenames_to_match: list[str], vid
     return playlist
 
 
+def _fetch_remote_videos() -> set[str]:
+    """Basenames of the video files currently present on the Video Pi.
+
+    Used by /player/play to confirm a product's video file actually exists on the
+    Pi before asking it to play that exact path. Returns an empty set if the Pi
+    can't be reached or isn't configured, so play falls back to item-number
+    matching instead of failing the whole request.
+    """
+    try:
+        payload = get_from_video_pi("/videos")
+    except (httpx.HTTPError, ValueError, TypeError):
+        return set()
+    return {Path(name).name for name in _normalize_video_list(payload)}
+
+
 @router.post("/player/play")
 def play_video(body: PlayRequest, db: Session = Depends(get_db)):
     video_pi_url = get_video_pi_url()
