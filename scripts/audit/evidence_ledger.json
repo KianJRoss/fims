@@ -37,7 +37,6 @@
     "identity_check": "NAME-ONLY guess; SKU 1024435 NOT confirmed on page; multiple WC America-* products exist",
     "captured_at": "2026-06-26T08:41:37.361089+00:00",
     "status": "pending",
-    "_ledger_index": 2,
     "sentry_at": "2026-06-26T09:41:42.357543+00:00",
     "sentry_model": "ollama:qwen2.5:14b",
     "sentry_reason": "identity_check indicates SKU not confirmed, potential name collision",
@@ -490,7 +489,10 @@
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:08.972337+00:00",
     "status": "pending",
-    "_ledger_index": 36
+    "sentry_at": "2026-06-26T09:47:50.648215+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic label, lacks specific effect details",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -611,8 +613,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:41.466573+00:00",
-    "status": "conflict",
-    "_ledger_index": 45
+    "status": "rejected",
+    "sentry_at": "2026-06-26T09:47:51.734533+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "marketing description applied as effects",
+    "sentry_status": "rejected",
+    "rejected_reason": "junk/html/placeholder text"
   },
   {
     "product_id": "",
@@ -639,7 +645,10 @@
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:41.466627+00:00",
     "status": "pending",
-    "_ledger_index": 47
+    "sentry_at": "2026-06-26T09:47:51.734548+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "marketing description applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -665,8 +674,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1000553)",
     "captured_at": "2026-06-26T09:14:41.466662+00:00",
-    "status": "conflict",
-    "_ledger_index": 49
+    "status": "rejected",
+    "sentry_at": "2026-06-26T09:47:51.734552+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "marketing description applied as effects",
+    "sentry_status": "rejected",
+    "rejected_reason": "marketing description applied as effects"
   },
   {
     "product_id": "",
@@ -693,7 +706,10 @@
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:41.466697+00:00",
     "status": "pending",
-    "_ledger_index": 51
+    "sentry_at": "2026-06-26T09:47:51.734555+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "marketing description applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -719,8 +735,12 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:14:41.466710+00:00",
-    "status": "conflict",
-    "_ledger_index": 53
+    "status": "rejected",
+    "sentry_at": "2026-06-26T09:47:51.734557+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "marketing description applied as effects",
+    "sentry_status": "rejected",
+    "rejected_reason": "junk/html/placeholder text"
   },
   {
     "product_id": "",
@@ -747,7 +767,10 @@
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:14:41.466731+00:00",
     "status": "pending",
-    "_ledger_index": 55
+    "sentry_at": "2026-06-26T09:47:52.702766+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "weak name collision, no exact product specification",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -761,7 +784,10 @@
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:14:41.466738+00:00",
     "status": "pending",
-    "_ledger_index": 56
+    "sentry_at": "2026-06-26T09:47:51.734560+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "marketing description applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -788,7 +814,10 @@
     "identity_check": "exact SKU found in page text (1004036)",
     "captured_at": "2026-06-26T09:14:54.777438+00:00",
     "status": "pending",
-    "_ledger_index": 58
+    "sentry_at": "2026-06-26T09:47:53.637611+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact SKU match and specific product page",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -1085,7 +1114,10 @@
     "identity_check": "exact SKU found in page text (BP-A081)",
     "captured_at": "2026-06-26T09:25:18.030472+00:00",
     "status": "conflict",
-    "_ledger_index": 80
+    "sentry_at": "2026-06-26T09:47:55.099932+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide a clear description specific to the product 'Gone Ballistic' with item number BP-A081.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1099,7 +1131,10 @@
     "identity_check": "exact SKU found in page text (BP-A081)",
     "captured_at": "2026-06-26T09:25:18.030483+00:00",
     "status": "conflict",
-    "_ledger_index": 81
+    "sentry_at": "2026-06-26T09:47:55.099986+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide a clear description specific to the product 'Gone Ballistic' with item number BP-A081.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1113,7 +1148,10 @@
     "identity_check": "exact SKU found in page text (BP-A081)",
     "captured_at": "2026-06-26T09:25:18.030490+00:00",
     "status": "pending",
-    "_ledger_index": 82
+    "sentry_at": "2026-06-26T09:47:56.134663+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "exact match with product item number BP-A081",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -1127,7 +1165,10 @@
     "identity_check": "exact SKU found in page text (BP-A081)",
     "captured_at": "2026-06-26T09:25:18.030499+00:00",
     "status": "conflict",
-    "_ledger_index": 83
+    "sentry_at": "2026-06-26T09:47:55.099995+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide a clear description specific to the product 'Gone Ballistic' with item number BP-A081.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1141,7 +1182,10 @@
     "identity_check": "exact SKU found in page text (BP-A081)",
     "captured_at": "2026-06-26T09:25:18.030505+00:00",
     "status": "pending",
-    "_ledger_index": 84
+    "sentry_at": "2026-06-26T09:47:56.134685+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "exact match with product item number BP-A081",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1155,7 +1199,10 @@
     "identity_check": "exact SKU found in page text (BP-A081)",
     "captured_at": "2026-06-26T09:25:18.030513+00:00",
     "status": "conflict",
-    "_ledger_index": 85
+    "sentry_at": "2026-06-26T09:47:55.100000+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None of the candidates provide a clear description specific to the product 'Gone Ballistic' with item number BP-A081.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1182,7 +1229,10 @@
     "identity_check": "exact SKU found in page text (NN2033)",
     "captured_at": "2026-06-26T09:25:28.656907+00:00",
     "status": "conflict",
-    "_ledger_index": 87
+    "sentry_at": "2026-06-26T09:47:57.101261+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product information",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -1222,7 +1272,10 @@
     "identity_check": "exact SKU found in page text (NN2033)",
     "captured_at": "2026-06-26T09:25:28.656925+00:00",
     "status": "conflict",
-    "_ledger_index": 90
+    "sentry_at": "2026-06-26T09:47:57.101280+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product information",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1262,7 +1315,10 @@
     "identity_check": "exact SKU found in page text (NN2033)",
     "captured_at": "2026-06-26T09:25:28.656950+00:00",
     "status": "conflict",
-    "_ledger_index": 93
+    "sentry_at": "2026-06-26T09:47:57.101285+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product information",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1510,7 +1566,10 @@
     "identity_check": "exact SKU found in page text (1004328)",
     "captured_at": "2026-06-26T09:27:48.855698+00:00",
     "status": "pending",
-    "_ledger_index": 112
+    "sentry_at": "2026-06-26T09:47:58.031036+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "unrelated URL, not fireworks product",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1628,7 +1687,10 @@
     "identity_check": "exact SKU found in page text (M5047)",
     "captured_at": "2026-06-26T09:28:12.980110+00:00",
     "status": "conflict",
-    "_ledger_index": 121
+    "sentry_at": "2026-06-26T09:47:59.070786+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Neither candidate provides specific effects information for the product.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1707,7 +1769,10 @@
     "identity_check": "exact SKU found in page text (M5047)",
     "captured_at": "2026-06-26T09:28:12.980187+00:00",
     "status": "conflict",
-    "_ledger_index": 127
+    "sentry_at": "2026-06-26T09:47:59.070824+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Neither candidate provides specific effects information for the product.",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -1981,7 +2046,10 @@
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:28:53.275306+00:00",
     "status": "pending",
-    "_ledger_index": 148
+    "sentry_at": "2026-06-26T09:48:00.076372+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "weak name collisions, no exact product information",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2008,7 +2076,10 @@
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:28:53.275320+00:00",
     "status": "pending",
-    "_ledger_index": 150
+    "sentry_at": "2026-06-26T09:48:00.076409+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "weak name collisions, no exact product information",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2087,7 +2158,10 @@
     "identity_check": "exact SKU found in page text (NN2031)",
     "captured_at": "2026-06-26T09:29:02.526881+00:00",
     "status": "conflict",
-    "_ledger_index": 156
+    "sentry_at": "2026-06-26T09:48:01.211314+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Specific effect description including 'purple pearls' and exact SKU match",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2127,7 +2201,10 @@
     "identity_check": "exact SKU found in page text (NN2031)",
     "captured_at": "2026-06-26T09:29:02.526915+00:00",
     "status": "conflict",
-    "_ledger_index": 159
+    "sentry_at": "2026-06-26T09:48:01.211341+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Specific effect description including 'purple pearls' and exact SKU match",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -2167,7 +2244,10 @@
     "identity_check": "exact SKU found in page text (NN2031)",
     "captured_at": "2026-06-26T09:29:02.526942+00:00",
     "status": "conflict",
-    "_ledger_index": 162
+    "sentry_at": "2026-06-26T09:48:01.211346+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Specific effect description including 'purple pearls' and exact SKU match",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2220,7 +2300,10 @@
     "identity_check": "exact SKU found in page text (1003570)",
     "captured_at": "2026-06-26T09:29:14.398957+00:00",
     "status": "pending",
-    "_ledger_index": 166
+    "sentry_at": "2026-06-26T09:48:02.182270+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact match and high confidence from official source",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -2273,7 +2356,7 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (SWC2196)",
     "captured_at": "2026-06-26T09:42:45.505999+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2286,7 +2369,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (SWC2196)",
     "captured_at": "2026-06-26T09:42:45.506021+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:03.066003+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product SKU and field match",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -2299,7 +2386,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (SWC2196)",
     "captured_at": "2026-06-26T09:42:45.506030+00:00",
-    "status": "pending"
+    "status": "verified",
+    "sentry_at": "2026-06-26T09:48:03.964476+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic web page label, not specific product information",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2312,7 +2403,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (SWC2196)",
     "captured_at": "2026-06-26T09:42:45.506039+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -2325,7 +2416,7 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (SWC2196)",
     "captured_at": "2026-06-26T09:42:45.506045+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2338,7 +2429,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (SWC2196)",
     "captured_at": "2026-06-26T09:42:45.506064+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -2377,7 +2468,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777402+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:05.013650+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None match specific effects for BP-A036",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2390,7 +2485,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777433+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:06.051111+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product details and SKU match",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2403,7 +2502,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777441+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:07.019624+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "multiple exact matches with different shot counts",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2416,7 +2519,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777458+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:05.013675+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None match specific effects for BP-A036",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2429,7 +2536,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777473+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:06.051128+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product details and SKU match",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -2442,7 +2553,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777478+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:07.019648+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "multiple exact matches with different shot counts",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2455,7 +2570,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777490+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:05.013681+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "None match specific effects for BP-A036",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2468,7 +2587,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777505+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:06.051132+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product details and SKU match",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2481,7 +2604,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (BP-A036)",
     "captured_at": "2026-06-26T09:42:55.777514+00:00",
-    "status": "pending"
+    "status": "conflict",
+    "sentry_at": "2026-06-26T09:48:06.051136+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "Exact product details and SKU match",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2520,7 +2647,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (MA018)",
     "captured_at": "2026-06-26T09:43:22.564150+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -2533,7 +2660,11 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (MA018)",
     "captured_at": "2026-06-26T09:43:22.564166+00:00",
-    "status": "pending"
+    "status": "verified",
+    "sentry_at": "2026-06-26T09:48:07.906545+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "unrelated product",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2546,7 +2677,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (MA018)",
     "captured_at": "2026-06-26T09:43:22.564193+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -2572,7 +2703,7 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (1015389)",
     "captured_at": "2026-06-26T09:43:38.013517+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2585,7 +2716,11 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (1015389)",
     "captured_at": "2026-06-26T09:43:38.013544+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:08.976142+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "exact SKU and identity check passed",
+    "sentry_status": "approved"
   },
   {
     "product_id": "",
@@ -2598,7 +2733,12 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1015389)",
     "captured_at": "2026-06-26T09:43:38.013554+00:00",
-    "status": "pending"
+    "status": "rejected",
+    "sentry_at": "2026-06-26T09:48:10.020260+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic Effects Holders label applied as effects",
+    "sentry_status": "rejected",
+    "rejected_reason": "generic Effects Holders label applied as effects"
   },
   {
     "product_id": "",
@@ -2611,7 +2751,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1015389)",
     "captured_at": "2026-06-26T09:43:38.013567+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2624,7 +2764,7 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:38.013573+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2637,7 +2777,11 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:38.013577+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:08.976163+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "exact SKU and identity check passed",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2650,7 +2794,11 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:38.013599+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:10.020302+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic Effects Holders label applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2689,7 +2837,11 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:38.013658+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:10.020311+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic Effects Holders label applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2715,7 +2867,11 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:43:38.013681+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:10.020318+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic Effects Holders label applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2741,7 +2897,7 @@
     "confidence": 0.19999999999999998,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:43:38.013701+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2754,7 +2910,11 @@
     "confidence": 0.3,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:43:38.013726+00:00",
-    "status": "pending"
+    "status": "pending",
+    "sentry_at": "2026-06-26T09:48:10.020327+00:00",
+    "sentry_model": "ollama:qwen2.5:14b",
+    "sentry_reason": "generic Effects Holders label applied as effects",
+    "sentry_status": "rejected"
   },
   {
     "product_id": "",
@@ -2806,7 +2966,7 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:54.349773+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2819,7 +2979,7 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:54.349779+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2871,7 +3031,7 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:54.349807+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2884,7 +3044,7 @@
     "confidence": 0.4,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:43:54.349812+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2910,7 +3070,7 @@
     "confidence": 0.19999999999999998,
     "identity_check": "loose name match",
     "captured_at": "2026-06-26T09:43:54.349823+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -2936,7 +3096,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1003506)",
     "captured_at": "2026-06-26T09:44:06.418146+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -3014,7 +3174,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1003505)",
     "captured_at": "2026-06-26T09:44:23.287929+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3027,7 +3187,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1003505)",
     "captured_at": "2026-06-26T09:44:23.287960+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3040,7 +3200,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (1003505)",
     "captured_at": "2026-06-26T09:44:23.287972+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3053,7 +3213,7 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284029+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -3066,7 +3226,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284066+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3079,7 +3239,7 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284074+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -3092,7 +3252,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284095+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3105,7 +3265,7 @@
     "confidence": 0.8,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284101+00:00",
-    "status": "pending"
+    "status": "verified"
   },
   {
     "product_id": "",
@@ -3118,7 +3278,7 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284126+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3144,7 +3304,7 @@
     "confidence": 0.5,
     "identity_check": "name+brand match, SKU not found",
     "captured_at": "2026-06-26T09:44:34.284155+00:00",
-    "status": "pending"
+    "status": "conflict"
   },
   {
     "product_id": "",
@@ -3157,6 +3317,1124 @@
     "confidence": 0.9,
     "identity_check": "exact SKU found in page text (NN2034)",
     "captured_at": "2026-06-26T09:44:34.284161+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "description",
+    "value": "WHOLESALE FIREWORKS | BEST SOURCE FOR AERIAL SHELLS, FOUNTAINS, SPARKLERS",
+    "source": "wholesalefireworks.com (text.description)",
+    "url": "https://wholesalefireworks.com/firework/warriors-wrath/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1004283)",
+    "captured_at": "2026-06-26T09:45:41.846933+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "effects",
+    "value": "Patriotic finale cake designed to please the crowd. Red White, Blue, and Gold colors. Palms, peonies, and wolf whistle effects.",
+    "source": "worldclassfireworks.com (labelled)",
+    "url": "https://www.worldclassfireworks.com/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.846980+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "description",
+    "value": "World Class brand fireworks - America's Favorite. Find a store near you or apply to become a reseller of World Class Fireworks.",
+    "source": "worldclassfireworks.com (meta.description)",
+    "url": "https://www.worldclassfireworks.com/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.846997+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "description",
+    "value": "Summon the might of a warrior with 7 powerful shots of battle-hardened brilliance! This 200g cake commands attention with majestic titanium-golden palms paired with bold red and radiant white palms, creating a display worthy of an empire.",
+    "source": "jakesfireworks.com (meta.description)",
+    "url": "https://www.jakesfireworks.com/firework/warriors-wrath/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1004283)",
+    "captured_at": "2026-06-26T09:45:41.847015+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "shot_count",
+    "value": 7,
+    "source": "orderfireworksonline.com (regex)",
+    "url": "https://orderfireworksonline.com/product/warriors-wrath-2/",
+    "confidence": 0.19999999999999998,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:41.847024+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "effects",
+    "value": "Summon the might of a warrior with 7 powerful shots of battle-hardened brilliance! This 200g cake commands attention with majestic titanium-golden palms paired with bold red and radiant white palms, creating a display worthy of an empire.",
+    "source": "orderfireworksonline.com (jsonld)",
+    "url": "https://orderfireworksonline.com/product/warriors-wrath-2/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:41.847052+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "packing",
+    "value": "30/1",
+    "source": "orderfireworksonline.com (regex)",
+    "url": "https://orderfireworksonline.com/product/warriors-wrath-2/",
+    "confidence": 0.19999999999999998,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:41.847059+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "description",
+    "value": "Summon the might of a warrior with 7 powerful shots of battle-hardened brilliance! This 200g cake commands attention with majestic titanium-golden palms paired with bold red and radiant white palms, creating a display worthy of an empire.",
+    "source": "orderfireworksonline.com (jsonld.description)",
+    "url": "https://orderfireworksonline.com/product/warriors-wrath-2/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:41.847076+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "shot_count",
+    "value": 7,
+    "source": "wickedfireworks.com (regex)",
+    "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-WARRIORS-WRATH-7-SHOTS-200G-AERIAL-REPEATER-3590.aspx",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.847082+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "description",
+    "value": "Artillery Shells - Canister Shells",
+    "source": "wickedfireworks.com (text.description)",
+    "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-WARRIORS-WRATH-7-SHOTS-200G-AERIAL-REPEATER-3590.aspx",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.847090+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "shot_count",
+    "value": 7,
+    "source": "usa-fireworks.com (regex)",
+    "url": "https://usa-fireworks.com/products/new-products/warriors-wrath-7-shot-cake/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.847098+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "duration_seconds",
+    "value": 20,
+    "source": "usa-fireworks.com (regex)",
+    "url": "https://usa-fireworks.com/products/new-products/warriors-wrath-7-shot-cake/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.847103+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "effects",
+    "value": "Summon the might of a warrior with 7 powerful shots of battle-hardened brilliance! This 200g cake commands attention with majestic titanium-golden palms paired with bold red and radiant white palms, creating a display worthy of an empire. Brand: World Class Shots: 7 Grams: 200 Colors: Gold, Silver",
+    "source": "usa-fireworks.com (jsonld)",
+    "url": "https://usa-fireworks.com/products/new-products/warriors-wrath-7-shot-cake/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.847120+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004283",
+    "name": "WARRIOR'S WRATH",
+    "field": "description",
+    "value": "Warriors Wrath is a 7 shot 200 gram cake by World Class fireworks. It's available at Dallas's #1 Fireworks Super Store! Shop for fireworks online, find fireworks near you in Dallas, or in person at our Super Store and retail stands, cheap fireworks and largest selection in North Texas.",
+    "source": "usa-fireworks.com (meta.description)",
+    "url": "https://usa-fireworks.com/products/new-products/warriors-wrath-7-shot-cake/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:41.847137+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "shot_count",
+    "value": 20,
+    "source": "americanwholesalefireworks.com (regex)",
+    "url": "https://americanwholesalefireworks.com/harry-beaver/",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (1003701)",
+    "captured_at": "2026-06-26T09:45:57.274535+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "effects",
+    "value": "Effects Holders",
+    "source": "americanwholesalefireworks.com (labelled)",
+    "url": "https://americanwholesalefireworks.com/harry-beaver/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1003701)",
+    "captured_at": "2026-06-26T09:45:57.274551+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "description",
+    "value": "Harry Beaver (KM1003701) is a 500 Gram Cake from World Class Fireworks.",
+    "source": "americanwholesalefireworks.com (meta.description)",
+    "url": "https://americanwholesalefireworks.com/harry-beaver/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1003701)",
+    "captured_at": "2026-06-26T09:45:57.274561+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "shot_count",
+    "value": 30,
+    "source": "usa-fireworks.com (regex)",
+    "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274565+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "duration_seconds",
+    "value": 25,
+    "source": "usa-fireworks.com (regex)",
+    "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274569+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "effects",
+    "value": "Purple green red plums, red green blue yellow plums, red green yellow silver plums, purple green blue crackling chrysanthemum. Brand: World Class Shots: 30 Grams: 500 Colors: Blue, Green, Purple, Red, Silver Contains Finale: No Duration: 25 Seconds Firing Pattern: Angled Volume Level: Loud Size: 10\"",
+    "source": "usa-fireworks.com (jsonld)",
+    "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274584+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "description",
+    "value": "Harry Beaver is a 30 Shot 500 Gram Cake by World Class fireworks. It's available at Dallas's #1 Fireworks Super Store! Shop for fireworks online, find fireworks near you in Dallas, or in person at our Super Store and retail stands, cheap fireworks and largest selection in North Texas.",
+    "source": "usa-fireworks.com (meta.description)",
+    "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274600+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "duration_seconds",
+    "value": 25,
+    "source": "beta2024.usa-fireworks.com (regex)",
+    "url": "https://beta2024.usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274604+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "effects",
+    "value": "Purple green red plums, red green blue yellow plums, red green yellow silver plums, purple green blue crackling chrysanthemum. Brand: World Class Shots: 30 Grams: 500 Colors: Blue, Green, Purple, Red, Silver Contains Finale: No Duration: 25 Seconds Firing Pattern: Angled Volume Level: Loud Size: 10\"",
+    "source": "beta2024.usa-fireworks.com (jsonld)",
+    "url": "https://beta2024.usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274618+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "description",
+    "value": "Harry Beaver is a 30 Shot 500 Gram Cake by World Class fireworks. It's available at Dallas's #1 Fireworks Super Store! Shop for fireworks online, find fireworks near you in Dallas, or in person at our Super Store and retail stands, cheap fireworks and largest selection in North Texas.",
+    "source": "beta2024.usa-fireworks.com (meta.description)",
+    "url": "https://beta2024.usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/harry-beaver/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274635+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "shot_count",
+    "value": 30,
+    "source": "orderfireworksonline.com (regex)",
+    "url": "https://orderfireworksonline.com/product/harry-beaver/",
+    "confidence": 0.19999999999999998,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:57.274638+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "effects",
+    "value": "30 shot Purple green red plums, red green blue yellow plums, red green yellow silver plums, purple green blue crackling chrysanthemum.",
+    "source": "orderfireworksonline.com (jsonld)",
+    "url": "https://orderfireworksonline.com/product/harry-beaver/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:57.274648+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "packing",
+    "value": "4/1",
+    "source": "orderfireworksonline.com (regex)",
+    "url": "https://orderfireworksonline.com/product/harry-beaver/",
+    "confidence": 0.19999999999999998,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:57.274652+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "description",
+    "value": "30 shot Purple green red plums, red green blue yellow plums, red green yellow silver plums, purple green blue crackling chrysanthemum.",
+    "source": "orderfireworksonline.com (jsonld.description)",
+    "url": "https://orderfireworksonline.com/product/harry-beaver/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:45:57.274661+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1003701",
+    "name": "HARRY BEAVER",
+    "field": "description",
+    "value": "Better Fireworks at Lower Prices",
+    "source": "lawrenceburgfireworks.com (text.description)",
+    "url": "https://lawrenceburgfireworks.com/product/happy-harry-beaver/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:45:57.274666+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004327",
+    "name": "SUNFLOWER DELIGHT",
+    "field": "description",
+    "value": "Titanium golden willow with Ti-golden palm cross. Ti-golden palm with silver sunflower ending.",
+    "source": "jakesfireworks.com (meta.description)",
+    "url": "https://www.jakesfireworks.com/firework/sunflower-delight/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1004327)",
+    "captured_at": "2026-06-26T09:46:12.501892+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004327",
+    "name": "SUNFLOWER DELIGHT",
+    "field": "description",
+    "value": "Parts list and parts diagram for a BH7500 Backhoe Backhoe Attachment: Sub-Frame Mounting Kit 1004327 (Kioti) Assembly",
+    "source": "store.germanbliss.com (meta.description)",
+    "url": "https://store.germanbliss.com/woods-bh7500-backhoe-105",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:46:12.501945+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004327",
+    "name": "SUNFLOWER DELIGHT",
+    "field": "description",
+    "value": "1004327 | ManualLib - Manual Library",
+    "source": "manuallib.com (text.description)",
+    "url": "https://www.manuallib.com/file/2791766/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:46:12.501968+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004327",
+    "name": "SUNFLOWER DELIGHT",
+    "field": "description",
+    "value": "buy 1004327,Adjusting Disc, valve clearance 1004327,find manufacturers and suppliers of 1004327,Adjusting Disc, valve clearance 1004327 for FORD",
+    "source": "niparts.com (meta.description)",
+    "url": "https://www.niparts.com/s_68EE4F/1004327.html",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:46:12.501982+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "shot_count",
+    "value": 16,
+    "source": "fireworksplus.com (regex)",
+    "url": "https://fireworksplus.com/blaze-it",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333271+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "effects",
+    "value": "As the fuse is ignited, \"Blaze It\" kicks off with an explosive burst of color. The sky is filled with 16 shots of vibrant red accompanied by dazzling white strobe effects, creating a breathtaking visual spectacle that captivates the audience.",
+    "source": "fireworksplus.com (labelled)",
+    "url": "https://fireworksplus.com/blaze-it",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333322+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "description",
+    "value": "Introducing \"Blaze It\" from Pyro High Fireworks, Product ID PH2109. This exhilarating firework, packed in a case of 24, promises a mesmerizing display of lights and crackles that will leave spectators in awe. As the fuse is ignited, \"Blaze It\" kicks off with an explosive burst of color. The sky is filled with 16 shots of vibrant red accompanied by dazzling white strobe effects, creating a breathtaking visual spectacle that captivates the audience. But the excitement doesn't stop there. \"Blaze It\" transitions seamlessly to an equally stunning sequence of red with green strobe effects, adding another dimension to the dazzling display. As each shot lights up the night sky, spectators are treated to a mesmerizing show of color and light. As the finale approaches, \"Blaze It\" goes out with a bang, unleashing a triple crackle finale that fills the air with an electrifying burst of sound and light. It's the perfect conclusion to a thrilling fireworks display that will leave a lasting impressio",
+    "source": "fireworksplus.com (meta.description)",
+    "url": "https://fireworksplus.com/blaze-it",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333380+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "shot_count",
+    "value": 16,
+    "source": "rkmfireworks.net (regex)",
+    "url": "https://rkmfireworks.net/blaze-it-1-1/",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333387+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "duration_seconds",
+    "value": 20,
+    "source": "rkmfireworks.net (regex)",
+    "url": "https://rkmfireworks.net/blaze-it-1-1/",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333392+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "effects",
+    "value": "Blaze It 1/1 Class: 1.4G Consumer Product ID: PH2109 Shot Count: 16 shots Estimated Duration: 20 seconds Light up the night sky with 16 vibrant shots of color and strobe effects, culminating in a spectacular whistle and crackling finale.",
+    "source": "rkmfireworks.net (jsonld)",
+    "url": "https://rkmfireworks.net/blaze-it-1-1/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333410+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "packing",
+    "value": "24/1",
+    "source": "rkmfireworks.net (regex)",
+    "url": "https://rkmfireworks.net/blaze-it-1-1/",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333415+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "description",
+    "value": "Welcome to RKM Fireworks!",
+    "source": "rkmfireworks.net (text.description)",
+    "url": "https://rkmfireworks.net/blaze-it-1-1/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333420+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "description",
+    "value": "Blaze It is a multi-shot aerial firework with blazing orange, red, and gold bursts and intense crackling effects. A fiery, high-energy fireworks show.",
+    "source": "johnnyrocketsfireworks.com (meta.description)",
+    "url": "https://johnnyrocketsfireworks.com/collections/200-gram-repeaters/products/blaze-it",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:28.333431+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "shot_count",
+    "value": 24,
+    "source": "elevatedfireworks.com (regex)",
+    "url": "https://elevatedfireworks.com/products/quad",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333436+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "effects",
+    "value": "Changing Chroma® 24 Shot 5 Inch XL® Canister Shells",
+    "source": "elevatedfireworks.com (labelled)",
+    "url": "https://elevatedfireworks.com/products/quad",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333443+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "description",
+    "value": "Light up the night sky with 16 vibrant shots of color and strobe effects, culminating in a spectacular whistle and crackling finale.",
+    "source": "elevatedfireworks.com (meta.description)",
+    "url": "https://elevatedfireworks.com/products/quad",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (PH2109)",
+    "captured_at": "2026-06-26T09:46:28.333452+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "shot_count",
+    "value": 16,
+    "source": "greatgrizzly.com (regex)",
+    "url": "https://www.greatgrizzly.com/product-details/blaze-it-16-shot/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:28.333456+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "PH2109",
+    "name": "Blaze It",
+    "field": "description",
+    "value": "North Central Industries, Inc., located in Muncie, Indiana, has been an importer and wholesaler of 1.4G Consumer Fireworks since 1955. We carry over 650 different items and operate out of three warehouse facilities with a combined square footage of over 200,000 square feet!",
+    "source": "greatgrizzly.com (meta.description)",
+    "url": "https://www.greatgrizzly.com/product-details/blaze-it-16-shot/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:28.333470+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "shot_count",
+    "value": 8,
+    "source": "jbfireworks.com (regex)",
+    "url": "https://jbfireworks.com/search/shopby/sales-per-case-8/?___store=jbfireworks_store_view&case_packing=582&q=the-moon-by-black-cat-fireworks-and-2*3*8=6*8-and-chde-=-chde-and-2*3*8=6*8-and-8i0f-!=-8i0f-",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:40.355331+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "description",
+    "value": "Search results for: 'the-moon-by-black-cat-fireworks-and-2*3*8=6*8-and-chde-=-chde-and-2*3*8=6*8-and-8i0f-!=-8i0f-'",
+    "source": "jbfireworks.com (text.description)",
+    "url": "https://jbfireworks.com/search/shopby/sales-per-case-8/?___store=jbfireworks_store_view&case_packing=582&q=the-moon-by-black-cat-fireworks-and-2*3*8=6*8-and-chde-=-chde-and-2*3*8=6*8-and-8i0f-!=-8i0f-",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:40.355391+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "shot_count",
+    "value": 16,
+    "source": "nonamefireworks.com (regex)",
+    "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (NN5018)",
+    "captured_at": "2026-06-26T09:46:40.355401+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "duration_seconds",
+    "value": 35,
+    "source": "nonamefireworks.com (regex)",
+    "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (NN5018)",
+    "captured_at": "2026-06-26T09:46:40.355411+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "effects",
+    "value": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+    "source": "nonamefireworks.com (jsonld)",
+    "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (NN5018)",
+    "captured_at": "2026-06-26T09:46:40.355452+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "description",
+    "value": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+    "source": "nonamefireworks.com (jsonld.description)",
+    "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (NN5018)",
+    "captured_at": "2026-06-26T09:46:40.355472+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "shot_count",
+    "value": 9,
+    "source": "krazykaplans.net (regex)",
+    "url": "https://krazykaplans.net/",
+    "confidence": 0.4,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:40.355482+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "description",
+    "value": "Krazy Kaplans Fireworks is Northwest Indiana's premier outlet for consumer fireworks. Stop in at one of our five convenient store locations.",
+    "source": "krazykaplans.net (meta.description)",
+    "url": "https://krazykaplans.net/",
+    "confidence": 0.5,
+    "identity_check": "name+brand match, SKU not found",
+    "captured_at": "2026-06-26T09:46:40.355500+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "NN5018",
+    "name": "Eye See You",
+    "field": "description",
+    "value": "If you're looking for all the fireworks displays in Indiana in your county (or a neighboring county) this is the page! Counties are sorted alphabetically; all the displays will be sorted by date and city.",
+    "source": "fireworksinindiana.com (meta.description)",
+    "url": "https://fireworksinindiana.com/by-county/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:46:40.355522+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "shot_count",
+    "value": 24,
+    "source": "libertyfireworks.us (regex)",
+    "url": "https://www.libertyfireworks.us/products/last-man-standing",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699174+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "description",
+    "value": "24 Shots - Item No. BP2877",
+    "source": "libertyfireworks.us (meta.description)",
+    "url": "https://www.libertyfireworks.us/products/last-man-standing",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699195+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "shot_count",
+    "value": 24,
+    "source": "brotherspyrotechnics.com (regex)",
+    "url": "https://www.brotherspyrotechnics.com/ProductDetails/649",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699200+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "effects",
+    "value": "Effect Colors",
+    "source": "brotherspyrotechnics.com (labelled)",
+    "url": "https://www.brotherspyrotechnics.com/ProductDetails/649",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699206+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "description",
+    "value": "Brothers Pyrotechnics, Inc.",
+    "source": "brotherspyrotechnics.com (text.description)",
+    "url": "https://www.brotherspyrotechnics.com/ProductDetails/649",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699213+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "shot_count",
+    "value": 24,
+    "source": "wickedfireworks.com (regex)",
+    "url": "https://www.wickedfireworks.com/product/BROTHERS-LAST-MAN-STANDING-24-SHOTS-500G-AERIAL-REPEATER-3597.aspx",
+    "confidence": 0.19999999999999998,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:46:49.699217+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "description",
+    "value": "Artillery Shells - Canister Shells",
+    "source": "wickedfireworks.com (text.description)",
+    "url": "https://www.wickedfireworks.com/product/BROTHERS-LAST-MAN-STANDING-24-SHOTS-500G-AERIAL-REPEATER-3597.aspx",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:46:49.699222+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "shot_count",
+    "value": 24,
+    "source": "herbiesfireworks.com (regex)",
+    "url": "https://herbiesfireworks.com/product/last-man-standing/",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699225+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "packing",
+    "value": "4/1",
+    "source": "herbiesfireworks.com (regex)",
+    "url": "https://herbiesfireworks.com/product/last-man-standing/",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699229+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "BP2877",
+    "name": "Last Man Standing",
+    "field": "description",
+    "value": "1406 Cherokee Falls Road, Blacksburg, SC 29702",
+    "source": "herbiesfireworks.com (text.description)",
+    "url": "https://herbiesfireworks.com/product/last-man-standing/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (BP2877)",
+    "captured_at": "2026-06-26T09:46:49.699234+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "SW10163T",
+    "name": "Clowning Around",
+    "field": "description",
+    "value": "Sunwing Fireworks – Fireworks Factory",
+    "source": "sunwingfireworks.com (text.description)",
+    "url": "https://www.sunwingfireworks.com/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:03.672985+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SW10163T",
+    "name": "Clowning Around",
+    "field": "description",
+    "value": "Please wait a moment.",
+    "source": "907584.workflowjunction.co (text.description)",
+    "url": "https://907584.workflowjunction.co/?mlk=vVVbm9pvCM08IJhM9fic%2BrJa0RrmHXVCM5LdZe%2FJxsi2QakJHzakKCjTsaZEWPCROQ%2FCMAMH2%2BXfayPa9QmcjkSvW0FobwH7hNfjZu72v6PE%2FZluEkUl11%2BBuEg97P6ggUwosIMfmyg7yoNwMD%2BXOcv%2Fic6tNyemvfSaenRdcM%2FuZIHzkWWXq6BsmP%2FSwYC2Qz6nsqVQ1dUVf%2FU%2BLzlqo2LM%2FvtbnN68FYcwMm0tdn13ecdj0MyDBUIlAxmncab%2B5CvCOlH3225kw8DpSOch4BM2jPeoHgxt1F2SQBtY4YQWNSb0cg%2FsIl%2FM9OlJGet5ATjC%2Bfhd%2FevEHSYZ%2B6qAZsZ0M6KvFYb7Czrw639VAo7jeUXlkNVf76z0cYCy6Cqkj8YQXQnwLVXlE3vFnV1L3dw0XaXx7ISB%2BhjcApcD%2F%2BZswbQ%2F4VHxwBgjSSJQ38QjWQpEBuGH3xqawV%2BytlDzXZGTWxJwBAOjLJQHKwAVGULSzT%2BFL%2BsbUWf0Ky1gXrClamw7jfy765vGUNp8YLscKcHFowb%2BNao5e03d%2FxqfGJ4RLgWR4t%2FP6e7A7bLbTA3P0X0TF%2FgRyPR01arh9rBSCXiJoRozh7S38bEG0tHDP91%2BAThidYhEl6vnGfwmrCNOn9C5cEcEmihKVgqiXOTIoPNGjww6P4m03IQL4AkI74%2F5cHS9RCgehCbzWqaSdmGP3NpmSGaVkYQ2mF%2FKyko62RtmRuOpkv6PVDjGmjzQCk8A9CIcr%2FcjwWzAzt6TD5%2Fdk%2Fk%2F4ifvnjZz6Wl32SDjFLqj0ga96P%2F1FZ0%3D",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:03.673005+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SW10163T",
+    "name": "Clowning Around",
+    "field": "shot_count",
+    "value": 9,
+    "source": "kellfire.com (regex)",
+    "url": "https://www.kellfire.com/fireworks-for-all/aerials/500-gram-big-multi-shot-aerials/9-shot-clowning-around-main-attraction",
+    "confidence": 0.19999999999999998,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:03.673018+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SW10163T",
+    "name": "Clowning Around",
+    "field": "description",
+    "value": "9 Shot Clowning Around Multi-shot Aerial Fireworks For Sale | Kellner's Fireworks | Harrisville, PA",
+    "source": "kellfire.com (meta.description)",
+    "url": "https://www.kellfire.com/fireworks-for-all/aerials/500-gram-big-multi-shot-aerials/9-shot-clowning-around-main-attraction",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:03.673027+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004083",
+    "name": "PURE VENOM",
+    "field": "description",
+    "value": "60g Canister Artillery Kit Featuring 24 unique 6\" shells per kit. Maximum charge artillery breaks cover the sky with BOOM and COLOR!",
+    "source": "jakesfireworks.com (meta.description)",
+    "url": "https://www.jakesfireworks.com/firework/pure-venom/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1004083)",
+    "captured_at": "2026-06-26T09:47:16.655553+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004083",
+    "name": "PURE VENOM",
+    "field": "description",
+    "value": "60g Canister Artillery Kit Featuring 24 unique 6″ shells per kit. Maximum charge artillery breaks cover the sky with BOOM and COLOR!",
+    "source": "biggsfireworks.com (text.description)",
+    "url": "https://biggsfireworks.com/pure-venom/",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (1004083)",
+    "captured_at": "2026-06-26T09:47:16.655579+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "1004083",
+    "name": "PURE VENOM",
+    "field": "description",
+    "value": "1004083 | United CoolAir",
+    "source": "unitedcoolair.com (text.description)",
+    "url": "https://www.unitedcoolair.com/serial-numbers/1004083/",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:16.655586+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "shot_count",
+    "value": 75,
+    "source": "snapfireworks.com (regex)",
+    "url": "https://snapfireworks.com/fireworks-for-sale/finale-sets.html",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (SWC2635)",
+    "captured_at": "2026-06-26T09:47:28.913024+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "description",
+    "value": "Finale Sets - Fireworks For Sale",
+    "source": "snapfireworks.com (text.description)",
+    "url": "https://snapfireworks.com/fireworks-for-sale/finale-sets.html",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (SWC2635)",
+    "captured_at": "2026-06-26T09:47:28.913060+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "shot_count",
+    "value": 75,
+    "source": "jbfireworks.com (regex)",
+    "url": "https://jbfireworks.com/fireworks-for-sale/finale-sets.html",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (SWC2635)",
+    "captured_at": "2026-06-26T09:47:28.913068+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "description",
+    "value": "Finale Sets - Buy Fireworks",
+    "source": "jbfireworks.com (text.description)",
+    "url": "https://jbfireworks.com/fireworks-for-sale/finale-sets.html",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (SWC2635)",
+    "captured_at": "2026-06-26T09:47:28.913077+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "shot_count",
+    "value": 75,
+    "source": "gotfireworks.com (regex)",
+    "url": "https://gotfireworks.com/fireworks-for-sale/finale-sets.html",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (SWC2635)",
+    "captured_at": "2026-06-26T09:47:28.913083+00:00",
+    "status": "verified"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "description",
+    "value": "Finale Sets - Fireworks For Sale",
+    "source": "gotfireworks.com (text.description)",
+    "url": "https://gotfireworks.com/fireworks-for-sale/finale-sets.html",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (SWC2635)",
+    "captured_at": "2026-06-26T09:47:28.913092+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "description",
+    "value": "SPAR & SUPERSPAR - FEB WEEK 1 - Digital Leaflets",
+    "source": "heyzine.com (meta.description)",
+    "url": "https://heyzine.com/flip-book/6d48de6ce9.html",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:28.913101+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2635",
+    "name": "Gold Rush",
+    "field": "description",
+    "value": "Swing chair – Page 2 – Navyice outdoor products",
+    "source": "navyice.com (text.description)",
+    "url": "https://navyice.com/collections/swing-chair?page=2",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:28.913112+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2630",
+    "name": "LET FREEDOM RING",
+    "field": "shot_count",
+    "value": 28,
+    "source": "gotfireworks.com (regex)",
+    "url": "https://gotfireworks.com/fireworks-for-sale/500-gram-cakes-fireworks.html",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (SWC2630)",
+    "captured_at": "2026-06-26T09:47:41.012279+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2630",
+    "name": "LET FREEDOM RING",
+    "field": "description",
+    "value": "The corner stone to most backyard fireworks shows. 500-gram cakes have soared in popularity because they are safe and easy to use. The user simply lights the one…",
+    "source": "gotfireworks.com (meta.description)",
+    "url": "https://gotfireworks.com/fireworks-for-sale/500-gram-cakes-fireworks.html",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (SWC2630)",
+    "captured_at": "2026-06-26T09:47:41.012312+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2630",
+    "name": "LET FREEDOM RING",
+    "field": "shot_count",
+    "value": 20,
+    "source": "jbfireworks.com (regex)",
+    "url": "https://jbfireworks.com/search/shopby/category-buy-fireworks-500-gram-aerials/?___store=jbfireworks_store_view&case_packing=563&p=10&q=2-00-gram-fountain-fireworks-city-depth-discounts-social",
+    "confidence": 0.8,
+    "identity_check": "exact SKU found in page text (SWC2630)",
+    "captured_at": "2026-06-26T09:47:41.012319+00:00",
+    "status": "pending"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2630",
+    "name": "LET FREEDOM RING",
+    "field": "description",
+    "value": "Search results for: '2-00-gram-fountain-fireworks-city-depth-discounts-social' | Page 10 of 14",
+    "source": "jbfireworks.com (text.description)",
+    "url": "https://jbfireworks.com/search/shopby/category-buy-fireworks-500-gram-aerials/?___store=jbfireworks_store_view&case_packing=563&p=10&q=2-00-gram-fountain-fireworks-city-depth-discounts-social",
+    "confidence": 0.9,
+    "identity_check": "exact SKU found in page text (SWC2630)",
+    "captured_at": "2026-06-26T09:47:41.012329+00:00",
+    "status": "conflict"
+  },
+  {
+    "product_id": "",
+    "item_number": "SWC2630",
+    "name": "LET FREEDOM RING",
+    "field": "description",
+    "value": "Swing chair – Page 2 – Navyice outdoor products",
+    "source": "navyice.com (text.description)",
+    "url": "https://navyice.com/collections/swing-chair?page=2",
+    "confidence": 0.3,
+    "identity_check": "loose name match",
+    "captured_at": "2026-06-26T09:47:41.012338+00:00",
     "status": "pending"
   }
 ]

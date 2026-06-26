@@ -101,6 +101,22 @@ PACKING_RE = re.compile(r"\b(\d{1,3})\s*/\s*(\d{1,3})\b")
 LABEL_SPLIT_RE = re.compile(r"\s*[:\-]\s*")
 WORD_RE = re.compile(r"[A-Za-z0-9]+")
 PARAGRAPH_WORD_LIMIT = 12
+EFFECT_SIGNAL_RE = re.compile(
+    r"\b("
+    r"brocade|chrysanthemum|chrys\.?|crackle|crackling|dahlia|glitter|strobe|willow|"
+    r"pearl|pearls|palm|peony|comet|tail|tails|mine|mines|bouquet|wave|spinner|"
+    r"whistle|whistles|report|reports|titanium|dragon|crossette|horsetail|fish|"
+    r"red|green|blue|purple|yellow|gold|silver|white|orange|lemon"
+    r")\b",
+    re.IGNORECASE,
+)
+EFFECT_JUNK_RE = re.compile(
+    r"\b("
+    r"effects?\s+holders?|holder|add to cart|quick fuse|privacy|shipping|loyalty|"
+    r"contains a bundle|ultimate .* experience|facebook|iframe|plugin"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 def now_utc() -> datetime:
@@ -601,10 +617,16 @@ def clean_effects(value: Any) -> str | None:
         return None
     if text.lower() in {"effect", "effects", "color", "colors", "performance"}:
         return None
+    if EFFECT_JUNK_RE.search(text):
+        return None
     if len(text) > 300:
         text = text[:300].rstrip(" ,;")
     words = text.split()
     if len(words) > PARAGRAPH_WORD_LIMIT and "," not in text:
+        return None
+    if not EFFECT_SIGNAL_RE.search(text):
+        return None
+    if len(words) > 28 and text.count(",") < 2:
         return None
     return text
 

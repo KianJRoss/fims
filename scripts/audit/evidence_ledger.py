@@ -96,7 +96,7 @@ def add_records(new: list[dict[str, Any]]) -> int:
     return added
 
 
-def verify(ledger: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def verify(ledger: list[dict[str, Any]], *, save: bool = True) -> list[dict[str, Any]]:
     """Recompute per-candidate status.
 
     verified  : value agreed by >=2 distinct sources, OR one source with
@@ -142,7 +142,8 @@ def verify(ledger: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 r["status"] = "conflict" if others_trusted else "verified"
             else:
                 r["status"] = "pending"
-    save_ledger(ledger)
+    if save:
+        save_ledger(ledger)
     return ledger
 
 

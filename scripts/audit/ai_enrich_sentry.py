@@ -15,6 +15,7 @@ import os
 import re
 import subprocess
 import time
+import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,14 +23,22 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+import psycopg
+
+from evidence_ledger import DSN
 from evidence_ledger import apply as apply_ledger
 from evidence_ledger import db_field_empty, fetch_db_state, load_ledger, save_ledger, verify
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 
 AUDIT_DIR = Path(__file__).resolve().parent
 SENTRY_LOG_PATH = AUDIT_DIR / "ai_enrich_sentry_log.jsonl"
 DEFAULT_OLLAMA_HOST = "http://100.99.89.118:11434"
 DEFAULT_MODEL = os.getenv("AI_SENTRY_MODEL", "qwen2.5:14b")
+DEFAULT_MEDIA_ROOT = REPO_ROOT / "media"
 
 FIELD_VALUE_LIMITS = {
     "effects": 500,
@@ -47,6 +56,24 @@ BAD_VALUE_PATTERNS = [
     re.compile(r"^colors?$", re.I),
     re.compile(r"^performance$", re.I),
 ]
+
+EFFECT_SIGNAL_RE = re.compile(
+    r"\b("
+    r"brocade|chrysanthemum|chrys\.?|crackle|crackling|dahlia|glitter|strobe|willow|"
+    r"pearl|pearls|palm|peony|comet|tail|tails|mine|mines|bouquet|wave|spinner|"
+    r"whistle|whistles|report|reports|titanium|dragon|crossette|horsetail|fish|"
+    r"red|green|blue|purple|yellow|gold|silver|white|orange|lemon"
+    r")\b",
+    re.I,
+)
+
+EFFECT_JUNK_RE = re.compile(
+    r"\b("
+    r"effects?\s+holders?|holder|add to cart|quick fuse|privacy|shipping|loyalty|"
+    r"contains a bundle|ultimate .* experience|facebook|iframe|plugin"
+    r")\b",
+    re.I,
+)
 
 
 def now_iso() -> str:
@@ -84,6 +111,14 @@ def value_is_structurally_bad(field: str, value: Any) -> str | None:
         for pattern in BAD_VALUE_PATTERNS:
             if pattern.search(text):
                 return "junk/html/placeholder text"
+    if field == "effects":
+        if EFFECT_JUNK_RE.search(text):
+            return "generic/marketing text, not product effects"
+        if not EFFECT_SIGNAL_RE.search(text):
+            return "no recognizable fireworks effect/color terms"
+        words = re.findall(r"[A-Za-z0-9]+", text)
+        if len(words) > 28 and text.count(",") < 2:
+            return "description-like prose, not effects list"
     return None
 
 
@@ -102,8 +137,7 @@ def candidate_groups(ledger: list[dict[str, Any]], limit: int | None) -> list[di
         cur = db.get(item)
         if not cur or not db_field_empty(cur.get(field)):
             continue
-        rec["_ledger_index"] = index
-        grouped[(item, field)].append(rec)
+        grouped[(item, field)].append({**rec, "_ledger_index": index})
 
     out: list[dict[str, Any]] = []
     for (item, field), records in grouped.items():
@@ -132,6 +166,68 @@ def candidate_groups(ledger: list[dict[str, Any]], limit: int | None) -> list[di
             }
         )
     return out[:limit] if limit else out
+
+
+def fetch_product_context(item_numbers: set[str]) -> dict[str, dict[str, Any]]:
+    if not item_numbers:
+        return {}
+    with psycopg.connect(DSN) as conn:
+        conn.read_only = True
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT
+                    p.item_number::text,
+                    p.name,
+                    COALESCE(b.name, '') AS brand_name,
+                    COALESCE(c.name, '') AS category_name,
+                    p.image_path
+                FROM products p
+                LEFT JOIN product_brands b ON b.id = p.brand_id
+                LEFT JOIN product_categories c ON c.id = p.category_id
+                WHERE p.item_number = ANY(%s)
+                """,
+                (list(item_numbers),),
+            )
+            return {
+                str(row[0]): {
+                    "name": row[1],
+                    "brand_name": row[2],
+                    "category_name": row[3],
+                    "image_path": row[4],
+                }
+                for row in cur.fetchall()
+            }
+
+
+def add_context(groups: list[dict[str, Any]], args: argparse.Namespace) -> None:
+    context = fetch_product_context({group["item_number"] for group in groups})
+    for group in groups:
+        group["db_context"] = context.get(group["item_number"], {})
+        if args.vision:
+            group["vision_context"] = analyze_product_image(group["db_context"], args)
+
+
+def analyze_product_image(db_context: dict[str, Any], args: argparse.Namespace) -> dict[str, Any] | None:
+    image_path = db_context.get("image_path")
+    if not image_path:
+        return None
+    full_path = Path(args.media_root) / str(image_path)
+    if not full_path.is_file() or full_path.stat().st_size <= 0:
+        return {"error": "image missing", "image_path": str(image_path)}
+    try:
+        from scripts.vision.pipeline import analyze_image
+
+        analysis = analyze_image(full_path, steps=tuple(args.vision_steps.split(",")))
+    except Exception as exc:  # noqa: BLE001 - sentry context should not abort review
+        return {"error": str(exc), "image_path": str(image_path)}
+    return {
+        "image_path": str(image_path),
+        "ocr_text": " | ".join(analysis.texts)[:600],
+        "codes": analysis.codes[:10],
+        "vlm": analysis.vlm,
+        "errors": analysis.meta.get("errors", {}),
+    }
 
 
 def ollama_json(prompt: str, model: str, host: str) -> dict[str, Any]:
@@ -179,8 +275,11 @@ def prompt_for_group(group: dict[str, Any]) -> str:
         "product": {
             "item_number": group["item_number"],
             "name": group["name"],
+            "brand": group.get("db_context", {}).get("brand_name", ""),
+            "category": group.get("db_context", {}).get("category_name", ""),
         },
         "field": group["field"],
+        "vision_context": group.get("vision_context"),
         "candidates": [
             {
                 "index": i,
@@ -199,6 +298,10 @@ def prompt_for_group(group: dict[str, Any]) -> str:
         "Approve exactly one candidate only if it is clearly information about the exact product. "
         "Reject HTML snippets, generic web page text, social embeds, placeholder labels, unrelated part numbers, "
         "weak name collisions, and anything not specific to this consumer fireworks item. "
+        "For field=effects, approve only actual visual/audio effect content such as colors, mines, tails, "
+        "willows, strobes, brocades, crackle, palms, peonies, comets, reports, whistles, etc. "
+        "Reject marketing descriptions, fuse/package descriptions, and generic labels like Effects Holders. "
+        "Use vision_context only as supporting identity evidence; do not invent missing facts from it. "
         "If unsure, approve false. Return JSON only with keys: "
         "approved (boolean), candidate_index (integer or null), reason (short string).\n\n"
         + json.dumps(payload, ensure_ascii=False, indent=2)
@@ -231,12 +334,34 @@ def decide(group: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     raise ValueError(f"unsupported backend: {args.backend}")
 
 
-def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision: dict[str, Any], model_label: str) -> None:
+def normalize_decision(group: dict[str, Any], decision: dict[str, Any]) -> dict[str, Any]:
     approved = bool(decision.get("approved"))
     try:
         chosen = int(decision.get("candidate_index"))
     except (TypeError, ValueError):
         chosen = None
+    reason = norm_text(decision.get("reason"), 300)
+    if approved and (chosen is None or chosen < 0 or chosen >= len(group["candidates"])):
+        approved = False
+        reason = "model approved without a valid candidate index"
+    if approved:
+        chosen_candidate = group["candidates"][chosen]
+        if chosen_candidate["quick_reject_reason"]:
+            approved = False
+            reason = f"chosen candidate failed deterministic check: {chosen_candidate['quick_reject_reason']}"
+        elif chosen_candidate.get("status") != "verified":
+            approved = False
+            reason = "chosen candidate is not ledger-verified yet"
+        elif not re.search(r"\b(exact SKU|barcode)\b", str(chosen_candidate.get("identity_check", "")), re.I):
+            approved = False
+            reason = "chosen candidate lacks exact SKU/barcode identity"
+    return {"approved": approved, "candidate_index": chosen if approved else None, "reason": reason}
+
+
+def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision: dict[str, Any], model_label: str) -> None:
+    decision = normalize_decision(group, decision)
+    approved = bool(decision.get("approved"))
+    chosen = decision.get("candidate_index")
     reason = norm_text(decision.get("reason"), 300)
     for index, candidate in enumerate(group["candidates"]):
         rec = ledger[candidate["ledger_index"]]
@@ -253,8 +378,9 @@ def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision
 
 
 def run_once(args: argparse.Namespace) -> int:
-    ledger = verify(load_ledger())
+    ledger = verify(load_ledger(), save=not args.preview)
     groups = candidate_groups(ledger, args.limit)
+    add_context(groups, args)
     model_label = args.backend if args.backend != "ollama" else f"ollama:{args.model}"
     reviewed = 0
     approved = 0
@@ -263,28 +389,32 @@ def run_once(args: argparse.Namespace) -> int:
             decision = decide(group, args)
         except (HTTPError, URLError, TimeoutError, OSError, RuntimeError, ValueError, json.JSONDecodeError) as exc:
             decision = {"approved": False, "candidate_index": None, "reason": f"sentry error: {exc}"}
-        apply_decision(ledger, group, decision, model_label)
+        decision = normalize_decision(group, decision)
+        if not args.preview:
+            apply_decision(ledger, group, decision, model_label)
         reviewed += 1
         if decision.get("approved"):
             approved += 1
-        append_jsonl(
-            SENTRY_LOG_PATH,
-            {
-                "reviewed_at": now_iso(),
-                "product": {"item_number": group["item_number"], "name": group["name"]},
-                "field": group["field"],
-                "backend": args.backend,
-                "model": args.model if args.backend == "ollama" else args.backend,
-                "decision": decision,
-            },
-        )
+        if not args.preview:
+            append_jsonl(
+                SENTRY_LOG_PATH,
+                {
+                    "reviewed_at": now_iso(),
+                    "product": {"item_number": group["item_number"], "name": group["name"]},
+                    "field": group["field"],
+                    "backend": args.backend,
+                    "model": args.model if args.backend == "ollama" else args.backend,
+                    "decision": decision,
+                },
+            )
         print(
             f"SENTRY {group['item_number']} {group['field']}: "
             f"{'APPROVE' if decision.get('approved') else 'reject'} - {norm_text(decision.get('reason'), 120)}"
         )
         time.sleep(max(0.0, args.sleep))
-    save_ledger(ledger)
-    if args.apply:
+    if not args.preview:
+        save_ledger(ledger)
+    if args.apply and not args.preview:
         apply_ledger(verify(load_ledger()))
     print(f"reviewed={reviewed} approved={approved}")
     return reviewed
@@ -297,7 +427,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--sleep", type=float, default=0.0)
+    parser.add_argument("--vision", action="store_true", help="include local OCR/barcode/VLM product image context")
+    parser.add_argument("--vision-steps", default="ocr,codes,vlm")
+    parser.add_argument("--media-root", default=str(DEFAULT_MEDIA_ROOT))
     parser.add_argument("--apply", action="store_true", help="apply AI-approved verified facts after review")
+    parser.add_argument("--preview", action="store_true", help="print decisions without changing ledger or DB")
     parser.add_argument("--watch", action="store_true", help="keep reviewing new evidence until stopped")
     parser.add_argument("--watch-sleep", type=float, default=120.0)
     return parser.parse_args()

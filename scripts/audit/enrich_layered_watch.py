@@ -36,6 +36,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--backend", choices=("ollama", "claude-cli", "dry-run"), default="ollama")
     parser.add_argument("--model", default=None)
     parser.add_argument("--ollama-host", default=None)
+    parser.add_argument("--vision", action="store_true")
+    parser.add_argument("--vision-steps", default="ocr,codes,vlm")
     parser.add_argument("--sleep", type=float, default=180.0)
     parser.add_argument("--once", action="store_true")
     return parser.parse_args()
@@ -67,6 +69,9 @@ def main() -> int:
             sentry_cmd.extend(["--model", args.model])
         if args.ollama_host:
             sentry_cmd.extend(["--ollama-host", args.ollama_host])
+        if args.vision:
+            sentry_cmd.append("--vision")
+            sentry_cmd.extend(["--vision-steps", args.vision_steps])
         sentry_rc = run_step(sentry_cmd)
 
         if scrape_rc != 0 or sentry_rc != 0:
