@@ -33,6 +33,7 @@ DSN = "postgresql://fims:fims@100.73.208.99:5432/fims"
 AUDIT_DIR = Path(__file__).resolve().parent
 LEDGER_PATH = AUDIT_DIR / "evidence_ledger.json"
 APPLY_BACKUP_PATH = AUDIT_DIR / "evidence_ledger_apply_backup.json"
+APPLY_LOG_PATH = AUDIT_DIR / "evidence_ledger_apply_log.jsonl"
 
 # Fields the ledger is allowed to fill (never name/brand/item_number/image_path).
 FILLABLE = {"shot_count", "duration_seconds", "effects", "packing", "category_id", "description"}
@@ -102,12 +103,12 @@ def verify(ledger: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 confidence>=TRUST_THRESHOLD AND a non-empty identity_check.
     conflict  : trusted/multi sources exist for the field but disagree on value.
     pending   : otherwise (needs more evidence or human/AI review).
-    'applied' records are left untouched.
+    'applied' and 'rejected' records are left untouched.
     """
     # group by (item_number, field)
     groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for rec in ledger:
-        if rec.get("status") == "applied":
+        if rec.get("status") in {"applied", "rejected"}:
             continue
         groups.setdefault((rec.get("item_number"), rec.get("field")), []).append(rec)
 
@@ -167,6 +168,12 @@ def db_field_empty(val: Any) -> bool:
     return val is None or (isinstance(val, str) and val.strip() == "")
 
 
+def append_apply_log(rows: list[dict[str, Any]]) -> None:
+    with APPLY_LOG_PATH.open("a", encoding="utf-8") as handle:
+        for row in rows:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
 def report(ledger: list[dict[str, Any]]) -> None:
     db = fetch_db_state()
     counts = {"verified": 0, "pending": 0, "conflict": 0, "applied": 0}
@@ -199,7 +206,7 @@ def report(ledger: list[dict[str, Any]]) -> None:
 
 def apply(ledger: list[dict[str, Any]]) -> None:
     db = fetch_db_state()
-    backup, to_apply = [], []
+    backup, to_apply, log_rows = [], [], []
     for r in ledger:
         if r.get("status") != "verified":
             continue
@@ -211,6 +218,19 @@ def apply(ledger: list[dict[str, Any]]) -> None:
         backup.append({"id": cur["id"], "item_number": item, "field": r["field"],
                        "old_value": cur.get(r["field"]), "applied_value": r["value"],
                        "source": r["source"]})
+        log_rows.append({
+            "applied_at": now_iso(),
+            "id": str(cur["id"]),
+            "item_number": item,
+            "name": r.get("name", ""),
+            "field": r["field"],
+            "old_value": cur.get(r["field"]),
+            "applied_value": r["value"],
+            "source": r.get("source", ""),
+            "url": r.get("url", ""),
+            "confidence": r.get("confidence", 0),
+            "identity_check": r.get("identity_check", ""),
+        })
     if not to_apply:
         print("nothing verified+empty to apply.")
         return
@@ -227,7 +247,13 @@ def apply(ledger: list[dict[str, Any]]) -> None:
                 r["status"] = "applied"
         conn.commit()
     save_ledger(ledger)
+    append_apply_log(log_rows)
     print(f"applied {len(to_apply)} verified facts (backup -> {APPLY_BACKUP_PATH.name}).")
+    for row in log_rows:
+        print(
+            f"  APPLY {row['item_number']} {row['field']} = "
+            f"{str(row['applied_value'])[:180]!r} [{row['source']}]"
+        )
 
 
 def main() -> None:

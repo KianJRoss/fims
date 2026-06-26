@@ -52,6 +52,40 @@ IGNORED_DOMAIN_SNIPPETS = {
     "wikipedia.org",
     "ebay.com",
     "amazon.com",
+    "amazon.",
+    "darbydental.com",
+    "armyproperty.com",
+    "aztechydraulics.com",
+    "govets.com",
+    "grainger.com",
+    "hearth.com",
+    "globalindustrial.com",
+    "instagram.com",
+    "midwestbusparts.com",
+    "radiatorsupplyhouse.com",
+    "taobao.com",
+    "tiktok.com",
+    "truckpartsline.com",
+    "trewautomation.com",
+    "vimeo.com",
+    "zoro.com",
+}
+
+FIREWORKS_CONTEXT_TERMS = {
+    "firework",
+    "fireworks",
+    "pyro",
+    "pyrotechnic",
+    "cake",
+    "fountain",
+    "mortar",
+    "shell",
+    "artillery",
+    "roman candle",
+    "sparkler",
+    "shots",
+    "shot",
+    "wholesale fireworks",
 }
 
 RESEARCH_FIELDS = tuple(
@@ -370,25 +404,32 @@ def sku_digits(sku: str) -> str:
     return "".join(SKU_DIGITS_RE.findall(sku))
 
 
+def has_fireworks_context(text: str) -> bool:
+    lowered = text.lower()
+    return any(term in lowered for term in FIREWORKS_CONTEXT_TERMS)
+
+
 def identity_for_page(soup: BeautifulSoup, sku: str, name: str, brand_name: str) -> tuple[str, float]:
     bundle = page_text_bundle(soup)
     bundle_upper = bundle.upper()
     sku_upper = normalize_item_number(sku)
     numeric_sku = sku_digits(sku_upper)
 
-    if sku_upper and sku_upper in bundle_upper:
-        return f"exact SKU found in page text ({sku_upper})", 0.9
-
-    for barcode in BARCODE_RE.findall(bundle):
-        if numeric_sku and barcode.endswith(numeric_sku):
-            return f"barcode {barcode} contains SKU digits {numeric_sku}", 0.9
-
     name_tokens = tokenize(name)
     brand_tokens = tokenize(brand_name)
     page_tokens = tokenize(bundle)
     name_present = bool(name_tokens) and len(name_tokens & page_tokens) >= max(1, len(name_tokens) // 2)
     brand_present = bool(brand_tokens) and bool(brand_tokens & page_tokens)
-    if name_present and brand_present:
+    fireworks_context = has_fireworks_context(bundle)
+
+    if sku_upper and sku_upper in bundle_upper and (fireworks_context or name_present or brand_present):
+        return f"exact SKU found in page text ({sku_upper})", 0.9
+
+    for barcode in BARCODE_RE.findall(bundle):
+        if numeric_sku and barcode.endswith(numeric_sku) and (fireworks_context or name_present or brand_present):
+            return f"barcode {barcode} contains SKU digits {numeric_sku}", 0.9
+
+    if name_present and brand_present and fireworks_context:
         return "name+brand match, SKU not found", 0.5
 
     if name_tokens:
