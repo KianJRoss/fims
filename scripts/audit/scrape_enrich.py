@@ -24,7 +24,7 @@ import psycopg
 import requests
 from bs4 import BeautifulSoup
 
-from evidence_ledger import add_records, DSN, FILLABLE
+from evidence_ledger import add_records, apply as apply_ledger, load_ledger, verify as verify_ledger, DSN, FILLABLE
 
 
 AUDIT_DIR = Path(__file__).resolve().parent
@@ -154,7 +154,11 @@ def load_today_seen_item_numbers() -> set[str]:
     return seen
 
 
-def fetch_products(limit: int | None, only_skus: set[str] | None) -> list[dict[str, Any]]:
+def fetch_products(
+    limit: int | None,
+    only_skus: set[str] | None,
+    skip_item_numbers: set[str] | None = None,
+) -> list[dict[str, Any]]:
     sql_text = """
         SELECT
             p.id,
@@ -183,6 +187,8 @@ def fetch_products(limit: int | None, only_skus: set[str] | None) -> list[dict[s
             for row in cur.fetchall():
                 item_number = normalize_item_number(row[1])
                 if only_skus and item_number not in only_skus:
+                    continue
+                if skip_item_numbers and item_number in skip_item_numbers:
                     continue
                 current_values = {
                     "shot_count": row[5],
@@ -274,15 +280,17 @@ def fetch_page(session: requests.Session, url: str) -> tuple[str | None, str | N
             )
             response.raise_for_status()
             if not page_looks_html(response):
+                time.sleep(PAGE_SLEEP_SECONDS)
                 return None, None
-            return response.url, response.text
+            result = (response.url, response.text)
         except requests.RequestException:
             if attempt == 0:
                 time.sleep(PAGE_SLEEP_SECONDS)
                 continue
-            return None, None
-        finally:
             time.sleep(PAGE_SLEEP_SECONDS)
+            return None, None
+        time.sleep(PAGE_SLEEP_SECONDS)
+        return result
     return None, None
 
 
@@ -662,83 +670,6 @@ def extract_description_from_text(lines: list[str], name: str) -> str | None:
     return None
 
 
-def extract_page_fields(
-    html_text: str,
-    sku: str,
-    name: str,
-    brand_name: str,
-) -> tuple[str, float, list[dict[str, Any]]]:
-    soup = BeautifulSoup(html_text, "html.parser")
-    identity_check, base_confidence = identity_for_page(soup, sku, name, brand_name)
-    jsonld_products = parse_jsonld_objects(soup)
-    lines = page_visible_lines(soup)
-    records: list[dict[str, Any]] = []
-    seen_fields: set[str] = set()
-
-    for field in RESEARCH_FIELDS:
-        value: Any | None = None
-        source_label: str | None = None
-        loose = False
-
-        jsonld_value, jsonld_source, jsonld_loose = extract_jsonld_value(jsonld_products, field)
-        if jsonld_value is not None:
-            value = jsonld_value
-            source_label = jsonld_source or "jsonld"
-            loose = jsonld_loose
-
-        if value is None:
-            regex_value, regex_source, regex_loose = extract_regex_value(lines, field)
-            if regex_value is not None:
-                value = regex_value
-                source_label = regex_source or "regex"
-                loose = regex_loose
-
-        if value is None and field == "description":
-            meta_value = extract_meta_description(soup)
-            if meta_value is not None:
-                value = meta_value
-                source_label = "meta.description"
-            else:
-                text_value = extract_description_from_text(lines, name)
-                if text_value is not None:
-                    value = text_value
-                    source_label = "text.description"
-
-        if value is None:
-            continue
-        if field in INT_FIELDS:
-            value = clean_positive_int(value, field)
-        elif field == "packing":
-            value = clean_packing(value)
-        elif field == "effects":
-            value = clean_effects(value)
-        elif field == "description":
-            value = clean_description(value)
-
-        if value is None:
-            continue
-        if field in seen_fields:
-            continue
-        seen_fields.add(field)
-
-        confidence = base_confidence - (0.1 if loose else 0.0)
-        confidence = max(0.0, min(1.0, confidence))
-        records.append(
-            {
-                "product_id": "",
-                "item_number": sku,
-                "name": name,
-                "field": field,
-                "value": value,
-                "source": f"{clean_domain(urlparse(soup.find('base').get('href')) if soup.find('base') else '')}" if False else "",
-                "url": "",
-                "confidence": confidence,
-                "identity_check": identity_check,
-            }
-        )
-    return identity_check, base_confidence, records
-
-
 def build_records_from_page(
     page_url: str,
     html_text: str,
@@ -867,7 +798,7 @@ def process_product(
     fetched_pages = 0
 
     if not force and item_number in today_seen:
-        print(f"{item_number}, {name}, pages=0, fields=")
+        print(f"{item_number}, {name}, pages=0, fields=skipped")
         return {
             "item_number": item_number,
             "name": name,
@@ -889,7 +820,6 @@ def process_product(
     added = add_records(records) if records else 0
     fields_found = sorted({rec["field"] for rec in records}, key=lambda field: FIELD_ORDER.get(field, 99))
     print(f"{item_number}, {name}, pages={fetched_pages}, fields={','.join(fields_found)}")
-    time.sleep(random.uniform(PRODUCT_SLEEP_MIN, PRODUCT_SLEEP_MAX))
     return {
         "item_number": item_number,
         "name": name,
@@ -897,6 +827,11 @@ def process_product(
         "urls_fetched": urls_fetched,
         "records_added": added,
     }
+
+
+def verify_and_apply_ledger() -> None:
+    ledger = load_ledger()
+    apply_ledger(verify_ledger(ledger))
 
 
 def parse_args() -> argparse.Namespace:
@@ -912,6 +847,22 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="reprocess products even if the ledger has records captured today",
     )
+    parser.add_argument(
+        "--watch",
+        action="store_true",
+        help="keep looping over the remaining backlog until stopped",
+    )
+    parser.add_argument(
+        "--watch-sleep",
+        type=float,
+        default=300.0,
+        help="seconds to sleep between watch cycles when no backlog remains",
+    )
+    parser.add_argument(
+        "--apply-verified",
+        action="store_true",
+        help="run evidence verification and apply any newly verified facts after each batch",
+    )
     return parser.parse_args()
 
 
@@ -923,34 +874,55 @@ def parse_only_skus(value: str) -> set[str] | None:
 def main() -> None:
     args = parse_args()
     only_skus = parse_only_skus(args.only_sku)
-    today_seen = load_today_seen_item_numbers()
-    products = fetch_products(args.limit, only_skus)
     session = requests.Session()
     session.headers.update({"User-Agent": DUCKDUCKGO_UA})
     run_log: list[dict[str, Any]] = []
 
-    for index, product in enumerate(products):
-        try:
-            entry = process_product(session, product, args.force, today_seen)
-            run_log.append(entry)
-        except Exception as exc:  # noqa: BLE001 - keep resumable per spec
-            print(f"{product['item_number']}, {product['name']}, pages=0, fields=")
-            run_log.append(
-                {
-                    "item_number": product["item_number"],
-                    "name": product["name"],
-                    "queries": search_queries_for_product(
-                        product["item_number"], product["name"], product["brand_name"]
-                    ),
-                    "urls_fetched": [],
-                    "records_added": 0,
-                    "error": str(exc),
-                }
-            )
-        if index < len(products) - 1:
-            time.sleep(random.uniform(PRODUCT_SLEEP_MIN, PRODUCT_SLEEP_MAX))
+    seen_this_run: set[str] = set()
 
-    write_json(RUN_LOG_PATH, run_log)
+    def eligible_products() -> list[dict[str, Any]]:
+        skip = seen_this_run if args.force else (load_today_seen_item_numbers() | seen_this_run)
+        return fetch_products(args.limit, only_skus, skip_item_numbers=skip)
+
+    while True:
+        products = eligible_products()
+        if not products:
+            write_json(RUN_LOG_PATH, run_log)
+            if not args.watch:
+                break
+            # If the backlog stays empty, keep the watcher alive but idle.
+            time.sleep(max(1.0, args.watch_sleep))
+            continue
+
+        for index, product in enumerate(products):
+            try:
+                entry = process_product(session, product, args.force, load_today_seen_item_numbers() | seen_this_run)
+                run_log.append(entry)
+                seen_this_run.add(product["item_number"])
+                if args.apply_verified:
+                    verify_and_apply_ledger()
+            except Exception as exc:  # noqa: BLE001 - keep resumable per spec
+                print(f"{product['item_number']}, {product['name']}, pages=0, fields=error")
+                run_log.append(
+                    {
+                        "item_number": product["item_number"],
+                        "name": product["name"],
+                        "queries": search_queries_for_product(
+                            product["item_number"], product["name"], product["brand_name"]
+                        ),
+                        "urls_fetched": [],
+                        "records_added": 0,
+                        "error": str(exc),
+                    }
+                )
+                seen_this_run.add(product["item_number"])
+            if index < len(products) - 1:
+                time.sleep(random.uniform(PRODUCT_SLEEP_MIN, PRODUCT_SLEEP_MAX))
+
+        write_json(RUN_LOG_PATH, run_log)
+        if not args.watch:
+            break
+        time.sleep(max(1.0, args.watch_sleep))
 
 
 if __name__ == "__main__":
