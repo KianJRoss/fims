@@ -176,20 +176,28 @@ def append_apply_log(rows: list[dict[str, Any]]) -> None:
 
 def report(ledger: list[dict[str, Any]]) -> None:
     db = fetch_db_state()
-    counts = {"verified": 0, "pending": 0, "conflict": 0, "applied": 0}
-    applicable, blocked = [], []
+    counts = {"verified": 0, "pending": 0, "conflict": 0, "applied": 0, "rejected": 0}
+    applicable, blocked, needs_sentry = [], [], []
     for r in ledger:
         counts[r.get("status", "pending")] = counts.get(r.get("status", "pending"), 0) + 1
         if r.get("status") == "verified":
             cur = db.get(r.get("item_number"), {})
-            if r.get("item_number") in db and db_field_empty(cur.get(r.get("field"))):
+            if (
+                r.get("item_number") in db
+                and db_field_empty(cur.get(r.get("field")))
+                and r.get("sentry_status") == "approved"
+            ):
                 applicable.append(r)
+            elif r.get("item_number") in db and db_field_empty(cur.get(r.get("field"))):
+                needs_sentry.append(r)
             elif r.get("item_number") in db:
                 blocked.append(r)  # verified but DB already has a value
     print("ledger status counts:", counts)
-    print(f"\nVERIFIED + DB-empty (would apply): {len(applicable)}")
+    print(f"\nVERIFIED + AI-approved + DB-empty (would apply): {len(applicable)}")
     for r in applicable:
         print(f"  {r['item_number']:10} {r['field']:16} = {str(r['value'])[:46]!r}  conf={r['confidence']} [{r['source']}]")
+    if needs_sentry:
+        print(f"\nVERIFIED + DB-empty but waiting for AI sentry: {len(needs_sentry)}")
     if blocked:
         print(f"\nVERIFIED but DB already filled (skipped): {len(blocked)}")
     pend = [r for r in ledger if r.get("status") == "pending"]
@@ -209,6 +217,8 @@ def apply(ledger: list[dict[str, Any]]) -> None:
     backup, to_apply, log_rows = [], [], []
     for r in ledger:
         if r.get("status") != "verified":
+            continue
+        if r.get("sentry_status") != "approved":
             continue
         item = r.get("item_number")
         cur = db.get(item)

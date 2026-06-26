@@ -1,0 +1,1 @@
+{"reviewed_at": "2026-06-26T09:41:42.357563+00:00", "product": {"item_number": "1024435", "name": "AMERICA"}, "field": "shot_count", "backend": "ollama", "model": "qwen2.5:14b", "decision": {"approved": false, "candidate_index": null, "reason": "identity_check indicates SKU not confirmed, potential name collision"}}
