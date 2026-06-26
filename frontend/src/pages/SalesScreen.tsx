@@ -8,12 +8,15 @@ import { api } from "../api/client";
 import { useScannerStream } from "../hooks/useScannerStream";
 import ProductImage from "../components/ProductImage";
 
+const TAX_RATE = 0.12; // 12% sales tax on taxable items
+
 type CartItem = {
   product_id: string;
   name: string;
   quantity: number;
   unit_price: number;
   category_id: number | null;
+  taxable: boolean;
 };
 
 type ProductSearchResult = {
@@ -57,9 +60,11 @@ type SaleCreatePayload = {
     quantity: number;
     unit_price: number;
     discount_amount: number;
+    taxable: boolean;
   }>;
   subtotal: number;
   total_discount: number;
+  tax_total: number;
   total: number;
   payment_method: string;
   applied_deal_ids: number[];
@@ -130,8 +135,20 @@ function buildSaleItems(cart: CartItem[], totalDiscount: number) {
       quantity: item.quantity,
       unit_price: item.unit_price,
       discount_amount: discount,
+      taxable: item.taxable,
     };
   });
+}
+
+/** Tax base = the post-discount total of taxable items only. */
+function computeTaxTotal(cart: CartItem[], totalDiscount: number) {
+  const built = buildSaleItems(cart, totalDiscount);
+  const taxableBase = cart.reduce((sum, item, index) => {
+    if (!item.taxable) return sum;
+    const lineAfterDiscount = item.quantity * item.unit_price - (built[index]?.discount_amount ?? 0);
+    return sum + Math.max(0, lineAfterDiscount);
+  }, 0);
+  return Math.round(taxableBase * TAX_RATE * 100) / 100;
 }
 
 export default function SalesScreen() {
@@ -258,7 +275,10 @@ export default function SalesScreen() {
 
   const displayedDealSummary = applyDealsMutation.isPending && cart.length > 0 ? EMPTY_DEAL_SUMMARY : dealSummary;
   const totalDiscount = displayedDealSummary.total_discount;
-  const total = applyDealsMutation.isPending && cart.length > 0 ? subtotal : displayedDealSummary.total;
+  // Post-discount total (before tax).
+  const afterDiscount = applyDealsMutation.isPending && cart.length > 0 ? subtotal : displayedDealSummary.total;
+  const taxTotal = useMemo(() => computeTaxTotal(cart, totalDiscount), [cart, totalDiscount]);
+  const total = Math.round((afterDiscount + taxTotal) * 100) / 100;
 
   const addProductToCart = useCallback(async (productId: string) => {
     try {
@@ -281,7 +301,7 @@ export default function SalesScreen() {
               : item
           );
         }
-        return [...current, { product_id: productId, name, quantity: 1, unit_price: retailPrice, category_id: categoryId }];
+        return [...current, { product_id: productId, name, quantity: 1, unit_price: retailPrice, category_id: categoryId, taxable: true }];
       });
       void api.post("/v1/video-library/player/play", { product_id: productId }).catch(() => {});
       barcodeInputRef.current?.focus();
@@ -343,6 +363,14 @@ export default function SalesScreen() {
     setCart((current) => current.filter((item) => item.product_id !== productId));
   }
 
+  function toggleTaxable(productId: string) {
+    setCart((current) =>
+      current.map((item) =>
+        item.product_id === productId ? { ...item, taxable: !item.taxable } : item
+      )
+    );
+  }
+
   function clearCart() {
     setCart([]);
     setDealSummary(EMPTY_DEAL_SUMMARY);
@@ -379,7 +407,7 @@ export default function SalesScreen() {
     if (!parked) {
       return;
     }
-    setCart(parked.cart);
+    setCart(parked.cart.map((item) => ({ ...item, taxable: item.taxable ?? true })));
     setDealSummary(parked.dealSummary);
     setParkedCarts((current) => current.filter((entry) => entry.id !== id));
     setShowParkedList(false);
@@ -402,9 +430,10 @@ export default function SalesScreen() {
             </p>
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <Metric label="Subtotal" value={formatMoney(subtotal)} />
               <Metric label="Discount" value={`-${formatMoney(totalDiscount)}`} tone="text-red-300" />
+              <Metric label="Tax (12%)" value={formatMoney(taxTotal)} />
               <Metric label="Total" value={formatMoney(total)} tone="text-orange-300" />
             </div>
             {parkedCarts.length > 0 && (
@@ -499,6 +528,7 @@ export default function SalesScreen() {
                       <th className="px-4 py-3 text-left">Qty</th>
                       <th className="px-4 py-3 text-right">Unit Price</th>
                       <th className="px-4 py-3 text-right">Deal</th>
+                      <th className="px-4 py-3 text-center">Tax</th>
                       <th className="px-4 py-3 text-right">Line Total</th>
                       <th className="px-4 py-3 text-right">Remove</th>
                     </tr>
@@ -541,6 +571,19 @@ export default function SalesScreen() {
                               <span className="text-gray-500">—</span>
                             )}
                           </td>
+                          <td className="px-4 py-3 align-middle text-center">
+                            <button
+                              onClick={() => toggleTaxable(item.product_id)}
+                              title={item.taxable ? "Tax applied — click to exempt" : "No tax — click to apply 12%"}
+                              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
+                                item.taxable
+                                  ? "border-gray-700 bg-gray-950 text-gray-400 hover:border-gray-600"
+                                  : "border-amber-500/50 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20"
+                              }`}
+                            >
+                              {item.taxable ? "Taxed" : "No Tax"}
+                            </button>
+                          </td>
                           <td className="px-4 py-3 align-middle text-right text-gray-100">{formatMoney(lineTotal)}</td>
                           <td className="px-4 py-3 align-middle text-right">
                             <button
@@ -555,7 +598,7 @@ export default function SalesScreen() {
                     })}
                     {cart.length === 0 && (
                       <tr>
-                        <td colSpan={6} className="px-4 py-16 text-center text-sm text-gray-500">
+                        <td colSpan={7} className="px-4 py-16 text-center text-sm text-gray-500">
                           Scan products or add them from search.
                         </td>
                       </tr>
@@ -620,7 +663,21 @@ export default function SalesScreen() {
                           </div>
                         </div>
 
-                        <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-gray-800 bg-gray-900 px-3 py-2">
+                        <div className="mt-4 flex items-center justify-between gap-3">
+                          <span className="text-sm text-gray-400">Tax (12%)</span>
+                          <button
+                            onClick={() => toggleTaxable(item.product_id)}
+                            className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
+                              item.taxable
+                                ? "border-gray-700 bg-gray-950 text-gray-400 hover:border-gray-600"
+                                : "border-amber-500/50 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20"
+                            }`}
+                          >
+                            {item.taxable ? "Taxed — tap for No Tax" : "No Tax — tap to apply"}
+                          </button>
+                        </div>
+
+                        <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-gray-800 bg-gray-900 px-3 py-2">
                           <span className="text-sm text-gray-400">Line total</span>
                           <span className="text-sm font-semibold text-gray-100">{formatMoney(lineTotal)}</span>
                         </div>
@@ -664,6 +721,9 @@ export default function SalesScreen() {
                   <div className="text-sm text-red-300">
                     Total Discount <span className="ml-2 font-semibold">{formatMoney(totalDiscount)}</span>
                   </div>
+                  <div className="text-sm text-gray-400">
+                    Tax (12%) <span className="ml-2 text-gray-100">{formatMoney(taxTotal)}</span>
+                  </div>
                   <div className="text-3xl font-semibold text-orange-300">{formatMoney(total)}</div>
                 </div>
 
@@ -701,6 +761,7 @@ export default function SalesScreen() {
                         items: buildSaleItems(cart, totalDiscount),
                         subtotal,
                         total_discount: totalDiscount,
+                        tax_total: taxTotal,
                         total,
                         payment_method: paymentMethod,
                         applied_deal_ids: displayedDealSummary.applied_deals.map((deal) => deal.deal_id),

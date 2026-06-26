@@ -19,6 +19,7 @@ from app.services.receipt_printer import print_receipt, receipt_print_payload
 router = APIRouter()
 MONEY_CENT = Decimal("0.01")
 MONEY_TOLERANCE = Decimal("0.01")
+TAX_RATE = Decimal("0.12")  # 12% sales tax applied to taxable line totals
 
 
 class SaleItemPayload(BaseModel):
@@ -26,12 +27,16 @@ class SaleItemPayload(BaseModel):
     quantity: int
     unit_price: float
     discount_amount: float = 0
+    # Taxable by default; the cashier can flip this off per item via the
+    # "No Tax" button on the Sales screen.
+    taxable: bool = True
 
 
 class SaleCreatePayload(BaseModel):
     items: list[SaleItemPayload] = Field(default_factory=list)
     subtotal: float
     total_discount: float
+    tax_total: float = 0
     total: float
     payment_method: str | None = None
     card_last4: str | None = None
@@ -45,6 +50,7 @@ class ValidatedSaleItem:
     unit_price: Decimal
     discount_amount: Decimal
     line_total: Decimal
+    taxable: bool
 
 
 def _serialize_sale(sale: Sale) -> dict[str, Any]:
@@ -97,11 +103,12 @@ def _money(value: float | int | Decimal) -> Decimal:
 def _validate_sale_payload(
     payload: SaleCreatePayload,
     db: Session,
-) -> tuple[list[ValidatedSaleItem], Decimal, Decimal, Decimal]:
+) -> tuple[list[ValidatedSaleItem], Decimal, Decimal, Decimal, Decimal]:
     line_items: list[ValidatedSaleItem] = []
     expected_subtotal = Decimal("0.00")
     expected_discount = Decimal("0.00")
     expected_total = Decimal("0.00")
+    expected_taxable_base = Decimal("0.00")
     product_ids = {item.product_id for item in payload.items}
     price_rows = (
         db.execute(
@@ -134,6 +141,8 @@ def _validate_sale_payload(
         expected_subtotal += line_subtotal
         expected_discount += line_discount
         expected_total += line_total
+        if item.taxable:
+            expected_taxable_base += line_total
         line_items.append(
             ValidatedSaleItem(
                 product_id=item.product_id,
@@ -141,11 +150,16 @@ def _validate_sale_payload(
                 unit_price=unit_price,
                 discount_amount=line_discount,
                 line_total=line_total,
+                taxable=bool(item.taxable),
             )
         )
 
+    expected_tax = _money(expected_taxable_base * TAX_RATE)
+    expected_grand = _money(expected_total + expected_tax)
+
     submitted_subtotal = _money(payload.subtotal)
     submitted_discount = _money(payload.total_discount)
+    submitted_tax = _money(payload.tax_total)
     submitted_total = _money(payload.total)
     if abs(expected_subtotal - submitted_subtotal) > MONEY_TOLERANCE:
         raise HTTPException(
@@ -157,12 +171,17 @@ def _validate_sale_payload(
             status_code=400,
             detail=f"Submitted discount total {submitted_discount} does not match line-item discounts {expected_discount}",
         )
-    if abs(expected_total - submitted_total) > MONEY_TOLERANCE:
+    if abs(expected_tax - submitted_tax) > MONEY_TOLERANCE:
         raise HTTPException(
             status_code=400,
-            detail=f"Submitted total {submitted_total} does not match line-item total {expected_total}",
+            detail=f"Submitted tax total {submitted_tax} does not match computed tax {expected_tax}",
         )
-    return line_items, expected_subtotal, expected_discount, expected_total
+    if abs(expected_grand - submitted_total) > MONEY_TOLERANCE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Submitted total {submitted_total} does not match line-item total {expected_grand}",
+        )
+    return line_items, expected_subtotal, expected_discount, expected_tax, expected_grand
 
 
 @router.post("/")
@@ -173,14 +192,14 @@ def create_sale(
 ):
     now = datetime.utcnow()
     retail_price_type_id = db.execute(select(PriceType.id).where(PriceType.code == "RETAIL")).scalar_one_or_none()
-    line_items, subtotal, discount_total, grand_total = _validate_sale_payload(payload, db)
+    line_items, subtotal, discount_total, tax_total, grand_total = _validate_sale_payload(payload, db)
 
     sale = Sale(
         cashier_id=None,
         price_type_id=retail_price_type_id,
         subtotal=subtotal,
         discount_total=discount_total,
-        tax_total=0,
+        tax_total=tax_total,
         grand_total=grand_total,
         payment_method=payload.payment_method,
         card_last4=payload.card_last4 if payload.payment_method == "CARD" else None,

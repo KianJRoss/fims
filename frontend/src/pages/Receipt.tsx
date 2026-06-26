@@ -20,6 +20,7 @@ type ReceiptResponse = {
   receipt_token: string;
   subtotal: number;
   discount_total: number;
+  tax_total: number;
   total: number;
   store_name: string;
   items: ReceiptItem[];
@@ -111,6 +112,7 @@ export default function Receipt() {
   }
 
   const hasDiscount = receipt.discount_total > 0;
+  const hasTax = receipt.tax_total > 0;
 
   return (
     <div className="min-h-screen bg-white px-4 py-8 text-slate-900">
@@ -147,6 +149,7 @@ export default function Receipt() {
         <section className="space-y-2 py-4 text-sm">
           <Row label="Subtotal" value={formatMoney(receipt.subtotal)} />
           {hasDiscount && <Row label="Discount" value={`-${formatMoney(receipt.discount_total)}`} tone="text-emerald-700" />}
+          {hasTax && <Row label="Tax (12%)" value={formatMoney(receipt.tax_total)} />}
           <Row label="Total" value={formatMoney(receipt.total)} bold />
           <Row label="Payment" value={formatPaymentMethod(receipt)} />
         </section>

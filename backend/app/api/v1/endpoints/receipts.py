@@ -87,6 +87,7 @@ def get_receipt(token: str, db: Session = Depends(get_db)):
         "receipt_token": sale.receipt_token,
         "subtotal": float(sale.subtotal),
         "discount_total": float(sale.discount_total),
+        "tax_total": float(sale.tax_total),
         "total": float(sale.grand_total),
         "store_name": STORE_NAME,
         "items": [
