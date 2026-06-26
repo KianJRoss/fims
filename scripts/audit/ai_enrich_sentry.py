@@ -126,6 +126,7 @@ def candidate_groups(
     ledger: list[dict[str, Any]],
     limit: int | None,
     only_skus: set[str] | None = None,
+    only_product_ids: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     db = fetch_db_state()
     grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
@@ -135,19 +136,26 @@ def candidate_groups(
         if rec.get("sentry_status") in {"approved", "rejected"}:
             continue
         item = str(rec.get("item_number") or "")
+        product_id = str(rec.get("product_id") or "")
+        product_key = item or product_id
         field = str(rec.get("field") or "")
-        if not item or not field:
+        if not product_key or not field:
             continue
-        if only_skus and item.upper() not in only_skus:
-            continue
-        cur = db.get(item)
+        if only_skus or only_product_ids:
+            sku_match = bool(item and only_skus and item.upper() in only_skus)
+            product_id_match = bool(product_id and only_product_ids and product_id in only_product_ids)
+            if not (sku_match or product_id_match):
+                continue
+        cur = db.get(product_key)
         if not cur or not db_field_empty(cur.get(field)):
             continue
-        grouped[(item, field)].append({**rec, "_ledger_index": index})
+        grouped[(product_key, field)].append({**rec, "_ledger_index": index})
 
     out: list[dict[str, Any]] = []
-    for (item, field), records in grouped.items():
+    for (product_key, field), records in grouped.items():
         first = records[0]
+        item = str(first.get("item_number") or "")
+        product_id = str(first.get("product_id") or "")
         candidates = []
         for rec in records:
             reason = value_is_structurally_bad(field, rec.get("value"))
@@ -166,6 +174,8 @@ def candidate_groups(
         out.append(
             {
                 "item_number": item,
+                "product_id": product_id,
+                "product_key": product_key,
                 "name": first.get("name", ""),
                 "field": field,
                 "candidates": candidates,
@@ -174,15 +184,17 @@ def candidate_groups(
     return out[:limit] if limit else out
 
 
-def fetch_product_context(item_numbers: set[str]) -> dict[str, dict[str, Any]]:
-    if not item_numbers:
+def fetch_product_context(product_keys: set[str]) -> dict[str, dict[str, Any]]:
+    if not product_keys:
         return {}
+    keys = list(product_keys)
     with psycopg.connect(DSN) as conn:
         conn.read_only = True
         with conn.cursor() as cur:
             cur.execute(
                 """
                 SELECT
+                    p.id::text,
                     p.item_number::text,
                     p.name,
                     COALESCE(b.name, '') AS brand_name,
@@ -191,25 +203,31 @@ def fetch_product_context(item_numbers: set[str]) -> dict[str, dict[str, Any]]:
                 FROM products p
                 LEFT JOIN product_brands b ON b.id = p.brand_id
                 LEFT JOIN product_categories c ON c.id = p.category_id
-                WHERE p.item_number = ANY(%s)
+                WHERE p.item_number::text = ANY(%s) OR p.id::text = ANY(%s)
                 """,
-                (list(item_numbers),),
+                (keys, keys),
             )
-            return {
-                str(row[0]): {
-                    "name": row[1],
-                    "brand_name": row[2],
-                    "category_name": row[3],
-                    "image_path": row[4],
+            out: dict[str, dict[str, Any]] = {}
+            for row in cur.fetchall():
+                context = {
+                    "product_id": row[0],
+                    "item_number": row[1],
+                    "name": row[2],
+                    "brand_name": row[3],
+                    "category_name": row[4],
+                    "image_path": row[5],
                 }
-                for row in cur.fetchall()
-            }
+                if row[0]:
+                    out[str(row[0])] = context
+                if row[1]:
+                    out[str(row[1])] = context
+            return out
 
 
 def add_context(groups: list[dict[str, Any]], args: argparse.Namespace) -> None:
-    context = fetch_product_context({group["item_number"] for group in groups})
+    context = fetch_product_context({group["product_key"] for group in groups})
     for group in groups:
-        group["db_context"] = context.get(group["item_number"], {})
+        group["db_context"] = context.get(group["product_key"], {})
         if args.vision:
             group["vision_context"] = analyze_product_image(group["db_context"], args)
 
@@ -279,6 +297,7 @@ def parse_jsonish(text: str) -> dict[str, Any]:
 def prompt_for_group(group: dict[str, Any]) -> str:
     payload = {
         "product": {
+            "product_id": group.get("product_id", ""),
             "item_number": group["item_number"],
             "name": group["name"],
             "brand": group.get("db_context", {}).get("brand_name", ""),
@@ -302,6 +321,9 @@ def prompt_for_group(group: dict[str, Any]) -> str:
     return (
         "You are the safety sentry for a fireworks-store product database. "
         "Approve exactly one candidate only if it is clearly information about the exact product. "
+        "Exact SKU/barcode identity is strongest. When a SKU is missing or questionable, a candidate may still be "
+        "approved only if the evidence shows strong product identity from product name + brand + at least one known "
+        "fact such as shot count, duration, category, effects, package text, OCR, or barcode context. "
         "Reject HTML snippets, generic web page text, social embeds, placeholder labels, unrelated part numbers, "
         "weak name collisions, and anything not specific to this consumer fireworks item. "
         "For field=effects, approve only actual visual/audio effect content such as colors, mines, tails, "
@@ -358,9 +380,13 @@ def normalize_decision(group: dict[str, Any], decision: dict[str, Any]) -> dict[
         elif chosen_candidate.get("status") != "verified":
             approved = False
             reason = "chosen candidate is not ledger-verified yet"
-        elif not re.search(r"\b(exact SKU|barcode)\b", str(chosen_candidate.get("identity_check", "")), re.I):
+        elif not re.search(
+            r"\b(exact SKU|barcode|strong product identity)\b",
+            str(chosen_candidate.get("identity_check", "")),
+            re.I,
+        ):
             approved = False
-            reason = "chosen candidate lacks exact SKU/barcode identity"
+            reason = "chosen candidate lacks exact SKU/barcode or strong non-SKU identity"
     return {"approved": approved, "candidate_index": chosen if approved else None, "reason": reason}
 
 
@@ -383,14 +409,23 @@ def apply_decision(ledger: list[dict[str, Any]], group: dict[str, Any], decision
                 rec["rejected_reason"] = candidate["quick_reject_reason"]
 
 
-def parse_skus(value: str) -> set[str] | None:
-    parsed = {part.strip().upper() for part in value.split(",") if part.strip()}
+def parse_csv(value: str, *, upper: bool = False) -> set[str] | None:
+    parsed = {
+        (part.strip().upper() if upper else part.strip())
+        for part in value.split(",")
+        if part.strip()
+    }
     return parsed or None
 
 
 def run_once(args: argparse.Namespace) -> int:
     ledger = verify(load_ledger(), save=not args.preview)
-    groups = candidate_groups(ledger, args.limit, parse_skus(args.only_sku))
+    groups = candidate_groups(
+        ledger,
+        args.limit,
+        parse_csv(args.only_sku, upper=True),
+        parse_csv(args.only_product_id),
+    )
     add_context(groups, args)
     model_label = args.backend if args.backend != "ollama" else f"ollama:{args.model}"
     reviewed = 0
@@ -411,15 +446,31 @@ def run_once(args: argparse.Namespace) -> int:
                 SENTRY_LOG_PATH,
                 {
                     "reviewed_at": now_iso(),
-                    "product": {"item_number": group["item_number"], "name": group["name"]},
+                    "product": {
+                        "product_id": group.get("product_id", ""),
+                        "item_number": group["item_number"],
+                        "name": group["name"],
+                    },
                     "field": group["field"],
+                    "candidates": [
+                        {
+                            "value": candidate.get("value"),
+                            "source": candidate.get("source", ""),
+                            "url": candidate.get("url", ""),
+                            "confidence": candidate.get("confidence", 0),
+                            "identity_check": candidate.get("identity_check", ""),
+                            "quick_reject_reason": candidate.get("quick_reject_reason"),
+                            "ledger_index": candidate.get("ledger_index"),
+                        }
+                        for candidate in group["candidates"]
+                    ],
                     "backend": args.backend,
                     "model": args.model if args.backend == "ollama" else args.backend,
                     "decision": decision,
                 },
             )
         print(
-            f"SENTRY {group['item_number']} {group['field']}: "
+            f"SENTRY {group.get('item_number') or group.get('product_id')} {group['field']}: "
             f"{'APPROVE' if decision.get('approved') else 'reject'} - {norm_text(decision.get('reason'), 120)}"
         )
         time.sleep(max(0.0, args.sleep))
@@ -438,6 +489,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--only-sku", default="", help="comma-separated SKUs to review")
+    parser.add_argument("--only-product-id", default="", help="comma-separated product UUIDs to review")
     parser.add_argument("--sleep", type=float, default=0.0)
     parser.add_argument("--vision", action="store_true", help="include local OCR/barcode/VLM product image context")
     parser.add_argument("--vision-steps", default="ocr,codes,vlm")

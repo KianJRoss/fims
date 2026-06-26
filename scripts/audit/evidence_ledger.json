@@ -4919,5 +4919,61 @@
     "status": "rejected",
     "rejected_reason": "no candidate records found",
     "captured_at": "2026-06-26T10:21:32.430178+00:00"
+  },
+  {
+    "product_id": "",
+    "item_number": "1001413",
+    "name": "CRACKLING ARTILLERY SHELL",
+    "field": "description",
+    "value": "NO_CANDIDATES:1001413",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:22:35.867663+00:00"
+  },
+  {
+    "product_id": "097326a9-4c84-4f3d-ba3e-46ed50f40e98",
+    "item_number": "",
+    "name": "Nature's Rampage",
+    "field": "description",
+    "value": "NO_CANDIDATES:097326a9-4c84-4f3d-ba3e-46ed50f40e98",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:30:45.074951+00:00"
+  },
+  {
+    "product_id": "155d7983-0fec-43e5-8396-631c68d940c4",
+    "item_number": "",
+    "name": "Thor",
+    "field": "description",
+    "value": "NO_CANDIDATES:155d7983-0fec-43e5-8396-631c68d940c4",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:31:14.763980+00:00"
+  },
+  {
+    "product_id": "19fd55d8-98e8-458f-9e68-7ea94bc09dc7",
+    "item_number": "",
+    "name": "Joltix",
+    "field": "description",
+    "value": "NO_CANDIDATES:19fd55d8-98e8-458f-9e68-7ea94bc09dc7",
+    "source": "scrape_enrich.no_candidates",
+    "url": "",
+    "confidence": 0,
+    "identity_check": "no candidate records found during product-scoped scrape",
+    "status": "rejected",
+    "rejected_reason": "no candidate records found",
+    "captured_at": "2026-06-26T10:32:26.449944+00:00"
   }
 ]

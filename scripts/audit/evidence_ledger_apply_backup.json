@@ -1,18 +1,10 @@
 [
   {
-    "id": "8b03bb8b-5124-471a-84e9-3bf2acb6738c",
-    "item_number": "1001401",
+    "id": "564f1c2f-1672-4981-a5fc-92a62f82d67e",
+    "item_number": "BP2877",
     "field": "shot_count",
     "old_value": null,
     "applied_value": 24,
-    "source": "jakesfireworks.com (World Class official)"
-  },
-  {
-    "id": "8b03bb8b-5124-471a-84e9-3bf2acb6738c",
-    "item_number": "1001401",
-    "field": "effects",
-    "old_value": null,
-    "applied_value": "Brocade crown, chrysanthemum, crackling, dahlia, dragon balls, glitter, palm, peony, pistil, whirlwind, willow",
-    "source": "jakesfireworks.com (World Class official)"
+    "source": "libertyfireworks.us (regex)"
   }
 ]

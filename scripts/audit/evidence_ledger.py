@@ -69,10 +69,15 @@ def norm_value(field: str, value: Any) -> str:
 
 
 def add_records(new: list[dict[str, Any]]) -> int:
-    """Append candidates, de-duplicating on (item_number, field, value, source)."""
+    """Append candidates, de-duplicating on product identity, field, value, source."""
     ledger = load_ledger()
     seen = {
-        (r.get("item_number"), r.get("field"), norm_value(r.get("field", ""), r.get("value")), r.get("source"))
+        (
+            r.get("product_id") or r.get("item_number"),
+            r.get("field"),
+            norm_value(r.get("field", ""), r.get("value")),
+            r.get("source"),
+        )
         for r in ledger
     }
     added = 0
@@ -81,7 +86,7 @@ def add_records(new: list[dict[str, Any]]) -> int:
         if field not in FILLABLE:
             print(f"  skip non-fillable field: {field}")
             continue
-        key = (rec.get("item_number"), field, norm_value(field, rec.get("value")), rec.get("source"))
+        key = (rec.get("product_id") or rec.get("item_number"), field, norm_value(field, rec.get("value")), rec.get("source"))
         if key in seen:
             continue
         rec.setdefault("confidence", 0.5)
@@ -105,12 +110,13 @@ def verify(ledger: list[dict[str, Any]], *, save: bool = True) -> list[dict[str,
     pending   : otherwise (needs more evidence or human/AI review).
     'applied' and 'rejected' records are left untouched.
     """
-    # group by (item_number, field)
+    # group by (product identity, field)
     groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for rec in ledger:
         if rec.get("status") in {"applied", "rejected"}:
             continue
-        groups.setdefault((rec.get("item_number"), rec.get("field")), []).append(rec)
+        product_key = str(rec.get("product_id") or rec.get("item_number") or "")
+        groups.setdefault((product_key, rec.get("field")), []).append(rec)
 
     for (_item, field), recs in groups.items():
         # tally distinct sources per normalized value
@@ -154,14 +160,18 @@ def fetch_db_state() -> dict[str, dict[str, Any]]:
         with conn.cursor() as cur:
             cur.execute(
                 "SELECT item_number, id, shot_count, duration_seconds, effects, packing, "
-                "category_id, description FROM products WHERE in_store=true AND item_number IS NOT NULL"
+                "category_id, description FROM products WHERE in_store=true"
             )
             for row in cur.fetchall():
-                out[row[0]] = {
+                state = {
                     "id": row[1], "shot_count": row[2], "duration_seconds": row[3],
                     "effects": row[4], "packing": row[5], "category_id": row[6],
                     "description": row[7],
                 }
+                if row[0]:
+                    out[str(row[0])] = state
+                if row[1]:
+                    out[str(row[1])] = state
     return out
 
 
@@ -178,20 +188,27 @@ def append_apply_log(rows: list[dict[str, Any]]) -> None:
 def report(ledger: list[dict[str, Any]]) -> None:
     db = fetch_db_state()
     counts = {"verified": 0, "pending": 0, "conflict": 0, "applied": 0, "rejected": 0}
-    applicable, blocked, needs_sentry = [], [], []
+    applicable, blocked, needs_sentry, sentry_rejected = [], [], [], []
     for r in ledger:
         counts[r.get("status", "pending")] = counts.get(r.get("status", "pending"), 0) + 1
         if r.get("status") == "verified":
-            cur = db.get(r.get("item_number"), {})
+            db_key = str(r.get("item_number") or "") if r.get("item_number") else str(r.get("product_id") or "")
+            cur = db.get(db_key, {})
             if (
-                r.get("item_number") in db
+                db_key in db
                 and db_field_empty(cur.get(r.get("field")))
                 and r.get("sentry_status") == "approved"
             ):
                 applicable.append(r)
-            elif r.get("item_number") in db and db_field_empty(cur.get(r.get("field"))):
+            elif (
+                db_key in db
+                and db_field_empty(cur.get(r.get("field")))
+                and r.get("sentry_status") == "rejected"
+            ):
+                sentry_rejected.append(r)
+            elif db_key in db and db_field_empty(cur.get(r.get("field"))):
                 needs_sentry.append(r)
-            elif r.get("item_number") in db:
+            elif db_key in db:
                 blocked.append(r)  # verified but DB already has a value
     print("ledger status counts:", counts)
     print(f"\nVERIFIED + AI-approved + DB-empty (would apply): {len(applicable)}")
@@ -199,6 +216,8 @@ def report(ledger: list[dict[str, Any]]) -> None:
         print(f"  {r['item_number']:10} {r['field']:16} = {str(r['value'])[:46]!r}  conf={r['confidence']} [{r['source']}]")
     if needs_sentry:
         print(f"\nVERIFIED + DB-empty but waiting for AI sentry: {len(needs_sentry)}")
+    if sentry_rejected:
+        print(f"\nVERIFIED + DB-empty but AI-sentry rejected (not applied): {len(sentry_rejected)}")
     if blocked:
         print(f"\nVERIFIED but DB already filled (skipped): {len(blocked)}")
     pend = [r for r in ledger if r.get("status") == "pending"]
@@ -222,7 +241,8 @@ def apply(ledger: list[dict[str, Any]]) -> None:
         if r.get("sentry_status") != "approved":
             continue
         item = r.get("item_number")
-        cur = db.get(item)
+        db_key = str(item or "") if item else str(r.get("product_id") or "")
+        cur = db.get(db_key)
         if not cur or not db_field_empty(cur.get(r["field"])):
             continue
         to_apply.append(r)
@@ -254,7 +274,8 @@ def apply(ledger: list[dict[str, Any]]) -> None:
                     value = int(str(value).strip())
                 stmt = sql.SQL("UPDATE products SET {} = %s, updated_at=now() WHERE id=%s").format(
                     sql.Identifier(r["field"]))
-                cur.execute(stmt, (value, db[r["item_number"]]["id"]))
+                key = str(r.get("item_number") or "") if r.get("item_number") else str(r.get("product_id") or "")
+                cur.execute(stmt, (value, db[key]["id"]))
                 r["status"] = "applied"
         conn.commit()
     save_ledger(ledger)

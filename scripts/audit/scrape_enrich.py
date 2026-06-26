@@ -30,6 +30,7 @@ from evidence_ledger import add_records, apply as apply_ledger, load_ledger, ver
 AUDIT_DIR = Path(__file__).resolve().parent
 LEDGER_PATH = AUDIT_DIR / "evidence_ledger.json"
 RUN_LOG_PATH = AUDIT_DIR / "scrape_enrich_run.json"
+PRODUCT_RESEARCH_DIR = AUDIT_DIR / "product_research"
 
 SEARCH_URL = "https://html.duckduckgo.com/html/"
 FETCH_TIMEOUT_SECONDS = 15
@@ -139,6 +140,7 @@ def load_json(path: Path, default: Any) -> Any:
 
 
 def write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, default=json_default),
         encoding="utf-8",
@@ -165,6 +167,11 @@ def slugify_text(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", " ", normalize_space(value).lower()).strip()
 
 
+def filename_slug(value: Any, fallback: str = "product") -> str:
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "_", normalize_space(value)).strip("._-")
+    return (slug or fallback)[:120]
+
+
 def tokenize(value: Any) -> set[str]:
     return {token for token in WORD_RE.findall(normalize_space(value).lower()) if token}
 
@@ -186,7 +193,12 @@ def current_utc_date() -> str:
     return now_utc().date().isoformat()
 
 
-def load_today_seen_item_numbers() -> set[str]:
+def product_key(product_id: Any, item_number: Any) -> str:
+    item = normalize_item_number(item_number)
+    return item or str(product_id or "").strip()
+
+
+def load_today_seen_product_keys() -> set[str]:
     ledger = load_json(LEDGER_PATH, [])
     seen: set[str] = set()
     if not isinstance(ledger, list):
@@ -198,16 +210,17 @@ def load_today_seen_item_numbers() -> set[str]:
         captured_at = normalize_space(rec.get("captured_at"))
         if not captured_at.startswith(today):
             continue
-        item_number = normalize_item_number(rec.get("item_number"))
-        if item_number:
-            seen.add(item_number)
+        key = product_key(rec.get("product_id"), rec.get("item_number"))
+        if key:
+            seen.add(key)
     return seen
 
 
 def fetch_products(
     limit: int | None,
     only_skus: set[str] | None,
-    skip_item_numbers: set[str] | None = None,
+    only_product_ids: set[str] | None = None,
+    skip_product_keys: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     sql_text = """
         SELECT
@@ -220,13 +233,14 @@ def fetch_products(
             p.duration_seconds,
             p.effects,
             p.packing,
-            p.description
+            p.description,
+            COALESCE(c.name, '') AS category_name
         FROM products p
         LEFT JOIN product_brands b
             ON b.id = p.brand_id
+        LEFT JOIN product_categories c
+            ON c.id = p.category_id
         WHERE p.in_store = true
-          AND p.item_number IS NOT NULL
-          AND p.item_number <> ''
         ORDER BY p.id
     """
     rows: list[dict[str, Any]] = []
@@ -238,7 +252,10 @@ def fetch_products(
                 item_number = normalize_item_number(row[1])
                 if only_skus and item_number not in only_skus:
                     continue
-                if skip_item_numbers and item_number in skip_item_numbers:
+                if only_product_ids and str(row[0]) not in only_product_ids:
+                    continue
+                key = product_key(row[0], item_number)
+                if skip_product_keys and key in skip_product_keys:
                     continue
                 current_values = {
                     "shot_count": row[5],
@@ -257,6 +274,7 @@ def fetch_products(
                         "name": normalize_space(row[2]),
                         "brand_id": row[3],
                         "brand_name": normalize_space(row[4]),
+                        "category_name": normalize_space(row[10]),
                         "current_values": current_values,
                         "target_fields": target_fields,
                     }
@@ -425,7 +443,13 @@ def has_fireworks_context(text: str) -> bool:
     return any(term in lowered for term in FIREWORKS_CONTEXT_TERMS)
 
 
-def identity_for_page(soup: BeautifulSoup, sku: str, name: str, brand_name: str) -> tuple[str, float]:
+def identity_for_page(
+    soup: BeautifulSoup,
+    sku: str,
+    name: str,
+    brand_name: str,
+    known: dict[str, Any] | None = None,
+) -> tuple[str, float]:
     bundle = page_text_bundle(soup)
     bundle_upper = bundle.upper()
     sku_upper = normalize_item_number(sku)
@@ -446,6 +470,22 @@ def identity_for_page(soup: BeautifulSoup, sku: str, name: str, brand_name: str)
             return f"barcode {barcode} contains SKU digits {numeric_sku}", 0.9
 
     if name_present and brand_present and fireworks_context:
+        known = known or {}
+        shot = clean_positive_int(known.get("shot_count"), "shot_count")
+        duration = clean_positive_int(known.get("duration_seconds"), "duration_seconds")
+        category_tokens = tokenize(known.get("category_name"))
+        category_present = bool(category_tokens) and bool(category_tokens & page_tokens)
+        shot_present = bool(shot) and re.search(rf"\b{shot}\s*(?:shots?|shot count|breaks?)\b", bundle, re.I)
+        duration_present = bool(duration) and re.search(rf"\b{duration}\s*(?:sec(?:onds?)?|seconds?|secs?)\b", bundle, re.I)
+        if shot_present or duration_present or category_present:
+            matched = []
+            if shot_present:
+                matched.append("shot_count")
+            if duration_present:
+                matched.append("duration")
+            if category_present:
+                matched.append("category")
+            return "strong product identity via name+brand+known " + "+".join(matched), 0.85
         return "name+brand match, SKU not found", 0.5
 
     if name_tokens:
@@ -741,9 +781,11 @@ def build_records_from_page(
     sku: str,
     name: str,
     brand_name: str,
+    product_id: str,
+    known: dict[str, Any],
 ) -> list[dict[str, Any]]:
     soup = BeautifulSoup(html_text, "html.parser")
-    identity_check, base_confidence = identity_for_page(soup, sku, name, brand_name)
+    identity_check, base_confidence = identity_for_page(soup, sku, name, brand_name, known)
     jsonld_products = parse_jsonld_objects(soup)
     lines = page_visible_lines(soup)
     page_domain = clean_domain(page_url)
@@ -796,7 +838,7 @@ def build_records_from_page(
         confidence = max(0.0, min(1.0, confidence))
         records.append(
             {
-                "product_id": "",
+                "product_id": product_id,
                 "item_number": sku,
                 "name": name,
                 "field": field,
@@ -810,11 +852,39 @@ def build_records_from_page(
     return records
 
 
-def search_queries_for_product(item_number: str, name: str, brand_name: str) -> list[str]:
-    queries = [f'"{item_number}" {name} fireworks'.strip()]
+def search_queries_for_product(item_number: str, name: str, brand_name: str, product: dict[str, Any] | None = None) -> list[str]:
+    product = product or {}
+    current = product.get("current_values", {}) if isinstance(product.get("current_values"), dict) else {}
+    category_name = normalize_space(product.get("category_name"))
+    queries: list[str] = []
+    if item_number:
+        queries.append(f'"{item_number}" {name} fireworks'.strip())
     if brand_name:
         queries.append(f"{name} {brand_name} fireworks".strip())
-    return queries
+    queries.append(f'"{name}" fireworks'.strip())
+    shot = current.get("shot_count")
+    duration = current.get("duration_seconds")
+    if shot:
+        queries.append(f'"{name}" "{shot} shot" fireworks'.strip())
+        if brand_name:
+            queries.append(f'"{name}" "{shot} shot" {brand_name} fireworks'.strip())
+    if duration:
+        queries.append(f'"{name}" "{duration} seconds" fireworks'.strip())
+    if category_name:
+        queries.append(f'"{name}" {category_name} fireworks'.strip())
+    effects = normalize_space(current.get("effects"))
+    if effects:
+        effect_terms = " ".join(re.findall(r"[A-Za-z]+", effects)[:5])
+        if effect_terms:
+            queries.append(f'"{name}" {effect_terms} fireworks'.strip())
+    deduped: list[str] = []
+    seen = set()
+    for query in queries:
+        normalized = query.lower()
+        if query and normalized not in seen:
+            deduped.append(query)
+            seen.add(normalized)
+    return deduped
 
 
 def fetch_candidate_urls(session: requests.Session, queries: list[str]) -> list[str]:
@@ -854,17 +924,21 @@ def process_product(
     force: bool,
     today_seen: set[str],
 ) -> dict[str, Any]:
+    product_id = str(product["id"])
     item_number = product["item_number"]
     name = product["name"]
     brand_name = product["brand_name"]
-    queries = search_queries_for_product(item_number, name, brand_name)
+    queries = search_queries_for_product(item_number, name, brand_name, product)
     urls_fetched: list[str] = []
     records: list[dict[str, Any]] = []
     fetched_pages = 0
 
-    if not force and item_number in today_seen:
-        print(f"{item_number}, {name}, pages=0, fields=skipped")
+    key = product_key(product_id, item_number)
+    display_id = item_number or product_id
+    if not force and key in today_seen:
+        print(f"{display_id}, {name}, pages=0, fields=skipped")
         return {
+            "product_id": product_id,
             "item_number": item_number,
             "name": name,
             "queries": queries,
@@ -879,7 +953,8 @@ def process_product(
             continue
         urls_fetched.append(fetched_url)
         fetched_pages += 1
-        page_records = build_records_from_page(fetched_url, html_text, item_number, name, brand_name)
+        known = {**product.get("current_values", {}), "category_name": product.get("category_name", "")}
+        page_records = build_records_from_page(fetched_url, html_text, item_number, name, brand_name, product_id, known)
         records.extend(page_records)
 
     added = add_records(records) if records else 0
@@ -887,11 +962,11 @@ def process_product(
         add_records(
             [
                 {
-                    "product_id": "",
+                    "product_id": product_id,
                     "item_number": item_number,
                     "name": name,
                     "field": "description",
-                    "value": f"NO_CANDIDATES:{item_number}",
+                    "value": f"NO_CANDIDATES:{display_id}",
                     "source": "scrape_enrich.no_candidates",
                     "url": "",
                     "confidence": 0,
@@ -902,14 +977,41 @@ def process_product(
             ]
         )
     fields_found = sorted({rec["field"] for rec in records}, key=lambda field: FIELD_ORDER.get(field, 99))
-    print(f"{item_number}, {name}, pages={fetched_pages}, fields={','.join(fields_found)}")
-    return {
+    print(f"{display_id}, {name}, pages={fetched_pages}, fields={','.join(fields_found)}")
+    entry = {
+        "product_id": product_id,
         "item_number": item_number,
         "name": name,
+        "brand_name": brand_name,
+        "target_fields": product.get("target_fields", []),
+        "known_values": product.get("current_values", {}),
         "queries": queries,
+        "candidate_urls": candidate_urls,
         "urls_fetched": urls_fetched,
+        "candidate_records": [
+            {
+                "field": rec.get("field"),
+                "value": rec.get("value"),
+                "source": rec.get("source"),
+                "url": rec.get("url"),
+                "confidence": rec.get("confidence"),
+                "identity_check": rec.get("identity_check"),
+            }
+            for rec in records
+        ],
         "records_added": added,
     }
+    write_product_research_packet(entry)
+    return entry
+
+
+def write_product_research_packet(entry: dict[str, Any]) -> None:
+    """Persist the per-product scratch packet used by the sentry/AI layer."""
+    stamp = now_utc().strftime("%Y%m%dT%H%M%SZ")
+    identity = entry.get("item_number") or entry.get("product_id") or "product"
+    name = filename_slug(entry.get("name"), "product")
+    path = PRODUCT_RESEARCH_DIR / f"{stamp}_{filename_slug(identity)}_{name}.json"
+    write_json(path, entry)
 
 
 def verify_and_apply_ledger() -> None:
@@ -924,6 +1026,11 @@ def parse_args() -> argparse.Namespace:
         "--only-sku",
         default="",
         help="comma-separated SKU list to restrict the run",
+    )
+    parser.add_argument(
+        "--only-product-id",
+        default="",
+        help="comma-separated product UUIDs to restrict the run",
     )
     parser.add_argument(
         "--force",
@@ -964,9 +1071,15 @@ def parse_only_skus(value: str) -> set[str] | None:
     return items or None
 
 
+def parse_csv(value: str) -> set[str] | None:
+    items = {part.strip() for part in value.split(",") if part.strip()}
+    return items or None
+
+
 def main() -> None:
     args = parse_args()
     only_skus = parse_only_skus(args.only_sku)
+    only_product_ids = parse_csv(args.only_product_id)
     session = requests.Session()
     session.headers.update({"User-Agent": DUCKDUCKGO_UA})
     run_log: list[dict[str, Any]] = []
@@ -974,8 +1087,8 @@ def main() -> None:
     seen_this_run: set[str] = set()
 
     def eligible_products() -> list[dict[str, Any]]:
-        skip = seen_this_run if args.force else (load_today_seen_item_numbers() | seen_this_run)
-        return fetch_products(args.limit, only_skus, skip_item_numbers=skip)
+        skip = seen_this_run if args.force else (load_today_seen_product_keys() | seen_this_run)
+        return fetch_products(args.limit, only_skus, only_product_ids, skip_product_keys=skip)
 
     while True:
         products = eligible_products()
@@ -988,27 +1101,30 @@ def main() -> None:
             continue
 
         for index, product in enumerate(products):
+            key = product_key(product["id"], product["item_number"])
             try:
-                entry = process_product(session, product, args.force, load_today_seen_item_numbers() | seen_this_run)
+                entry = process_product(session, product, args.force, load_today_seen_product_keys() | seen_this_run)
                 run_log.append(entry)
-                seen_this_run.add(product["item_number"])
+                seen_this_run.add(key)
                 if args.apply_verified:
                     verify_and_apply_ledger()
             except Exception as exc:  # noqa: BLE001 - keep resumable per spec
-                print(f"{product['item_number']}, {product['name']}, pages=0, fields=error")
+                display_id = product["item_number"] or str(product["id"])
+                print(f"{display_id}, {product['name']}, pages=0, fields=error")
                 run_log.append(
                     {
+                        "product_id": str(product["id"]),
                         "item_number": product["item_number"],
                         "name": product["name"],
                         "queries": search_queries_for_product(
-                            product["item_number"], product["name"], product["brand_name"]
+                            product["item_number"], product["name"], product["brand_name"], product
                         ),
                         "urls_fetched": [],
                         "records_added": 0,
                         "error": str(exc),
                     }
                 )
-                seen_this_run.add(product["item_number"])
+                seen_this_run.add(key)
             if index < len(products) - 1:
                 time.sleep(random.uniform(PRODUCT_SLEEP_MIN, PRODUCT_SLEEP_MAX))
             if args.one:

@@ -1,0 +1,30 @@
+[
+  {
+    "product_id": "19fd55d8-98e8-458f-9e68-7ea94bc09dc7",
+    "item_number": "",
+    "name": "Joltix",
+    "brand_name": "Great Grizzly",
+    "target_fields": [
+      "shot_count",
+      "duration_seconds",
+      "effects",
+      "packing",
+      "description"
+    ],
+    "known_values": {
+      "shot_count": null,
+      "duration_seconds": null,
+      "effects": null,
+      "packing": null,
+      "description": null
+    },
+    "queries": [
+      "Joltix Great Grizzly fireworks",
+      "\"Joltix\" fireworks"
+    ],
+    "candidate_urls": [],
+    "urls_fetched": [],
+    "candidate_records": [],
+    "records_added": 0
+  }
+]

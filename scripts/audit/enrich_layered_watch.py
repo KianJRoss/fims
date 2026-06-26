@@ -81,7 +81,9 @@ def main() -> int:
         scrape_rc, scrape_output = run_step(scrape_cmd)
         scrape_result = parse_scrape_result(scrape_output)
         item_number = str(scrape_result.get("item_number", "")).strip() if scrape_result else ""
-        if scrape_rc != 0 or not item_number:
+        product_id = str(scrape_result.get("product_id", "")).strip() if scrape_result else ""
+        product_label = item_number or product_id
+        if scrape_rc != 0 or not product_label:
             print(f"product transaction stopped with scrape_rc={scrape_rc}; no product result", flush=True)
             if args.once:
                 return 1
@@ -97,9 +99,11 @@ def main() -> int:
             "--limit",
             str(args.sentry_limit),
             "--apply",
-            "--only-sku",
-            item_number,
         ]
+        if item_number:
+            sentry_cmd.extend(["--only-sku", item_number])
+        if product_id:
+            sentry_cmd.extend(["--only-product-id", product_id])
         if args.model:
             sentry_cmd.extend(["--model", args.model])
         if args.ollama_host:
@@ -111,7 +115,7 @@ def main() -> int:
 
         if scrape_rc != 0 or sentry_rc != 0:
             print(
-                f"product transaction {item_number} finished with scrape_rc={scrape_rc} sentry_rc={sentry_rc}",
+                f"product transaction {product_label} finished with scrape_rc={scrape_rc} sentry_rc={sentry_rc}",
                 flush=True,
             )
         processed += 1
