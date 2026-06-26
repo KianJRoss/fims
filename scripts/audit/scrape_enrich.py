@@ -599,6 +599,8 @@ def clean_effects(value: Any) -> str | None:
     text = re.sub(r"\s+", " ", text).strip(" ,;")
     if not text:
         return None
+    if text.lower() in {"effect", "effects", "color", "colors", "performance"}:
+        return None
     if len(text) > 300:
         text = text[:300].rstrip(" ,;")
     words = text.split()
