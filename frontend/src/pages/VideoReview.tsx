@@ -241,7 +241,9 @@ function ReviewQueueView() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Review Queue</div>
-            <div className="mt-1 text-sm text-gray-400">Search runs automatically. Review only the products that already have candidates.</div>
+            <div className="mt-1 text-sm text-gray-400">
+              In-store products missing an approved video or photo. Search runs automatically.
+            </div>
           </div>
           <div className="inline-flex items-center rounded-2xl border border-gray-800 bg-gray-950 p-1">
             <button
@@ -268,12 +270,14 @@ function ReviewQueueView() {
         <div className="flex min-h-[calc(100vh-145px)] flex-col lg:flex-row">
           <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 lg:w-72 lg:border-b-0 lg:border-r">
             <div className="border-b border-gray-800 px-4 py-4">
-              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">{reviewCount.toLocaleString()} products ready for review</div>
+              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">
+                {reviewCount.toLocaleString()} in-store products missing approved media
+              </div>
             </div>
             <div className="max-h-72 overflow-auto p-3 lg:max-h-[calc(100vh-145px)]">
               {readyQueue.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-8 text-center text-sm text-gray-500">
-                  No products are ready for review right now.
+                  No in-store products are missing approved media right now.
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -434,13 +438,15 @@ function ReviewQueueView() {
         <div className="flex min-h-[calc(100vh-145px)] flex-col lg:flex-row">
           <aside className="w-full shrink-0 border-b border-gray-800 bg-gray-900/90 lg:w-72 lg:border-b-0 lg:border-r">
             <div className="border-b border-gray-800 px-4 py-4">
-              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">{needsSearchCount.toLocaleString()} products waiting on search</div>
+              <div className="text-xs uppercase tracking-[0.25em] text-gray-500">
+                {needsSearchCount.toLocaleString()} in-store products waiting on search
+              </div>
               <div className="mt-2 text-xs text-gray-500">Search runs automatically every 15 minutes.</div>
             </div>
             <div className="max-h-72 overflow-auto p-3 lg:max-h-[calc(100vh-145px)]">
               {needsSearchQueue.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-8 text-center text-sm text-gray-500">
-                  No products are waiting on search right now.
+                  No in-store products are waiting on search right now.
                 </div>
               ) : (
                 <div className="space-y-2">

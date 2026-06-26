@@ -243,10 +243,12 @@ def list_products(
         has_any_video = exists(
             select(1).select_from(ProductVideo).where(ProductVideo.product_id == Product.id)
         )
+        missing_photo = or_(Product.image_path.is_(None), Product.image_path == "")
+        queue_base = [Product.in_store.is_(True), Product.no_video_confirmed.is_(False), missing_photo, ~has_confirmed_video]
         if video_status == "needs_search":
-            stmt = stmt.where(Product.no_video_confirmed.is_(False), ~has_confirmed_video, ~has_any_video)
+            stmt = stmt.where(*queue_base, ~has_any_video)
         elif video_status == "has_candidates":
-            stmt = stmt.where(Product.no_video_confirmed.is_(False), ~has_confirmed_video, candidate_count > 0)
+            stmt = stmt.where(*queue_base, candidate_count > 0)
         else:
             raise HTTPException(status_code=400, detail="Invalid video_status")
     elif no_video:

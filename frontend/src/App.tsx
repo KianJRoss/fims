@@ -59,7 +59,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-100 font-mono lg:h-screen lg:flex-row">
+    <div className="flex min-h-screen flex-col bg-gray-950 text-gray-100 font-sans lg:h-screen lg:flex-row">
       <header className="sticky top-0 z-40 border-b border-gray-800 bg-gray-950/95 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <div>

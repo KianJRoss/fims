@@ -10,17 +10,21 @@ const navLinkClass =
   "rounded-full px-4 py-2 text-sm font-medium transition-colors";
 
 function linkClass(isActive: boolean) {
-  return `${navLinkClass} ${isActive ? "bg-sky-500 text-white shadow-sm" : "text-slate-600 hover:bg-sky-50 hover:text-sky-700"}`;
+  return `${navLinkClass} ${
+    isActive
+      ? "bg-sky-500 text-white shadow-lg shadow-sky-950/20"
+      : "text-slate-200 hover:bg-white/10 hover:text-white"
+  }`;
 }
 
 export default function ShopLayout({ children }: ShopLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-100 bg-white shadow-sm">
+    <div className="flex min-h-screen flex-col bg-[linear-gradient(180deg,_#0f172a_0%,_#1f2937_35%,_#334155_68%,_#f8fafc_100%)] text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/70 shadow-2xl shadow-slate-950/20 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <NavLink to="/shop" className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-sky-600" />
-            <span className="text-lg font-semibold tracking-tight text-slate-900">Bodigons Fireworks</span>
+            <Sparkles className="h-6 w-6 text-sky-300" />
+            <span className="text-lg font-semibold tracking-tight text-white">Bodigon Fireworks</span>
           </NavLink>
 
           <nav className="flex items-center gap-2 overflow-x-auto pb-1 lg:justify-end">
@@ -39,9 +43,9 @@ export default function ShopLayout({ children }: ShopLayoutProps) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-slate-200 bg-slate-100">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-slate-600 sm:px-6 lg:px-8">
-          <span className="font-semibold text-slate-900">Bodigons Fireworks</span>
+      <footer className="border-t border-white/10 bg-slate-950/80">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-slate-300 sm:px-6 lg:px-8">
+          <span className="font-semibold text-white">Bodigon Fireworks</span>
           <span>Light up your celebration</span>
         </div>
       </footer>

@@ -35,6 +35,9 @@ yt-dlp==2024.12.13
 # HTTP client (for future Pi communication)
 httpx==0.28.1
 
+# Payment terminal (Dejavoo SPIn over USB serial; import is guarded if absent)
+pyserial==3.5
+
 # Utilities
 python-dateutil==2.9.0
 structlog==24.4.0

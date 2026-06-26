@@ -79,13 +79,17 @@ type Props = {
    * scanner, where "create new" always means the item is physically in the store
    * right now but was just hastily added. */
   flagAsNewInStoreItem?: boolean;
+  /** When set, the component opens directly in edit mode for this product
+   * (skipping the search step). Used by the Inventory scanner so a known
+   * barcode immediately presents an editable info form. */
+  initialEditProductId?: string | null;
   onClose?: () => void;
   onSaved?: (productId: string) => void;
 };
 
-export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreItem, onClose, onSaved }: Props) {
+export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreItem, initialEditProductId, onClose, onSaved }: Props) {
   const queryClient = useQueryClient();
-  const [mode, setMode] = useState<"search" | "create" | "edit">("search");
+  const [mode, setMode] = useState<"search" | "create" | "edit">(initialEditProductId ? "edit" : "search");
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<ProductSearchResult[]>([]);
   const [searching, setSearching] = useState(false);
@@ -93,6 +97,7 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const searchTimerRef = useRef<number | null>(null);
+  const loadedEditIdRef = useRef<string | null>(null);
 
   const categoryOptionsQuery = useQuery({
     queryKey: ["all-categories"],
@@ -134,6 +139,16 @@ export default function ManualProductEntry({ prefillBarcode, flagAsNewInStoreIte
       setStatusMessage(null);
     },
   });
+
+  // Open directly in edit mode when the caller (e.g. the scanner) supplies a
+  // known product id. Guard with a ref so it only fires once per id.
+  useEffect(() => {
+    if (!initialEditProductId) return;
+    if (loadedEditIdRef.current === initialEditProductId) return;
+    loadedEditIdRef.current = initialEditProductId;
+    loadDetailMutation.mutate(initialEditProductId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialEditProductId]);
 
   const createMutation = useMutation({
     mutationFn: async (payload: FormState) => {

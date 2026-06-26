@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import re
 import socket
 import textwrap
 from datetime import datetime
@@ -14,9 +15,26 @@ logger = logging.getLogger(__name__)
 
 CopyType = Literal["customer", "merchant"]
 
-STORE_NAME = "Main Street Fireworks"
+STORE_NAME = "Main Street Fireworks"  # fallback; settings.RECEIPT_STORE_NAME wins
 PAPER_WIDTH = 42
 SOCKET_TIMEOUT_SECONDS = 2.0
+
+# ESC/POS control sequences we emit, for stripping in the plaintext preview.
+_ESCPOS_CONTROL = re.compile(r"\x1b@|\x1b[aE].|\x1dV.")
+
+
+def _store_name() -> str:
+    return (getattr(settings, "RECEIPT_STORE_NAME", "") or STORE_NAME).strip()
+
+
+def _header_lines() -> list[str]:
+    raw = getattr(settings, "RECEIPT_HEADER_LINES", "") or ""
+    return [ln for ln in raw.splitlines()]
+
+
+def _footer_lines() -> list[str]:
+    raw = getattr(settings, "RECEIPT_FOOTER", "") or ""
+    return [ln for ln in raw.splitlines()]
 
 
 def receipt_print_payload(sale) -> tuple[SimpleNamespace, list[SimpleNamespace]]:
@@ -80,8 +98,9 @@ def build_receipt_bytes(sale, items: Sequence, copy_type: CopyType = "customer")
         b"\x1b@",  # initialize
         b"\x1ba\x01",  # center align
         b"\x1bE\x01",  # bold on
-        _line(STORE_NAME),
+        _line(_store_name()),
         b"\x1bE\x00",  # bold off
+        *[_line(text) for text in _header_lines()],
         _line("MERCHANT COPY" if copy_type == "merchant" else "CUSTOMER COPY"),
         _line(_receipt_datetime(sale)),
         _line(f"Sale: {sale.id}"),
@@ -146,6 +165,13 @@ def build_receipt_bytes(sale, items: Sequence, copy_type: CopyType = "customer")
             ]
         )
 
+    footer = _footer_lines()
+    if footer:
+        lines.append(_line(""))
+        lines.append(b"\x1ba\x01")  # center align
+        lines.extend(_line(text) for text in footer)
+        lines.append(b"\x1ba\x00")  # left align
+
     lines.extend(
         [
             _line(""),
@@ -154,6 +180,16 @@ def build_receipt_bytes(sale, items: Sequence, copy_type: CopyType = "customer")
         ]
     )
     return b"".join(lines)
+
+
+def render_receipt_text(sale, items: Sequence, copy_type: CopyType = "customer") -> str:
+    """Plaintext preview of a receipt (ESC/POS control codes stripped).
+
+    Lets receipts be designed/tested without a physical printer -- the layout
+    matches what build_receipt_bytes() sends.
+    """
+    raw = build_receipt_bytes(sale, items, copy_type)
+    return _ESCPOS_CONTROL.sub("", raw.decode("cp437", errors="replace"))
 
 
 def _receipt_datetime(sale) -> str:
