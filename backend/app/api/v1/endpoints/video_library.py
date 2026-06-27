@@ -352,24 +352,25 @@ def _lookup_legacy_video(db: Session, barcode: str) -> dict | None:
     return {"video_filename": Path(video_filename).name, "name": (row.name or "").strip() or None}
 
 
-@router.post("/player/play-by-barcode")
-def play_by_barcode(body: PlayByBarcodeRequest, db: Session = Depends(get_db)):
-    """Play the clip for a scanned barcode, falling back to the old kiosk's library.
+def play_barcode_core(db: Session, barcode: str) -> dict:
+    """Resolve a scanned barcode to a video and play it on the Video Pi.
 
     Resolution order:
       1. FIMS product with a video file actually present on the Video Pi.
       2. Legacy Red Rhino kiosk barcode->video map (for items not in FIMS, or
          FIMS items whose only video isn't on the Pi).
     This is what makes a scan of an un-catalogued product still play its demo,
-    the way the standalone kiosk used to.
+    the way the standalone kiosk used to. Shared by the /player/play-by-barcode
+    endpoint and the server-side scanner-input handler so a physical scan plays
+    on the kiosk even when no browser Remote tab is open.
     """
     video_pi_url = get_video_pi_url()
     if not video_pi_url:
         return {"status": "not_configured"}
 
-    barcode = body.barcode.strip()
+    barcode = (barcode or "").strip()
     if not barcode:
-        raise HTTPException(status_code=400, detail="Barcode is required")
+        return {"status": "not_found", "barcode": barcode}
 
     remote_videos = _fetch_remote_videos()
     remote_by_lower = {name.lower(): name for name in remote_videos}
@@ -408,6 +409,15 @@ def play_by_barcode(body: PlayByBarcodeRequest, db: Session = Depends(get_db)):
     if product_ids:
         return {"status": "no_match", "source": "fims", "name": fims_name, "reason": "video_not_available"}
     return {"status": "not_found", "barcode": barcode}
+
+
+@router.post("/player/play-by-barcode")
+def play_by_barcode(body: PlayByBarcodeRequest, db: Session = Depends(get_db)):
+    """Play the clip for a scanned barcode (FIMS first, then the old kiosk library)."""
+    barcode = body.barcode.strip()
+    if not barcode:
+        raise HTTPException(status_code=400, detail="Barcode is required")
+    return play_barcode_core(db, barcode)
 
 
 @router.post("/player/stop")

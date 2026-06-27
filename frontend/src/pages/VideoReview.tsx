@@ -773,11 +773,14 @@ function RemoteView() {
     scanPlayMutation.mutate(barcode);
   }, [scanPlayMutation]);
 
-  useScannerStream((barcode, target) => {
+  useScannerStream((_barcode, target) => {
     if (target !== "video") {
       return;
     }
-    scanPlayMutation.mutate(barcode);
+    // The backend now plays video-target scans server-side, so a physical scan
+    // works even with no Remote tab open. Don't also play here (that would double-
+    // trigger when a tab is open) — just refresh to reflect what's now playing.
+    void statusQuery.refetch();
   });
 
   // Keyboard-wedge barcode scanners just type characters fast then Enter, same as Inventory's listener

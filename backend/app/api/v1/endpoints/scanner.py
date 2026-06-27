@@ -7,8 +7,11 @@ from typing import Literal
 
 import redis.asyncio as aioredis
 from fastapi import APIRouter, HTTPException
+from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel, Field
 from starlette.responses import StreamingResponse
+
+from app.db.session import SessionLocal
 
 router = APIRouter()
 
@@ -126,6 +129,17 @@ async def scanner_release(payload: ScannerReleaseRequest):
         await redis.aclose()
 
 
+def _play_barcode_sync(barcode: str) -> dict:
+    # Imported lazily to avoid a circular import at module load.
+    from app.api.v1.endpoints.video_library import play_barcode_core
+
+    db = SessionLocal()
+    try:
+        return play_barcode_core(db, barcode)
+    finally:
+        db.close()
+
+
 @router.post("/input")
 async def scanner_input(payload: ScannerInputRequest):
     barcode = payload.barcode.strip()
@@ -133,13 +147,28 @@ async def scanner_input(payload: ScannerInputRequest):
         raise HTTPException(status_code=400, detail="Barcode is required")
 
     redis = aioredis.from_url(REDIS_URL, decode_responses=True)
+    target: ScannerTarget = "video"
     try:
         target = await _resolve_effective_target(redis)
         await redis.publish(CHANNEL, json.dumps({"barcode": barcode, "ts": time.time(), "target": target}))
     finally:
         await redis.aclose()
 
-    return {"status": "ok"}
+    # The video target's output is the Video Pi (mpv), not a browser, so the play
+    # must be driven server-side — otherwise a scan only plays if someone happens
+    # to have the Remote tab open and focused. Sales/inventory targets stay
+    # browser-driven (the cashier is actively on those pages) via the SSE stream.
+    play_result: dict | None = None
+    if target == "video":
+        try:
+            play_result = await run_in_threadpool(_play_barcode_sync, barcode)
+        except Exception:
+            play_result = None
+
+    response: dict = {"status": "ok", "target": target}
+    if play_result is not None:
+        response["play"] = play_result
+    return response
 
 
 async def _scanner_stream():
