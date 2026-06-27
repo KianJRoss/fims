@@ -31,6 +31,17 @@ product_videos_table = table(
     column("uploaded_at"),
 )
 
+# Legacy Red Rhino / PyroSalesman kiosk barcode->video map (see
+# scripts/load_legacy_kiosk_videos.py). Used as a fallback for scans whose
+# barcode isn't a FIMS product.
+legacy_kiosk_videos_table = table(
+    "legacy_kiosk_videos",
+    column("gtin"),
+    column("gtin_norm"),
+    column("video_filename"),
+    column("name"),
+)
+
 
 class PlayRequest(BaseModel):
     product_id: str | None = None
@@ -306,6 +317,97 @@ def play_video(body: PlayRequest, db: Session = Depends(get_db)):
         return post_to_video_pi("/play", {"url": video_url, "file_path": body.file_path})
 
     raise HTTPException(status_code=400, detail="Missing file_path or product_id")
+
+
+class PlayByBarcodeRequest(BaseModel):
+    barcode: str = Field(min_length=1)
+
+
+def _lookup_legacy_video(db: Session, barcode: str) -> dict | None:
+    """Resolve a scanned barcode to a legacy kiosk video filename, or None.
+
+    Matches the GTIN exactly, then leading-zero-normalized so a 12-digit UPC-A
+    scan finds a 13-digit EAN-13 ("0"+UPC) stored value and vice-versa — the way
+    the old kiosk's GTIN database paired barcodes to clips.
+    """
+    norm = barcode.lstrip("0") or barcode
+    row = db.execute(
+        select(
+            legacy_kiosk_videos_table.c.video_filename,
+            legacy_kiosk_videos_table.c.name,
+        )
+        .where(
+            or_(
+                legacy_kiosk_videos_table.c.gtin == barcode,
+                legacy_kiosk_videos_table.c.gtin_norm == norm,
+            )
+        )
+        .limit(1)
+    ).first()
+    if not row:
+        return None
+    video_filename = (row.video_filename or "").strip()
+    if not video_filename:
+        return None
+    return {"video_filename": Path(video_filename).name, "name": (row.name or "").strip() or None}
+
+
+@router.post("/player/play-by-barcode")
+def play_by_barcode(body: PlayByBarcodeRequest, db: Session = Depends(get_db)):
+    """Play the clip for a scanned barcode, falling back to the old kiosk's library.
+
+    Resolution order:
+      1. FIMS product with a video file actually present on the Video Pi.
+      2. Legacy Red Rhino kiosk barcode->video map (for items not in FIMS, or
+         FIMS items whose only video isn't on the Pi).
+    This is what makes a scan of an un-catalogued product still play its demo,
+    the way the standalone kiosk used to.
+    """
+    video_pi_url = get_video_pi_url()
+    if not video_pi_url:
+        return {"status": "not_configured"}
+
+    barcode = body.barcode.strip()
+    if not barcode:
+        raise HTTPException(status_code=400, detail="Barcode is required")
+
+    remote_videos = _fetch_remote_videos()
+    remote_by_lower = {name.lower(): name for name in remote_videos}
+
+    def _play_if_present(filename: str) -> dict | None:
+        base = Path(filename).name
+        actual = remote_by_lower.get(base.lower())
+        if actual:
+            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{actual}"})
+        # Pi's file list was unreachable — try the bare name directly rather than
+        # giving up (mirrors /player/play's fallback).
+        if not remote_videos:
+            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{base}"})
+        return None
+
+    # 1) FIMS product(s) mapped to this barcode.
+    from app.api.v1.endpoints._barcode import resolve_product_ids
+
+    product_ids = resolve_product_ids(db, barcode)
+    fims_name: str | None = None
+    for product_id in product_ids:
+        if fims_name is None:
+            fims_name = _get_product_by_id(db, product_id).name
+        for candidate in _get_product_video_filenames(db, product_id):
+            result = _play_if_present(candidate)
+            if result is not None:
+                return {**result, "source": "fims", "product_id": product_id, "name": fims_name}
+
+    # 2) Legacy kiosk library — the whole point of this endpoint.
+    legacy = _lookup_legacy_video(db, barcode)
+    if legacy:
+        result = _play_if_present(legacy["video_filename"])
+        if result is not None:
+            return {**result, "source": "legacy", "name": legacy["name"] or fims_name}
+
+    if product_ids:
+        return {"status": "no_match", "source": "fims", "name": fims_name, "reason": "video_not_available"}
+    return {"status": "not_found", "barcode": barcode}
 
 
 @router.post("/player/stop")

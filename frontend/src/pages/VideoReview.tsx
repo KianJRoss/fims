@@ -724,38 +724,45 @@ function RemoteView() {
     onSuccess: (data) => setLoopInfo(data),
   });
 
-  // Scan a barcode anywhere on this page -> resolve to a product -> override and play immediately,
-  // same "scan interrupts the loop" behavior as the old kiosk's barcode-polling play_loop().
+  // Scan a barcode anywhere on this page -> play immediately, same "scan interrupts
+  // the loop" behavior as the old kiosk's barcode-polling play_loop(). The backend
+  // resolves it to a FIMS product's video first, then falls back to the old Red Rhino
+  // kiosk's barcode->video library so an un-catalogued item still plays its demo.
   const scanPlayMutation = useMutation({
     mutationFn: async (barcode: string) => {
-      const { data: matches } = await api.get(`/v1/products/lookup/barcode/${encodeURIComponent(barcode)}`);
-      const match = Array.isArray(matches) ? matches[0] : null;
-      if (!match) return { status: "not_found" as const, barcode };
-      const product: RemoteProductResult = {
-        id: match.id,
-        name: match.name,
-        item_number: match.item_number,
-        image_url: null,
-        brand_name: null,
-        in_store: true,
+      const { data } = await api.post("/v1/video-library/player/play-by-barcode", { barcode });
+      if (data?.status === "not_found") return { status: "not_found" as const, barcode };
+      if (data?.status === "no_match") {
+        return { status: "no_match" as const, name: (data?.name as string) || barcode };
+      }
+      return {
+        status: "ok" as const,
+        name: (data?.name as string) || `Barcode ${barcode}`,
+        productId: (data?.product_id as string) || "",
+        source: (data?.source as string) || "fims",
       };
-      const { data } = await api.post("/v1/video-library/player/play", { product_id: product.id });
-      if (data?.status === "no_match") return { status: "no_match" as const, product };
-      return { status: "ok" as const, product };
     },
     onSuccess: async (result) => {
       if (result.status === "not_found") {
-        setScanMessage(`Barcode ${result.barcode} isn't in the catalog.`);
+        setScanMessage(`Barcode ${result.barcode} isn't in the catalog or the legacy video library.`);
+        setLastPlayed(null);
       } else if (result.status === "no_match") {
-        setScanMessage(`No video found for "${result.product.name}".`);
+        setScanMessage(`No video found for "${result.name}".`);
         setLastPlayed(null);
       } else {
-        setScanMessage(null);
-        setLastPlayed(result.product);
+        setScanMessage(result.source === "legacy" ? `Playing legacy clip: ${result.name}` : null);
+        setLastPlayed({
+          id: result.productId,
+          name: result.name,
+          item_number: null,
+          image_url: null,
+          brand_name: null,
+          in_store: false,
+        });
       }
       await statusQuery.refetch();
     },
-    onError: () => setScanMessage("Could not look up that barcode."),
+    onError: () => setScanMessage("Could not reach the video player."),
   });
 
   const flushScanBuffer = useCallback(() => {
