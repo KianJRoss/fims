@@ -23,6 +23,7 @@ import BarcodePrint from "./BarcodePrint";
 import Suppliers from "./Suppliers";
 import Deals from "./Deals";
 import { useScannerStream } from "../hooks/useScannerStream";
+import { useScannerClaim } from "../hooks/useScannerClaim";
 import ProductImage from "../components/ProductImage";
 import ManualProductEntry from "../components/ManualProductEntry";
 
@@ -918,22 +919,9 @@ function InitializeView() {
     onSuccess: () => summaryQuery.refetch(),
   });
 
-  useEffect(() => {
-    void api.post("/v1/scanner/target", { target: "inventory" }).catch(() => {});
-
-    return () => {
-      void (async () => {
-        try {
-          const { data } = await api.get<{ target: "video" | "sales" | "inventory" }>("/v1/scanner/target");
-          if (data.target === "inventory") {
-            await api.post("/v1/scanner/target", { target: "video" });
-          }
-        } catch {
-          // Ignore release failures on unmount.
-        }
-      })();
-    };
-  }, []);
+  // Claim the scanner for inventory while this page is open and visible; it
+  // auto-releases to the Remote when backgrounded/slept/closed.
+  useScannerClaim("inventory");
 
   useScannerStream((barcode, target) => {
     if (target !== "inventory") {

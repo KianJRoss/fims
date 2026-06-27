@@ -6,6 +6,7 @@ import { QRCodeSVG } from "qrcode.react";
 
 import { api } from "../api/client";
 import { useScannerStream } from "../hooks/useScannerStream";
+import { useScannerClaim } from "../hooks/useScannerClaim";
 import ProductImage from "../components/ProductImage";
 
 const TAX_RATE = 0.12; // 12% sales tax on taxable items
@@ -191,22 +192,9 @@ export default function SalesScreen() {
     barcodeInputRef.current?.focus();
   }, []);
 
-  useEffect(() => {
-    void api.post("/v1/scanner/target", { target: "sales" }).catch(() => {});
-
-    return () => {
-      void (async () => {
-        try {
-          const { data } = await api.get<{ target: "video" | "sales" | "inventory" }>("/v1/scanner/target");
-          if (data.target === "sales") {
-            await api.post("/v1/scanner/target", { target: "video" });
-          }
-        } catch {
-          // Ignore release failures on unmount.
-        }
-      })();
-    };
-  }, []);
+  // Claim the scanner for sales while this page is open and visible; it
+  // auto-releases to the Remote when backgrounded/slept/closed.
+  useScannerClaim("sales");
 
   useEffect(() => {
     if (!flash) {
