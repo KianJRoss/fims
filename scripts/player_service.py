@@ -14,6 +14,11 @@ from fastapi import FastAPI, HTTPException
 
 VIDEO_DIR = "/media/pi/VIDEOS/videos"
 IDLE_RETURN_SECONDS = 60
+# Safety-net cap: a triggered clip normally returns to the idle queue the instant
+# its mpv process exits (it plays exactly ONCE). This cap only matters if mpv hangs
+# and never exits on its own; it's far longer than any real demo clip so it never
+# cuts a legitimately-playing video short.
+TRIGGERED_MAX_SECONDS = 600
 IDLE_POLL_SECONDS = 0.5
 # The curated idle playlist (pushed via POST /idle/playlist) is persisted here so
 # it survives a service restart / Pi reboot. Without this the idle loop falls back
@@ -21,6 +26,8 @@ IDLE_POLL_SECONDS = 0.5
 IDLE_PLAYLIST_FILE = os.path.expanduser("~/.config/fims/idle_playlist.json")
 TRANSITION_CACHE_DIR = "/tmp/fims_transitions"
 TRANSITION_DURATION = 4  # seconds each brand card is shown
+INTERSTITIAL_IMAGE_DIR = "/media/pi/VIDEOS/interstitials"
+INTERSTITIAL_IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 
 BRAND_PREFIX_MAP: dict[str, str] = {
     "WC": "WORLD CLASS",
@@ -43,6 +50,7 @@ _mode = "idle"
 _idle_playlist: list[str] = []
 _idle_timer: threading.Timer | None = None
 _idle_timer_generation = 0
+_triggered_generation = 0
 _idle_thread_started = False
 
 
@@ -86,6 +94,16 @@ def _get_transition_png(brand: str) -> str | None:
         capture_output=True,
     )
     return path if result.returncode == 0 else None
+
+
+def _list_interstitial_images() -> list[str]:
+    if not os.path.isdir(INTERSTITIAL_IMAGE_DIR):
+        return []
+    return [
+        path
+        for path in sorted(glob.glob(os.path.join(INTERSTITIAL_IMAGE_DIR, "*")))
+        if os.path.splitext(path)[1].lower() in INTERSTITIAL_IMAGE_EXTS
+    ]
 
 
 def _spawn_mpv_playlist(playlist_path: str) -> subprocess.Popen[bytes]:
@@ -165,18 +183,87 @@ def _idle_timeout(generation: int) -> None:
         _stop_current_process_locked()
 
 
+def _probe_duration(path: str) -> float | None:
+    """Best-effort clip length in seconds via ffprobe; None if unknown."""
+    try:
+        out = subprocess.run(
+            [
+                "ffprobe", "-v", "error",
+                "-show_entries", "format=duration",
+                "-of", "default=noprint_wrappers=1:nokey=1",
+                path,
+            ],
+            capture_output=True, text=True, timeout=10,
+        )
+        value = out.stdout.strip()
+        return float(value) if value else None
+    except Exception:
+        return None
+
+
+def _triggered_watcher(
+    proc: subprocess.Popen[bytes], generation: int, duration: float | None
+) -> None:
+    """Return to the idle queue when a triggered clip finishes — once, no replay.
+
+    The clip is spawned to play exactly once (no --loop-file). We return to idle
+    as soon as mpv exits on its own; but mpv on this Pi does not reliably quit at
+    end-of-file, so we also return after the clip's known duration elapses. This
+    replaces the old fixed IDLE_RETURN_SECONDS timer, so short clips no longer
+    loop/replay and long clips are no longer cut off at 60s.
+    """
+    # _mode is assigned below ("idle"), so it must be declared global or every
+    # read of it in this function raises UnboundLocalError and the watcher
+    # thread dies before ever returning to the idle queue.
+    global _mode
+
+    if duration and duration > 0:
+        deadline = time.time() + duration + 3.0
+    else:
+        deadline = time.time() + TRIGGERED_MAX_SECONDS
+
+    # Return as soon as mpv exits on its own; otherwise fall back to the
+    # duration-based deadline (mpv on this Pi doesn't reliably quit at EOF).
+    while proc.poll() is None:
+        if time.time() >= deadline:
+            break
+        time.sleep(0.2)
+
+    with _lock:
+        # A newer scan replaced this clip, or we've already returned to idle —
+        # nothing to do.
+        if generation != _triggered_generation:
+            return
+        if _mode != "triggered":
+            return
+        _cancel_idle_timer_locked()
+        _trigger_event.clear()
+        _mode = "idle"
+        _stop_current_process_locked()
+
+
 def _start_triggered_playback_locked(source: str) -> None:
-    global _current_proc, _current_source, _mode
+    global _current_proc, _current_source, _mode, _triggered_generation
 
     _cancel_idle_timer_locked()
     _stop_current_process_locked()
     _trigger_event.set()
     _mode = "triggered"
 
-    proc = _spawn_mpv(source, loop_forever=True)
+    # Play the clip ONCE. Returning to the idle queue is driven by the clip
+    # actually ending (watched below), not by a fixed timer.
+    proc = _spawn_mpv(source, loop_forever=False)
     _current_proc = proc
     _current_source = source
-    _set_idle_return_timer_locked()
+
+    duration = _probe_duration(source)
+    _triggered_generation += 1
+    watcher = threading.Thread(
+        target=_triggered_watcher,
+        args=(proc, _triggered_generation, duration),
+        daemon=True,
+    )
+    watcher.start()
 
 
 def _pick_idle_source_locked() -> str | None:
@@ -213,20 +300,29 @@ def _idle_loop() -> None:
             continue
 
         random.shuffle(playlist)
-
-        # Build M3U interleaving brand transition PNGs between each video.
-        m3u_lines = ["#EXTM3U"]
-        for video_path in playlist:
-            brand = _brand_from_filename(video_path)
-            png = _get_transition_png(brand)
-            if png:
-                m3u_lines.append(png)
-            m3u_lines.append(video_path)
+        interstitials = _list_interstitial_images()
+        expanded: list[str] = []
+        if interstitials and len(playlist) > 1:
+            # Insert promo images with a random gap so they show up every 5-10
+            # videos without ever forming a consecutive image block.
+            photo_idx = 0
+            photo_interval = random.randint(5, 10)
+            videos_since_photo = 0
+            for video_path in playlist:
+                expanded.append(video_path)
+                videos_since_photo += 1
+                if photo_idx < len(interstitials) and videos_since_photo >= photo_interval:
+                    expanded.append(interstitials[photo_idx])
+                    photo_idx = (photo_idx + 1) % len(interstitials)
+                    videos_since_photo = 0
+                    photo_interval = random.randint(5, 10)
+        else:
+            expanded = playlist
 
         playlist_path = "/tmp/fims_idle.m3u"
         try:
             with open(playlist_path, "w") as fh:
-                fh.write("\n".join(m3u_lines) + "\n")
+                fh.write("\n".join(["#EXTM3U", *expanded]) + "\n")
         except Exception:
             time.sleep(IDLE_POLL_SECONDS)
             continue

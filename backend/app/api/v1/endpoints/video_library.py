@@ -28,6 +28,7 @@ product_videos_table = table(
     column("product_id"),
     column("video_filename"),
     column("is_primary"),
+    column("confirmed"),
     column("uploaded_at"),
 )
 
@@ -453,6 +454,10 @@ def set_idle_filter(body: IdleFilterRequest, db: Session = Depends(get_db)):
             select(product_videos_table.c.video_filename)
             .where(product_videos_table.c.product_id.in_(matched_product_ids))
             .where(product_videos_table.c.video_filename.isnot(None))
+            # Only confirmed videos belong in the looping queue — unconfirmed rows
+            # are loose/auto matches that are often the wrong clip (e.g. a Great
+            # Grizzly video auto-attached to a World Class product).
+            .where(product_videos_table.c.confirmed.is_(True))
         )
         .scalars()
         .all()
@@ -484,6 +489,9 @@ def sync_idle_playlist(db: Session = Depends(get_db)):
             .where(
                 Product.in_store.is_(True),
                 Product.item_number.isnot(None),
+                # Only confirmed videos belong in the looping queue — unconfirmed
+                # rows are loose/auto matches that are often the wrong clip.
+                product_videos_table.c.confirmed.is_(True),
             )
             .order_by(Product.name.asc(), Product.id.asc())
         )
