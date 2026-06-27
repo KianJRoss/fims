@@ -7,12 +7,12 @@ from urllib.parse import quote
 import httpx
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy import column, nullslast, or_, select, table
+from sqlalchemy import column, func, nullslast, or_, select, table
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.models.pricing import PriceType, ProductPrice
-from app.models.product import Product, ProductCategory
+from app.models.product import Product, ProductBrand, ProductCategory
 
 router = APIRouter()
 
@@ -189,6 +189,80 @@ def _fetch_remote_videos() -> set[str]:
     except (httpx.HTTPError, ValueError, TypeError):
         return set()
     return {Path(name).name for name in _normalize_video_list(payload)}
+
+
+class PlayableProduct(BaseModel):
+    id: str
+    name: str
+    item_number: str | None = None
+    image_url: str | None = None
+    brand_name: str | None = None
+    in_store: bool = False
+
+
+@router.get("/playable-products", response_model=list[PlayableProduct])
+def list_playable_products(
+    q: str | None = None,
+    in_store: bool | None = None,
+    limit: int = 50,
+    db: Session = Depends(get_db),
+):
+    """Products that actually have a video the Video Pi can play right now.
+
+    The Remote should only offer products whose video file is physically on the
+    Pi — not every in-store product, and not products whose only "video" is an
+    unsynced YouTube download. We intersect each product's recorded video
+    filenames against the Pi's live file list. If the Pi can't be reached we fall
+    back to "has any video filename on record" so the list isn't mysteriously
+    empty.
+    """
+    remote_lower = {name.lower() for name in _fetch_remote_videos()}
+
+    stmt = (
+        select(
+            Product,
+            ProductBrand.name.label("brand_name"),
+            func.array_agg(product_videos_table.c.video_filename).label("filenames"),
+        )
+        .join(product_videos_table, product_videos_table.c.product_id == Product.id)
+        .outerjoin(ProductBrand, ProductBrand.id == Product.brand_id)
+        .where(
+            Product.is_active.is_(True),
+            product_videos_table.c.video_filename.isnot(None),
+        )
+    )
+    if in_store is not None:
+        stmt = stmt.where(Product.in_store.is_(in_store))
+    if q:
+        stmt = stmt.where(or_(Product.name.ilike(f"%{q}%"), Product.item_number.ilike(f"%{q}%")))
+    stmt = stmt.group_by(Product.id, ProductBrand.name).order_by(Product.created_at.desc())
+
+    # Over-fetch, then filter to Pi-present files in Python and trim to `limit`.
+    rows = db.execute(stmt.limit(max(limit * 6, 300))).all()
+
+    results: list[dict] = []
+    for product, brand_name, filenames in rows:
+        names = [str(name).strip() for name in (filenames or []) if name and str(name).strip()]
+        if remote_lower:
+            playable = any(Path(name).name.lower() in remote_lower for name in names)
+        else:
+            playable = bool(names)
+        if not playable:
+            continue
+        results.append(
+            {
+                "id": product.id,
+                "name": product.name,
+                "item_number": product.item_number,
+                "image_url": f"/media/{product.image_path}" if product.image_path else None,
+                "brand_name": brand_name,
+                "in_store": product.in_store,
+            }
+        )
+        if len(results) >= limit:
+            break
+
+    return results
 
 
 @router.post("/player/play")

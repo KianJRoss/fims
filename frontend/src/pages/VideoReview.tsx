@@ -657,11 +657,12 @@ function RemoteView() {
     queryFn: async (): Promise<string[]> => (await api.get("/v1/products/categories")).data,
   });
 
-  // Quick-access list: in-store products (small, fast, already paginated by the API)
+  // Quick-access list: in-store products that actually have a video the Video Pi
+  // can play right now (filename present on the Pi) — not every in-store product.
   const inStoreQuery = useQuery({
     queryKey: ["video-remote-in-store"],
     queryFn: async (): Promise<RemoteProductResult[]> =>
-      (await api.get("/v1/products/", { params: { in_store: true, limit: 24, sort: "recent" } })).data,
+      (await api.get("/v1/video-library/playable-products", { params: { in_store: true, limit: 24 } })).data,
     refetchOnWindowFocus: false,
   });
 
@@ -672,7 +673,7 @@ function RemoteView() {
     searchTimerRef.current = window.setTimeout(async () => {
       setSearching(true);
       try {
-        const { data } = await api.get("/v1/products/", { params: { q: search.trim(), limit: 12 } });
+        const { data } = await api.get("/v1/video-library/playable-products", { params: { q: search.trim(), limit: 12 } });
         setResults(Array.isArray(data) ? data : []);
       } catch {
         setResults([]);
