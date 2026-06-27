@@ -86,14 +86,28 @@ async def scanner_target():
 
 @router.post("/claim", response_model=ScannerTargetResponse)
 async def scanner_claim(payload: ScannerClaimRequest):
-    """Heartbeat: assert that this client is active on a scanner-using page."""
+    """Heartbeat: assert that this client is active on a scanner-using page.
+
+    The stored timestamp marks when this client *acquired* the scanner, not the
+    last heartbeat: a repeat heartbeat for the same target preserves the original
+    acquire time. That keeps "most-recent claim wins" stable when two scanner
+    pages are open at once (otherwise both renewing every few seconds would make
+    the target oscillate) — the page that most recently opened/focused wins until
+    it goes away.
+    """
+    key = f"{CLAIM_PREFIX}{payload.client_id}"
     redis = aioredis.from_url(REDIS_URL, decode_responses=True)
     try:
-        await redis.set(
-            f"{CLAIM_PREFIX}{payload.client_id}",
-            f"{payload.target}|{time.time()}",
-            ex=CLAIM_TTL_SECONDS,
-        )
+        acquired_ts = time.time()
+        existing = await redis.get(key)
+        if existing:
+            raw_target, _, raw_ts = existing.partition("|")
+            if raw_target == payload.target:
+                try:
+                    acquired_ts = float(raw_ts)
+                except ValueError:
+                    pass
+        await redis.set(key, f"{payload.target}|{acquired_ts}", ex=CLAIM_TTL_SECONDS)
         target = await _resolve_effective_target(redis)
         return {"target": target}
     finally:
