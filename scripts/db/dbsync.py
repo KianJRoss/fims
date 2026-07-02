@@ -275,7 +275,20 @@ def main():
             grand["del spoke"] += n[2]; grand["del hub"] += n[3]
 
         if args.apply:
-            # Pass 1: upserts parent -> child (a row's FK targets land first)
+            # Pass 1: deletes child -> parent (remove children before parents).
+            # Deletes run before upserts so a row awaiting deletion cannot still
+            # hold a secondary unique key (e.g. product_videos' unique
+            # (product_id, video_filename)) that an incoming upserted row also
+            # needs -- ON CONFLICT only targets (id), so a stale row would
+            # otherwise cause a UniqueViolation during the upsert pass.
+            for t in reversed(tables):
+                p = plans[t]
+                if not (p.delete_on_hub or p.delete_on_spoke):
+                    continue
+                do_delete(ch, t, p.delete_on_hub, hub_name)
+                do_delete(cs, t, p.delete_on_spoke, spoke_name)
+                ch.commit(); cs.commit()
+            # Pass 2: upserts parent -> child (a row's FK targets land first)
             for t in tables:
                 p = plans[t]
                 if not (p.upsert_to_spoke or p.upsert_to_hub
@@ -287,14 +300,6 @@ def main():
                 do_upsert(ch, t, fetch_rows(cs, t, p.upsert_to_hub), cols, jcols)
                 clear_tombs(ch, t, p.clear_tomb_hub)
                 clear_tombs(cs, t, p.clear_tomb_spoke)
-                ch.commit(); cs.commit()
-            # Pass 2: deletes child -> parent (remove children before parents)
-            for t in reversed(tables):
-                p = plans[t]
-                if not (p.delete_on_hub or p.delete_on_spoke):
-                    continue
-                do_delete(ch, t, p.delete_on_hub, hub_name)
-                do_delete(cs, t, p.delete_on_spoke, spoke_name)
                 ch.commit(); cs.commit()
 
         print(f"-- totals: {grand} --")
