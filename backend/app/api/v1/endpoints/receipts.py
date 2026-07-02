@@ -83,6 +83,7 @@ def get_receipt(token: str, db: Session = Depends(get_db)):
     return {
         "id": sale.id,
         "created_at": as_utc(sale.created_at),
+        "status": sale.status,
         "payment_method": sale.payment_method,
         "card_last4": sale.card_last4,
         "receipt_token": sale.receipt_token,

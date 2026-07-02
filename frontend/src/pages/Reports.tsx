@@ -1,5 +1,5 @@
-import { useState, type ReactNode } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState, type ReactNode } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Banknote,
   ChevronDown,
@@ -17,6 +17,7 @@ type TransactionSummary = {
   receipt_token: string;
   created_at: string;
   payment_method: string;
+  status: string;
   total: number;
   item_count: number;
 };
@@ -47,6 +48,7 @@ type TransactionDetail = {
   created_at: string;
   completed_at: string;
   payment_method: string;
+  status: string;
   card_last4: string | null;
   subtotal: number;
   discount_total: number;
@@ -97,6 +99,11 @@ function paymentBadgeClass(method: string) {
     return "border-gray-700 bg-gray-800 text-gray-200";
   }
   return "border-gray-700 bg-gray-800 text-gray-200";
+}
+
+function getErrorDetail(error: unknown) {
+  const detail = (error as { response?: { data?: { detail?: unknown } } })?.response?.data?.detail;
+  return typeof detail === "string" ? detail : "Unable to void this sale.";
 }
 
 export default function Reports() {
@@ -282,6 +289,9 @@ function TransactionRow({
   expanded: boolean;
   onToggle: () => void;
 }) {
+  const queryClient = useQueryClient();
+  const [voidArmed, setVoidArmed] = useState(false);
+
   const detailQuery = useQuery({
     queryKey: ["reports", "transaction", transaction.id],
     queryFn: async (): Promise<TransactionDetail> => {
@@ -291,8 +301,30 @@ function TransactionRow({
     enabled: expanded,
   });
 
+  const voidMutation = useMutation({
+    mutationFn: async (): Promise<TransactionDetail> => {
+      const { data } = await api.post(`/v1/sales/${transaction.id}/void`, { reason: null });
+      return data;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["reports", "transaction", transaction.id] });
+      await queryClient.invalidateQueries({ queryKey: ["reports", "daily"] });
+    },
+    onSettled: () => {
+      setVoidArmed(false);
+    },
+  });
+
+  useEffect(() => {
+    if (!expanded) {
+      setVoidArmed(false);
+    }
+  }, [expanded]);
+
+  const isVoided = transaction.status === "voided" || detailQuery.data?.status === "voided";
+
   return (
-    <div className="bg-gray-900">
+    <div className={`bg-gray-900 ${isVoided ? "opacity-60" : ""}`}>
       <button
         type="button"
         onClick={onToggle}
@@ -308,6 +340,11 @@ function TransactionRow({
             >
               {transaction.payment_method}
             </span>
+            {isVoided ? (
+              <span className="rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-red-300">
+                VOIDED
+              </span>
+            ) : null}
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500">
             <span className="font-mono">{transaction.receipt_token}</span>
@@ -387,6 +424,32 @@ function TransactionRow({
                   ))}
                 </div>
               </div>
+
+              {detailQuery.data.status === "voided" ? (
+                <div className="text-sm text-red-300">This sale is voided and excluded from totals.</div>
+              ) : (
+                <div className="flex flex-col items-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (voidArmed) {
+                        voidMutation.mutate();
+                        return;
+                      }
+                      setVoidArmed(true);
+                    }}
+                    disabled={voidMutation.isPending}
+                    className={`rounded-2xl border border-red-500/40 px-4 py-2 text-sm font-medium text-red-300 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-60 ${
+                      voidArmed ? "bg-red-500/20" : ""
+                    }`}
+                  >
+                    {voidArmed ? "Tap again to confirm void" : "Void this sale"}
+                  </button>
+                  {voidMutation.isError ? (
+                    <div className="text-right text-sm text-red-300">{getErrorDetail(voidMutation.error)}</div>
+                  ) : null}
+                </div>
+              )}
             </div>
           ) : null}
         </div>

@@ -23,6 +23,7 @@ def _serialize_transaction(sale: Sale) -> dict[str, Any]:
         "payment_method": sale.payment_method,
         "total": float(sale.grand_total),
         "item_count": len(sale.items),
+        "status": sale.status,
     }
 
 
@@ -43,13 +44,16 @@ def get_daily_report(date: date_type | None = Query(default=None), db: Session =
         .all()
     )
 
-    transaction_count = len(sales)
-    revenue = sum(float(sale.grand_total) for sale in sales)
-    discount_total = sum(float(sale.discount_total) for sale in sales)
+    # Voided sales stay visible in the transaction list (auditability) but are
+    # excluded from every total.
+    active_sales = [sale for sale in sales if sale.status != "voided"]
+    transaction_count = len(active_sales)
+    revenue = sum(float(sale.grand_total) for sale in active_sales)
+    discount_total = sum(float(sale.discount_total) for sale in active_sales)
     avg_sale = revenue / transaction_count if transaction_count else 0.0
 
-    cash_sales = [sale for sale in sales if (sale.payment_method or "").upper() == "CASH"]
-    card_sales = [sale for sale in sales if (sale.payment_method or "").upper() == "CARD"]
+    cash_sales = [sale for sale in active_sales if (sale.payment_method or "").upper() == "CASH"]
+    card_sales = [sale for sale in active_sales if (sale.payment_method or "").upper() == "CARD"]
 
     top_product_rows = db.execute(
         select(
@@ -61,7 +65,7 @@ def get_daily_report(date: date_type | None = Query(default=None), db: Session =
         )
         .join(Sale, Sale.id == SaleItem.sale_id)
         .join(Product, Product.id == SaleItem.product_id)
-        .where(Sale.created_at >= start, Sale.created_at < end)
+        .where(Sale.created_at >= start, Sale.created_at < end, Sale.status != "voided")
         .group_by(SaleItem.product_id, Product.name, Product.item_number)
         .order_by(func.sum(SaleItem.line_total).desc())
         .limit(10)
@@ -110,6 +114,7 @@ def get_transaction_detail(sale_id: str, db: Session = Depends(get_db)):
         "receipt_token": sale.receipt_token,
         "created_at": as_utc(sale.created_at),
         "completed_at": as_utc(sale.completed_at),
+        "status": sale.status,
         "payment_method": sale.payment_method,
         "card_last4": sale.card_last4,
         "subtotal": float(sale.subtotal),

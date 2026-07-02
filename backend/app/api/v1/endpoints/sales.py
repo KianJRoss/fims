@@ -12,7 +12,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
 
 from app.api.v1.endpoints.deals import DealApplyItem, compute_deal_summary
-from app.core.store_time import as_utc, store_day_utc_bounds, store_today
+from app.core.store_time import as_utc, store_day_utc_bounds, store_now, store_today
 from app.db.session import get_db
 from app.models.pricing import PriceType, ProductPrice
 from app.models.product import Product
@@ -44,6 +44,10 @@ class SaleCreatePayload(BaseModel):
     payment_method: str | None = None
     card_last4: str | None = None
     applied_deal_ids: list[int] = Field(default_factory=list)
+
+
+class VoidSalePayload(BaseModel):
+    reason: str | None = None
 
 
 @dataclass(frozen=True)
@@ -281,12 +285,38 @@ def list_sales(db: Session = Depends(get_db)):
     return [_serialize_sale(sale) for sale in sales]
 
 
+@router.post("/{sale_id}/void")
+def void_sale(sale_id: str, payload: VoidSalePayload, db: Session = Depends(get_db)):
+    sale = (
+        db.execute(
+            select(Sale).options(joinedload(Sale.items)).where(Sale.id == sale_id)
+        )
+        .unique()
+        .scalar_one_or_none()
+    )
+    if sale is None:
+        raise HTTPException(status_code=404, detail="Sale not found")
+    if sale.status == "voided":
+        raise HTTPException(status_code=400, detail="Sale is already voided")
+
+    sale.status = "voided"
+    reason = (payload.reason or "").strip()
+    void_note = f"VOIDED {store_now().isoformat(timespec='seconds')}"
+    if reason:
+        void_note += f" — {reason}"
+    sale.notes = f"{sale.notes}\n{void_note}" if sale.notes else void_note
+    db.commit()
+    return _serialize_sale(sale)
+
+
 @router.get("/today")
 def sales_today(db: Session = Depends(get_db)):
     start, end = store_day_utc_bounds(store_today())
     sale_count = (
         db.execute(
-            select(func.count(Sale.id)).where(Sale.created_at >= start, Sale.created_at < end)
+            select(func.count(Sale.id)).where(
+                Sale.created_at >= start, Sale.created_at < end, Sale.status != "voided"
+            )
         ).scalar_one()
     )
     total = (
@@ -294,6 +324,7 @@ def sales_today(db: Session = Depends(get_db)):
             select(func.coalesce(func.sum(Sale.grand_total), 0)).where(
                 Sale.created_at >= start,
                 Sale.created_at < end,
+                Sale.status != "voided",
             )
         ).scalar_one()
     )
@@ -301,7 +332,7 @@ def sales_today(db: Session = Depends(get_db)):
         db.execute(
             select(func.coalesce(func.sum(SaleItem.quantity), 0))
             .join(Sale, SaleItem.sale_id == Sale.id)
-            .where(Sale.created_at >= start, Sale.created_at < end)
+            .where(Sale.created_at >= start, Sale.created_at < end, Sale.status != "voided")
         ).scalar_one()
     )
     count = int(sale_count or 0)
