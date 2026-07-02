@@ -565,9 +565,16 @@ def no_video(body: dict[str, Any]) -> dict[str, Any]:
     return {"status": "card", "lines": lines}
 
 
+VIDEO_FILE_EXTS = (".mp4", ".mov", ".mkv", ".webm", ".m4v")
+
+
 @app.get("/videos")
 def list_videos() -> dict:
-    files = sorted(glob.glob(os.path.join(VIDEO_DIR, "*.mp4")))
+    files = sorted(
+        path
+        for path in glob.glob(os.path.join(VIDEO_DIR, "*"))
+        if path.lower().endswith(VIDEO_FILE_EXTS)
+    )
     return {"videos": [os.path.basename(f) for f in files]}
 
 

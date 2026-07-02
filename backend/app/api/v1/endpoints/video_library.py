@@ -402,9 +402,15 @@ def play_barcode_core(db: Session, barcode: str) -> dict:
 
     def _play_if_present(filename: str) -> dict | None:
         base = Path(filename).name
-        actual = remote_by_lower.get(base.lower())
-        if actual:
-            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{actual}"})
+        # Most YouTube-sourced rows store the bare video id as the filename while
+        # the downloaded file on the Pi is "<id>.mp4" — try both.
+        candidates = [base.lower()]
+        if "." not in base:
+            candidates.append(f"{base.lower()}.mp4")
+        for candidate in candidates:
+            actual = remote_by_lower.get(candidate)
+            if actual:
+                return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{actual}"})
         # Pi's file list was unreachable — try the bare name directly rather than
         # giving up (mirrors /player/play's fallback).
         if not remote_videos:
