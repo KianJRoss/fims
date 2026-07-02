@@ -1,0 +1,28 @@
+{
+  "product_id": "f9d96c4d-e7c3-4fb6-8880-bc8254bb9b38",
+  "item_number": "NN2037",
+  "name": "SNITCH",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Red wave with white strobe. Crackling with yellow"
+  },
+  "queries": [
+    "\"NN2037\" SNITCH fireworks",
+    "SNITCH NO NAME fireworks",
+    "\"SNITCH\" fireworks",
+    "\"SNITCH\" \"16 shot\" fireworks",
+    "\"SNITCH\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

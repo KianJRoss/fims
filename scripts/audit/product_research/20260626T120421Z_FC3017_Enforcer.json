@@ -1,0 +1,29 @@
+{
+  "product_id": "d855424a-b430-4929-9db1-8183896614d2",
+  "item_number": "FC3017",
+  "name": "Enforcer",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 50,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "16/1",
+    "description": "16/1 50 shots"
+  },
+  "queries": [
+    "\"FC3017\" Enforcer fireworks",
+    "Enforcer Pyromaniacs Wholesale fireworks",
+    "\"Enforcer\" fireworks",
+    "\"Enforcer\" \"50 shot\" fireworks",
+    "\"Enforcer\" \"50 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Enforcer\" Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

@@ -1,0 +1,72 @@
+{
+  "product_id": "1140e026-617f-4b90-ac18-178fb0a311f7",
+  "item_number": "1004036",
+  "name": "REPTILE DYSFUNCTION",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Jurassic Raptor rips whistles, time-rain willows, glitter palms, and brocade crackling stars - prehistoric power in every shot."
+  },
+  "queries": [
+    "\"1004036\" REPTILE DYSFUNCTION fireworks",
+    "REPTILE DYSFUNCTION World Class fireworks",
+    "\"REPTILE DYSFUNCTION\" fireworks",
+    "\"REPTILE DYSFUNCTION\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/reptile-dysfunction/",
+    "https://www.jakesfireworks.com/firework/jurassic-raptor/",
+    "https://www.activeradiator.com/product-details/?mpn=310021",
+    "https://lkq-ht.com/shop-parts/products-1003748a-1003748as-1004036-thomas-saf-t-liner-c2-radiator-assembly-1393312"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/reptile-dysfunction/",
+    "https://www.jakesfireworks.com/firework/jurassic-raptor/",
+    "https://www.activeradiator.com/product-details/?mpn=310021",
+    "https://lkq-ht.com/shop-parts/products-1003748a-1003748as-1004036-thomas-saf-t-liner-c2-radiator-assembly-1393312"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "glitter, mine, spider, stars, tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/reptile-dysfunction/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Unique time rain, beautiful colors, bright multi-break finale.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/reptile-dysfunction/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 15,
+      "source": "jakesfireworks.com (regex)",
+      "url": "https://www.jakesfireworks.com/firework/jurassic-raptor/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004036)"
+    },
+    {
+      "field": "description",
+      "value": "15 shot - 500g finale cake. 4 shots of whistle, 8 shots of silver tail to red time rain willow, green time rain willow,purple palm silver glitter, orange palm green glitter. 3 shot silver tail to brocade crown crackling star.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/jurassic-raptor/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004036)"
+    }
+  ],
+  "records_added": 4
+}

@@ -1,0 +1,48 @@
+{
+  "product_id": "13a5a70a-ed6a-4e78-931f-9cd3a80c0a49",
+  "item_number": "FF1054",
+  "name": "Super Charged",
+  "brand_name": "Fire Factory",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"FF1054\" Super Charged fireworks",
+    "Super Charged Fire Factory fireworks",
+    "\"Super Charged\" fireworks",
+    "\"Super Charged\" \"6 shot\" fireworks",
+    "\"Super Charged\" \"6 shot\" Fire Factory fireworks",
+    "\"Super Charged\" Artillery fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.navysite.de/crewlist/webmasterfunctions/crewsite.php?listid=153",
+    "https://alchetron.com/USS-Gray-(FF-1054)",
+    "https://www.boneyardsafari.com/single-post/uss-gray-ff-1054"
+  ],
+  "urls_fetched": [
+    "https://www.navysite.de/crewlist/webmasterfunctions/crewsite.php?listid=153",
+    "https://alchetron.com/USS-Gray-(FF-1054)",
+    "https://www.boneyardsafari.com/single-post/uss-gray-ff-1054"
+  ],
+  "candidate_records": [
+    {
+      "field": "duration_seconds",
+      "value": 4,
+      "source": "boneyardsafari.com (regex)",
+      "url": "https://www.boneyardsafari.com/single-post/uss-gray-ff-1054",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 1
+}

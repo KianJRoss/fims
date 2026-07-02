@@ -1,0 +1,134 @@
+{
+  "product_id": "d3cee992-5c5a-4019-92cc-ae2adf5f6a4b",
+  "item_number": "BM1423-C",
+  "name": "Artillery Shells",
+  "brand_name": "Boomer",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"BM1423-C\" Artillery Shells fireworks",
+    "Artillery Shells Boomer fireworks",
+    "\"Artillery Shells\" fireworks",
+    "\"Artillery Shells\" \"6 shot\" fireworks",
+    "\"Artillery Shells\" \"6 shot\" Boomer fireworks",
+    "\"Artillery Shells\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://www.boomtownfireworks.com/shop-by-department/artillery-shells/",
+    "https://www.captainboom.com/artillery-shells",
+    "https://www.bestfireworksstores.com/product-page/boomer-festival-balls-artillery-shells",
+    "https://kaboomersfireworks.net/artilleryshells/"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://www.boomtownfireworks.com/shop-by-department/artillery-shells/",
+    "https://www.captainboom.com/artillery-shells",
+    "https://www.bestfireworksstores.com/product-page/boomer-festival-balls-artillery-shells",
+    "https://kaboomersfireworks.net/artilleryshells/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "effects",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Boom Town artillery shells have a titanium lift charge to discharge rapidly into the night sky about 40 ft up before exploding into gold or silver or a variety of color breaks.",
+      "source": "boomtownfireworks.com (meta.description)",
+      "url": "https://www.boomtownfireworks.com/shop-by-department/artillery-shells/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "effects",
+      "value": "These powerful aerial fireworks shells launch from a mortar tube with bold effects like brocade, willow, crackle, strobe, vibrant color, and premium effects like rings, color change, scrambling stars, and jellyfish. Choose larger canister shells for maximum impact or ball shells for classic performa",
+      "source": "captainboom.com (labelled)",
+      "url": "https://www.captainboom.com/artillery-shells",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Shop artillery shell kits with canister and ball shells, multiple breaks, and powerful effects. Large variety for any budget. Buy online at Captain Boom Fireworks!",
+      "source": "captainboom.com (meta.description)",
+      "url": "https://www.captainboom.com/artillery-shells",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Boomer Festival Balls — Affordable Artillery Shells With Big VarietyLight up the sky with Boomer Festival Balls, a classic and affordable way to enjoy reloadable artillery shells at home. Each box contains six assorted shells, delivering a mix of colorful aerial breaks that include peonies, willows, crackling palms, and glittering strobes. With 15 boxes per case, you get a total of 90 festival ball shells, giving you plenty of shots to build a backyard show that feels bigger than its price tag. Festival balls are also known as “round balls” or “peanut shells,” and they’ve been a favorite starter mortar for years. The included tubes are easy to reload, and the variety of effects keeps every launch exciting. Whether you’re putting together a Fourth of July party, New Year’s Eve countdown, or just a summer celebration, Boomer Festival Balls give you dependable aerial bursts without breaking the bank. For the best results, combine this kit with high-impact 500 Gram Cakes for mid-show varie",
+      "source": "bestfireworksstores.com (jsonld.description)",
+      "url": "https://www.bestfireworksstores.com/product-page/boomer-festival-balls-artillery-shells",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 6,
+      "source": "kaboomersfireworks.net (regex)",
+      "url": "https://kaboomersfireworks.net/artilleryshells/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "effects",
+      "value": "6 shot artillery shell. Assorted huge crackling effects. Very popular.",
+      "source": "kaboomersfireworks.net (labelled)",
+      "url": "https://kaboomersfireworks.net/artilleryshells/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "description",
+      "value": "ArtilleryShells | Ka-Boomers Fireworks",
+      "source": "kaboomersfireworks.net (text.description)",
+      "url": "https://kaboomersfireworks.net/artilleryshells/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    }
+  ],
+  "records_added": 11
+}

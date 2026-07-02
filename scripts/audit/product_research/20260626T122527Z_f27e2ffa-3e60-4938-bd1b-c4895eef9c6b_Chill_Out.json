@@ -1,0 +1,28 @@
+{
+  "product_id": "f27e2ffa-3e60-4938-bd1b-c4895eef9c6b",
+  "item_number": "",
+  "name": "Chill Out",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Chill Out World Class fireworks",
+    "\"Chill Out\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

@@ -1,0 +1,83 @@
+{
+  "product_id": "8b03bb8b-5124-471a-84e9-3bf2acb6738c",
+  "item_number": "KM1401",
+  "name": "EXCALIBUR",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 24,
+    "duration_seconds": null,
+    "effects": "Brocade crown, chrysanthemum, crackling, dahlia, dragon balls, glitter, palm, peony, pistil, whirlwind, willow",
+    "packing": null,
+    "description": "DESCRIPTION: 24 legendary canister shells - #1 selling kit with unmatched power, color, and sky-filling breaks."
+  },
+  "queries": [
+    "\"KM1401\" EXCALIBUR fireworks",
+    "EXCALIBUR World Class fireworks",
+    "\"EXCALIBUR\" fireworks",
+    "\"EXCALIBUR\" \"24 shot\" fireworks",
+    "\"EXCALIBUR\" \"24 shot\" World Class fireworks",
+    "\"EXCALIBUR\" Artillery Shells fireworks",
+    "\"EXCALIBUR\" Brocade crown chrysanthemum crackling dahlia fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/excalibur-fireworks-artillery-shells/",
+    "https://americanwholesalefireworks.com/excalibur/",
+    "https://fortmill.area51fireworks.com/product/excalibur-each/",
+    "https://pahrump.area51fireworks.com/product/excalibur-each/",
+    "https://www.pyromart.com/artillery-en-7/excalibur/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/excalibur-fireworks-artillery-shells/",
+    "https://americanwholesalefireworks.com/excalibur/",
+    "https://fortmill.area51fireworks.com/product/excalibur-each/",
+    "https://pahrump.area51fireworks.com/product/excalibur-each/",
+    "https://www.pyromart.com/artillery-en-7/excalibur/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "brocade crown, chrysanthemum, crackling, dahlia, dragon balls, glitter, palm, peony, pistil, whirlwind, willow",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/excalibur-fireworks-artillery-shells/",
+      "confidence": 0.9,
+      "identity_check": "barcode 80525301401 contains SKU digits 1401"
+    },
+    {
+      "field": "description",
+      "value": "Excalibur Fireworks 24 pack artillery kit. The #1 selling artillery shell of all time and considered the best firework artillery shell on the market! The Excalibur Artillery Shells have been wowing fireworks enthusiasts of all ages for the last decade and will continue to wow them for years to come. Often imitated but never duplicated!",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/excalibur-fireworks-artillery-shells/",
+      "confidence": 0.9,
+      "identity_check": "barcode 80525301401 contains SKU digits 1401"
+    },
+    {
+      "field": "description",
+      "value": "Excalibur (KM1401-4) is a Reloadable Shell Kit from World Class Fireworks.",
+      "source": "americanwholesalefireworks.com (meta.description)",
+      "url": "https://americanwholesalefireworks.com/excalibur/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1401)"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/excalibur-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1401)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/excalibur-each/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1401)"
+    }
+  ],
+  "records_added": 5
+}

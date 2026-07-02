@@ -1,0 +1,28 @@
+{
+  "product_id": "d56559ec-13cf-4fb4-b9bd-f77aa28f2fa4",
+  "item_number": "NN2035",
+  "name": "SLICE OF PIE",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Gold palm with green strobe. Silver wave with crackling. Red strobe. Time rain. 25"
+  },
+  "queries": [
+    "\"NN2035\" SLICE OF PIE fireworks",
+    "SLICE OF PIE NO NAME fireworks",
+    "\"SLICE OF PIE\" fireworks",
+    "\"SLICE OF PIE\" \"16 shot\" fireworks",
+    "\"SLICE OF PIE\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

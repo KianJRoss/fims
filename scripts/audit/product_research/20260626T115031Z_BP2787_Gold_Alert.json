@@ -1,0 +1,28 @@
+{
+  "product_id": "c6d87dc4-85b3-406a-a362-246840000815",
+  "item_number": "BP2787",
+  "name": "Gold Alert",
+  "brand_name": "",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"BP2787\" Gold Alert fireworks",
+    "\"Gold Alert\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

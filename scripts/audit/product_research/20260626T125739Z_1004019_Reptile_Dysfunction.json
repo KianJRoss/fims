@@ -1,0 +1,50 @@
+{
+  "product_id": "ee5d102e-9353-45d3-8a4e-58d2dca00aab",
+  "item_number": "1004019",
+  "name": "Reptile Dysfunction",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Reptile Dysfunction fires red glitter mines to red plum and RGB stars, then leaps into silver spiders with bold green-blue star tails."
+  },
+  "queries": [
+    "\"1004019\" Reptile Dysfunction fireworks",
+    "Reptile Dysfunction World Class fireworks",
+    "\"Reptile Dysfunction\" fireworks",
+    "\"Reptile Dysfunction\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/reptile-dysfunction/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/reptile-dysfunction/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "glitter, mine, spider, stars, tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/reptile-dysfunction/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004019)"
+    },
+    {
+      "field": "description",
+      "value": "Unique time rain, beautiful colors, bright multi-break finale.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/reptile-dysfunction/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004019)"
+    }
+  ],
+  "records_added": 2
+}

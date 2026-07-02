@@ -1,0 +1,28 @@
+{
+  "product_id": "d8142c7c-d625-4af6-b716-e984599f8682",
+  "item_number": "",
+  "name": "Mummy Blaster",
+  "brand_name": "Legend",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Mummy Blaster Legend fireworks",
+    "\"Mummy Blaster\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

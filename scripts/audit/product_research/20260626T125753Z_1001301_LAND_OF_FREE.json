@@ -1,0 +1,50 @@
+{
+  "product_id": "f29f4d6f-5544-4cd3-8f4e-05784755aea0",
+  "item_number": "1001301",
+  "name": "LAND OF FREE",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Land Of Free blasts red, white, and blue stars with reports - short, loud, patriotic firepower."
+  },
+  "queries": [
+    "\"1001301\" LAND OF FREE fireworks",
+    "LAND OF FREE World Class fireworks",
+    "\"LAND OF FREE\" fireworks",
+    "\"LAND OF FREE\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/land-of-free-because-of-the-brave-2/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/land-of-free-because-of-the-brave-2/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "blossom, brocade, crackling, dahlia, falling leaves, palm, tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/land-of-free-because-of-the-brave-2/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "golden tail to green dahlia with red plum blossom;golden tail to red dahlia with red plum blossom;golden tail to purple dahlia with red plum blossom;golden tail to blow red green fallen leaves;golden tail to brocade palm;golden tail to yellow plum blossom;golden tail to crackle.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/land-of-free-because-of-the-brave-2/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    }
+  ],
+  "records_added": 2
+}

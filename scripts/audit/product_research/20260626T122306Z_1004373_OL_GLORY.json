@@ -1,0 +1,30 @@
+{
+  "product_id": "ee603c14-0cb1-480c-9c21-cd2ba6879e84",
+  "item_number": "1004373",
+  "name": "OL' GLORY",
+  "brand_name": "World Class",
+  "target_fields": [
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 36,
+    "duration_seconds": 35,
+    "effects": "Blue, Red, White, glitter, peony, shimmer, willow",
+    "packing": null,
+    "description": "DESCRIPTION: Red and blue tails erupt into red glitter, white shimmer and bright blue peony willows."
+  },
+  "queries": [
+    "\"1004373\" OL' GLORY fireworks",
+    "OL' GLORY World Class fireworks",
+    "\"OL' GLORY\" fireworks",
+    "\"OL' GLORY\" \"36 shot\" fireworks",
+    "\"OL' GLORY\" \"36 shot\" World Class fireworks",
+    "\"OL' GLORY\" \"35 seconds\" fireworks",
+    "\"OL' GLORY\" 500 Gram Cakes fireworks",
+    "\"OL' GLORY\" Blue Red White glitter peony fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

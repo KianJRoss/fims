@@ -1,0 +1,29 @@
+{
+  "product_id": "87e86ee5-dc31-416d-9b9c-0e188c1d5ae5",
+  "item_number": "1000470",
+  "name": "THREE TO GET READY",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Fun mix of snaps, sparklers, candles, missiles, and small aerials - perfect starter show."
+  },
+  "queries": [
+    "\"1000470\" THREE TO GET READY fireworks",
+    "THREE TO GET READY World Class fireworks",
+    "\"THREE TO GET READY\" fireworks",
+    "\"THREE TO GET READY\" Assortments fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

@@ -1,0 +1,78 @@
+{
+  "product_id": "77810729-2d8f-469d-9f72-f20ba987fa47",
+  "item_number": "KM15439",
+  "name": "FUTURE WARRIOR",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Future Warrior charges golden tails into"
+  },
+  "queries": [
+    "\"KM15439\" FUTURE WARRIOR fireworks",
+    "FUTURE WARRIOR World Class fireworks",
+    "\"FUTURE WARRIOR\" fireworks",
+    "\"FUTURE WARRIOR\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/future-warrior/",
+    "https://pahrump.area51fireworks.com/product/future-warrior-each/",
+    "https://blackjackfireworksnevada.com/product/future-warrior-each/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/future-warrior/",
+    "https://pahrump.area51fireworks.com/product/future-warrior-each/",
+    "https://blackjackfireworksnevada.com/product/future-warrior-each/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "chrysanthemum, glitter, palm, sparkler, tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/future-warrior/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/future-warrior/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/future-warrior-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15439)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/future-warrior-each/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM15439)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "blackjackfireworksnevada.com (regex)",
+      "url": "https://blackjackfireworksnevada.com/product/future-warrior-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15439)"
+    }
+  ],
+  "records_added": 5
+}

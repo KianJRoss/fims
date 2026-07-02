@@ -1,0 +1,29 @@
+{
+  "product_id": "d8869404-817a-49ac-b08e-af634e3fa16e",
+  "item_number": "1003112",
+  "name": "INFERNO PUNCH",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Inferno Punch strikes with color stars, blue and red dahlias, jade greens, lemon glitter, and deep crackling blooms - fiery knockout energy."
+  },
+  "queries": [
+    "\"1003112\" INFERNO PUNCH fireworks",
+    "INFERNO PUNCH World Class fireworks",
+    "\"INFERNO PUNCH\" fireworks",
+    "\"INFERNO PUNCH\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

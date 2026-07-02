@@ -1,0 +1,50 @@
+{
+  "product_id": "dbc1b2cb-c863-44a2-ab4d-e173fdc5679f",
+  "item_number": "1015406",
+  "name": "Breathing",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Breathing Fire erupts brocade crowns, white glitter, and silver chrysanthemums - simple, fierce, dragon-level heat."
+  },
+  "queries": [
+    "\"1015406\" Breathing fireworks",
+    "Breathing World Class fireworks",
+    "\"Breathing\" fireworks",
+    "\"Breathing\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/breathing-fire/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/breathing-fire/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "brocade crown, chrysanthemum, glitter, sparkler",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/breathing-fire/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Create a hot show with Breathing Fire! Nine shots of alternating aerial effects produce colorful, loud explosions of brocades, comet tails and crackle shots to create a dazzling spectacle for your audience. You will be stunned by all this goodness in a small package!",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/breathing-fire/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 2
+}

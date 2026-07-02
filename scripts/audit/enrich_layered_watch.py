@@ -62,6 +62,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--vision-steps", default="ocr,codes,vlm")
     parser.add_argument("--sleep", type=float, default=180.0)
     parser.add_argument("--once", action="store_true")
+    parser.add_argument(
+        "--non-instore",
+        action="store_true",
+        help="enrich in_store=false catalog products (the cron prefill pass) instead of kiosk products",
+    )
     return parser.parse_args()
 
 
@@ -78,6 +83,8 @@ def main() -> int:
             "--limit",
             "1",
         ]
+        if args.non_instore:
+            scrape_cmd.append("--non-instore")
         scrape_rc, scrape_output = run_step(scrape_cmd)
         scrape_result = parse_scrape_result(scrape_output)
         item_number = str(scrape_result.get("item_number", "")).strip() if scrape_result else ""

@@ -1,0 +1,27 @@
+{
+  "product_id": "f7b44232-3bf8-447b-b544-7ac9c4d9ecee",
+  "item_number": "",
+  "name": "Furs for Losers",
+  "brand_name": "",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"Furs for Losers\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

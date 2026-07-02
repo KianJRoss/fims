@@ -1,0 +1,80 @@
+{
+  "product_id": "1879dd7d-987d-4296-be3c-f61daab1af3e",
+  "item_number": "1004314",
+  "name": "GORILLA JAMS",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 8,
+    "duration_seconds": null,
+    "effects": "Blue, Green, Purple, Red, Silver, White, chrysanthemum",
+    "packing": null,
+    "description": "DESCRIPTION: Gorilla Jams drops red-white-blue and purple-green-blue beats, then hits a silver chrysanthemum and 2-shot finale that goes full jungle mode."
+  },
+  "queries": [
+    "\"1004314\" GORILLA JAMS fireworks",
+    "GORILLA JAMS World Class fireworks",
+    "\"GORILLA JAMS\" fireworks",
+    "\"GORILLA JAMS\" \"8 shot\" fireworks",
+    "\"GORILLA JAMS\" \"8 shot\" World Class fireworks",
+    "\"GORILLA JAMS\" 500 Gram Cakes fireworks",
+    "\"GORILLA JAMS\" Blue Green Purple Red Silver fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/gorilla-jams/",
+    "https://www.jakesfireworks.com/firework/gorilla-jams/",
+    "https://www.partstown.com/alto-shaam/alt1004314",
+    "https://www.kmotorshop.com/en/article-detail/view/347592/shim-valve-clearance-prv-01-462-freccia-1004314-vs036300"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/gorilla-jams/",
+    "https://www.jakesfireworks.com/firework/gorilla-jams/",
+    "https://www.partstown.com/alto-shaam/alt1004314"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 2,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/gorilla-jams/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004314)"
+    },
+    {
+      "field": "effects",
+      "value": "chrysanthemum",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/gorilla-jams/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004314)"
+    },
+    {
+      "field": "description",
+      "value": "Red, white, and blue. Purple, green, and blue. Silver chrysanthemum with red and green. 2 shot finale burst.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/gorilla-jams/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004314)"
+    },
+    {
+      "field": "shot_count",
+      "value": 2,
+      "source": "jakesfireworks.com (regex)",
+      "url": "https://www.jakesfireworks.com/firework/gorilla-jams/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004314)"
+    },
+    {
+      "field": "description",
+      "value": "Red, white, and blue. Purple, green, and blue. Silver chrysanthemum and red, green, 2 shot finale burst.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/gorilla-jams/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004314)"
+    }
+  ],
+  "records_added": 5
+}

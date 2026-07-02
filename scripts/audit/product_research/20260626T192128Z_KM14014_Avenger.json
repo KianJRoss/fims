@@ -1,0 +1,84 @@
+{
+  "product_id": "ee640790-8297-4e94-8759-c5d518b9a4c2",
+  "item_number": "KM14014",
+  "name": "Avenger",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"KM14014\" Avenger fireworks",
+    "Avenger World Class fireworks",
+    "\"Avenger\" fireworks",
+    "\"Avenger\" \"12 shot\" fireworks",
+    "\"Avenger\" \"12 shot\" World Class fireworks",
+    "\"Avenger\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/avenger/",
+    "https://pahrump.area51fireworks.com/product/avenger-artillery-shell-12-each/",
+    "https://blackjackfireworksnevada.com/product/avenger-artillery-shell-12-each/",
+    "https://reservedele-shop.dk/komatsu-windscreen-front-full-km14014-ep-149151",
+    "https://alverhuur.be/huuraanbod/hamburgerbakplaat-tafelmodel-220v/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/avenger/",
+    "https://pahrump.area51fireworks.com/product/avenger-artillery-shell-12-each/",
+    "https://blackjackfireworksnevada.com/product/avenger-artillery-shell-12-each/",
+    "https://reservedele-shop.dk/komatsu-windscreen-front-full-km14014-ep-149151",
+    "https://alverhuur.be/huuraanbod/hamburgerbakplaat-tafelmodel-220v/"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/avenger/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/avenger-artillery-shell-12-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM14014)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/avenger-artillery-shell-12-each/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM14014)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 20,
+      "source": "reservedele-shop.dk (regex)",
+      "url": "https://reservedele-shop.dk/komatsu-windscreen-front-full-km14014-ep-149151",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "effects",
+      "value": "number of holes 0, thickness 8,8 mm, green tinted, width 807mm and height 1445mm, type of glass: laminated, screen print: no. Suitable for KOMATSU excavator PC 210LC & NLC (DASH 11 SERIES) / PC 240LC & NLC (DASH 11 SERIES) / PC 290LC & NLC (DASH 11 SERIES) / PC 360LC / NLC (DASH 11 SERIES) / PC 490L",
+      "source": "reservedele-shop.dk (jsonld)",
+      "url": "https://reservedele-shop.dk/komatsu-windscreen-front-full-km14014-ep-149151",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 5
+}

@@ -1,0 +1,82 @@
+{
+  "product_id": "31ca71fa-8ae1-4338-9029-2fdf77fc167f",
+  "item_number": "1004130",
+  "name": "One Bad Baby",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"1004130\" One Bad Baby fireworks",
+    "One Bad Baby World Class fireworks",
+    "\"One Bad Baby\" fireworks",
+    "\"One Bad Baby\" \"25 shot\" fireworks",
+    "\"One Bad Baby\" \"25 shot\" World Class fireworks",
+    "\"One Bad Baby\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/one-bad-baby/",
+    "https://www.jakesfireworks.com/firework/one-bad-baby/",
+    "https://www.jonesfarmsupply.com/OEM-WOODS-1004130-DEFLECTOR_p_326958.html",
+    "https://www.hydrafitnessexchange.com/uploads/pdf_invoice/Invoice#1004130.pdf",
+    "https://socgov18.my.site.com/s/application-line-item/a0fDo000000SL0xIAG/prli1004130"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/one-bad-baby/",
+    "https://www.jakesfireworks.com/firework/one-bad-baby/",
+    "https://socgov18.my.site.com/s/application-line-item/a0fDo000000SL0xIAG/prli1004130"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/one-bad-baby/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004130)"
+    },
+    {
+      "field": "effects",
+      "value": "glitter, mine, peony, willow",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/one-bad-baby/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004130)"
+    },
+    {
+      "field": "description",
+      "value": "25 shots - 200g cake - part of the One Bad collection that was started by One Bad Mother. Gold silk willow mine to gold silk willow and red glitter. Gold silk willow mine to gold silk willow and white glitter. Gold silk willow mine to gold silk willow and green glitter. Gold silk willow",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/one-bad-baby/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004130)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "jakesfireworks.com (regex)",
+      "url": "https://www.jakesfireworks.com/firework/one-bad-baby/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004130)"
+    },
+    {
+      "field": "description",
+      "value": "25 shots - 200g cake - part of the One Bad collection that was started by One Bad Mother. Gold silk willow mine to gold silk willow and red glitter. Gold silk willow mine to gold silk willow and white glitter. Gold silk willow mine to gold silk willow and green glitter. Gold silk willow",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/one-bad-baby/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004130)"
+    }
+  ],
+  "records_added": 5
+}

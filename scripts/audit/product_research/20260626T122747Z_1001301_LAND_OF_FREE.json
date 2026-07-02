@@ -1,0 +1,29 @@
+{
+  "product_id": "f29f4d6f-5544-4cd3-8f4e-05784755aea0",
+  "item_number": "1001301",
+  "name": "LAND OF FREE",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Land Of Free blasts red, white, and blue stars with reports - short, loud, patriotic firepower."
+  },
+  "queries": [
+    "\"1001301\" LAND OF FREE fireworks",
+    "LAND OF FREE World Class fireworks",
+    "\"LAND OF FREE\" fireworks",
+    "\"LAND OF FREE\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

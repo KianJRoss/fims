@@ -1,0 +1,133 @@
+{
+  "product_id": "9a485fe9-e545-4284-ad9d-5ccd38437bcf",
+  "item_number": "NN5062",
+  "name": "GORILLA WARFARE",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": 25,
+    "effects": null,
+    "packing": "6/1",
+    "description": "25 Shots - 1. Blue tail to red dahlia with crackling 2. Blue tail to time rain willow 3. Blue tail to gold willow with red, green,"
+  },
+  "queries": [
+    "\"NN5062\" GORILLA WARFARE fireworks",
+    "GORILLA WARFARE NO NAME fireworks",
+    "\"GORILLA WARFARE\" fireworks",
+    "\"GORILLA WARFARE\" \"25 shot\" fireworks",
+    "\"GORILLA WARFARE\" \"25 shot\" NO NAME fireworks",
+    "\"GORILLA WARFARE\" \"25 seconds\" fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 23,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "effects",
+      "value": "A 25 Shot, 500 Gram Cake that lasts 23 Seconds. Performance of .1. Blue tail to red dahlia with crackling 2.Blue tail to time rain willow 3. Blue tail to gold willow with red,green,blue dahlia with...",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "description",
+      "value": "A 25 Shot, 500 Gram Cake that lasts 23 Seconds. Performance of .1. Blue tail to red dahlia with crackling 2.Blue tail to time rain willow 3. Blue tail to gold willow with red,green,blue dahlia with...",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 23,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "effects",
+      "value": "A 25 Shot, 500 Gram Cake that lasts 23 Seconds. Performance of .1. Blue tail to red dahlia with crackling 2.Blue tail to time rain willow 3. Blue tail to gold willow with red,green,blue dahlia with...",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "description",
+      "value": "A 25 Shot, 500 Gram Cake that lasts 23 Seconds. Performance of .1. Blue tail to red dahlia with crackling 2.Blue tail to time rain willow 3. Blue tail to gold willow with red,green,blue dahlia with...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 23,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "effects",
+      "value": "A 25 Shot, 500 Gram Cake that lasts 23 Seconds. Performance of .1. Blue tail to red dahlia with crackling 2.Blue tail to time rain willow 3. Blue tail to gold willow with red,green,blue dahlia with...",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    },
+    {
+      "field": "description",
+      "value": "A 25 Shot, 500 Gram Cake that lasts 23 Seconds. Performance of .1. Blue tail to red dahlia with crackling 2.Blue tail to time rain willow 3. Blue tail to gold willow with red,green,blue dahlia with...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/gorilla-warfare-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5062)"
+    }
+  ],
+  "records_added": 12
+}

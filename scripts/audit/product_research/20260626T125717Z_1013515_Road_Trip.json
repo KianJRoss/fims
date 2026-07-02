@@ -1,0 +1,50 @@
+{
+  "product_id": "d8552f78-d351-4868-bb62-da002480a9cc",
+  "item_number": "1013515",
+  "name": "Road Trip",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Road Trip launches 25 crackling mines into silver chrysanthemums - perfect for kicking off your sky-high adventure."
+  },
+  "queries": [
+    "\"1013515\" Road Trip fireworks",
+    "Road Trip World Class fireworks",
+    "\"Road Trip\" fireworks",
+    "\"Road Trip\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/road-trip/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/road-trip/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "chrysanthemum, crackling, mine",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/road-trip/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "Crackling Mine, Silver Chrysanthemum.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/road-trip/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    }
+  ],
+  "records_added": 2
+}

@@ -1,0 +1,28 @@
+{
+  "product_id": "e92be486-2b1f-4a96-a51d-d35873e54be5",
+  "item_number": "MS021",
+  "name": "SEVEN 7 - 7\" Cannister Shell",
+  "brand_name": "PYRO BOX",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": 10,
+    "effects": null,
+    "packing": "12/6",
+    "description": "7 inch Canister KIT Salute mines to crackle breaks to gold willow to red Salute mines to salute breaks to green pearls w/red lace Salute mines to salute breaks to gold crown w/color pearls Salute mines to green dahlias silver strobe breaks to gold willow w/color palms Silver tail to red dahlias breaks to silver crown to blue 6.Purple, pink crossette to gigantic brocade crown"
+  },
+  "queries": [
+    "\"MS021\" SEVEN 7 - 7\" Cannister Shell fireworks",
+    "SEVEN 7 - 7\" Cannister Shell PYRO BOX fireworks",
+    "\"SEVEN 7 - 7\" Cannister Shell\" fireworks",
+    "\"SEVEN 7 - 7\" Cannister Shell\" \"6 shot\" fireworks",
+    "\"SEVEN 7 - 7\" Cannister Shell\" \"6 shot\" PYRO BOX fireworks",
+    "\"SEVEN 7 - 7\" Cannister Shell\" \"10 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

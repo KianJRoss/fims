@@ -1,0 +1,38 @@
+{
+  "product_id": "e8055d93-1952-4793-bdb3-32f841f652d4",
+  "item_number": "GG5630",
+  "name": "Predator XL",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"GG5630\" Predator XL fireworks",
+    "Predator XL Great Grizzly fireworks",
+    "\"Predator XL\" fireworks",
+    "\"Predator XL\" \"6 shot\" fireworks",
+    "\"Predator XL\" \"6 shot\" Great Grizzly fireworks",
+    "\"Predator XL\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://lists.debian.org/debian-boot/2017/02/msg00556.html",
+    "https://www.spinics.net/lists/linux-gpio/msg17218.html",
+    "https://www.alamy.com/stock-photo-girl-enjoying-herself-113211252.html"
+  ],
+  "urls_fetched": [
+    "https://www.spinics.net/lists/linux-gpio/msg17218.html",
+    "https://www.alamy.com/stock-photo-girl-enjoying-herself-113211252.html"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

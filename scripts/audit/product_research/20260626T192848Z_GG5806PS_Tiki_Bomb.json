@@ -1,0 +1,141 @@
+{
+  "product_id": "67ac3167-a061-4ee1-961c-1d0d2b69b3a6",
+  "item_number": "GG5806PS",
+  "name": "Tiki Bomb",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 192,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "192 shots"
+  },
+  "queries": [
+    "\"GG5806PS\" Tiki Bomb fireworks",
+    "Tiki Bomb Pyromaniacs Wholesale fireworks",
+    "\"Tiki Bomb\" fireworks",
+    "\"Tiki Bomb\" \"192 shot\" fireworks",
+    "\"Tiki Bomb\" \"192 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Tiki Bomb\" 1/1s fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.redapplefireworks.com/products/tiki-bomb-6-inch-canister",
+    "https://elevatedfireworks.com/products/tiki-bomb-24-shot-6-in-canister-shells",
+    "https://lynchimportsllc.com/",
+    "https://www.wisleypyrotechnics.com/",
+    "https://www.bldiscountfireworks.com/product-page/tiki-bomb",
+    "https://pjfwholesale.com/"
+  ],
+  "urls_fetched": [
+    "https://www.redapplefireworks.com/products/tiki-bomb-6-inch-canister",
+    "https://elevatedfireworks.com/products/tiki-bomb-24-shot-6-in-canister-shells",
+    "https://lynchimportsllc.com/",
+    "https://www.wisleypyrotechnics.com/",
+    "https://www.bldiscountfireworks.com/product-page/tiki-bomb",
+    "https://pjfwholesale.com/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "redapplefireworks.com (regex)",
+      "url": "https://www.redapplefireworks.com/products/tiki-bomb-6-inch-canister",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "effects",
+      "value": "Get ready to bring the island vibes with Tiki Bombs 6\" Canister Shells! These shells come with 24 different color and effect combinations, perfect for transforming any night into a tropical paradise. Experience stunning bursts of vibrant red, blue, green, and gold, with dazzling effects like crackli",
+      "source": "redapplefireworks.com (labelled)",
+      "url": "https://www.redapplefireworks.com/products/tiki-bomb-6-inch-canister",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "packing",
+      "value": "4/24",
+      "source": "redapplefireworks.com (regex)",
+      "url": "https://www.redapplefireworks.com/products/tiki-bomb-6-inch-canister",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Tiki Bomb 6-inch canister delivers powerful, vibrant bursts. Get ready for an exciting fireworks display with this high-performance shell",
+      "source": "redapplefireworks.com (meta.description)",
+      "url": "https://www.redapplefireworks.com/products/tiki-bomb-6-inch-canister",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/products/tiki-bomb-24-shot-6-in-canister-shells",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "effects",
+      "value": "Get ready to bring the island vibes with Tiki Bombs 6\" Canister Shells! These shells come with 24 different color and effect combinations, perfect for transforming any night into a tropical paradise. Experience stunning bursts of vibrant red, blue, green, and gold, with dazzling effects like crackli",
+      "source": "elevatedfireworks.com (labelled)",
+      "url": "https://elevatedfireworks.com/products/tiki-bomb-24-shot-6-in-canister-shells",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Get ready to bring the island vibes with Tiki Bombs 6\" Canister Shells! These shells come with 24 different color and effect combinations, perfect for transforming any night into a tropical paradise. Experience stunning bursts of vibrant red, blue, green, and gold, with dazzling effects like crackling, glittering, and",
+      "source": "elevatedfireworks.com (meta.description)",
+      "url": "https://elevatedfireworks.com/products/tiki-bomb-24-shot-6-in-canister-shells",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Highest quality 1.3g & 1.4g wholesale fireworks! View our pyrotechnics selection and impress your audience. Customer service is our priority.",
+      "source": "lynchimportsllc.com (meta.description)",
+      "url": "https://lynchimportsllc.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "wisleypyrotechnics.com (regex)",
+      "url": "https://www.wisleypyrotechnics.com/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Wisley Pyrotechnics (WPI) is a licensed 1.3G & 1.4G fireworks supplier for pros, tents, and retailers. ATF-approved. Real-time inventory, pro line products, bulk discounts. Serving Indiana & nationwide.",
+      "source": "wisleypyrotechnics.com (meta.description)",
+      "url": "https://www.wisleypyrotechnics.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "If you like willows with some bombs mixed in, this item was made for you.",
+      "source": "bldiscountfireworks.com (jsonld.description)",
+      "url": "https://www.bldiscountfireworks.com/product-page/tiki-bomb",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "pjfwholesale.com (regex)",
+      "url": "https://pjfwholesale.com/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 12
+}

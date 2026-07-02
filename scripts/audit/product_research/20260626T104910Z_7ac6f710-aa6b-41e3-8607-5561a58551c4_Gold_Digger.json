@@ -1,0 +1,28 @@
+{
+  "product_id": "7ac6f710-aa6b-41e3-8607-5561a58551c4",
+  "item_number": "",
+  "name": "Gold Digger",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Gold Digger World Class fireworks",
+    "\"Gold Digger\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

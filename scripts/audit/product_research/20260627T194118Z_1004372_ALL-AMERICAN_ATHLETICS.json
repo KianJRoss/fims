@@ -1,0 +1,105 @@
+{
+  "product_id": "10090c5f-16a1-4582-891a-31cedbb376c5",
+  "item_number": "1004372",
+  "name": "ALL-AMERICAN ATHLETICS",
+  "brand_name": "World Class",
+  "target_fields": [
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 50,
+    "duration_seconds": 31,
+    "effects": "Blue, Red, White, glitter, mine, peony",
+    "packing": null,
+    "description": "DESCRIPTION: Red, white and blue mines breaking into red peony, white glitter and blue peony brilliance."
+  },
+  "queries": [
+    "\"1004372\" ALL-AMERICAN ATHLETICS fireworks",
+    "ALL-AMERICAN ATHLETICS World Class fireworks",
+    "\"ALL-AMERICAN ATHLETICS\" fireworks",
+    "\"ALL-AMERICAN ATHLETICS\" \"50 shot\" fireworks",
+    "\"ALL-AMERICAN ATHLETICS\" \"50 shot\" World Class fireworks",
+    "\"ALL-AMERICAN ATHLETICS\" \"31 seconds\" fireworks",
+    "\"ALL-AMERICAN ATHLETICS\" 500 Gram Cakes fireworks",
+    "\"ALL-AMERICAN ATHLETICS\" Blue Red White glitter mine fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/all-american-athletics/",
+    "https://www.jakesfireworks.com/firework/all-american-athletics/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-ALL-AMERICAN-ATHLETICS-50-SHOTS-500G-AERIAL-REPEATER-3612.aspx",
+    "https://elevatedfireworks.com/collections/world-class®-fireworks"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/all-american-athletics/",
+    "https://www.jakesfireworks.com/firework/all-american-athletics/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-ALL-AMERICAN-ATHLETICS-50-SHOTS-500G-AERIAL-REPEATER-3612.aspx",
+    "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "glitter, mine, peony",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/all-american-athletics/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004372)"
+    },
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/all-american-athletics/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004372)"
+    },
+    {
+      "field": "description",
+      "value": "Red, white, and blue mines breaking into red peony, white glitter, and blue peony brilliance.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/all-american-athletics/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004372)"
+    },
+    {
+      "field": "shot_count",
+      "value": 50,
+      "source": "wickedfireworks.com (regex)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-ALL-AMERICAN-ATHLETICS-50-SHOTS-500G-AERIAL-REPEATER-3612.aspx",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "description",
+      "value": "Artillery Shells - Canister Shells",
+      "source": "wickedfireworks.com (text.description)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-ALL-AMERICAN-ATHLETICS-50-SHOTS-500G-AERIAL-REPEATER-3612.aspx",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "packing",
+      "value": "4/1",
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Shop World Class® Fireworks at Elevated Fireworks™ — iconic, reliable, and performance-driven fireworks trusted for backyard shows and professional displays.",
+      "source": "elevatedfireworks.com (meta.description)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 0
+}

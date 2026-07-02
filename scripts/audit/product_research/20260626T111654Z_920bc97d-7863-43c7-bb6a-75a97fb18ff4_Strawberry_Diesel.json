@@ -1,0 +1,28 @@
+{
+  "product_id": "920bc97d-7863-43c7-bb6a-75a97fb18ff4",
+  "item_number": "",
+  "name": "Strawberry Diesel",
+  "brand_name": "Pyro High",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Strawberry Diesel Pyro High fireworks",
+    "\"Strawberry Diesel\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

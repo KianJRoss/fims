@@ -1,0 +1,50 @@
+{
+  "product_id": "cb4ef23a-166c-44c9-8d1b-487f2d7fa212",
+  "item_number": "1004113",
+  "name": "PANDA FOUNTAIN",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": 50,
+    "effects": "Blue, Gold, Red, Silver, crackling, sparkler",
+    "packing": null,
+    "description": "DESCRIPTION: Panda Fountain tags in gold and silver titanium fountains with sparkling red and blue accents - cute but powerful."
+  },
+  "queries": [
+    "\"1004113\" PANDA FOUNTAIN fireworks",
+    "PANDA FOUNTAIN World Class fireworks",
+    "\"PANDA FOUNTAIN\" fireworks",
+    "\"PANDA FOUNTAIN\" \"50 seconds\" fireworks",
+    "\"PANDA FOUNTAIN\" Novelties fireworks",
+    "\"PANDA FOUNTAIN\" Blue Gold Red Silver crackling fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/panda-fountain/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/panda-fountain/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "crackling, sparkler",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/panda-fountain/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004113)"
+    },
+    {
+      "field": "description",
+      "value": "Panda shaped novelty fountain. Golden titanium fountain, silver titanium fountain, silver crackle, red sparkler, blue sparkler.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/panda-fountain/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004113)"
+    }
+  ],
+  "records_added": 2
+}

@@ -1,0 +1,29 @@
+{
+  "product_id": "cb4ef23a-166c-44c9-8d1b-487f2d7fa212",
+  "item_number": "1004113",
+  "name": "PANDA FOUNTAIN",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": 50,
+    "effects": "Blue, Gold, Red, Silver, crackling, sparkler",
+    "packing": null,
+    "description": "DESCRIPTION: Panda Fountain tags in gold and silver titanium fountains with sparkling red and blue accents - cute but powerful."
+  },
+  "queries": [
+    "\"1004113\" PANDA FOUNTAIN fireworks",
+    "PANDA FOUNTAIN World Class fireworks",
+    "\"PANDA FOUNTAIN\" fireworks",
+    "\"PANDA FOUNTAIN\" \"50 seconds\" fireworks",
+    "\"PANDA FOUNTAIN\" Novelties fireworks",
+    "\"PANDA FOUNTAIN\" Blue Gold Red Silver crackling fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

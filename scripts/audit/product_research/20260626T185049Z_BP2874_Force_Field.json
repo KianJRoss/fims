@@ -1,0 +1,63 @@
+{
+  "product_id": "be57a065-9723-46d8-9d87-30cfd3047100",
+  "item_number": "BP2874",
+  "name": "Force Field",
+  "brand_name": "BROTHERS",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 44,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"BP2874\" Force Field fireworks",
+    "Force Field BROTHERS fireworks",
+    "\"Force Field\" fireworks",
+    "\"Force Field\" \"44 shot\" fireworks",
+    "\"Force Field\" \"44 shot\" BROTHERS fireworks",
+    "\"Force Field\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.brotherspyrotechnics.com/detail/8131",
+    "https://www.wickedfireworks.com/product/BROTHERS-FORCE-FIELD-44-SHOTS-500G-AERIAL-REPEATER-3596.aspx",
+    "http://w.brotherspyrotechnics.com/fdetail/8180"
+  ],
+  "urls_fetched": [
+    "https://www.brotherspyrotechnics.com/ProductDetails/646",
+    "https://www.wickedfireworks.com/product/BROTHERS-FORCE-FIELD-44-SHOTS-500G-AERIAL-REPEATER-3596.aspx"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 44,
+      "source": "brotherspyrotechnics.com (regex)",
+      "url": "https://www.brotherspyrotechnics.com/ProductDetails/646",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (BP2874)"
+    },
+    {
+      "field": "shot_count",
+      "value": 44,
+      "source": "wickedfireworks.com (regex)",
+      "url": "https://www.wickedfireworks.com/product/BROTHERS-FORCE-FIELD-44-SHOTS-500G-AERIAL-REPEATER-3596.aspx",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "description",
+      "value": "Artillery Shells - Canister Shells",
+      "source": "wickedfireworks.com (text.description)",
+      "url": "https://www.wickedfireworks.com/product/BROTHERS-FORCE-FIELD-44-SHOTS-500G-AERIAL-REPEATER-3596.aspx",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    }
+  ],
+  "records_added": 3
+}

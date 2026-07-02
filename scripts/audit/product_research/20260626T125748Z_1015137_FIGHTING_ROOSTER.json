@@ -1,0 +1,58 @@
+{
+  "product_id": "ee9610bf-1036-4c69-a651-a13ac57d738b",
+  "item_number": "1015137",
+  "name": "FIGHTING ROOSTER",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Fighting Rooster cracks blue mines into white glitter and red dahlias - fiery barnyard attitude that refuses to back down."
+  },
+  "queries": [
+    "\"1015137\" FIGHTING ROOSTER fireworks",
+    "FIGHTING ROOSTER World Class fireworks",
+    "\"FIGHTING ROOSTER\" fireworks",
+    "\"FIGHTING ROOSTER\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/fighting-rooster/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/fighting-rooster/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "effects",
+      "value": "dahlia, glitter, mine",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Fierce and feisty is what you get with the Fighting Rooster! As a top performer and crowd favorite, 30 shots explode into blue mines and red dahlias, lighting up the night sky. Noisy and full of action, you'll be mesmerized by the five-shot finale. The Fighting Rooster is a must-have!",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 3
+}

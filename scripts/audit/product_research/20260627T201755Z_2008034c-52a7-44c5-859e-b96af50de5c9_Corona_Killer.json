@@ -1,0 +1,27 @@
+{
+  "product_id": "2008034c-52a7-44c5-859e-b96af50de5c9",
+  "item_number": "",
+  "name": "Corona Killer",
+  "brand_name": "",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"Corona Killer\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

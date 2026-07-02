@@ -1,0 +1,28 @@
+{
+  "product_id": "8de6a5c5-22ca-410f-88da-7b42bfd4e312",
+  "item_number": "",
+  "name": "King Cobra",
+  "brand_name": "Fire Factory",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "King Cobra Fire Factory fireworks",
+    "\"King Cobra\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

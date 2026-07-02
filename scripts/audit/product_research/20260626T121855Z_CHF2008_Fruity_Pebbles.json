@@ -1,0 +1,29 @@
+{
+  "product_id": "ed6086fb-b6d1-4b3f-9892-1a3f1bb750e2",
+  "item_number": "CHF2008",
+  "name": "Fruity Pebbles",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "24/1 25 shot"
+  },
+  "queries": [
+    "\"CHF2008\" Fruity Pebbles fireworks",
+    "Fruity Pebbles Pyromaniacs Wholesale fireworks",
+    "\"Fruity Pebbles\" fireworks",
+    "\"Fruity Pebbles\" \"25 shot\" fireworks",
+    "\"Fruity Pebbles\" \"25 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Fruity Pebbles\" Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

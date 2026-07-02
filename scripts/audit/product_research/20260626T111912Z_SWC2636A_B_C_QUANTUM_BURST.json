@@ -1,0 +1,29 @@
+{
+  "product_id": "98f1461e-4843-429c-bf76-5246e7b227c9",
+  "item_number": "SWC2636A/B/C",
+  "name": "QUANTUM BURST",
+  "brand_name": "SUNWING",
+  "target_fields": [
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 108,
+    "duration_seconds": 35,
+    "effects": null,
+    "packing": null,
+    "description": "A 1,500g set featuring a total of 108 shots in a red, white, and blue Super Dahlia series. The set includes three 500g cakes in one box. They can be fired individually, in pairs, or all together, offering multiple ways to enjoy and endless fun! The most dazzling Dahlia effects burst brilliantly in the sky, lighting up the night."
+  },
+  "queries": [
+    "\"SWC2636A/B/C\" QUANTUM BURST fireworks",
+    "QUANTUM BURST SUNWING fireworks",
+    "\"QUANTUM BURST\" fireworks",
+    "\"QUANTUM BURST\" \"108 shot\" fireworks",
+    "\"QUANTUM BURST\" \"108 shot\" SUNWING fireworks",
+    "\"QUANTUM BURST\" \"35 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

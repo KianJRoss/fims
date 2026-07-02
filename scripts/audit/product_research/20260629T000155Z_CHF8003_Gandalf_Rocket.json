@@ -1,0 +1,42 @@
+{
+  "product_id": "004b8e0c-f5ae-4d62-920e-2508075e4dd8",
+  "item_number": "CHF8003",
+  "name": "Gandalf Rocket",
+  "brand_name": "Kraken",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"CHF8003\" Gandalf Rocket fireworks",
+    "Gandalf Rocket Kraken fireworks",
+    "\"Gandalf Rocket\" fireworks",
+    "\"Gandalf Rocket\" \"6 shot\" fireworks",
+    "\"Gandalf Rocket\" \"6 shot\" Kraken fireworks",
+    "\"Gandalf Rocket\" Rockets fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.ontrium.com/en/usa/brands/pch-engineering/replacement-for-pch1240-chf8003-pch1240-200628078",
+    "https://endurasupply.com/brand/pch-engineering/",
+    "https://www.im-tek.com/pch-1270chf8003-vibration-guard",
+    "https://www.scribd.com/document/904169614/PCH1270-CHF80XX-KV-en",
+    "https://www.otec-industry.com.ua/en/brand/pch-engineering/pch-1270-chf8003",
+    "https://www.radward.co.uk/pch-engineering/PCH1240CHF8003PCH1240200628078OBSOLETEREPLACEDBYPCH1270CHF8003"
+  ],
+  "urls_fetched": [
+    "https://www.ontrium.com/en/usa/brands/pch-engineering/replacement-for-pch1240-chf8003-pch1240-200628078",
+    "https://endurasupply.com/brand/pch-engineering/",
+    "https://www.scribd.com/document/904169614/PCH1270-CHF80XX-KV-en"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

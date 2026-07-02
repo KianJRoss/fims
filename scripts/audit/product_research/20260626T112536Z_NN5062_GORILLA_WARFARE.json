@@ -1,0 +1,28 @@
+{
+  "product_id": "9a485fe9-e545-4284-ad9d-5ccd38437bcf",
+  "item_number": "NN5062",
+  "name": "GORILLA WARFARE",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": 25,
+    "effects": null,
+    "packing": "6/1",
+    "description": "25 Shots - 1. Blue tail to red dahlia with crackling 2. Blue tail to time rain willow 3. Blue tail to gold willow with red, green,"
+  },
+  "queries": [
+    "\"NN5062\" GORILLA WARFARE fireworks",
+    "GORILLA WARFARE NO NAME fireworks",
+    "\"GORILLA WARFARE\" fireworks",
+    "\"GORILLA WARFARE\" \"25 shot\" fireworks",
+    "\"GORILLA WARFARE\" \"25 shot\" NO NAME fireworks",
+    "\"GORILLA WARFARE\" \"25 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

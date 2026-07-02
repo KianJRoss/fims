@@ -1,0 +1,50 @@
+{
+  "product_id": "d72dbdd7-2320-4b85-956a-9a1f38b4b2e4",
+  "item_number": "1015085",
+  "name": "FLICKER",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Flicker mixes gold and silver palms, crackling stars, blue breaks, green glitter, and sea-blue flashes - playful shimmer in motion."
+  },
+  "queries": [
+    "\"1015085\" FLICKER fireworks",
+    "FLICKER World Class fireworks",
+    "\"FLICKER\" fireworks",
+    "\"FLICKER\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/flicker/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/flicker/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "crackling, glitter, palm, tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/flicker/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "This stunner is much more than just a Flicker! Blue, green, gold and glitter effects burst into the night sky from this 14-shot beast, crackling and booming all the way. Your celebration will be much more than just a Flicker in the night when you incorporate this dazzler into your display!",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/flicker/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 2
+}

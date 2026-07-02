@@ -1,0 +1,89 @@
+{
+  "product_id": "155d7983-0fec-43e5-8396-631c68d940c4",
+  "item_number": "",
+  "name": "Thor",
+  "brand_name": "",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"Thor\" fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.wincofireworks.com/product/7-thor/",
+    "https://www.fireworks.us/thor-sledge-hammer-5-inch-shells-1-75-p/PP-1005.htm",
+    "https://www.greatgrizzly.com/product-details/thors-hammer-390/",
+    "https://www.fireworksdirect.com/product/thor-artillery-shell-assortment/",
+    "https://americanwholesalefireworks.com/thor/",
+    "https://leegendaryfireworks.com/products/thor/"
+  ],
+  "urls_fetched": [
+    "https://www.wincofireworks.com/product/7-thor/",
+    "https://www.fireworks.us/thor-sledge-hammer-5-inch-shells-1-75-p/PP-1005.htm",
+    "https://www.greatgrizzly.com/product-details/thors-hammer-390/",
+    "https://www.fireworksdirect.com/product/thor-artillery-shell-assortment/",
+    "https://americanwholesalefireworks.com/thor/"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "We offer 7 Thor wholesale fireworks for retailers. Simple ordering, great value, and fast shipping.",
+      "source": "wincofireworks.com (meta.description)",
+      "url": "https://www.wincofireworks.com/product/7-thor/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "North Central Industries, Inc., located in Muncie, Indiana, has been an importer and wholesaler of 1.4G Consumer Fireworks since 1955. We carry over 650 different items and operate out of three warehouse facilities with a combined square footage of over 200,000 square feet!",
+      "source": "greatgrizzly.com (meta.description)",
+      "url": "https://www.greatgrizzly.com/product-details/thors-hammer-390/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "fireworksdirect.com (regex)",
+      "url": "https://www.fireworksdirect.com/product/thor-artillery-shell-assortment/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "This assortment of artillery shells has 24 individual shells. 8 Single, 8 Canister, 4 Doubles, 4 Triples.",
+      "source": "fireworksdirect.com (jsonld.description)",
+      "url": "https://www.fireworksdirect.com/product/thor-artillery-shell-assortment/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/thor/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Thor (CLA4602-1) is a 500 Gram Cake from Black Scorpion Fireworks.",
+      "source": "americanwholesalefireworks.com (meta.description)",
+      "url": "https://americanwholesalefireworks.com/thor/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 6
+}

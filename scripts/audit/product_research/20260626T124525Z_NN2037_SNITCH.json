@@ -1,0 +1,85 @@
+{
+  "product_id": "f9d96c4d-e7c3-4fb6-8880-bc8254bb9b38",
+  "item_number": "NN2037",
+  "name": "SNITCH",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Red wave with white strobe. Crackling with yellow"
+  },
+  "queries": [
+    "\"NN2037\" SNITCH fireworks",
+    "SNITCH NO NAME fireworks",
+    "\"SNITCH\" fireworks",
+    "\"SNITCH\" \"16 shot\" fireworks",
+    "\"SNITCH\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2037)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Red wave with white strobe. Crackling with yellow pearls. Purple and green pearls. Chrys with red pearls.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2037)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2037)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Red wave with white strobe. Crackling with yellow pearls. Purple and green pearls. Chrys with red pearls.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2037)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2037)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Red wave with white strobe. Crackling with yellow pearls. Purple and green pearls. Chrys with red pearls.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/snitch-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2037)"
+    }
+  ],
+  "records_added": 6
+}

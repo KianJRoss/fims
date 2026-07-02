@@ -1,0 +1,137 @@
+{
+  "product_id": "06abccce-d700-469b-9b00-ee2be77fa9db",
+  "item_number": "NN5059",
+  "name": "OH SNAP!",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 24,
+    "duration_seconds": 30,
+    "effects": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+    "packing": null,
+    "description": "24 Shots - Red strobe willow, red strobe willow with"
+  },
+  "queries": [
+    "\"NN5059\" OH SNAP! fireworks",
+    "OH SNAP! NO NAME fireworks",
+    "\"OH SNAP!\" fireworks",
+    "\"OH SNAP!\" \"24 shot\" fireworks",
+    "\"OH SNAP!\" \"24 shot\" NO NAME fireworks",
+    "\"OH SNAP!\" \"30 seconds\" fireworks",
+    "\"OH SNAP!\" 500 Gram Cakes fireworks",
+    "\"OH SNAP!\" Shot Gram Multi Shot Aerial fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://nceimages.com/index.php?id=BEN"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://nceimages.com/index.php?id=BEN"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 30,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "effects",
+      "value": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "description",
+      "value": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 30,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "effects",
+      "value": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "description",
+      "value": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 30,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "effects",
+      "value": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    },
+    {
+      "field": "description",
+      "value": "24 Shot 500 Gram Multi Shot Aerial Firework -Red strobe willow. Red strobe willow with chrys. Purple, blue, yellow dahlia with red strob. Red comet tails",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/oh-snap-24-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5059)"
+    }
+  ],
+  "records_added": 12
+}

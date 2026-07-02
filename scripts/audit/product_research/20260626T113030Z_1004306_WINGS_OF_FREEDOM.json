@@ -1,0 +1,29 @@
+{
+  "product_id": "a28c5ef0-9686-4a70-bd3c-c3a24473cc8e",
+  "item_number": "1004306",
+  "name": "WINGS OF FREEDOM",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Whistles, sword-like silver sprays, crackling chrys bursts, and blue flowers - high-flying patriotic pride in motion."
+  },
+  "queries": [
+    "\"1004306\" WINGS OF FREEDOM fireworks",
+    "WINGS OF FREEDOM World Class fireworks",
+    "\"WINGS OF FREEDOM\" fireworks",
+    "\"WINGS OF FREEDOM\" Fountains fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

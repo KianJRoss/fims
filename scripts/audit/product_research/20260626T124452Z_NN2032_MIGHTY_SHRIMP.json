@@ -1,0 +1,133 @@
+{
+  "product_id": "d9571ada-d2f9-4496-a658-bae3b193d041",
+  "item_number": "NN2032",
+  "name": "MIGHTY SHRIMP",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": 35,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Silver tail to white strobe. 23"
+  },
+  "queries": [
+    "\"NN2032\" MIGHTY SHRIMP fireworks",
+    "MIGHTY SHRIMP NO NAME fireworks",
+    "\"MIGHTY SHRIMP\" fireworks",
+    "\"MIGHTY SHRIMP\" \"16 shot\" fireworks",
+    "\"MIGHTY SHRIMP\" \"16 shot\" NO NAME fireworks",
+    "\"MIGHTY SHRIMP\" \"35 seconds\" fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "effects",
+      "value": "16 Shots - Silver tail to white strobe.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Silver tail to white strobe.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "effects",
+      "value": "16 Shots - Silver tail to white strobe.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Silver tail to white strobe.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "effects",
+      "value": "16 Shots - Silver tail to white strobe.",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Silver tail to white strobe.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/mighty-shrimp-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2032)"
+    }
+  ],
+  "records_added": 12
+}

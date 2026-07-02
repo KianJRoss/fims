@@ -1,0 +1,140 @@
+{
+  "product_id": "ee9610bf-1036-4c69-a651-a13ac57d738b",
+  "item_number": "KM15137",
+  "name": "FIGHTING ROOSTER",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Fighting Rooster cracks blue mines into white glitter and red dahlias - fiery barnyard attitude that refuses to back down."
+  },
+  "queries": [
+    "\"KM15137\" FIGHTING ROOSTER fireworks",
+    "FIGHTING ROOSTER World Class fireworks",
+    "\"FIGHTING ROOSTER\" fireworks",
+    "\"FIGHTING ROOSTER\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+    "https://americanwholesalefireworks.com/fighting-rooster/",
+    "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=415",
+    "https://www.pyromart.com/chinese-aerial-items-repeaters-500-gram/fighting-rooster-30-sh/",
+    "https://pahrump.area51fireworks.com/product/fighting-rooster-each/",
+    "https://blackjackfireworksnevada.com/product/fighting-rooster-each/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+    "https://americanwholesalefireworks.com/fighting-rooster/",
+    "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=415",
+    "https://www.pyromart.com/chinese-aerial-items-repeaters-500-gram/fighting-rooster-30-sh/",
+    "https://pahrump.area51fireworks.com/product/fighting-rooster-each/",
+    "https://blackjackfireworksnevada.com/product/fighting-rooster-each/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+      "confidence": 0.8,
+      "identity_check": "barcode 80525315137 contains SKU digits 15137"
+    },
+    {
+      "field": "effects",
+      "value": "dahlia, glitter, mine",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+      "confidence": 0.9,
+      "identity_check": "barcode 80525315137 contains SKU digits 15137"
+    },
+    {
+      "field": "description",
+      "value": "Fierce and feisty is what you get with the Fighting Rooster! As a top performer and crowd favorite, 30 shots explode into blue mines and red dahlias, lighting up the night sky. Noisy and full of action, you'll be mesmerized by the five-shot finale. The Fighting Rooster is a must-have!",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/fighting-rooster/",
+      "confidence": 0.9,
+      "identity_check": "barcode 80525315137 contains SKU digits 15137"
+    },
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/fighting-rooster/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "description",
+      "value": "Fighting Rooster (KM15137) is a 500 Gram Cake from World Class Fireworks.",
+      "source": "americanwholesalefireworks.com (meta.description)",
+      "url": "https://americanwholesalefireworks.com/fighting-rooster/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "myvictoryfireworks.com (regex)",
+      "url": "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=415",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "pyromart.com (regex)",
+      "url": "https://www.pyromart.com/chinese-aerial-items-repeaters-500-gram/fighting-rooster-30-sh/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "effects",
+      "value": "paced White sparkling breaks with red after effects. Each shot from this cake travels approximately 150 - 200 feet in the air and breaks 100 - 150 feet wide. Just when you think Fighting Rooster is done, it pauses, and then shoots a multiple shot finale that will amaze your audience and compliment a",
+      "source": "pyromart.com (labelled)",
+      "url": "https://www.pyromart.com/chinese-aerial-items-repeaters-500-gram/fighting-rooster-30-sh/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "description",
+      "value": "KM15137 30 Shot - Fighting Rooster is a customer favorite as one of our best selling 500 gram cakes and one of the most talked about cakes in the Fireworks industry Each of its powerful shots and breaks will impress you and your neighbors Fighting Rooster shoots off in a fury with its fast-paced White",
+      "source": "pyromart.com (meta.description)",
+      "url": "https://www.pyromart.com/chinese-aerial-items-repeaters-500-gram/fighting-rooster-30-sh/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "shot_count",
+      "value": 29,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/fighting-rooster-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/fighting-rooster-each/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    },
+    {
+      "field": "shot_count",
+      "value": 55,
+      "source": "blackjackfireworksnevada.com (regex)",
+      "url": "https://blackjackfireworksnevada.com/product/fighting-rooster-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM15137)"
+    }
+  ],
+  "records_added": 9
+}

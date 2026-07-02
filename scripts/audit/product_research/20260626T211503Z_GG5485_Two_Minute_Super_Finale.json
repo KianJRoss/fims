@@ -1,0 +1,38 @@
+{
+  "product_id": "5f3a3679-df11-44ff-b878-7ced10d65800",
+  "item_number": "GG5485",
+  "name": "Two Minute Super Finale",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 63,
+    "duration_seconds": 185,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"GG5485\" Two Minute Super Finale fireworks",
+    "Two Minute Super Finale Great Grizzly fireworks",
+    "\"Two Minute Super Finale\" fireworks",
+    "\"Two Minute Super Finale\" \"63 shot\" fireworks",
+    "\"Two Minute Super Finale\" \"63 shot\" Great Grizzly fireworks",
+    "\"Two Minute Super Finale\" \"185 seconds\" fireworks",
+    "\"Two Minute Super Finale\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.musicverra.com/product/there-s-power-in-the-blood-gg5485/",
+    "https://auction.buggybusters.com/print_catalog/index/auction/1776",
+    "https://www.jieershun.com/collections/all?page=21"
+  ],
+  "urls_fetched": [
+    "https://www.musicverra.com/product/there-s-power-in-the-blood-gg5485/",
+    "https://www.jieershun.com/collections/all?page=21"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

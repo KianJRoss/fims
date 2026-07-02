@@ -1,0 +1,85 @@
+{
+  "product_id": "e3870b9e-5182-4b57-8562-a0dbd8f1a50d",
+  "item_number": "NN2005",
+  "name": "MUDDIN!",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "16/1",
+    "description": "16 Shots - Red tail to lemon and blue pearls with gold strobes. Green tails to brocade crown with green strobe. Yellow tail to"
+  },
+  "queries": [
+    "\"NN2005\" MUDDIN! fireworks",
+    "MUDDIN! NO NAME fireworks",
+    "\"MUDDIN!\" fireworks",
+    "\"MUDDIN!\" \"16 shot\" fireworks",
+    "\"MUDDIN!\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2005)"
+    },
+    {
+      "field": "description",
+      "value": "This 16 Shot, 200 Gram Multi Shot Aerial gets down and dirty with red tail to lemon and blue pearls with gold strobes. Green tails to brocade crown with green strobe. Yellow tail to purple and...",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2005)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2005)"
+    },
+    {
+      "field": "description",
+      "value": "Kick up some fun with Muddin's where every shot is a splash of color! Unleash the ultimate firework experience with Muddin' by NO NAME! This 200 Gram Cake is packed with 16 thrilling shots that...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2005)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2005)"
+    },
+    {
+      "field": "description",
+      "value": "This 16 Shot, 200 Gram Multi Shot Aerial gets down and dirty with red tail to lemon and blue pearls with gold strobes. Green tails to brocade crown with green strobe. Yellow tail to purple and...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/muddin-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2005)"
+    }
+  ],
+  "records_added": 6
+}

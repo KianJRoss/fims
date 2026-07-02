@@ -1,0 +1,116 @@
+{
+  "product_id": "8111f310-00d4-489e-8f61-0daad4534503",
+  "item_number": "NN5135",
+  "name": "SEWER RAT SOCIAL",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": 35,
+    "effects": null,
+    "packing": null,
+    "description": "25 Shots - Red tail to white strobe willow with red pearls. Green tail to white strobe willow with green pearls. Red tail to white strobe willow with blue pearls. Green tail to white strobe willow with purple pearls. Red tail to time rain willow with white strobe. 9"
+  },
+  "queries": [
+    "\"NN5135\" SEWER RAT SOCIAL fireworks",
+    "SEWER RAT SOCIAL NO NAME fireworks",
+    "\"SEWER RAT SOCIAL\" fireworks",
+    "\"SEWER RAT SOCIAL\" \"25 shot\" fireworks",
+    "\"SEWER RAT SOCIAL\" \"25 shot\" NO NAME fireworks",
+    "\"SEWER RAT SOCIAL\" \"35 seconds\" fireworks",
+    "\"SEWER RAT SOCIAL\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://kmsgravure.fr/?attachment_id=2684",
+    "https://damphudaudamdatiec.com/2018/06/12/dam-da-tiec-xe-ta-tay-dai-co-v-dinh-da-nn5135/",
+    "https://realsim.ie/The-Noble-Collection-Developer-Of/775161"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://kmagravure.fr/?attachment_id=2684",
+    "https://damphudaudamdatiec.com/2018/06/12/dam-da-tiec-xe-ta-tay-dai-co-v-dinh-da-nn5135/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shot - Red tail to white strobe willow with red pearls. Green tail to white strobe willow with green pearls. Red tail to white strobe willow with blue pearls. Green tail to white strobe willow...",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shot - Red tail to white strobe willow with red pearls. Green tail to white strobe willow with green pearls. Red tail to white strobe willow with blue pearls. Green tail to white strobe willow...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shot - Red tail to white strobe willow with red pearls. Green tail to white strobe willow with green pearls. Red tail to white strobe willow with blue pearls. Green tail to white strobe willow...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/sewer-rat-social-25-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5135)"
+    }
+  ],
+  "records_added": 9
+}

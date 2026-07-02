@@ -43,6 +43,45 @@ DUCKDUCKGO_UA = (
     "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 )
 
+# Search backend. DuckDuckGo HTML is IP-blocked after heavy use and Bing/Google
+# serve JS-only result pages (no static links), so direct on-site retailer search
+# is the reliable path. "auto" tries retailers first, then DDG; "retailers" only;
+# "ddg" preserves the original behaviour.
+SEARCH_BACKEND = "auto"
+RETAILER_SEARCH_LIMIT = 4
+# Direct on-site search providers, routed by brand so a No Name SKU never collides
+# with a same-named World Class product (and vice versa).
+#   key="sku"  -> search by item_number (exact identity; Magento No Name network)
+#   key="name" -> search by product name (World Class official site; WC SKUs are
+#                 not exposed on-site, so identity rests on name+brand+context)
+# Each No Name storefront is a distinct domain, so one SKU hitting all three
+# yields multiple corroborating sources for the verifier.
+RETAILER_PROVIDERS = (
+    {"name": "nonamefireworks.com", "url": "https://nonamefireworks.com/catalogsearch/result/",
+     "param": "q", "key": "sku", "selector": "a.product-item-link", "brand": "noname"},
+    {"name": "jbfireworks.com", "url": "https://jbfireworks.com/catalogsearch/result/",
+     "param": "q", "key": "sku", "selector": "a.product-item-link", "brand": "noname"},
+    {"name": "snapfireworks.com", "url": "https://snapfireworks.com/catalogsearch/result/",
+     "param": "q", "key": "sku", "selector": "a.product-item-link", "brand": "noname"},
+    {"name": "worldclassfireworks.com", "url": "https://www.worldclassfireworks.com/",
+     "param": "s", "key": "name", "selector": "a[href*='/firework/']",
+     "exclude": "/fireworks/", "brand": "worldclass"},
+)
+
+
+def providers_for(sku: str, name: str, brand_name: str) -> tuple[dict[str, Any], ...]:
+    """Pick search providers by brand signal to avoid cross-brand name collisions."""
+    brand = (brand_name or "").lower()
+    sku_up = (sku or "").upper()
+    nn_like = sku_up.startswith(("NN", "RM")) or "no name" in brand
+    wc_like = "world class" in brand or (sku.isdigit() and len(sku) >= 6)
+    if nn_like:
+        return tuple(p for p in RETAILER_PROVIDERS if p["brand"] == "noname")
+    if wc_like:
+        return tuple(p for p in RETAILER_PROVIDERS if p["brand"] == "worldclass")
+    # Unknown brand: fall back to the SKU-keyed Magento network (no name-only risk).
+    return tuple(p for p in RETAILER_PROVIDERS if p["key"] == "sku")
+
 IGNORED_DOMAIN_SNIPPETS = {
     "youtube.com",
     "youtu.be",
@@ -116,6 +155,24 @@ EFFECT_JUNK_RE = re.compile(
     r"effects?\s+holders?|holder|add to cart|quick fuse|privacy|shipping|loyalty|"
     r"contains a bundle|ultimate .* experience|facebook|iframe|plugin"
     r")\b",
+    re.IGNORECASE,
+)
+# Description junk: search-result pages, bot walls, recall notices, non-fireworks
+# parts catalogs (auto/truck/dental), and obvious template boilerplate. Any hit
+# rejects the candidate outright.
+DESC_JUNK_RE = re.compile(
+    r"(search results for|challenge validation|are you a robot|access denied|"
+    r"page not found|404|just a moment|cloudflare|recall|tyre|auto spares|"
+    r"auto parts|unipart|radiator|cookies?\b.*\benable|add to cart|"
+    r"shopby|select\s+\*|union\s+select|<\s*iframe|facebook\.com/plugins)",
+    re.IGNORECASE,
+)
+# A real fireworks description almost always names a shot/gram/effect/firework type.
+DESC_SIGNAL_RE = re.compile(
+    r"(\b\d{1,4}\s*shot|\b\d{2,4}\s*gram|\bg\s*cake\b|aerial|finale|"
+    r"firecracker|firework|fountain|mortar|artillery|roman candle|repeater|"
+    r"multi[\s-]?shot|brocade|chrysanthemum|crackl|strobe|willow|peony|peonies|"
+    r"comet|mine|whistle|crossette|crackling|pearl|palm tree)",
     re.IGNORECASE,
 )
 
@@ -221,8 +278,13 @@ def fetch_products(
     only_skus: set[str] | None,
     only_product_ids: set[str] | None = None,
     skip_product_keys: set[str] | None = None,
+    in_store_only: bool = True,
 ) -> list[dict[str, Any]]:
-    sql_text = """
+    # in_store_only=True (default) targets the customer-facing kiosk products
+    # (on-demand pass). The cron pass sets it False to enrich the rest of the
+    # catalog as a new-product prefill corpus.
+    where_clause = "WHERE p.in_store = true" if in_store_only else "WHERE p.in_store = false"
+    sql_text = f"""
         SELECT
             p.id,
             p.item_number::text AS item_number,
@@ -240,7 +302,7 @@ def fetch_products(
             ON b.id = p.brand_id
         LEFT JOIN product_categories c
             ON c.id = p.category_id
-        WHERE p.in_store = true
+        {where_clause}
         ORDER BY p.id
     """
     rows: list[dict[str, Any]] = []
@@ -330,6 +392,50 @@ def decode_ddg_url(href: str) -> str:
     if parsed.scheme and parsed.netloc:
         return parsed.geturl()
     return ""
+
+
+def retailer_search(session: requests.Session, sku: str, name: str, brand_name: str = "") -> list[str]:
+    """On-site search of known fireworks retailers, brand-routed.
+
+    DDG HTML is IP-blocked and Bing/Google return JS-only pages with no static
+    result links, so this is the reliable discovery path. No Name / RM SKUs go to
+    the Magento storefront network (search by exact SKU); World Class products go
+    to the official WC site (search by name, since WC SKUs aren't exposed on-site).
+    Returns product page URLs; the page-level identity check still gates whether
+    any extracted fact is trusted.
+    """
+    urls: list[str] = []
+    seen: set[str] = set()
+    for provider in providers_for(sku, name, brand_name):
+        term = sku if provider["key"] == "sku" else name
+        if not term:
+            continue
+        try:
+            response = session.get(
+                provider["url"],
+                params={provider["param"]: term},
+                timeout=FETCH_TIMEOUT_SECONDS,
+                headers={"User-Agent": DUCKDUCKGO_UA},
+            )
+            response.raise_for_status()
+        except requests.RequestException:
+            continue
+        soup = BeautifulSoup(response.text, "html.parser")
+        exclude = provider.get("exclude")
+        for anchor in soup.select(provider["selector"]):
+            href = anchor.get("href")
+            if not href:
+                continue
+            href = href.strip()
+            if not href or href in seen:
+                continue
+            if exclude and exclude in href:
+                continue
+            seen.add(href)
+            urls.append(href)
+            if len(urls) >= RETAILER_SEARCH_LIMIT:
+                return urls
+    return urls
 
 
 def page_looks_html(response: requests.Response) -> bool:
@@ -688,6 +794,12 @@ def clean_description(value: Any) -> str | None:
         return None
     if clean_packing(text):
         return None
+    if DESC_JUNK_RE.search(text):
+        return None
+    # Require at least one fireworks/effect signal so non-fireworks pages
+    # (auto-parts catalogs, search-result pages, recall notices) can't pass.
+    if not DESC_SIGNAL_RE.search(text):
+        return None
     return text[:1000]
 
 
@@ -775,6 +887,48 @@ def extract_description_from_text(lines: list[str], name: str) -> str | None:
     return None
 
 
+def extract_worldclass_specs(soup: BeautifulSoup) -> dict[str, Any]:
+    """Parse the World Class official product page spec block.
+
+    Structure: ``<div class="product-detail-content">`` holding ``<h4>Label:</h4>``
+    elements each followed by sibling ``<a>`` value links (effects are several) or
+    a trailing text node (Duration), until the next ``<h4>``. WC product pages list
+    Type / Colors / Effects / Duration but not shot count or packing.
+    """
+    container = soup.select_one("div.product-detail-content")
+    if container is None:
+        return {}
+    # Effects/Colors/Type values are <a> tag links; Duration is a bare text node.
+    # Keep them apart so a trailing description <p> can't leak into effects.
+    links: dict[str, list[str]] = {}
+    texts: dict[str, list[str]] = {}
+    current: str | None = None
+    for node in container.children:
+        name = getattr(node, "name", None)
+        if name == "h4":
+            current = normalize_space(node.get_text()).rstrip(":").lower()
+            links.setdefault(current, [])
+            texts.setdefault(current, [])
+        elif current is not None:
+            if name == "a":
+                term = normalize_space(node.get_text())
+                if term:
+                    links[current].append(term)
+            elif name is None:  # bare NavigableString (e.g. "17 Seconds")
+                term = normalize_space(str(node))
+                if term:
+                    texts[current].append(term)
+    out: dict[str, Any] = {}
+    if texts.get("duration"):
+        parsed = parse_duration_seconds(" ".join(texts["duration"]))
+        if parsed is not None:
+            out["duration_seconds"] = parsed
+    effect_terms = links.get("effects") or links.get("colors")
+    if effect_terms:
+        out["effects"] = ", ".join(dict.fromkeys(effect_terms))
+    return out
+
+
 def build_records_from_page(
     page_url: str,
     html_text: str,
@@ -789,6 +943,11 @@ def build_records_from_page(
     jsonld_products = parse_jsonld_objects(soup)
     lines = page_visible_lines(soup)
     page_domain = clean_domain(page_url)
+    wc_specs = (
+        extract_worldclass_specs(soup)
+        if page_domain and "worldclassfireworks.com" in page_domain
+        else {}
+    )
     records: list[dict[str, Any]] = []
 
     for field in RESEARCH_FIELDS:
@@ -796,17 +955,21 @@ def build_records_from_page(
         source_label = ""
         loose = False
 
-        jsonld_value, jsonld_source, jsonld_loose = extract_jsonld_value(jsonld_products, field)
-        if jsonld_value is not None:
-            value = jsonld_value
-            source_label = jsonld_source or "jsonld"
-            loose = jsonld_loose
+        if field in wc_specs:
+            value = wc_specs[field]
+            source_label = "worldclass.spec"
         else:
-            regex_value, regex_source, regex_loose = extract_regex_value(lines, field)
-            if regex_value is not None:
-                value = regex_value
-                source_label = regex_source or "regex"
-                loose = regex_loose
+            jsonld_value, jsonld_source, jsonld_loose = extract_jsonld_value(jsonld_products, field)
+            if jsonld_value is not None:
+                value = jsonld_value
+                source_label = jsonld_source or "jsonld"
+                loose = jsonld_loose
+            else:
+                regex_value, regex_source, regex_loose = extract_regex_value(lines, field)
+                if regex_value is not None:
+                    value = regex_value
+                    source_label = regex_source or "regex"
+                    loose = regex_loose
 
         if value is None and field == "description":
             meta_value = extract_meta_description(soup)
@@ -887,10 +1050,40 @@ def search_queries_for_product(item_number: str, name: str, brand_name: str, pro
     return deduped
 
 
-def fetch_candidate_urls(session: requests.Session, queries: list[str]) -> list[str]:
+def fetch_candidate_urls(
+    session: requests.Session,
+    queries: list[str],
+    sku: str = "",
+    name: str = "",
+    brand_name: str = "",
+) -> list[str]:
     urls: list[str] = []
     seen_urls: set[str] = set()
     seen_domains: set[str] = set()
+
+    def add(url: str) -> bool:
+        if is_ignored_domain(url):
+            return False
+        domain = clean_domain(url)
+        if not domain or domain in seen_domains or url in seen_urls:
+            return False
+        seen_domains.add(domain)
+        seen_urls.add(url)
+        urls.append(url)
+        return True
+
+    if SEARCH_BACKEND in ("auto", "retailers"):
+        try:
+            for url in retailer_search(session, sku, name, brand_name):
+                add(url)
+                if len(urls) >= SEARCH_LIMIT:
+                    return urls
+        except requests.RequestException:
+            pass
+
+    if SEARCH_BACKEND == "retailers":
+        return urls
+
     for index, query in enumerate(queries):
         if index > 0 and len(urls) >= 3:
             break
@@ -901,17 +1094,7 @@ def fetch_candidate_urls(session: requests.Session, queries: list[str]) -> list[
         if index == 1 and len(urls) >= 3:
             break
         for url in results:
-            if is_ignored_domain(url):
-                continue
-            domain = clean_domain(url)
-            if not domain or domain in seen_domains:
-                continue
-            if url in seen_urls:
-                continue
-            seen_domains.add(domain)
-            seen_urls.add(url)
-            urls.append(url)
-            if len(urls) >= SEARCH_LIMIT:
+            if add(url) and len(urls) >= SEARCH_LIMIT:
                 return urls
         if len(urls) >= SEARCH_LIMIT:
             break
@@ -946,7 +1129,7 @@ def process_product(
             "records_added": 0,
         }
 
-    candidate_urls = fetch_candidate_urls(session, queries)
+    candidate_urls = fetch_candidate_urls(session, queries, sku=item_number, name=name, brand_name=brand_name)
     for url in candidate_urls:
         fetched_url, html_text = fetch_page(session, url)
         if not fetched_url or not html_text:
@@ -1059,9 +1242,24 @@ def parse_args() -> argparse.Namespace:
         help="process exactly one eligible product and exit",
     )
     parser.add_argument(
+        "--non-instore",
+        action="store_true",
+        help="target in_store=false products instead (catalog prefill corpus; for the cron pass)",
+    )
+    parser.add_argument(
         "--json-result",
         action="store_true",
         help="print the final processed product result as JSON",
+    )
+    parser.add_argument(
+        "--search-backend",
+        choices=("auto", "retailers", "ddg"),
+        default="auto",
+        help=(
+            "discovery path: 'auto' = retailer on-site search then DDG fallback; "
+            "'retailers' = on-site search only (DDG is currently IP-blocked); "
+            "'ddg' = legacy DuckDuckGo HTML only"
+        ),
     )
     return parser.parse_args()
 
@@ -1077,7 +1275,9 @@ def parse_csv(value: str) -> set[str] | None:
 
 
 def main() -> None:
+    global SEARCH_BACKEND
     args = parse_args()
+    SEARCH_BACKEND = args.search_backend
     only_skus = parse_only_skus(args.only_sku)
     only_product_ids = parse_csv(args.only_product_id)
     session = requests.Session()
@@ -1088,7 +1288,10 @@ def main() -> None:
 
     def eligible_products() -> list[dict[str, Any]]:
         skip = seen_this_run if args.force else (load_today_seen_product_keys() | seen_this_run)
-        return fetch_products(args.limit, only_skus, only_product_ids, skip_product_keys=skip)
+        return fetch_products(
+            args.limit, only_skus, only_product_ids, skip_product_keys=skip,
+            in_store_only=not args.non_instore,
+        )
 
     while True:
         products = eligible_products()

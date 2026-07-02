@@ -1,0 +1,28 @@
+{
+  "product_id": "e8a1d226-8552-47c1-b9a8-7d69bba7cd43",
+  "item_number": "1003754",
+  "name": "USA STRONG SERIES",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "1/4",
+    "description": "DESCRIPTION: Four elite effects: sunglow willows, waterfall bursts, glitter mines, and bold red-green-blue peonies - American power packed into every shot."
+  },
+  "queries": [
+    "\"1003754\" USA STRONG SERIES fireworks",
+    "USA STRONG SERIES World Class fireworks",
+    "\"USA STRONG SERIES\" fireworks",
+    "\"USA STRONG SERIES\" Show To Go Cartons fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

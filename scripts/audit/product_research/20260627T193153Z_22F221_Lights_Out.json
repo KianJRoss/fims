@@ -1,0 +1,90 @@
+{
+  "product_id": "0590d8a1-6b1d-4389-a2fb-c503b7302c68",
+  "item_number": "22F221",
+  "name": "Lights Out",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "12/1",
+    "description": "12/1 25 shot"
+  },
+  "queries": [
+    "\"22F221\" Lights Out fireworks",
+    "Lights Out Pyromaniacs Wholesale fireworks",
+    "\"Lights Out\" fireworks",
+    "\"Lights Out\" \"25 shot\" fireworks",
+    "\"Lights Out\" \"25 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Lights Out\" Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.raptorsupplies.com/pd/yellow-jacket/yj3eb-225-y",
+    "https://en.raptorsupplies.nl/pd/yellow-jacket/yj3eb-225-y",
+    "https://pyro-stock.replit.app/",
+    "https://www.waynesworldfireworks.net/",
+    "https://www.wisleypyrotechnics.com/",
+    "https://lynchimportsllc.com/"
+  ],
+  "urls_fetched": [
+    "https://pyro-stock.replit.app/",
+    "https://www.waynesworldfireworks.net/",
+    "https://www.wisleypyrotechnics.com/",
+    "https://lynchimportsllc.com/"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "Professional wholesale inventory management and B2B client portal for Pyromaniacs fireworks in Fort Wayne, Indiana. Manage inventory, orders, and client relationships efficiently.",
+      "source": "pyro-stock.replit.app (meta.description)",
+      "url": "https://pyro-stock.replit.app/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 383,
+      "source": "waynesworldfireworks.net (regex)",
+      "url": "https://www.waynesworldfireworks.net/",
+      "confidence": 0.4,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "WAYNE'S WORLD FIREWORKS, LLC",
+      "source": "waynesworldfireworks.net (text.description)",
+      "url": "https://www.waynesworldfireworks.net/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "wisleypyrotechnics.com (regex)",
+      "url": "https://www.wisleypyrotechnics.com/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Wisley Pyrotechnics (WPI) is a licensed 1.3G & 1.4G fireworks supplier for pros, tents, and retailers. ATF-approved. Real-time inventory, pro line products, bulk discounts. Serving Indiana & nationwide.",
+      "source": "wisleypyrotechnics.com (meta.description)",
+      "url": "https://www.wisleypyrotechnics.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Highest quality 1.3g & 1.4g wholesale fireworks! View our pyrotechnics selection and impress your audience. Customer service is our priority.",
+      "source": "lynchimportsllc.com (meta.description)",
+      "url": "https://lynchimportsllc.com/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 6
+}

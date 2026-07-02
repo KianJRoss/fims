@@ -1,0 +1,115 @@
+{
+  "product_id": "6f5d81c7-02eb-4dd1-af82-00cc536d905d",
+  "item_number": "KM1348",
+  "name": "HOSTILE TAKEOVER",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Hostile Takeover detonates reds, blues, greens, glitter, and brocade crowns - ending with a finale that dominates the skyline."
+  },
+  "queries": [
+    "\"KM1348\" HOSTILE TAKEOVER fireworks",
+    "HOSTILE TAKEOVER World Class fireworks",
+    "\"HOSTILE TAKEOVER\" fireworks",
+    "\"HOSTILE TAKEOVER\" \"25 shot\" fireworks",
+    "\"HOSTILE TAKEOVER\" \"25 shot\" World Class fireworks",
+    "\"HOSTILE TAKEOVER\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/hostile-takeover/",
+    "https://americanwholesalefireworks.com/hostile-takeover/",
+    "https://pahrump.area51fireworks.com/product/hostile-takeover-each/",
+    "https://www.auctionspear.com/auction/330/item/262",
+    "https://blackjackfireworksnevada.com/product/hostile-takeover-each/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/hostile-takeover/",
+    "https://americanwholesalefireworks.com/hostile-takeover/",
+    "https://pahrump.area51fireworks.com/product/hostile-takeover-each/",
+    "https://www.auctionspear.com/auction/330/item/262",
+    "https://blackjackfireworksnevada.com/product/hostile-takeover-each/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "brocade crown, glitter",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/hostile-takeover/",
+      "confidence": 0.9,
+      "identity_check": "barcode 80525301348 contains SKU digits 1348"
+    },
+    {
+      "field": "description",
+      "value": "Nobody is going to mess with your celebration when you implement a Hostile Takeover! Reds, blues, greens and white glitter blow up into brocade crowns and other aerial effects in this dazzling spectacle. An amazing finale is a great surprise ending with this must-have element of your show.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/hostile-takeover/",
+      "confidence": 0.9,
+      "identity_check": "barcode 80525301348 contains SKU digits 1348"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/hostile-takeover/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    },
+    {
+      "field": "description",
+      "value": "Hostile Takeover (KM1348) is a 200 Gram Cake from World Class Fireworks.",
+      "source": "americanwholesalefireworks.com (meta.description)",
+      "url": "https://americanwholesalefireworks.com/hostile-takeover/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    },
+    {
+      "field": "shot_count",
+      "value": 44,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/hostile-takeover-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/hostile-takeover-each/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "auctionspear.com (regex)",
+      "url": "https://www.auctionspear.com/auction/330/item/262",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    },
+    {
+      "field": "description",
+      "value": "FIREWORKS- HOSTILE TAKEOVER KM1348 located in Fort Worth, TX including NA",
+      "source": "auctionspear.com (meta.description)",
+      "url": "https://www.auctionspear.com/auction/330/item/262",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "blackjackfireworksnevada.com (regex)",
+      "url": "https://blackjackfireworksnevada.com/product/hostile-takeover-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1348)"
+    }
+  ],
+  "records_added": 9
+}

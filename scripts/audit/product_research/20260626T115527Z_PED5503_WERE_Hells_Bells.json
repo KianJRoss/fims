@@ -1,0 +1,30 @@
+{
+  "product_id": "cdd33133-0847-4a46-9239-9f0025a83ed2",
+  "item_number": "PED5503 WERE",
+  "name": "Hells Bells",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"PED5503 WERE\" Hells Bells fireworks",
+    "Hells Bells Pyromaniacs Wholesale fireworks",
+    "\"Hells Bells\" fireworks",
+    "\"Hells Bells\" 4/1s fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

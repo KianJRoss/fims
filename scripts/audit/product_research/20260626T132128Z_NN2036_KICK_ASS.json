@@ -1,0 +1,85 @@
+{
+  "product_id": "64436ce3-51b8-48d7-b964-6494ebe7eccd",
+  "item_number": "NN2036",
+  "name": "KICK ASS",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Gold willow with gold strobe. Gold willow with red strobe. Gold willow with white strobe. Silver chrysanthemum. 22"
+  },
+  "queries": [
+    "\"NN2036\" KICK ASS fireworks",
+    "KICK ASS NO NAME fireworks",
+    "\"KICK ASS\" fireworks",
+    "\"KICK ASS\" \"16 shot\" fireworks",
+    "\"KICK ASS\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2036)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Gold willow with gold strobe. Gold willow with red strobe. Gold willow with white strobe. Silver chrysanthemum.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2036)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2036)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Gold willow with gold strobe. Gold willow with red strobe. Gold willow with white strobe. Silver chrysanthemum.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2036)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2036)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Gold willow with gold strobe. Gold willow with red strobe. Gold willow with white strobe. Silver chrysanthemum.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/kick-ass-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2036)"
+    }
+  ],
+  "records_added": 6
+}

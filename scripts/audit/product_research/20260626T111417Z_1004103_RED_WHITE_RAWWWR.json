@@ -1,0 +1,30 @@
+{
+  "product_id": "8ead0fc1-f83e-4601-931f-7c44020edb22",
+  "item_number": "1004103",
+  "name": "RED WHITE RAWWWR",
+  "brand_name": "World Class",
+  "target_fields": [
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": 41,
+    "effects": "Gold, Green, Red, Silver, chrysanthemum, glitter, palm, sparkler, wolf, whistle",
+    "packing": null,
+    "description": "DESCRIPTION: Red White Rawwwr sends wolf whistles into titanium golden palms, red or green sparkles, and silver chrysanthemums for a patriotic roar."
+  },
+  "queries": [
+    "\"1004103\" RED WHITE RAWWWR fireworks",
+    "RED WHITE RAWWWR World Class fireworks",
+    "\"RED WHITE RAWWWR\" fireworks",
+    "\"RED WHITE RAWWWR\" \"25 shot\" fireworks",
+    "\"RED WHITE RAWWWR\" \"25 shot\" World Class fireworks",
+    "\"RED WHITE RAWWWR\" \"41 seconds\" fireworks",
+    "\"RED WHITE RAWWWR\" 500 Gram Cakes fireworks",
+    "\"RED WHITE RAWWWR\" Gold Green Red Silver chrysanthemum fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

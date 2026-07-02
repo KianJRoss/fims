@@ -1,0 +1,28 @@
+{
+  "product_id": "9dc8d668-0419-4efd-a766-e8da2d6aeb90",
+  "item_number": "SWC2179",
+  "name": "HUCKLEBERRY / FEARLESS",
+  "brand_name": "SUNWING",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "12/2",
+    "description": "This 12 Shot, 200 Gram Cake that's designed to dazzle and"
+  },
+  "queries": [
+    "\"SWC2179\" HUCKLEBERRY / FEARLESS fireworks",
+    "HUCKLEBERRY / FEARLESS SUNWING fireworks",
+    "\"HUCKLEBERRY / FEARLESS\" fireworks",
+    "\"HUCKLEBERRY / FEARLESS\" \"12 shot\" fireworks",
+    "\"HUCKLEBERRY / FEARLESS\" \"12 shot\" SUNWING fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

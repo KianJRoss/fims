@@ -1,0 +1,150 @@
+{
+  "product_id": "097326a9-4c84-4f3d-ba3e-46ed50f40e98",
+  "item_number": "1004322",
+  "name": "Nature's Rampage",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"1004322\" Nature's Rampage fireworks",
+    "Nature's Rampage World Class fireworks",
+    "\"Nature's Rampage\" fireworks",
+    "\"Nature's Rampage\" \"12 shot\" fireworks",
+    "\"Nature's Rampage\" \"12 shot\" World Class fireworks",
+    "\"Nature's Rampage\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.jakesfireworks.com/firework/natures-rampage/",
+    "https://www.worldclassfireworks.com/",
+    "https://wholesalefireworks.com/firework/natures-rampage/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+    "https://www.bestfireworksstores.com/product-page/nature-s-rampage-500-gram-finale-fireworks-cake-12-shots",
+    "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/natures-rampage-12-shot-cake/"
+  ],
+  "urls_fetched": [
+    "https://www.jakesfireworks.com/firework/natures-rampage/",
+    "https://www.worldclassfireworks.com/",
+    "https://wholesalefireworks.com/firework/natures-rampage/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+    "https://www.bestfireworksstores.com/product-page/nature-s-rampage-500-gram-finale-fireworks-cake-12-shots",
+    "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/natures-rampage-12-shot-cake/"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "Golden silk willow with silver comet tail. Silver diamond with golden chrysanthemum. Golden pine with white glitter. Diamond with silver chrysanthemum.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/natures-rampage/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "effects",
+      "value": "Patriotic finale cake designed to please the crowd. Red White, Blue, and Gold colors. Palms, peonies, and wolf whistle effects.",
+      "source": "worldclassfireworks.com (labelled)",
+      "url": "https://www.worldclassfireworks.com/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "World Class brand fireworks - America's Favorite. Find a store near you or apply to become a reseller of World Class Fireworks.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "WHOLESALE FIREWORKS | BEST SOURCE FOR AERIAL SHELLS, FOUNTAINS, SPARKLERS",
+      "source": "wholesalefireworks.com (text.description)",
+      "url": "https://wholesalefireworks.com/firework/natures-rampage/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "shot_count",
+      "value": 8,
+      "source": "wickedfireworks.com (regex)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Artillery Shells - Canister Shells",
+      "source": "wickedfireworks.com (text.description)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "bestfireworksstores.com (regex)",
+      "url": "https://www.bestfireworksstores.com/product-page/nature-s-rampage-500-gram-finale-fireworks-cake-12-shots",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "effects",
+      "value": "The Nature’s Rampage 500 Gram Finales deliver a powerful, refined aerial display built around rich gold, silver, and white effects. This 500-gram fireworks cake fires 12 deliberate shots, each designed to fully bloom and linger in the sky for maximum visual impact. Every launch features a combinatio",
+      "source": "bestfireworksstores.com (jsonld)",
+      "url": "https://www.bestfireworksstores.com/product-page/nature-s-rampage-500-gram-finale-fireworks-cake-12-shots",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "description",
+      "value": "The Nature’s Rampage 500 Gram Finales deliver a powerful, refined aerial display built around rich gold, silver, and white effects. This 500-gram fireworks cake fires 12 deliberate shots, each designed to fully bloom and linger in the sky for maximum visual impact. Every launch features a combination of golden silk willows, silver comet tails, diamond glitter effects, and classic chrysanthemum breaks. Golden pine needles with white glitter add depth and texture, while silver and gold transitions create a clean, polished finale look. The firing pace allows each effect to stand on its own, making this cake ideal for closing sequences or stacking multiple units for a balanced, professional-style finish. Nature’s Rampage is built for buyers who want a high-quality 500 gram finale that emphasizes elegance, clarity, and strong aerial presence rather than rapid-fire chaos. The gold, silver, and white color palette makes it especially well suited for milestone celebrations and end-of-show mome",
+      "source": "bestfireworksstores.com (jsonld.description)",
+      "url": "https://www.bestfireworksstores.com/product-page/nature-s-rampage-500-gram-finale-fireworks-cake-12-shots",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "usa-fireworks.com (regex)",
+      "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/natures-rampage-12-shot-cake/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 16,
+      "source": "usa-fireworks.com (regex)",
+      "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/natures-rampage-12-shot-cake/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "effects",
+      "value": "Effects: 1 - Golden silk willow with silver comet tail. 2 - Silver diamond with golden chrysanthemum. 3 - Golden pine with white glitter. Diamond with silver chrysanthemum. Brand: World Class Shots: 12 Grams: 500 Colors: Gold, Silver, White Contains Finale: No Duration: 16 Seconds Firing Pattern: Up",
+      "source": "usa-fireworks.com (jsonld)",
+      "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/natures-rampage-12-shot-cake/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "description",
+      "value": "Natures Rampage is a 12 shot 500 gram cake by World Class. It's available at Dallas's #1 Fireworks Super Store! Shop for fireworks online, find fireworks near you in Dallas, or in person at our Super Store and retail stands, cheap fireworks and largest selection in North Texas.",
+      "source": "usa-fireworks.com (meta.description)",
+      "url": "https://usa-fireworks.com/products/aerial-all-cakes/aerial-500-gram-cakes/natures-rampage-12-shot-cake/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    }
+  ],
+  "records_added": 7
+}

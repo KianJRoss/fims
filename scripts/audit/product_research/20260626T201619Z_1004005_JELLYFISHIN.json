@@ -1,0 +1,58 @@
+{
+  "product_id": "35c24cea-7a43-4222-8688-45293a1e12f4",
+  "item_number": "1004005",
+  "name": "JELLYFISHIN'",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Jellyfishin’ pops 19 crackle mines into red, blue, purple, and lemon chrysanthemums - deep-sea dazzle rising skyward."
+  },
+  "queries": [
+    "\"1004005\" JELLYFISHIN' fireworks",
+    "JELLYFISHIN' World Class fireworks",
+    "\"JELLYFISHIN'\" fireworks",
+    "\"JELLYFISHIN'\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.jakesfireworks.com/firework/jellyfishin/",
+    "https://www.oilfilter-crossreference.com/convert/IMER/1004005",
+    "https://www.partstown.com/tomlinson/tom1004005",
+    "https://bunzlprocessor.com/split-lock-washer-1004005/",
+    "https://www.sf-filter.com/en/cross-reference-list?searchValue=1004005",
+    "https://mpparts.com/part/1004005-front-tow-lug-1004005"
+  ],
+  "urls_fetched": [
+    "https://www.jakesfireworks.com/firework/jellyfishin/",
+    "https://www.oilfilter-crossreference.com/convert/IMER/1004005",
+    "https://www.partstown.com/tomlinson/tom1004005",
+    "https://mpparts.com/part/1004005-front-tow-lug-1004005"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "Exciting crackle mines and breaks, colorful stars, and effects from ground to sky.",
+      "source": "jakesfireworks.com (labelled)",
+      "url": "https://www.jakesfireworks.com/firework/jellyfishin/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004005)"
+    },
+    {
+      "field": "description",
+      "value": "Exciting crackle mines and breaks, colorful stars, and effects from ground to sky.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/jellyfishin/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004005)"
+    }
+  ],
+  "records_added": 2
+}

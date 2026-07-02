@@ -1,0 +1,28 @@
+{
+  "product_id": "f2972f78-3ef4-490d-9e86-8fd1b10e298d",
+  "item_number": "NN4024",
+  "name": "FESTIVAL BALLS 6 SHOT (BAG)",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/6",
+    "description": "Classic 1.75\" festival balls. 6 balls in a poly bag with header."
+  },
+  "queries": [
+    "\"NN4024\" FESTIVAL BALLS 6 SHOT (BAG) fireworks",
+    "FESTIVAL BALLS 6 SHOT (BAG) NO NAME fireworks",
+    "\"FESTIVAL BALLS 6 SHOT (BAG)\" fireworks",
+    "\"FESTIVAL BALLS 6 SHOT (BAG)\" \"6 shot\" fireworks",
+    "\"FESTIVAL BALLS 6 SHOT (BAG)\" \"6 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

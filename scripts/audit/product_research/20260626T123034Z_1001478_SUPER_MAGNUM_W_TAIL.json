@@ -1,0 +1,29 @@
+{
+  "product_id": "f550dd21-cc8e-495b-adf5-2af605c5d365",
+  "item_number": "1001478",
+  "name": "SUPER MAGNUM W/ TAIL",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: 12 assorted effects with rising tails and strong aerial bursts."
+  },
+  "queries": [
+    "\"1001478\" SUPER MAGNUM W/ TAIL fireworks",
+    "SUPER MAGNUM W/ TAIL World Class fireworks",
+    "\"SUPER MAGNUM W/ TAIL\" fireworks",
+    "\"SUPER MAGNUM W/ TAIL\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

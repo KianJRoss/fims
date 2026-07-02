@@ -1,0 +1,29 @@
+{
+  "product_id": "f8c0dc9f-1e9a-44d0-8b0c-c16600abe5c9",
+  "item_number": "1004033",
+  "name": "SHOW BIZ BABY",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Show Biz Baby rolls red-blue crackle, yellow waves, and blue tails into a crackle willow finale - lights, camera, sky-action!"
+  },
+  "queries": [
+    "\"1004033\" SHOW BIZ BABY fireworks",
+    "SHOW BIZ BABY World Class fireworks",
+    "\"SHOW BIZ BABY\" fireworks",
+    "\"SHOW BIZ BABY\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

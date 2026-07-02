@@ -1,0 +1,89 @@
+{
+  "product_id": "c41db1aa-2be2-48ed-994e-5fb6aa145960",
+  "item_number": "M206",
+  "name": "SCREAMING BANSHEE",
+  "brand_name": "Miracle",
+  "target_fields": [
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": 10,
+    "effects": null,
+    "packing": null,
+    "description": "Blast off with the SCREAMING BANSHEE—where every launch is a howl of excitement! Ignite your celebrations with the Miracle SCREAMING BANSHEE, the rocket that turns every sky into a symphony of adventure! With six assorted rockets packed in every case and a thrilling 10-second performance, each launch is a spectacle of howling tails and electrifying energy. Measuring an impressive 27-1/2\" by 7/8\", this rocket is designed for those who crave boldness and joy at their events. Whether you’re marking a milestone or simply lighting up the night, the SCREAMING BANSHEE delivers a breathtaking show that inspires awe and brings people together. Let your spirit soar and your dreams take flight—choose the rocket that promises unforgettable memories and a burst of inspiration with every shot. Don’t just celebrate, make your night miraculous!"
+  },
+  "queries": [
+    "\"M206\" SCREAMING BANSHEE fireworks",
+    "SCREAMING BANSHEE Miracle fireworks",
+    "\"SCREAMING BANSHEE\" fireworks",
+    "\"SCREAMING BANSHEE\" \"6 shot\" fireworks",
+    "\"SCREAMING BANSHEE\" \"6 shot\" Miracle fireworks",
+    "\"SCREAMING BANSHEE\" \"10 seconds\" fireworks",
+    "\"SCREAMING BANSHEE\" Rocket fireworks"
+  ],
+  "candidate_urls": [
+    "https://jbfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+    "https://snapfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+    "https://www.allstarfireworks.net/dynamic-page-stick-rockets/screaming-banshee",
+    "https://freedomfirstfireworks.com/product/screaming-banshee/"
+  ],
+  "urls_fetched": [
+    "https://jbfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+    "https://snapfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+    "https://www.allstarfireworks.net/dynamic-page-stick-rockets/screaming-banshee",
+    "https://freedomfirstfireworks.com/product/screaming-banshee/"
+  ],
+  "candidate_records": [
+    {
+      "field": "duration_seconds",
+      "value": 10,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (M206)"
+    },
+    {
+      "field": "effects",
+      "value": "6 Assorted Howling Rockets with Tail",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (M206)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 10,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (M206)"
+    },
+    {
+      "field": "effects",
+      "value": "6 Assorted Howling Rockets with Tail",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/screaming-banshee-6-assorted-howling-rockets-by-miracle-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (M206)"
+    },
+    {
+      "field": "description",
+      "value": "Dynamic Page for our Stick Rockets available at All Star Fireworks, serving the cites of Sioux Falls, Harrisburg, Tea & surrounding communities in SD.",
+      "source": "allstarfireworks.net (meta.description)",
+      "url": "https://www.allstarfireworks.net/dynamic-page-stick-rockets/screaming-banshee",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (M206)"
+    },
+    {
+      "field": "packing",
+      "value": "12/6",
+      "source": "freedomfirstfireworks.com (regex)",
+      "url": "https://freedomfirstfireworks.com/product/screaming-banshee/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (M206)"
+    }
+  ],
+  "records_added": 6
+}

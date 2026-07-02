@@ -1,0 +1,28 @@
+{
+  "product_id": "e3d89d05-f167-4032-bd41-9175d3e5021a",
+  "item_number": "SWC2199",
+  "name": "NEVER RETREAT NEVER SURRENDER",
+  "brand_name": "SUNWING",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 20,
+    "duration_seconds": 30,
+    "effects": null,
+    "packing": "4/1",
+    "description": "20 Shots - This 500 Gram cake has a gold coco to green strobe mine blasts, into gold coco to red, gold coco to green,"
+  },
+  "queries": [
+    "\"SWC2199\" NEVER RETREAT NEVER SURRENDER fireworks",
+    "NEVER RETREAT NEVER SURRENDER SUNWING fireworks",
+    "\"NEVER RETREAT NEVER SURRENDER\" fireworks",
+    "\"NEVER RETREAT NEVER SURRENDER\" \"20 shot\" fireworks",
+    "\"NEVER RETREAT NEVER SURRENDER\" \"20 shot\" SUNWING fireworks",
+    "\"NEVER RETREAT NEVER SURRENDER\" \"30 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

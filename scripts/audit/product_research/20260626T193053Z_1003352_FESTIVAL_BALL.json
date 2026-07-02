@@ -1,0 +1,66 @@
+{
+  "product_id": "6ffeef17-03fa-47d6-babd-a0a6780ce139",
+  "item_number": "1003352",
+  "name": "FESTIVAL BALL",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Classic festival balls with bright peony bursts in multiple colors."
+  },
+  "queries": [
+    "\"1003352\" FESTIVAL BALL fireworks",
+    "FESTIVAL BALL World Class fireworks",
+    "\"FESTIVAL BALL\" fireworks",
+    "\"FESTIVAL BALL\" \"6 shot\" fireworks",
+    "\"FESTIVAL BALL\" \"6 shot\" World Class fireworks",
+    "\"FESTIVAL BALL\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/festival-balls/",
+    "https://www.auctionspear.com/auction/330/item/285",
+    "https://www.autodoc.parts/car-parts/oem/1003352",
+    "https://www.conequip.com/1003352-radiator",
+    "https://www.vanderhaags.com/detailview.php?manufacturer=volvo&model=wg&inventorytype=radiator&partnumber=1003352&wcf=parentmodel"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/festival-balls/",
+    "https://www.auctionspear.com/auction/330/item/285",
+    "https://www.conequip.com/1003352-radiator",
+    "https://www.vanderhaags.com/detailview.php?manufacturer=volvo&model=wg&inventorytype=radiator&partnumber=1003352&wcf=parentmodel"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "This Festival Ball artillery shell is the biggest and best 1.5 shells you will ever see. The color break patterns are awesome for its price. Completely redesigned packaging greatly increases this items shelf appeal. The combination of an exceptional price and quality product make this item a must have for every retail location.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/festival-balls/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "FIREWORKS- BOOMER FESTIVAL BALL ARTILLERY SHELL 1003352 located in Fort Worth, TX including NA",
+      "source": "auctionspear.com (meta.description)",
+      "url": "https://www.auctionspear.com/auction/330/item/285",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1003352)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 150,
+      "source": "vanderhaags.com (regex)",
+      "url": "https://www.vanderhaags.com/detailview.php?manufacturer=volvo&model=wg&inventorytype=radiator&partnumber=1003352&wcf=parentmodel",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1003352)"
+    }
+  ],
+  "records_added": 3
+}

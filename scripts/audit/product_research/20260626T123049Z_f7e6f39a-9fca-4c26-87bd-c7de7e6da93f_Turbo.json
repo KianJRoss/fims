@@ -1,0 +1,27 @@
+{
+  "product_id": "f7e6f39a-9fca-4c26-87bd-c7de7e6da93f",
+  "item_number": "",
+  "name": "Turbo",
+  "brand_name": "",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"Turbo\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

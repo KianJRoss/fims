@@ -1,0 +1,28 @@
+{
+  "product_id": "c106511b-29f1-402c-ab28-6c8c9cc5eff3",
+  "item_number": "MA014",
+  "name": "MVP",
+  "brand_name": "PYRO BOX",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 108,
+    "duration_seconds": 30,
+    "effects": null,
+    "packing": "1/3",
+    "description": "3pc 500 Gram Finale Set is designed to leave your audience in awe with 108 shots in rapid succession. These 3 Cakes, totaling 1,500 Grams, are designed to produce a coordinated 30 second, finale. With 1500Gs, this Finale Set of Gold Ti Willow w/NEON pearls (Red, Blue and Silver)"
+  },
+  "queries": [
+    "\"MA014\" MVP fireworks",
+    "MVP PYRO BOX fireworks",
+    "\"MVP\" fireworks",
+    "\"MVP\" \"108 shot\" fireworks",
+    "\"MVP\" \"108 shot\" PYRO BOX fireworks",
+    "\"MVP\" \"30 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

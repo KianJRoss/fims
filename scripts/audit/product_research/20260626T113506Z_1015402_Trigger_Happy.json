@@ -1,0 +1,29 @@
+{
+  "product_id": "ab728e78-4daf-4981-943f-248ac023e688",
+  "item_number": "1015402",
+  "name": "Trigger Happy",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "6/1",
+    "description": "DESCRIPTION: Trigger Happy fires red, lemon, and green sparklers with brocade crowns - fast shots that never miss their mark."
+  },
+  "queries": [
+    "\"1015402\" Trigger Happy fireworks",
+    "Trigger Happy World Class fireworks",
+    "\"Trigger Happy\" fireworks",
+    "\"Trigger Happy\" \"16 shot\" fireworks",
+    "\"Trigger Happy\" \"16 shot\" World Class fireworks",
+    "\"Trigger Happy\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

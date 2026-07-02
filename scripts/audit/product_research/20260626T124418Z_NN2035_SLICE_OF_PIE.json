@@ -1,0 +1,85 @@
+{
+  "product_id": "d56559ec-13cf-4fb4-b9bd-f77aa28f2fa4",
+  "item_number": "NN2035",
+  "name": "SLICE OF PIE",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Gold palm with green strobe. Silver wave with crackling. Red strobe. Time rain. 25"
+  },
+  "queries": [
+    "\"NN2035\" SLICE OF PIE fireworks",
+    "SLICE OF PIE NO NAME fireworks",
+    "\"SLICE OF PIE\" fireworks",
+    "\"SLICE OF PIE\" \"16 shot\" fireworks",
+    "\"SLICE OF PIE\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2035)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Gold palm with green strobe. Silver wave with crackling. Red strobe. Time rain.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2035)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2035)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Gold palm with green strobe. Silver wave with crackling. Red strobe. Time rain.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2035)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2035)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Gold palm with green strobe. Silver wave with crackling. Red strobe. Time rain.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/slice-of-pie-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2035)"
+    }
+  ],
+  "records_added": 6
+}

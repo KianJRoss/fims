@@ -1,0 +1,108 @@
+{
+  "product_id": "cfbbfeb8-e526-4f5a-bf37-0fcb9a469722",
+  "item_number": "BM1412-C",
+  "name": "Festival Balls",
+  "brand_name": "",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"BM1412-C\" Festival Balls fireworks",
+    "\"Festival Balls\" fireworks",
+    "\"Festival Balls\" \"6 shot\" fireworks",
+    "\"Festival Balls\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://www.tntfireworks.com/fireworks/cat/reloadables/2595-festival-balls-6-pack",
+    "https://skykingfireworks.com/product/festival-balls/",
+    "https://fireworks.com/products/aerial/reloadable-mortars/phantom-small-festival-ball-6-pieces",
+    "https://www.fireworkscity.com/product/festival-balls/"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+    "https://www.tntfireworks.com/fireworks/cat/reloadables/2595-festival-balls-6-pack",
+    "https://skykingfireworks.com/product/festival-balls/",
+    "https://fireworks.com/products/aerial/reloadable-mortars/phantom-small-festival-ball-6-pieces",
+    "https://www.fireworkscity.com/product/festival-balls/"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "effects",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "4 assorted - A: Red fountain, crackle w/red blue; B: Purple fountain, crackle w/purple; C: Blue fountain, crackle w/purple green; D: Green fountain, crackle w/purple green.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/mini-snow-cone-fountain-4-assorted-200-gram-fountain-by-no-name-fireworks.html",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 6,
+      "source": "tntfireworks.com (regex)",
+      "url": "https://www.tntfireworks.com/fireworks/cat/reloadables/2595-festival-balls-6-pack",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "6-Shell Mortar Kit - 6 Effects. This kit sets the standard in quality. Six shells burst into multi-colored eye-pleasing breaks. One of the best-selling festival ball kits available to the public.",
+      "source": "skykingfireworks.com (jsonld.description)",
+      "url": "https://skykingfireworks.com/product/festival-balls/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Comes with mortar and shells that boast beautiful assorted bursts. A sensational fireworks kit!",
+      "source": "fireworks.com (meta.description)",
+      "url": "https://fireworks.com/products/aerial/reloadable-mortars/phantom-small-festival-ball-6-pieces",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Festival Balls by Dominator: Classic 1.75\" reloadable artillery shells with 6 assorted aerial effects. Includes reusable mortar tube. Big color, compact kit.",
+      "source": "fireworkscity.com (meta.description)",
+      "url": "https://www.fireworkscity.com/product/festival-balls/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 8
+}

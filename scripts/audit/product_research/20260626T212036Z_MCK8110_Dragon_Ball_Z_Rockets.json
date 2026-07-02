@@ -1,0 +1,125 @@
+{
+  "product_id": "a3509407-961a-4790-82a7-aab90f686a5d",
+  "item_number": "MCK8110",
+  "name": "Dragon Ball Z Rockets",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "12/6 color"
+  },
+  "queries": [
+    "\"MCK8110\" Dragon Ball Z Rockets fireworks",
+    "Dragon Ball Z Rockets Pyromaniacs Wholesale fireworks",
+    "\"Dragon Ball Z Rockets\" fireworks",
+    "\"Dragon Ball Z Rockets\" \"6 shot\" fireworks",
+    "\"Dragon Ball Z Rockets\" \"6 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Dragon Ball Z Rockets\" Rockets fireworks"
+  ],
+  "candidate_urls": [
+    "https://wholesale.bigfireworks.com/collections/all?page=19",
+    "https://twistedthunder.com/shop/shop-all-retail/dragon-ball-z-rockets/",
+    "https://www.fireworks.us/",
+    "https://americanwholesalefireworks.com/",
+    "https://www.pyrogiant.com/home-1",
+    "https://rocketfireworks.com/"
+  ],
+  "urls_fetched": [
+    "https://wholesale.bigfireworks.com/collections/all?page=19",
+    "https://twistedthunder.com/shop/shop-all-retail/dragon-ball-z-rockets/",
+    "https://www.fireworks.us/",
+    "https://americanwholesalefireworks.com/",
+    "https://www.pyrogiant.com/home-1",
+    "https://rocketfireworks.com/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 110,
+      "source": "wholesale.bigfireworks.com (regex)",
+      "url": "https://wholesale.bigfireworks.com/collections/all?page=19",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Shop wholesale and retail fireworks — artillery shells, cakes & finale kits at Big Fireworks. Bulk discounts, fast shipping & 3 retail locations.",
+      "source": "wholesale.bigfireworks.com (meta.description)",
+      "url": "https://wholesale.bigfireworks.com/collections/all?page=19",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "packing",
+      "value": "12/6",
+      "source": "twistedthunder.com (regex)",
+      "url": "https://twistedthunder.com/shop/shop-all-retail/dragon-ball-z-rockets/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 20,
+      "source": "fireworks.us (regex)",
+      "url": "https://www.fireworks.us/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "At Fireworks.US, we specialize in providing quality fireworks at affordable prices. We have all your favorite fireworks from Roman candles, cakes & artillery shells, to sparklers and fireworks for gender reveals. Buy in bulk to take advantage of our free shipping on all orders over $1,500.",
+      "source": "fireworks.us (meta.description)",
+      "url": "https://www.fireworks.us/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 1,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Wholesale fireworks for sale, shop today and order your firework display online. Bulk discounts available.",
+      "source": "americanwholesalefireworks.com (meta.description)",
+      "url": "https://americanwholesalefireworks.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Online Wholesale Fireworks Sales www.PyroGiant.com Delivery to Most United States Same Low Prices All Year Round Fast Personal Service",
+      "source": "pyrogiant.com (meta.description)",
+      "url": "https://www.pyrogiant.com/home-1",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 9,
+      "source": "rocketfireworks.com (regex)",
+      "url": "https://rocketfireworks.com/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Buy wholesale fireworks online and Pick-Up in our Store. Buy premium quality and discounted fireworks and crackers online.",
+      "source": "rocketfireworks.com (meta.description)",
+      "url": "https://rocketfireworks.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 10
+}

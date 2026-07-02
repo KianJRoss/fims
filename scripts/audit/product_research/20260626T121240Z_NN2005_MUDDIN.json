@@ -1,0 +1,28 @@
+{
+  "product_id": "e3870b9e-5182-4b57-8562-a0dbd8f1a50d",
+  "item_number": "NN2005",
+  "name": "MUDDIN!",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "16/1",
+    "description": "16 Shots - Red tail to lemon and blue pearls with gold strobes. Green tails to brocade crown with green strobe. Yellow tail to"
+  },
+  "queries": [
+    "\"NN2005\" MUDDIN! fireworks",
+    "MUDDIN! NO NAME fireworks",
+    "\"MUDDIN!\" fireworks",
+    "\"MUDDIN!\" \"16 shot\" fireworks",
+    "\"MUDDIN!\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

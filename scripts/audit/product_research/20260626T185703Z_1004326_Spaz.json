@@ -1,0 +1,76 @@
+{
+  "product_id": "f42f1efe-be0f-4a2d-987b-4b3f220dd982",
+  "item_number": "1004326",
+  "name": "Spaz",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 21,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"1004326\" Spaz fireworks",
+    "Spaz World Class fireworks",
+    "\"Spaz\" fireworks",
+    "\"Spaz\" \"21 shot\" fireworks",
+    "\"Spaz\" \"21 shot\" World Class fireworks",
+    "\"Spaz\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/spaz/",
+    "https://www.jakesfireworks.com/firework/spaz/",
+    "https://www.hydrafitnessexchange.com/uploads/pdf_invoice/Invoice#1004326.pdf",
+    "https://gun.deals/search/apachesolr_search/1004326",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=2896761102",
+    "https://indheatexchanger.com/pc-1004326"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/spaz/",
+    "https://www.jakesfireworks.com/firework/spaz/",
+    "https://gun.deals/search/apachesolr_search/1004326",
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=2896761102"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "diamond, mine, stars, tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/spaz/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004326)"
+    },
+    {
+      "field": "description",
+      "value": "Red tail to golden diamond with red moving stars. Red tail to red, green, blue, moving stars. Green tail to silver diamond with green moving stars. Red, green, blue mine to golden diamond and silver diamond with red blue green moving stars.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/spaz/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004326)"
+    },
+    {
+      "field": "description",
+      "value": "Red tail to golden diamond with red moving stars. Red tail to red, green, blue, moving stars. Green tail to silver diamond with green moving stars. Red, green, blue mine to golden diamond and silver diamond with red blue green moving stars.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/spaz/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004326)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 3,
+      "source": "gun.deals (regex)",
+      "url": "https://gun.deals/search/apachesolr_search/1004326",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004326)"
+    }
+  ],
+  "records_added": 4
+}

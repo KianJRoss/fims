@@ -1,0 +1,28 @@
+{
+  "product_id": "8fd3bdc5-1498-4e10-bd25-812efbe4f253",
+  "item_number": "",
+  "name": "Inferno Run",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Inferno Run Great Grizzly fireworks",
+    "\"Inferno Run\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

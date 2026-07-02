@@ -1,0 +1,73 @@
+{
+  "product_id": "0cb5d1d0-54dc-456f-9b2d-9ebf7db7d7d7",
+  "item_number": "1001435",
+  "name": "PREMIUM ARTILLERY SHELLS",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Red, green, yellow, blue, white, and multicolor peony effects."
+  },
+  "queries": [
+    "\"1001435\" PREMIUM ARTILLERY SHELLS fireworks",
+    "PREMIUM ARTILLERY SHELLS World Class fireworks",
+    "\"PREMIUM ARTILLERY SHELLS\" fireworks",
+    "\"PREMIUM ARTILLERY SHELLS\" \"6 shot\" fireworks",
+    "\"PREMIUM ARTILLERY SHELLS\" \"6 shot\" World Class fireworks",
+    "\"PREMIUM ARTILLERY SHELLS\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/ultimate-american-artillery-shells/",
+    "https://pahrump.area51fireworks.com/product/boomer-premium-artillery-shell/",
+    "https://www.mouser.com/ProductDetail/KYOCERA-AVX/1001435?qs=wnTfsH77Xs4FoSfOnlMdwg==",
+    "https://mymetco.oerlikon.com/en-us/article/1001435"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/ultimate-american-artillery-shells/",
+    "https://pahrump.area51fireworks.com/product/boomer-premium-artillery-shell/",
+    "https://www.mouser.com/ProductDetail/KYOCERA-AVX/1001435?qs=wnTfsH77Xs4FoSfOnlMdwg==",
+    "https://mymetco.oerlikon.com/en-us/article/1001435"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 54,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/ultimate-american-artillery-shells/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/ultimate-american-artillery-shells/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/boomer-premium-artillery-shell/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1001435)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/boomer-premium-artillery-shell/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1001435)"
+    }
+  ],
+  "records_added": 4
+}

@@ -1,0 +1,109 @@
+{
+  "product_id": "2ed9b57d-c28e-4eb1-bb35-39b0fc9bcb97",
+  "item_number": "NN2031",
+  "name": "MUMMY",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 10,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "10 Shots - Time rain with purple pearls."
+  },
+  "queries": [
+    "\"NN2031\" MUMMY fireworks",
+    "MUMMY NO NAME fireworks",
+    "\"MUMMY\" fireworks",
+    "\"MUMMY\" \"10 shot\" fireworks",
+    "\"MUMMY\" \"10 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Time rain with purple pearls.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Time rain with purple pearls.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Time rain with purple pearls.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Time rain with purple pearls.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Time rain with purple pearls.",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Time rain with purple pearls.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/mummy-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2031)"
+    }
+  ],
+  "records_added": 9
+}

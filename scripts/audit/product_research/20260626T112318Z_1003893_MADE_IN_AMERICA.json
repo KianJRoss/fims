@@ -1,0 +1,29 @@
+{
+  "product_id": "99415a73-8df6-4969-aafa-82e8e731d92f",
+  "item_number": "1003893",
+  "name": "MADE IN AMERICA",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Made In America waves red, white, and blue peonies, crackling bursts, sky-blue blooms, and brocade crowns with proud glitter."
+  },
+  "queries": [
+    "\"1003893\" MADE IN AMERICA fireworks",
+    "MADE IN AMERICA World Class fireworks",
+    "\"MADE IN AMERICA\" fireworks",
+    "\"MADE IN AMERICA\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

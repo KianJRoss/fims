@@ -1,0 +1,28 @@
+{
+  "product_id": "c585d4bf-b983-40f5-90d7-02ffddf1913a",
+  "item_number": "M513",
+  "name": "NEVER SAY DIE",
+  "brand_name": "Miracle",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 33,
+    "duration_seconds": 25,
+    "effects": null,
+    "packing": "6/1",
+    "description": "33 Shots - One LOUD 500gram cake! Brocade willow with colorful tips; Time rain mine up to time rain. 7"
+  },
+  "queries": [
+    "\"M513\" NEVER SAY DIE fireworks",
+    "NEVER SAY DIE Miracle fireworks",
+    "\"NEVER SAY DIE\" fireworks",
+    "\"NEVER SAY DIE\" \"33 shot\" fireworks",
+    "\"NEVER SAY DIE\" \"33 shot\" Miracle fireworks",
+    "\"NEVER SAY DIE\" \"25 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

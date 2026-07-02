@@ -1,0 +1,28 @@
+{
+  "product_id": "527412ec-e813-46d2-b1f2-2753b0e36a49",
+  "item_number": "",
+  "name": "T.N.T.B.A.M",
+  "brand_name": "SUNWING",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "T.N.T.B.A.M SUNWING fireworks",
+    "\"T.N.T.B.A.M\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

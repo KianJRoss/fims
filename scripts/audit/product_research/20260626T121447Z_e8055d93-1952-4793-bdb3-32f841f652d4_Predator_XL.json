@@ -1,0 +1,28 @@
+{
+  "product_id": "e8055d93-1952-4793-bdb3-32f841f652d4",
+  "item_number": "",
+  "name": "Predator XL",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Predator XL Great Grizzly fireworks",
+    "\"Predator XL\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

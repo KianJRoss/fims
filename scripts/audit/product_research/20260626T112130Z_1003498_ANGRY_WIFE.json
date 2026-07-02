@@ -1,0 +1,29 @@
+{
+  "product_id": "990b91fc-c7f1-4086-9445-9a8a9c39b75b",
+  "item_number": "1003498",
+  "name": "ANGRY WIFE",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 20,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "18/1",
+    "description": "DESCRIPTION: Angry Wife snaps with red-sky blue and purple-green dahlias plus multi-color chrysanthemums - beautiful and terrifying."
+  },
+  "queries": [
+    "\"1003498\" ANGRY WIFE fireworks",
+    "ANGRY WIFE World Class fireworks",
+    "\"ANGRY WIFE\" fireworks",
+    "\"ANGRY WIFE\" \"20 shot\" fireworks",
+    "\"ANGRY WIFE\" \"20 shot\" World Class fireworks",
+    "\"ANGRY WIFE\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

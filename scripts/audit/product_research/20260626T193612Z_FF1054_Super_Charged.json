@@ -1,0 +1,102 @@
+{
+  "product_id": "13a5a70a-ed6a-4e78-931f-9cd3a80c0a49",
+  "item_number": "FF1054",
+  "name": "Super Charged",
+  "brand_name": "Fire Factory",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"FF1054\" Super Charged fireworks",
+    "Super Charged Fire Factory fireworks",
+    "\"Super Charged\" fireworks",
+    "\"Super Charged\" \"6 shot\" fireworks",
+    "\"Super Charged\" \"6 shot\" Fire Factory fireworks",
+    "\"Super Charged\" Artillery fireworks"
+  ],
+  "candidate_urls": [
+    "https://alchetron.com/USS-Gray-(FF-1054)",
+    "https://www.navysite.de/crewlist/webmasterfunctions/crewsite.php?listid=153",
+    "https://www.greatgrizzly.com/category/brands/fire-factory/",
+    "https://elevatedfireworks.com/collections/fire-factory®-fireworks",
+    "https://twistedthunder.com/product-category/brand/fire-factory/",
+    "https://americanwholesalefireworks.com/fire-factory/"
+  ],
+  "urls_fetched": [
+    "https://alchetron.com/USS-Gray-(FF-1054)",
+    "https://www.navysite.de/crewlist/webmasterfunctions/crewsite.php?listid=153",
+    "https://www.greatgrizzly.com/category/brands/fire-factory/",
+    "https://elevatedfireworks.com/collections/fire-factory%C2%AE-fireworks",
+    "https://twistedthunder.com/product-category/brand/fire-factory/",
+    "https://americanwholesalefireworks.com/fire-factory/"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "North Central Industries, Inc., located in Muncie, Indiana, has been an importer and wholesaler of 1.4G Consumer Fireworks since 1955. We carry over 650 different items and operate out of three warehouse facilities with a combined square footage of over 200,000 square feet!",
+      "source": "greatgrizzly.com (meta.description)",
+      "url": "https://www.greatgrizzly.com/category/brands/fire-factory/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/fire-factory%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "packing",
+      "value": "12/1",
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/fire-factory%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Fire Factory® Fireworks is a powerhouse brand built for major impact, factory-strength performance, and jaw-dropping aerial effects. Designed with precision engineering, heavy-loading, and brilliant color combinations, Fire Factory® delivers show-stopping fireworks that command attention. At Elevated Fireworks™, we car",
+      "source": "elevatedfireworks.com (meta.description)",
+      "url": "https://elevatedfireworks.com/collections/fire-factory%C2%AE-fireworks",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 100,
+      "source": "twistedthunder.com (regex)",
+      "url": "https://twistedthunder.com/product-category/brand/fire-factory/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Fire Factory - Twisted Thunder Fireworks",
+      "source": "twistedthunder.com (text.description)",
+      "url": "https://twistedthunder.com/product-category/brand/fire-factory/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Fire Factory Products - American Wholesale Fireworks",
+      "source": "americanwholesalefireworks.com (text.description)",
+      "url": "https://americanwholesalefireworks.com/fire-factory/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 7
+}

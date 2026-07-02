@@ -1,0 +1,139 @@
+{
+  "product_id": "19fd55d8-98e8-458f-9e68-7ea94bc09dc7",
+  "item_number": "24C30M007",
+  "name": "Joltix",
+  "brand_name": "Pyro Planet",
+  "target_fields": [
+    "duration_seconds",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 24,
+    "duration_seconds": null,
+    "effects": "Experience the jolt of fireworks in every burst. This fun and entertaining 24-shot cake is loaded with red, white, purple, green, and blue dahlias with white, green, and gold strobing effects. It finishes with red spiders to entertain every age range in your crowd.",
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"24C30M007\" Joltix fireworks",
+    "Joltix Pyro Planet fireworks",
+    "\"Joltix\" fireworks",
+    "\"Joltix\" \"24 shot\" fireworks",
+    "\"Joltix\" \"24 shot\" Pyro Planet fireworks",
+    "\"Joltix\" 500 Gram Cakes fireworks",
+    "\"Joltix\" Experience the jolt of fireworks fireworks"
+  ],
+  "candidate_urls": [
+    "https://pyroplanet.com/product/joltix",
+    "https://www.greatgrizzly.com/PRODUCT-DETAILS/JOLTIX-32-SHOT/",
+    "https://libertydiscountfireworks.com/pyro-planet/",
+    "https://elevatedfireworks.com/collections/pyro-planet®-fireworks",
+    "https://barbour-family-fireworks.myshopify.com/products/joltix"
+  ],
+  "urls_fetched": [
+    "https://pyroplanet.com/product/joltix",
+    "https://www.greatgrizzly.com/PRODUCT-DETAILS/JOLTIX-32-SHOT/",
+    "https://elevatedfireworks.com/collections/pyro-planet%C2%AE-fireworks",
+    "https://barbour-family-fireworks.myshopify.com/products/joltix"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "pyroplanet.com (regex)",
+      "url": "https://pyroplanet.com/product/joltix",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (24C30M007)"
+    },
+    {
+      "field": "packing",
+      "value": "4/1",
+      "source": "pyroplanet.com (regex)",
+      "url": "https://pyroplanet.com/product/joltix",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (24C30M007)"
+    },
+    {
+      "field": "description",
+      "value": "Experience the jolt of fireworks in every burst. This fun and entertaining 24 shot cake is loaded with red, white, purple, green, and blue dahlias with strobing in white, green and gold. It finishes with red spiders to entertain every age range in your crowd.",
+      "source": "pyroplanet.com (meta.description)",
+      "url": "https://pyroplanet.com/product/joltix",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (24C30M007)"
+    },
+    {
+      "field": "shot_count",
+      "value": 32,
+      "source": "greatgrizzly.com (regex)",
+      "url": "https://www.greatgrizzly.com/PRODUCT-DETAILS/JOLTIX-32-SHOT/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "North Central Industries, Inc., located in Muncie, Indiana, has been an importer and wholesaler of 1.4G Consumer Fireworks since 1955. We carry over 650 different items and operate out of three warehouse facilities with a combined square footage of over 200,000 square feet!",
+      "source": "greatgrizzly.com (meta.description)",
+      "url": "https://www.greatgrizzly.com/PRODUCT-DETAILS/JOLTIX-32-SHOT/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/pyro-planet%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 25,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/pyro-planet%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "effects",
+      "value": "rich, and visually stunning fireworks designed for both backyard displays and full-scale show productions. With vibrant neon bursts, glittering strobes, comet tails, and advanced aerial patterns, Pyro Planet® delivers professional-quality effects with exceptional reliability. At",
+      "source": "elevatedfireworks.com (labelled)",
+      "url": "https://elevatedfireworks.com/collections/pyro-planet%C2%AE-fireworks",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "packing",
+      "value": "2/1",
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/pyro-planet%C2%AE-fireworks",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "description",
+      "value": "Shop Pyro Planet® Fireworks at Elevated Fireworks™ — premium color effects, dazzling aerial patterns, and innovative performance for any firework show.",
+      "source": "elevatedfireworks.com (meta.description)",
+      "url": "https://elevatedfireworks.com/collections/pyro-planet%C2%AE-fireworks",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "effects",
+      "value": "Experience the jolt of fireworks in every burst. This fun and entertaining 24-shot cake is loaded with red, white, purple, green, and blue dahlias with white, green, and gold strobing effects. It finishes with red spiders to entertain every age range in your crowd. One of our products not from China",
+      "source": "barbour-family-fireworks.myshopify.com (jsonld)",
+      "url": "https://barbour-family-fireworks.myshopify.com/products/joltix",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "Experience the jolt of fireworks in every burst. This fun and entertaining 24-shot cake is loaded with red, white, purple, green, and blue dahlias with white, green, and gold strobing effects. It finishes with red spiders to entertain every age range in your crowd. One of our products not from China. This one is from Cambodia.",
+      "source": "barbour-family-fireworks.myshopify.com (jsonld.description)",
+      "url": "https://barbour-family-fireworks.myshopify.com/products/joltix",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    }
+  ],
+  "records_added": 4
+}

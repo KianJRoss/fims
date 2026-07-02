@@ -1,0 +1,30 @@
+{
+  "product_id": "81f2144e-c224-432a-b87b-995693979b3b",
+  "item_number": "1004279",
+  "name": "REDNECK SAFARI",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 100,
+    "duration_seconds": null,
+    "effects": "Red, Silver, crackling, mine, stars, whistling, tail",
+    "packing": null,
+    "description": "DESCRIPTION: Redneck Safari rips 100 shots of silver stars, crackling mines, bold reds, and whistles - country chaos built for big trucks, big land, big booms."
+  },
+  "queries": [
+    "\"1004279\" REDNECK SAFARI fireworks",
+    "REDNECK SAFARI World Class fireworks",
+    "\"REDNECK SAFARI\" fireworks",
+    "\"REDNECK SAFARI\" \"100 shot\" fireworks",
+    "\"REDNECK SAFARI\" \"100 shot\" World Class fireworks",
+    "\"REDNECK SAFARI\" 200 Gram Cakes fireworks",
+    "\"REDNECK SAFARI\" Red Silver crackling mine stars fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

@@ -1,0 +1,42 @@
+{
+  "product_id": "5b3db354-fffd-4385-bce9-d5dfde11b500",
+  "item_number": "GG5772",
+  "name": "Voodoo",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 10,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"GG5772\" Voodoo fireworks",
+    "Voodoo Great Grizzly fireworks",
+    "\"Voodoo\" fireworks",
+    "\"Voodoo\" \"10 shot\" fireworks",
+    "\"Voodoo\" \"10 shot\" Great Grizzly fireworks",
+    "\"Voodoo\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://ixshop.ixworld.com/us/en/c/Not-defined/p/000000000010629633",
+    "https://www.sfacg.com/mh/WDNTD/scmts/1150/",
+    "https://www.taminoautographs.com/collections/all?page=654",
+    "https://golden-skinny.com/products/gg5772",
+    "https://dailymemphian.com/section/public-notices/page/100"
+  ],
+  "urls_fetched": [
+    "https://ixshop.ixworld.com/us/en/c/Not-defined/p/000000000010629633",
+    "https://www.sfacg.com/mh/WDNTD/scmts/1150/",
+    "https://www.taminoautographs.com/collections/all?page=654",
+    "https://dailymemphian.com/section/public-notices/page/100"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

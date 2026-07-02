@@ -1,0 +1,124 @@
+{
+  "product_id": "6468dfc8-b04a-48f4-9c1e-ed249a682aa9",
+  "item_number": "FB-7712",
+  "name": "Super Rocket",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 3,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "8/3",
+    "description": "8/3"
+  },
+  "queries": [
+    "\"FB-7712\" Super Rocket fireworks",
+    "Super Rocket Pyromaniacs Wholesale fireworks",
+    "\"Super Rocket\" fireworks",
+    "\"Super Rocket\" \"3 shot\" fireworks",
+    "\"Super Rocket\" \"3 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Super Rocket\" Rockets fireworks"
+  ],
+  "candidate_urls": [
+    "https://americanwholesalefireworks.com/super-fireworks/",
+    "https://pyro-stock.replit.app/",
+    "https://www.waynesworldfireworks.net/",
+    "https://www.superiorfireworks.com/wholesale/category/rockets",
+    "https://lynchimportsllc.com/",
+    "https://www.wisleypyrotechnics.com/"
+  ],
+  "urls_fetched": [
+    "https://americanwholesalefireworks.com/super-fireworks/",
+    "https://pyro-stock.replit.app/",
+    "https://www.waynesworldfireworks.net/",
+    "https://www.superiorfireworks.com/wholesale/category/rockets",
+    "https://lynchimportsllc.com/",
+    "https://www.wisleypyrotechnics.com/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/super-fireworks/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Professional wholesale inventory management and B2B client portal for Pyromaniacs fireworks in Fort Wayne, Indiana. Manage inventory, orders, and client relationships efficiently.",
+      "source": "pyro-stock.replit.app (meta.description)",
+      "url": "https://pyro-stock.replit.app/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 383,
+      "source": "waynesworldfireworks.net (regex)",
+      "url": "https://www.waynesworldfireworks.net/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "WAYNE'S WORLD FIREWORKS, LLC",
+      "source": "waynesworldfireworks.net (text.description)",
+      "url": "https://www.waynesworldfireworks.net/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 5,
+      "source": "superiorfireworks.com (regex)",
+      "url": "https://www.superiorfireworks.com/wholesale/category/rockets",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "effects",
+      "value": "piece rocket set featuring a variety of colors with glitter, crackle, or reports.",
+      "source": "superiorfireworks.com (labelled)",
+      "url": "https://www.superiorfireworks.com/wholesale/category/rockets",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Rockets: Superior Fireworks Wholesale",
+      "source": "superiorfireworks.com (text.description)",
+      "url": "https://www.superiorfireworks.com/wholesale/category/rockets",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Highest quality 1.3g & 1.4g wholesale fireworks! View our pyrotechnics selection and impress your audience. Customer service is our priority.",
+      "source": "lynchimportsllc.com (meta.description)",
+      "url": "https://lynchimportsllc.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "wisleypyrotechnics.com (regex)",
+      "url": "https://www.wisleypyrotechnics.com/",
+      "confidence": 0.4,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "Wisley Pyrotechnics (WPI) is a licensed 1.3G & 1.4G fireworks supplier for pros, tents, and retailers. ATF-approved. Real-time inventory, pro line products, bulk discounts. Serving Indiana & nationwide.",
+      "source": "wisleypyrotechnics.com (meta.description)",
+      "url": "https://www.wisleypyrotechnics.com/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    }
+  ],
+  "records_added": 10
+}

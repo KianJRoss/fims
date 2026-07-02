@@ -1,0 +1,29 @@
+{
+  "product_id": "d870cb83-a065-475f-8b4e-8118c7804e27",
+  "item_number": "1004278",
+  "name": "GOATS GONE WILD",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds"
+  ],
+  "known_values": {
+    "shot_count": 50,
+    "duration_seconds": null,
+    "effects": "Blue, Gold, Green, Purple, Red, White, glitter, peony, tail",
+    "packing": "4/3",
+    "description": "DESCRIPTION: Fifty baaa-nanas shots of gold tails, red- green peonies, blue-purple bursts, and glitter pops - pure barnyard brilliance in the sky."
+  },
+  "queries": [
+    "\"1004278\" GOATS GONE WILD fireworks",
+    "GOATS GONE WILD World Class fireworks",
+    "\"GOATS GONE WILD\" fireworks",
+    "\"GOATS GONE WILD\" \"50 shot\" fireworks",
+    "\"GOATS GONE WILD\" \"50 shot\" World Class fireworks",
+    "\"GOATS GONE WILD\" 200 Gram Cakes fireworks",
+    "\"GOATS GONE WILD\" Blue Gold Green Purple Red fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

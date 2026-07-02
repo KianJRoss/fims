@@ -1,0 +1,117 @@
+{
+  "product_id": "1fb8e053-4ea3-4e6d-85db-c73403d9adab",
+  "item_number": "SS-0706",
+  "name": "Strobe Rocket",
+  "brand_name": "SUNS FIREWORKS",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 4,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"SS-0706\" Strobe Rocket fireworks",
+    "Strobe Rocket SUNS FIREWORKS fireworks",
+    "\"Strobe Rocket\" fireworks",
+    "\"Strobe Rocket\" \"4 shot\" fireworks",
+    "\"Strobe Rocket\" \"4 shot\" SUNS FIREWORKS fireworks",
+    "\"Strobe Rocket\" Rocke fireworks"
+  ],
+  "candidate_urls": [
+    "https://dosgringosfireworks.com/strobe-rocket-strobe-explosion-effect-4pack/",
+    "https://www.combi-blocks.com/msds/SS-0706.pdf",
+    "https://millerfireworks.com/product/red-and-blue-strobe-rocket-suns/",
+    "https://jbfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+    "https://gotfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+    "https://www.redapplefireworks.com/blogs/we-love-fireworks/where-to-buy-strobe-rocket-firework"
+  ],
+  "urls_fetched": [
+    "https://dosgringosfireworks.com/strobe-rocket-strobe-explosion-effect-4pack/",
+    "https://millerfireworks.com/product/red-and-blue-strobe-rocket-suns/",
+    "https://jbfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+    "https://gotfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+    "https://www.redapplefireworks.com/blogs/we-love-fireworks/where-to-buy-strobe-rocket-firework"
+  ],
+  "candidate_records": [
+    {
+      "field": "duration_seconds",
+      "value": 380,
+      "source": "dosgringosfireworks.com (regex)",
+      "url": "https://dosgringosfireworks.com/strobe-rocket-strobe-explosion-effect-4pack/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (SS-0706)"
+    },
+    {
+      "field": "description",
+      "value": "(4%20Pack)%20These%20SUNS%20STROBE%20ROCKETS%20have%20an%20amazing%20tail%20and%20strobing%20effect%20at%20explosion.%20No%20strobing%2C%20helicoper%20sound%20effect%20with%20lift%20charge.",
+      "source": "dosgringosfireworks.com (jsonld.description)",
+      "url": "https://dosgringosfireworks.com/strobe-rocket-strobe-explosion-effect-4pack/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (SS-0706)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 15,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+      "confidence": 0.4,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "Blast off into brilliance with the SUNS FIREWORKS Strobe Rocket – where every launch lights up your night! Ignite your celebrations with the SUNS FIREWORKS Strobe Rocket, the ultimate showstopper...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 15,
+      "source": "gotfireworks.com (regex)",
+      "url": "https://gotfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+      "confidence": 0.4,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "Blast off into brilliance with the SUNS FIREWORKS Strobe Rocket – where every launch lights up your night! Ignite your celebrations with the SUNS FIREWORKS Strobe Rocket, the ultimate showstopper...",
+      "source": "gotfireworks.com (jsonld.description)",
+      "url": "https://gotfireworks.com/strobe-rocket-4-pack-glittering-rocket-to-color-break-by-suns-fireworks.html",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "shot_count",
+      "value": 300,
+      "source": "redapplefireworks.com (regex)",
+      "url": "https://www.redapplefireworks.com/blogs/we-love-fireworks/where-to-buy-strobe-rocket-firework",
+      "confidence": 0.4,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "effects",
+      "value": "The colors, effects, firing patterns and rhythms, & more are all developed by the Red Apple® team.",
+      "source": "redapplefireworks.com (labelled)",
+      "url": "https://www.redapplefireworks.com/blogs/we-love-fireworks/where-to-buy-strobe-rocket-firework",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "Learn where to buy strobe rocket firework online, in-store & wholesale. Red Apple Fireworks has you covered—lets light up the sky!",
+      "source": "redapplefireworks.com (meta.description)",
+      "url": "https://www.redapplefireworks.com/blogs/we-love-fireworks/where-to-buy-strobe-rocket-firework",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    }
+  ],
+  "records_added": 9
+}

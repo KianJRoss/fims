@@ -1,0 +1,109 @@
+{
+  "product_id": "2ceac66d-8a14-46f2-a236-4d3094e29a2a",
+  "item_number": "NN2039",
+  "name": "UDDER TUGGER",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+    "packing": "18/1",
+    "description": "25 Shots - White strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green and blue pearls. Gold chrysanthemum. Brocade crown with chrysanthemum. 27"
+  },
+  "queries": [
+    "\"NN2039\" UDDER TUGGER fireworks",
+    "UDDER TUGGER NO NAME fireworks",
+    "\"UDDER TUGGER\" fireworks",
+    "\"UDDER TUGGER\" \"25 shot\" fireworks",
+    "\"UDDER TUGGER\" \"25 shot\" NO NAME fireworks",
+    "\"UDDER TUGGER\" Shot Gram Multi Shot Aerial fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "effects",
+      "value": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "effects",
+      "value": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "effects",
+      "value": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shot - 200 Gram Multi Shot Aerial with white strobe with red pearls. Red strobe with green pearls. Green strobe with purple pearls. Green wave. Red, green, and blue pearls. Gold chrys. Brocade...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/udder-tugger-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2039)"
+    }
+  ],
+  "records_added": 9
+}

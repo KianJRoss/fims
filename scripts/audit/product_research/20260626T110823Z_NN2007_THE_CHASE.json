@@ -1,0 +1,28 @@
+{
+  "product_id": "89ab5e18-4ca5-4269-89f9-8ab7cfe061eb",
+  "item_number": "NN2007",
+  "name": "THE CHASE",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "16/1",
+    "description": "16 Shots - Green tail to green pearl w/ crackling, red tail to"
+  },
+  "queries": [
+    "\"NN2007\" THE CHASE fireworks",
+    "THE CHASE NO NAME fireworks",
+    "\"THE CHASE\" fireworks",
+    "\"THE CHASE\" \"16 shot\" fireworks",
+    "\"THE CHASE\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

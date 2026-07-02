@@ -1,0 +1,28 @@
+{
+  "product_id": "fcf1a18e-8ff1-448b-9aff-d0ab9e67241d",
+  "item_number": "NN2027",
+  "name": "DEMONIC",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 10,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "10 Shots - Green strobe with blue pearls."
+  },
+  "queries": [
+    "\"NN2027\" DEMONIC fireworks",
+    "DEMONIC NO NAME fireworks",
+    "\"DEMONIC\" fireworks",
+    "\"DEMONIC\" \"10 shot\" fireworks",
+    "\"DEMONIC\" \"10 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

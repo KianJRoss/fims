@@ -1,0 +1,58 @@
+{
+  "product_id": "f8c0dc9f-1e9a-44d0-8b0c-c16600abe5c9",
+  "item_number": "1004033",
+  "name": "SHOW BIZ BABY",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Show Biz Baby rolls red-blue crackle, yellow waves, and blue tails into a crackle willow finale - lights, camera, sky-action!"
+  },
+  "queries": [
+    "\"1004033\" SHOW BIZ BABY fireworks",
+    "SHOW BIZ BABY World Class fireworks",
+    "\"SHOW BIZ BABY\" fireworks",
+    "\"SHOW BIZ BABY\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/show-biz-baby/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/show-biz-baby/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 30,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/show-biz-baby/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004033)"
+    },
+    {
+      "field": "effects",
+      "value": "crackling, tail, wave, willow",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/show-biz-baby/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004033)"
+    },
+    {
+      "field": "description",
+      "value": "30 Shots - 500g Finale Cake. Blue tail up, Red to blue with crackle, yellow tail to color wave, blue tail to red, blue with crackle, crackle willow finale.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/show-biz-baby/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004033)"
+    }
+  ],
+  "records_added": 3
+}

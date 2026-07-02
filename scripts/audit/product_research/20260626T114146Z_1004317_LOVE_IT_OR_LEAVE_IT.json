@@ -1,0 +1,30 @@
+{
+  "product_id": "becd0bb7-3a38-48bd-92d9-0da35d1f9cee",
+  "item_number": "1004317",
+  "name": "LOVE IT OR LEAVE IT",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 8,
+    "duration_seconds": null,
+    "effects": "Blue, Gold, Silver, glitter, lace, willow",
+    "packing": null,
+    "description": "DESCRIPTION: Love It or Leave It blends golden and silver titanium willows with red lace and blue accents for a patriotic shimmer that demands loyalty."
+  },
+  "queries": [
+    "\"1004317\" LOVE IT OR LEAVE IT fireworks",
+    "LOVE IT OR LEAVE IT World Class fireworks",
+    "\"LOVE IT OR LEAVE IT\" fireworks",
+    "\"LOVE IT OR LEAVE IT\" \"8 shot\" fireworks",
+    "\"LOVE IT OR LEAVE IT\" \"8 shot\" World Class fireworks",
+    "\"LOVE IT OR LEAVE IT\" 500 Gram Cakes fireworks",
+    "\"LOVE IT OR LEAVE IT\" Blue Gold Silver glitter lace fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

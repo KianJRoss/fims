@@ -1,0 +1,28 @@
+{
+  "product_id": "5fb28596-c5fa-47c2-9786-ebb258ce70fe",
+  "item_number": "",
+  "name": "Devil Side",
+  "brand_name": "Legend",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Devil Side Legend fireworks",
+    "\"Devil Side\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

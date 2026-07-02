@@ -1,0 +1,37 @@
+{
+  "product_id": "210cf7a3-cb29-44af-ab1a-16c54e9c2ef1",
+  "item_number": "20F508",
+  "name": "American Honor",
+  "brand_name": "None",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"20F508\" American Honor fireworks",
+    "American Honor None fireworks",
+    "\"American Honor\" fireworks",
+    "\"American Honor\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://store.konecranes.com/cpp/en/SHACKLE/p?p=lK7KGlPj4tu9O4cOd17ZNA==_20F508",
+    "https://msu.io/marketplace/inventory/0x9Dd5e0C24fDf8f81368B9412588E9B210120F508",
+    "https://community.carbide3d.com/uploads/short-url/fxqp9WUvXQQjDVqvDtfM8POJvN5.nc"
+  ],
+  "urls_fetched": [
+    "https://portal.konecranes.com/amer/en?p=lK7KGlPj4tu9O4cOd17ZNA==_20F508",
+    "https://msu.io/marketplace/inventory/0x9Dd5e0C24fDf8f81368B9412588E9B210120F508"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

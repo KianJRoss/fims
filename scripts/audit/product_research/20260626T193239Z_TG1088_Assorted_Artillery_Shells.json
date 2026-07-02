@@ -1,0 +1,91 @@
+{
+  "product_id": "de02b4bc-ca3e-47ba-a193-5bbb86b07c22",
+  "item_number": "TG1088",
+  "name": "Assorted Artillery Shells",
+  "brand_name": "TOP GUN",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"TG1088\" Assorted Artillery Shells fireworks",
+    "Assorted Artillery Shells TOP GUN fireworks",
+    "\"Assorted Artillery Shells\" fireworks",
+    "\"Assorted Artillery Shells\" \"6 shot\" fireworks",
+    "\"Assorted Artillery Shells\" \"6 shot\" TOP GUN fireworks",
+    "\"Assorted Artillery Shells\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "https://jbfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+    "https://snapfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+    "https://www.topgunfireworks.com/tg1088.html",
+    "https://www.topgunpyrotechnics.com/tg1088.html",
+    "https://fireworks1.com/Assorted-Artillery-Shells-p1533.html"
+  ],
+  "urls_fetched": [
+    "https://jbfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+    "https://snapfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+    "https://www.topgunfireworks.com/tg1088.html",
+    "https://www.topgunpyrotechnics.com/tg1088.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 6,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (TG1088)"
+    },
+    {
+      "field": "description",
+      "value": "6 Shot Box of Reloadable Ball Style Assorted Color Reloadable Artillery Shells By Top Gun Fireworks",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (TG1088)"
+    },
+    {
+      "field": "shot_count",
+      "value": 6,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (TG1088)"
+    },
+    {
+      "field": "description",
+      "value": "6 Shot Box of Reloadable Ball Style Assorted Color Reloadable Artillery Shells By Top Gun Fireworks",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/assorted-artillery-shells-6-shots-ball-style-shells-by-top-gun-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (TG1088)"
+    },
+    {
+      "field": "description",
+      "value": "TG1088 - A DIFFERENT CHINA FIREWORKS SUPPLIER DIFFERENT CHINA SUPPLIER",
+      "source": "topgunfireworks.com (text.description)",
+      "url": "https://www.topgunfireworks.com/tg1088.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (TG1088)"
+    },
+    {
+      "field": "description",
+      "value": "Add.: Room 210-215,Buildng 8,No.756.Jili Road,Liuyang,Hunan,China 410300 Tel.: +86 731 8366 3837 Email:sales@topgunfireworks.com",
+      "source": "topgunpyrotechnics.com (meta.description)",
+      "url": "https://www.topgunpyrotechnics.com/tg1088.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (TG1088)"
+    }
+  ],
+  "records_added": 6
+}

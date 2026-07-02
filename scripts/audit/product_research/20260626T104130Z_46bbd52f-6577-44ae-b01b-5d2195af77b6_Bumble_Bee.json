@@ -1,0 +1,28 @@
+{
+  "product_id": "46bbd52f-6577-44ae-b01b-5d2195af77b6",
+  "item_number": "",
+  "name": "Bumble Bee",
+  "brand_name": "Legend",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Bumble Bee Legend fireworks",
+    "\"Bumble Bee\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

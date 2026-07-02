@@ -1,0 +1,28 @@
+{
+  "product_id": "31ca71fa-8ae1-4338-9029-2fdf77fc167f",
+  "item_number": "",
+  "name": "One Bad Baby",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "One Bad Baby World Class fireworks",
+    "\"One Bad Baby\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

@@ -1,0 +1,146 @@
+{
+  "product_id": "085b0ea7-6087-4986-914f-1d79ec982f44",
+  "item_number": "SSRP2301",
+  "name": "PARTY TIME",
+  "brand_name": "SUNS FIREWORKS",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 8,
+    "duration_seconds": 20,
+    "effects": null,
+    "packing": "24/1",
+    "description": "Ignite the night with PARTY TIME 's where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, painting the night sky with a symphony of colors for a full 20 seconds."
+  },
+  "queries": [
+    "\"SSRP2301\" PARTY TIME fireworks",
+    "PARTY TIME SUNS FIREWORKS fireworks",
+    "\"PARTY TIME\" fireworks",
+    "\"PARTY TIME\" \"8 shot\" fireworks",
+    "\"PARTY TIME\" \"8 shot\" SUNS FIREWORKS fireworks",
+    "\"PARTY TIME\" \"20 seconds\" fireworks",
+    "\"PARTY TIME\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://jbfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+    "https://snapfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+    "https://millerfireworks.com/product/party-time-8-shot-suns/",
+    "https://thesunfireworks.com/?page_id=1153",
+    "https://indyschild.com/fireworks-in-indianapolis/"
+  ],
+  "urls_fetched": [
+    "https://jbfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+    "https://snapfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+    "https://millerfireworks.com/product/party-time-8-shot-suns/",
+    "https://thesunfireworks.com/?page_id=1153",
+    "https://indyschild.com/fireworks-in-indianapolis/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 8,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 20,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "effects",
+      "value": "Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, pa",
+      "source": "jbfireworks.com (labelled)",
+      "url": "https://jbfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "description",
+      "value": "Ignite the night with PARTY TIME – where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "shot_count",
+      "value": 8,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 20,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "effects",
+      "value": "Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular firework is designed to dazzle and delight, transforming any occasion into a magical experience. Watch in awe as brocade crown tails burst into vibrant red palms and green strobes, pa",
+      "source": "snapfireworks.com (labelled)",
+      "url": "https://snapfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "description",
+      "value": "Ignite the night with PARTY TIME – where every second bursts with brilliance!Get ready to elevate your celebrations with SUNS FIREWORKS' extraordinary PARTY TIME 200 Gram Cake! This spectacular...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/party-time-200-gram-cake-8-shots-by-suns-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (SSRP2301)"
+    },
+    {
+      "field": "shot_count",
+      "value": 8,
+      "source": "millerfireworks.com (regex)",
+      "url": "https://millerfireworks.com/product/party-time-8-shot-suns/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "thesunfireworks.com (regex)",
+      "url": "https://thesunfireworks.com/?page_id=1153",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Cakes – SUN Fireworks",
+      "source": "thesunfireworks.com (text.description)",
+      "url": "https://thesunfireworks.com/?page_id=1153",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 115,
+      "source": "indyschild.com (regex)",
+      "url": "https://indyschild.com/fireworks-in-indianapolis/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Find 2026 4th of July fireworks near Indianapolis, including downtown Indy, Zionsville, Carmel, Fishers, Westfield, Noblesville and more.",
+      "source": "indyschild.com (meta.description)",
+      "url": "https://indyschild.com/fireworks-in-indianapolis/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 13
+}

@@ -1,0 +1,30 @@
+{
+  "product_id": "81f5d477-31f4-45dd-922d-d134fd0c80fe",
+  "item_number": "1003706",
+  "name": "BOOTLEGGERS' DREAM",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 299,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Seventeen cakes and 299 shots ignite nonstop color, crackle, and willows - bootleg-level chaos for those who love the loud life."
+  },
+  "queries": [
+    "\"1003706\" BOOTLEGGERS' DREAM fireworks",
+    "BOOTLEGGERS' DREAM World Class fireworks",
+    "\"BOOTLEGGERS' DREAM\" fireworks",
+    "\"BOOTLEGGERS' DREAM\" \"299 shot\" fireworks",
+    "\"BOOTLEGGERS' DREAM\" \"299 shot\" World Class fireworks",
+    "\"BOOTLEGGERS' DREAM\" Show To Go Cartons fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

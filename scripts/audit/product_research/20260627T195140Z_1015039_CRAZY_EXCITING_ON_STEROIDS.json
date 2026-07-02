@@ -1,0 +1,59 @@
+{
+  "product_id": "1f21aef9-459a-447a-bb8d-cda8b965e4ff",
+  "item_number": "1015039",
+  "name": "CRAZY EXCITING ON STEROIDS",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Crazy Exciting On Steroids erupts 16 crackling mines into red, green, and silver waves with a 4-shot crackle finale - amped sky chaos."
+  },
+  "queries": [
+    "\"1015039\" CRAZY EXCITING ON STEROIDS fireworks",
+    "CRAZY EXCITING ON STEROIDS World Class fireworks",
+    "\"CRAZY EXCITING ON STEROIDS\" fireworks",
+    "\"CRAZY EXCITING ON STEROIDS\" \"16 shot\" fireworks",
+    "\"CRAZY EXCITING ON STEROIDS\" \"16 shot\" World Class fireworks",
+    "\"CRAZY EXCITING ON STEROIDS\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/crazy-exciting-on-steroids-2/",
+    "https://www.gunhippo.com/1015039-1-jpg",
+    "http://www.frotise.com/show-257-594-1.html",
+    "http://www.biotech.fyicenter.com/1015039_Molecule_FYI-1015039.html",
+    "https://www.reidsupply.com/en-us/p/corner-radius-end-mills/1015039",
+    "https://www.cmsnl.com/products/rear-gear-39t-420honda_5351015039/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/crazy-exciting-on-steroids-2/",
+    "http://www.frotise.com/show-257-594-1.html",
+    "http://www.biotech.fyicenter.com/1015039_Molecule_FYI-1015039.html",
+    "https://www.cmsnl.com/products/rear-gear-39t-420honda_5351015039/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 4,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/crazy-exciting-on-steroids-2/",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "A sixteen shot 500 gm cake which has performance from the ground up to 200 feet. Red, white, green, white crackling mines emit showering sparks ascending up into red, green, silver waves with a quickened finale of 4 shots of huge crackle bursts.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/crazy-exciting-on-steroids-2/",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 2
+}

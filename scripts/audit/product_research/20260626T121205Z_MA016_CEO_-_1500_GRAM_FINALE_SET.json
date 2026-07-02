@@ -1,0 +1,28 @@
+{
+  "product_id": "de493aa0-3ed1-46a3-9bf4-2329f8b64603",
+  "item_number": "MA016",
+  "name": "CEO - 1500 GRAM FINALE SET",
+  "brand_name": "PYRO BOX",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 75,
+    "duration_seconds": 80,
+    "effects": null,
+    "packing": "1/3",
+    "description": "3pc 500 Gram Finale Set is designed to leave your audience in awe with 75 shots. These 3 Cakes, totaling 1,500 Grams are designed to produce a coordinated 80 second, finale. With 1500Gs, this Finale Set of Silver tail to gold pine/Gold Ti"
+  },
+  "queries": [
+    "\"MA016\" CEO - 1500 GRAM FINALE SET fireworks",
+    "CEO - 1500 GRAM FINALE SET PYRO BOX fireworks",
+    "\"CEO - 1500 GRAM FINALE SET\" fireworks",
+    "\"CEO - 1500 GRAM FINALE SET\" \"75 shot\" fireworks",
+    "\"CEO - 1500 GRAM FINALE SET\" \"75 shot\" PYRO BOX fireworks",
+    "\"CEO - 1500 GRAM FINALE SET\" \"80 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

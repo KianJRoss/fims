@@ -1,0 +1,91 @@
+{
+  "product_id": "097326a9-4c84-4f3d-ba3e-46ed50f40e98",
+  "item_number": "1004322",
+  "name": "Nature's Rampage",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"1004322\" Nature's Rampage fireworks",
+    "Nature's Rampage World Class fireworks",
+    "\"Nature's Rampage\" fireworks",
+    "\"Nature's Rampage\" \"12 shot\" fireworks",
+    "\"Nature's Rampage\" \"12 shot\" World Class fireworks",
+    "\"Nature's Rampage\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.jakesfireworks.com/firework/natures-rampage/",
+    "https://wholesalefireworks.com/firework/natures-rampage/",
+    "https://www.worldclassfireworks.com/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+    "https://fireworkscitywi.com/product/natures-rampage/"
+  ],
+  "urls_fetched": [
+    "https://www.jakesfireworks.com/firework/natures-rampage/",
+    "https://wholesalefireworks.com/firework/natures-rampage/",
+    "https://www.worldclassfireworks.com/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "Golden silk willow with silver comet tail. Silver diamond with golden chrysanthemum. Golden pine with white glitter. Diamond with silver chrysanthemum.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/natures-rampage/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "description",
+      "value": "WHOLESALE FIREWORKS | BEST SOURCE FOR AERIAL SHELLS, FOUNTAINS, SPARKLERS",
+      "source": "wholesalefireworks.com (text.description)",
+      "url": "https://wholesalefireworks.com/firework/natures-rampage/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004322)"
+    },
+    {
+      "field": "effects",
+      "value": "Patriotic finale cake designed to please the crowd. Red White, Blue, and Gold colors. Palms, peonies, and wolf whistle effects.",
+      "source": "worldclassfireworks.com (labelled)",
+      "url": "https://www.worldclassfireworks.com/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "description",
+      "value": "World Class brand fireworks - America's Favorite. Find a store near you or apply to become a reseller of World Class Fireworks.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/",
+      "confidence": 0.5,
+      "identity_check": "name+brand match, SKU not found"
+    },
+    {
+      "field": "shot_count",
+      "value": 8,
+      "source": "wickedfireworks.com (regex)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known category"
+    },
+    {
+      "field": "description",
+      "value": "Artillery Shells - Canister Shells",
+      "source": "wickedfireworks.com (text.description)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-NATURE-S-RAMPAGE-8-SHOTS-500G-AERIAL-REPEATER-3610.aspx",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known category"
+    }
+  ],
+  "records_added": 6
+}

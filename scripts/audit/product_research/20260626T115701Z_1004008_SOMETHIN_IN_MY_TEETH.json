@@ -1,0 +1,30 @@
+{
+  "product_id": "ce54675b-c503-4af7-b40e-c8b847eaf7de",
+  "item_number": "1004008",
+  "name": "SOMETHIN' IN MY TEETH",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Somethin’ In My Teeth bites with rising tails, silver spiders, and glitter pops - 25 shots of jaw- dropping sky flavor."
+  },
+  "queries": [
+    "\"1004008\" SOMETHIN' IN MY TEETH fireworks",
+    "SOMETHIN' IN MY TEETH World Class fireworks",
+    "\"SOMETHIN' IN MY TEETH\" fireworks",
+    "\"SOMETHIN' IN MY TEETH\" \"25 shot\" fireworks",
+    "\"SOMETHIN' IN MY TEETH\" \"25 shot\" World Class fireworks",
+    "\"SOMETHIN' IN MY TEETH\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

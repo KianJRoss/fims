@@ -1,0 +1,29 @@
+{
+  "product_id": "a4cbce12-0346-4df0-89e3-257ed13dcc22",
+  "item_number": "1001408",
+  "name": "SUPER MAGNUM",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "12/12",
+    "description": "DESCRIPTION: 12 assorted high-performance artillery effects."
+  },
+  "queries": [
+    "\"1001408\" SUPER MAGNUM fireworks",
+    "SUPER MAGNUM World Class fireworks",
+    "\"SUPER MAGNUM\" fireworks",
+    "\"SUPER MAGNUM\" \"12 shot\" fireworks",
+    "\"SUPER MAGNUM\" \"12 shot\" World Class fireworks",
+    "\"SUPER MAGNUM\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

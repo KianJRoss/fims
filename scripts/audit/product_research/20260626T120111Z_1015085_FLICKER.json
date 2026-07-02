@@ -1,0 +1,29 @@
+{
+  "product_id": "d72dbdd7-2320-4b85-956a-9a1f38b4b2e4",
+  "item_number": "1015085",
+  "name": "FLICKER",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Flicker mixes gold and silver palms, crackling stars, blue breaks, green glitter, and sea-blue flashes - playful shimmer in motion."
+  },
+  "queries": [
+    "\"1015085\" FLICKER fireworks",
+    "FLICKER World Class fireworks",
+    "\"FLICKER\" fireworks",
+    "\"FLICKER\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

@@ -1,0 +1,28 @@
+{
+  "product_id": "63d7b92b-3cab-4fae-973c-80a070258533",
+  "item_number": "",
+  "name": "Panda Tai",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Panda Tai World Class fireworks",
+    "\"Panda Tai\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

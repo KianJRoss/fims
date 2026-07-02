@@ -1,0 +1,141 @@
+{
+  "product_id": "e186f8c2-6408-4486-b496-ce0f6e555dec",
+  "item_number": "1004280",
+  "name": "I'D HIT THAT",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 100,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: I’d Hit That smashes 100 green stars, white glitter mines, crackling tails, and whistles - pickleball-coded fireworks built to score every time."
+  },
+  "queries": [
+    "\"1004280\" I'D HIT THAT fireworks",
+    "I'D HIT THAT World Class fireworks",
+    "\"I'D HIT THAT\" fireworks",
+    "\"I'D HIT THAT\" \"100 shot\" fireworks",
+    "\"I'D HIT THAT\" \"100 shot\" World Class fireworks",
+    "\"I'D HIT THAT\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.jakesfireworks.com/firework/id-hit-that/",
+    "https://wholesalefireworks.com/firework/id-hit-that/",
+    "https://www.worldclassfireworks.com/",
+    "https://americanwholesalefireworks.com/world-class/",
+    "https://elevatedfireworks.com/collections/world-class®-fireworks",
+    "https://www.grucci.com/"
+  ],
+  "urls_fetched": [
+    "https://www.jakesfireworks.com/firework/id-hit-that/",
+    "https://wholesalefireworks.com/firework/id-hit-that/",
+    "https://www.worldclassfireworks.com/",
+    "https://americanwholesalefireworks.com/world-class/",
+    "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+    "https://www.grucci.com/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 100,
+      "source": "jakesfireworks.com (regex)",
+      "url": "https://www.jakesfireworks.com/firework/id-hit-that/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004280)"
+    },
+    {
+      "field": "description",
+      "value": "Serve up 100 shots of smashing fun with this pickle ball themed 200g cake. Green stars with white glitter mines set the court, followed by crackling tails and whistling shots that keep the action fast paced. Whether you're a pro or jsut a fan of the game, I'd Hit That. That is guaranteed to be",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/id-hit-that/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004280)"
+    },
+    {
+      "field": "description",
+      "value": "WHOLESALE FIREWORKS | BEST SOURCE FOR AERIAL SHELLS, FOUNTAINS, SPARKLERS",
+      "source": "wholesalefireworks.com (text.description)",
+      "url": "https://wholesalefireworks.com/firework/id-hit-that/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004280)"
+    },
+    {
+      "field": "effects",
+      "value": "Patriotic finale cake designed to please the crowd. Red White, Blue, and Gold colors. Palms, peonies, and wolf whistle effects.",
+      "source": "worldclassfireworks.com (labelled)",
+      "url": "https://www.worldclassfireworks.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "World Class brand fireworks - America's Favorite. Find a store near you or apply to become a reseller of World Class Fireworks.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 34,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/world-class/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "effects",
+      "value": "shot orange and white sparks extravaganza! Various effects make Just Hanging unique, along with its...",
+      "source": "americanwholesalefireworks.com (labelled)",
+      "url": "https://americanwholesalefireworks.com/world-class/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "World Class Products - American Wholesale Fireworks",
+      "source": "americanwholesalefireworks.com (text.description)",
+      "url": "https://americanwholesalefireworks.com/world-class/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "packing",
+      "value": "4/1",
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Shop World Class® Fireworks at Elevated Fireworks™ — iconic, reliable, and performance-driven fireworks trusted for backyard shows and professional displays.",
+      "source": "elevatedfireworks.com (meta.description)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Fireworks by Grucci is a global leader in world-class fireworks, LED drones show, and PyroDrone displays, creating unforgettable visual experiences for events, celebrations, and large-scale productions worldwide.",
+      "source": "grucci.com (meta.description)",
+      "url": "https://www.grucci.com/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 12
+}

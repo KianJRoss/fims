@@ -1,0 +1,68 @@
+{
+  "product_id": "8f2e0196-a209-4e4a-8b38-15f05cc5dd43",
+  "item_number": "1004376",
+  "name": "WE THE PEOPLE LOVE FIREWORKS",
+  "brand_name": "World Class",
+  "target_fields": [
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 100,
+    "duration_seconds": 51,
+    "effects": "Blue, Red, White, glitter, peony, whistling, tail",
+    "packing": null,
+    "description": "DESCRIPTION: Whistling tails burst into red peony, white glitter and blue peony patriotic pride."
+  },
+  "queries": [
+    "\"1004376\" WE THE PEOPLE LOVE FIREWORKS fireworks",
+    "WE THE PEOPLE LOVE FIREWORKS World Class fireworks",
+    "\"WE THE PEOPLE LOVE FIREWORKS\" fireworks",
+    "\"WE THE PEOPLE LOVE FIREWORKS\" \"100 shot\" fireworks",
+    "\"WE THE PEOPLE LOVE FIREWORKS\" \"100 shot\" World Class fireworks",
+    "\"WE THE PEOPLE LOVE FIREWORKS\" \"51 seconds\" fireworks",
+    "\"WE THE PEOPLE LOVE FIREWORKS\" 500 Gram Cakes fireworks",
+    "\"WE THE PEOPLE LOVE FIREWORKS\" Blue Red White glitter peony fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/we-the-people-love-fireworks/",
+    "https://www.jakesfireworks.com/firework/we-the-people-love-fireworks/",
+    "https://parts.hussmann.com/en/USD/p/1004376",
+    "https://www.nuskin.com/us/en/search/1004376",
+    "https://www.partstown.com/hussmann/hus1004376",
+    "https://www.henryschein.com/us-en/dental/p/instruments/lab/spatula-wax-7a/3780697"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/we-the-people-love-fireworks/",
+    "https://www.jakesfireworks.com/firework/we-the-people-love-fireworks/",
+    "https://www.nuskin.com/us/en/search/1004376",
+    "https://www.partstown.com/hussmann/hus1004376",
+    "https://www.henryschein.com/us-en/dental/p/instruments/lab/spatula-wax-7a/3780697"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "glitter, peony, whistling tail",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/we-the-people-love-fireworks/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004376)"
+    },
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/we-the-people-love-fireworks/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004376)"
+    },
+    {
+      "field": "description",
+      "value": "Whistling tails burst into red peony, white glitter, and blue peony patriotic pride.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/we-the-people-love-fireworks/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004376)"
+    }
+  ],
+  "records_added": 3
+}

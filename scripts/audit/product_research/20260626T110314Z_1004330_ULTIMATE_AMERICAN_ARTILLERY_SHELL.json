@@ -1,0 +1,29 @@
+{
+  "product_id": "855d8643-3c85-469d-98f7-150343f2793c",
+  "item_number": "1004330",
+  "name": "ULTIMATE AMERICAN ARTILLERY SHELL",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 36,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "3/36",
+    "description": "DESCRIPTION: 36 max-load 60g shells with 54 huge breaks, extreme height, bold colors, and heavy-hitting"
+  },
+  "queries": [
+    "\"1004330\" ULTIMATE AMERICAN ARTILLERY SHELL fireworks",
+    "ULTIMATE AMERICAN ARTILLERY SHELL World Class fireworks",
+    "\"ULTIMATE AMERICAN ARTILLERY SHELL\" fireworks",
+    "\"ULTIMATE AMERICAN ARTILLERY SHELL\" \"36 shot\" fireworks",
+    "\"ULTIMATE AMERICAN ARTILLERY SHELL\" \"36 shot\" World Class fireworks",
+    "\"ULTIMATE AMERICAN ARTILLERY SHELL\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

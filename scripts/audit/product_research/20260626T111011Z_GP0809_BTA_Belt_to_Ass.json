@@ -1,0 +1,28 @@
+{
+  "product_id": "8cd973d0-b1d7-4ba1-a0ff-edf3150c1bc2",
+  "item_number": "GP0809",
+  "name": "BTA (Belt to Ass)",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "10/6",
+    "description": "10/6 9 inch"
+  },
+  "queries": [
+    "\"GP0809\" BTA (Belt to Ass) fireworks",
+    "BTA (Belt to Ass) Pyromaniacs Wholesale fireworks",
+    "\"BTA (Belt to Ass)\" fireworks",
+    "\"BTA (Belt to Ass)\" Mortars fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

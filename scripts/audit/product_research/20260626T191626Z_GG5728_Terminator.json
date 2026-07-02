@@ -1,0 +1,56 @@
+{
+  "product_id": "f955b915-6b1d-4a9f-a6b7-d0af0da3e41b",
+  "item_number": "GG5728",
+  "name": "Terminator",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 24,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"GG5728\" Terminator fireworks",
+    "Terminator Great Grizzly fireworks",
+    "\"Terminator\" fireworks",
+    "\"Terminator\" \"24 shot\" fireworks",
+    "\"Terminator\" \"24 shot\" Great Grizzly fireworks",
+    "\"Terminator\" Art fireworks"
+  ],
+  "candidate_urls": [
+    "https://americanwholesalefireworks.com/terminator-5/",
+    "https://www.jieershun.com/collections/all?page=21",
+    "https://www.openwall.com/lists/musl/2012/03/14/2"
+  ],
+  "urls_fetched": [
+    "https://americanwholesalefireworks.com/terminator-5/",
+    "https://www.jieershun.com/collections/all?page=21",
+    "https://www.openwall.com/lists/musl/2012/03/14/2"
+  ],
+  "candidate_records": [
+    {
+      "field": "duration_seconds",
+      "value": 5,
+      "source": "americanwholesalefireworks.com (regex)",
+      "url": "https://americanwholesalefireworks.com/terminator-5/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (GG5728)"
+    },
+    {
+      "field": "description",
+      "value": "Terminator is a 24 pack of 5\" Reloadable Shells made by Great Grizzly Fireworks!",
+      "source": "americanwholesalefireworks.com (meta.description)",
+      "url": "https://americanwholesalefireworks.com/terminator-5/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (GG5728)"
+    }
+  ],
+  "records_added": 2
+}

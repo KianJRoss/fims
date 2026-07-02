@@ -1,0 +1,99 @@
+{
+  "product_id": "5233c8ed-d422-4466-8c77-8e593853df18",
+  "item_number": "NN5018",
+  "name": "Eye See You",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+    "packing": null,
+    "description": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe."
+  },
+  "queries": [
+    "\"NN5018\" Eye See You fireworks",
+    "Eye See You NO NAME fireworks",
+    "\"Eye See You\" fireworks",
+    "\"Eye See You\" This Shot Gram Multi Shot fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "effects",
+      "value": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "description",
+      "value": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "duration_seconds",
+      "value": 35,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "effects",
+      "value": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    },
+    {
+      "field": "description",
+      "value": "This 16 Shot, 500 Gram Multi Shot Aerial has a three-layer effect. Crackling mines, blue tail to crackle, to brocade and red green white strobe/blue and white strobe.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/eye-see-you-16-shot-500-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN5018)"
+    }
+  ],
+  "records_added": 8
+}

@@ -1,0 +1,55 @@
+{
+  "product_id": "f3659ec3-1d3c-4598-ae53-f5399361df6e",
+  "item_number": "STP300",
+  "name": "Big Boys",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "24/12"
+  },
+  "queries": [
+    "\"STP300\" Big Boys fireworks",
+    "Big Boys Pyromaniacs Wholesale fireworks",
+    "\"Big Boys\" fireworks",
+    "\"Big Boys\" Firecrackers fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.badgerandblade.com/forum/threads/dorco-double-edge-blade-sku-changes-clarifications.616434/",
+    "https://www.se.com/my/en/product/006920301/stp300-pipe-sensor-temperature-transmitter-0-100-c-2-m/",
+    "https://iportal.se.com/Contents/docs/^STP300_03-00220-01_A4.PDF",
+    "https://goodguyswarehouse.com/product/af-stp300-karat/",
+    "https://www.kontrolyum.com.tr/data/download/datasheet/006920421.pdf"
+  ],
+  "urls_fetched": [
+    "https://www.badgerandblade.com/forum/threads/dorco-double-edge-blade-sku-changes-clarifications.616434/",
+    "https://goodguyswarehouse.com/product/af-stp300-karat/"
+  ],
+  "candidate_records": [
+    {
+      "field": "duration_seconds",
+      "value": 301,
+      "source": "badgerandblade.com (regex)",
+      "url": "https://www.badgerandblade.com/forum/threads/dorco-double-edge-blade-sku-changes-clarifications.616434/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "packing",
+      "value": "300/301",
+      "source": "badgerandblade.com (regex)",
+      "url": "https://www.badgerandblade.com/forum/threads/dorco-double-edge-blade-sku-changes-clarifications.616434/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 2
+}

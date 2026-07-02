@@ -1,0 +1,122 @@
+{
+  "product_id": "9c4185e7-4932-4bc1-9cc9-40f73cae4e08",
+  "item_number": "1004394",
+  "name": "RAIL KINGS",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 42,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: Blue fountain, red/blue bursts with glitter, smoke effects, silver sunflower, and 28-shot silver fountain crackle finale."
+  },
+  "queries": [
+    "\"1004394\" RAIL KINGS fireworks",
+    "RAIL KINGS World Class fireworks",
+    "\"RAIL KINGS\" fireworks",
+    "\"RAIL KINGS\" \"42 shot\" fireworks",
+    "\"RAIL KINGS\" \"42 shot\" World Class fireworks",
+    "\"RAIL KINGS\" 500 Gram Fountains fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/rail-kings/",
+    "https://www.jakesfireworks.com/firework/rail-kings/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-RAIL-KINGS-42-SHOTS-500G-AERIAL-REPEATER-3625.aspx",
+    "https://redbeardsfireworksshowcase.com/products/e39b-rail-kings",
+    "https://elevatedfireworks.com/collections/world-class®-fireworks"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/rail-kings/",
+    "https://www.jakesfireworks.com/firework/rail-kings/",
+    "https://www.wickedfireworks.com/product/WORLD-CLASS-RAIL-KINGS-42-SHOTS-500G-AERIAL-REPEATER-3625.aspx",
+    "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "bursts, crackling, fountain, glitter, smoke, sunflower",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/rail-kings/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004394)"
+    },
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/rail-kings/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004394)"
+    },
+    {
+      "field": "shot_count",
+      "value": 28,
+      "source": "jakesfireworks.com (regex)",
+      "url": "https://www.jakesfireworks.com/firework/rail-kings/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1004394)"
+    },
+    {
+      "field": "effects",
+      "value": "Blue fountain, red/blue bursts with glitter, smoke effects, silver sunflower, and 28 shot silver fountain crackle finale.",
+      "source": "jakesfireworks.com (labelled)",
+      "url": "https://www.jakesfireworks.com/firework/rail-kings/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004394)"
+    },
+    {
+      "field": "description",
+      "value": "Blue fountain, red/blue bursts with glitter, smoke effects, silver sunflower, and 28 shot silver fountain crackle finale.",
+      "source": "jakesfireworks.com (meta.description)",
+      "url": "https://www.jakesfireworks.com/firework/rail-kings/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004394)"
+    },
+    {
+      "field": "shot_count",
+      "value": 42,
+      "source": "wickedfireworks.com (regex)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-RAIL-KINGS-42-SHOTS-500G-AERIAL-REPEATER-3625.aspx",
+      "confidence": 0.75,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "description",
+      "value": "Artillery Shells - Canister Shells",
+      "source": "wickedfireworks.com (text.description)",
+      "url": "https://www.wickedfireworks.com/product/WORLD-CLASS-RAIL-KINGS-42-SHOTS-500G-AERIAL-REPEATER-3625.aspx",
+      "confidence": 0.85,
+      "identity_check": "strong product identity via name+brand+known shot_count+category"
+    },
+    {
+      "field": "shot_count",
+      "value": 24,
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "packing",
+      "value": "4/1",
+      "source": "elevatedfireworks.com (regex)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Shop World Class® Fireworks at Elevated Fireworks™ — iconic, reliable, and performance-driven fireworks trusted for backyard shows and professional displays.",
+      "source": "elevatedfireworks.com (meta.description)",
+      "url": "https://elevatedfireworks.com/collections/world-class%C2%AE-fireworks",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 10
+}

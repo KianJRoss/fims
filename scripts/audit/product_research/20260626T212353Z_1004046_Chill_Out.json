@@ -1,0 +1,61 @@
+{
+  "product_id": "f27e2ffa-3e60-4938-bd1b-c4895eef9c6b",
+  "item_number": "1004046",
+  "name": "Chill Out",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 9,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"1004046\" Chill Out fireworks",
+    "Chill Out World Class fireworks",
+    "\"Chill Out\" fireworks",
+    "\"Chill Out\" \"9 shot\" fireworks",
+    "\"Chill Out\" \"9 shot\" World Class fireworks",
+    "\"Chill Out\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/chill-out/",
+    "https://www.jakesfireworks.com/firework/chill-out/",
+    "https://propelparts.us/caterpillar-equipment-edge-1004046.html",
+    "https://www.dirtblades.com/products/1004046",
+    "https://equipmentblades.com/products/cat-1004046",
+    "https://aftermarket.express/caterpillar/1004046"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/chill-out/",
+    "https://www.jakesfireworks.com/firework/chill-out/",
+    "https://www.dirtblades.com/products/1004046",
+    "https://equipmentblades.com/products/cat-1004046",
+    "https://aftermarket.express/caterpillar/1004046"
+  ],
+  "candidate_records": [
+    {
+      "field": "effects",
+      "value": "glitter",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/chill-out/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004046)"
+    },
+    {
+      "field": "description",
+      "value": "World Class Fireworks",
+      "source": "worldclassfireworks.com (text.description)",
+      "url": "https://www.worldclassfireworks.com/firework/chill-out/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1004046)"
+    }
+  ],
+  "records_added": 2
+}

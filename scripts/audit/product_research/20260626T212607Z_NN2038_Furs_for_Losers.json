@@ -1,0 +1,110 @@
+{
+  "product_id": "f7b44232-3bf8-447b-b544-7ac9c4d9ecee",
+  "item_number": "NN2038",
+  "name": "Furs for Losers",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 25,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"NN2038\" Furs for Losers fireworks",
+    "Furs for Losers NO NAME fireworks",
+    "\"Furs for Losers\" fireworks",
+    "\"Furs for Losers\" \"25 shot\" fireworks",
+    "\"Furs for Losers\" \"25 shot\" NO NAME fireworks",
+    "\"Furs for Losers\" 200 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://gotfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://www.nativeamericanjewelry.com/products/navajo-feather-malachite-multi-stone-sterling-silver-money-clip-nn20383",
+    "https://www.chron.com/life/article/the-times-they-are-a-taxin-1504634.php"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://gotfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://www.nativeamericanjewelry.com/products/navajo-feather-malachite-multi-stone-sterling-silver-money-clip-nn20383",
+    "https://www.chron.com/life/article/the-times-they-are-a-taxin-1504634.php"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shots- White strobe with red pearls. White strobe with green pearls. Crackling with yellow pearls. Green strobe with purple pearls. Green wave with chrysanthemum.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shots- White strobe with red pearls. White strobe with green pearls. Crackling with yellow pearls. Green strobe with purple pearls. Green wave with chrysanthemum.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shots- White strobe with red pearls. White strobe with green pearls. Crackling with yellow pearls. Green strobe with purple pearls. Green wave with chrysanthemum.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "shot_count",
+      "value": 25,
+      "source": "gotfireworks.com (regex)",
+      "url": "https://gotfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    },
+    {
+      "field": "description",
+      "value": "25 Shots- White strobe with red pearls. White strobe with green pearls. Crackling with yellow pearls. Green strobe with purple pearls. Green wave with chrysanthemum.",
+      "source": "gotfireworks.com (jsonld.description)",
+      "url": "https://gotfireworks.com/furs-for-losers-25-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2038)"
+    }
+  ],
+  "records_added": 8
+}

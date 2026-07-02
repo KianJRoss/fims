@@ -1,0 +1,28 @@
+{
+  "product_id": "f955b915-6b1d-4a9f-a6b7-d0af0da3e41b",
+  "item_number": "",
+  "name": "Terminator",
+  "brand_name": "Great Grizzly",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "Terminator Great Grizzly fireworks",
+    "\"Terminator\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

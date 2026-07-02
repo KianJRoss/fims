@@ -1,0 +1,49 @@
+{
+  "product_id": "004b8e0c-f5ae-4d62-920e-2508075e4dd8",
+  "item_number": "CHF8003",
+  "name": "Gandalf Rocket",
+  "brand_name": "Kraken",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"CHF8003\" Gandalf Rocket fireworks",
+    "Gandalf Rocket Kraken fireworks",
+    "\"Gandalf Rocket\" fireworks",
+    "\"Gandalf Rocket\" \"6 shot\" fireworks",
+    "\"Gandalf Rocket\" \"6 shot\" Kraken fireworks",
+    "\"Gandalf Rocket\" Rockets fireworks"
+  ],
+  "candidate_urls": [
+    "https://endurasupply.com/generate-pdf/1804",
+    "https://www.im-tek.com/pch-1270chf8003-vibration-guard",
+    "https://lotr.fandom.com/wiki/Gandalf's_fireworks",
+    "https://tolkien-middle-earth-cinematic-universe.fandom.com/wiki/Gandalf's_Fireworks",
+    "https://dimitrafimi.substack.com/p/the-slow-lotr-re-read-3-gandalfs",
+    "https://giphy.com/explore/gandalf-fireworks"
+  ],
+  "urls_fetched": [
+    "https://dimitrafimi.substack.com/p/the-slow-lotr-re-read-3-gandalfs"
+  ],
+  "candidate_records": [
+    {
+      "field": "description",
+      "value": "As part of my “Slow LotR Re-read”, I spent way too long looking at the terminology Tolkien uses for Gandalf’s fireworks, as well as the descriptions of said fireworks as they explode over the heads of the amazed hobbits at Bilbo’s long-expected party.",
+      "source": "dimitrafimi.substack.com (meta.description)",
+      "url": "https://dimitrafimi.substack.com/p/the-slow-lotr-re-read-3-gandalfs",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 1
+}

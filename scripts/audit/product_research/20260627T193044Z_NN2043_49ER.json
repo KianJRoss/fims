@@ -1,0 +1,129 @@
+{
+  "product_id": "021eb21d-51cb-4672-a3bc-5cb2565f0b3b",
+  "item_number": "NN2043",
+  "name": "49ER",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+    "packing": "18/1",
+    "description": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys."
+  },
+  "queries": [
+    "\"NN2043\" 49ER fireworks",
+    "49ER NO NAME fireworks",
+    "\"49ER\" fireworks",
+    "\"49ER\" \"12 shot\" fireworks",
+    "\"49ER\" \"12 shot\" NO NAME fireworks",
+    "\"49ER\" 200 Gram Cakes fireworks",
+    "\"49ER\" Shot Gram Multi Shot Aerial fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://gotfireworks.com/fireworks-for-sale/200-gram-cakes-fireworks.html?p=6",
+    "https://sandbox-cobwebcorner-com.3dcartstores.com/Camper-Handmade-Alder-Wood-Needle-MinderNeedle-Nanny_p_22257.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://gotfireworks.com/fireworks-for-sale/200-gram-cakes-fireworks.html?p=6"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "effects",
+      "value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "description",
+      "value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "effects",
+      "value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "description",
+      "value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "effects",
+      "value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "description",
+      "value": "12 Shot - 200 Gram Multi Shot Aerial with Time rain bouquet to time-rain chrys. Blue, lemon and chrys.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/49er-12-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2043)"
+    },
+    {
+      "field": "shot_count",
+      "value": 100,
+      "source": "gotfireworks.com (regex)",
+      "url": "https://gotfireworks.com/fireworks-for-sale/200-gram-cakes-fireworks.html?p=6",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "200 Gram Cakes, also known as 200 Gram Multi Shot Aerials, you light one of these, it is like having a 10 to 120 second display in a box with anywhere from 5 to 300…",
+      "source": "gotfireworks.com (meta.description)",
+      "url": "https://gotfireworks.com/fireworks-for-sale/200-gram-cakes-fireworks.html?p=6",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 2
+}

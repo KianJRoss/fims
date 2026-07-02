@@ -1,0 +1,29 @@
+{
+  "product_id": "c1cbabb6-8228-4a25-9b6a-b66ef6f12c11",
+  "item_number": "1001493",
+  "name": "SIR LANCELOT",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: 6 premium HDPE-launched canister shells delivering elite Excalibur-quality performance."
+  },
+  "queries": [
+    "\"1001493\" SIR LANCELOT fireworks",
+    "SIR LANCELOT World Class fireworks",
+    "\"SIR LANCELOT\" fireworks",
+    "\"SIR LANCELOT\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

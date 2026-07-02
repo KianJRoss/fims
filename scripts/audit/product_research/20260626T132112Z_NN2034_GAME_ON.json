@@ -1,0 +1,85 @@
+{
+  "product_id": "46c460a6-ef03-4e84-b369-32313b0f7485",
+  "item_number": "NN2034",
+  "name": "GAME ON!",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 16,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "24/1",
+    "description": "16 Shots - Red tail to silver chrysanthemum with red pearls. Green tail to silver chrysanthemum with green pearls. Red tail"
+  },
+  "queries": [
+    "\"NN2034\" GAME ON! fireworks",
+    "GAME ON! NO NAME fireworks",
+    "\"GAME ON!\" fireworks",
+    "\"GAME ON!\" \"16 shot\" fireworks",
+    "\"GAME ON!\" \"16 shot\" NO NAME fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2034)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Red tail to silver chrysanthemum with red pearls. Green tail to silver chrysanthemum with green pearls. Red tail to silver chrysanthemum with blue pearls. Green tail to silver...",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2034)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2034)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Red tail to silver chrysanthemum with red pearls. Green tail to silver chrysanthemum with green pearls. Red tail to silver chrysanthemum with blue pearls. Green tail to silver...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2034)"
+    },
+    {
+      "field": "shot_count",
+      "value": 16,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2034)"
+    },
+    {
+      "field": "description",
+      "value": "16 Shots - Red tail to silver chrysanthemum with red pearls. Green tail to silver chrysanthemum with green pearls. Red tail to silver chrysanthemum with blue pearls. Green tail to silver...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/game-on-16-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2034)"
+    }
+  ],
+  "records_added": 6
+}

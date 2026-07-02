@@ -1,0 +1,116 @@
+{
+  "product_id": "fe2c2494-c4a0-4542-93aa-93619b71d445",
+  "item_number": "NN2016",
+  "name": "Chicken Little",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 20,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"NN2016\" Chicken Little fireworks",
+    "Chicken Little NO NAME fireworks",
+    "\"Chicken Little\" fireworks",
+    "\"Chicken Little\" \"20 shot\" fireworks",
+    "\"Chicken Little\" \"20 shot\" NO NAME fireworks",
+    "\"Chicken Little\" 500 Gram Cakes fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://moodyprice.com/nn2016",
+    "https://www.chrislewisdistributing.com/NooxieNoble1.htm"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://moodyprice.com/nn2016",
+    "https://www.chrislewisdistributing.com/NooxieNoble1.htm"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 20,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "effects",
+      "value": "You will not believe that this 200 Gram Fan Cake in not a 500 Gram Cake. With 20 Shots of blue with silver fish, blue with white strobe, white strobe with green falling leaves, green with white...",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "description",
+      "value": "You will not believe that this 200 Gram Fan Cake in not a 500 Gram Cake. With 20 Shots of blue with silver fish, blue with white strobe, white strobe with green falling leaves, green with white...",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "shot_count",
+      "value": 20,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "effects",
+      "value": "You will not believe that this 200 Gram Fan Cake in not a 500 Gram Cake. With 20 Shots of blue with silver fish, blue with white strobe, white strobe with green falling leaves, green with white...",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "description",
+      "value": "You will not believe that this 200 Gram Fan Cake in not a 500 Gram Cake. With 20 Shots of blue with silver fish, blue with white strobe, white strobe with green falling leaves, green with white...",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "shot_count",
+      "value": 20,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "effects",
+      "value": "You will not believe that this 200 Gram Fan Cake in not a 500 Gram Cake. With 20 Shots of blue with silver fish, blue with white strobe, white strobe with green falling leaves, green with white...",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    },
+    {
+      "field": "description",
+      "value": "You will not believe that this 200 Gram Fan Cake in not a 500 Gram Cake. With 20 Shots of blue with silver fish, blue with white strobe, white strobe with green falling leaves, green with white...",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/chicken-little-20-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2016)"
+    }
+  ],
+  "records_added": 9
+}

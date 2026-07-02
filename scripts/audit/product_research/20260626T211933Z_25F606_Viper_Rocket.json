@@ -1,0 +1,37 @@
+{
+  "product_id": "992abab5-53d6-4c21-be94-7e2214240bd5",
+  "item_number": "25F606",
+  "name": "Viper Rocket",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 5,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "16/5 aka jungle killers"
+  },
+  "queries": [
+    "\"25F606\" Viper Rocket fireworks",
+    "Viper Rocket Pyromaniacs Wholesale fireworks",
+    "\"Viper Rocket\" fireworks",
+    "\"Viper Rocket\" \"5 shot\" fireworks",
+    "\"Viper Rocket\" \"5 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Viper Rocket\" Rockets fireworks"
+  ],
+  "candidate_urls": [
+    "https://encycolorpedia.com/25f606",
+    "https://icolorpalette.com/color/25f606",
+    "https://hexcolor.co/hex/25f606",
+    "https://www.comvoy.com/work-truck/clearwater-fl/new-2025-ford-f-150-xl-super-cab-4wd-pickup-17495170"
+  ],
+  "urls_fetched": [
+    "https://www.comvoy.com/work-truck/clearwater-fl/new-2025-ford-f-150-xl-super-cab-4wd-pickup-17495170"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

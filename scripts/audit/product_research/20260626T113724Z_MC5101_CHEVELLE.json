@@ -1,0 +1,28 @@
+{
+  "product_id": "b9b941aa-ce77-4011-b375-0d132d5a1c1b",
+  "item_number": "MC5101",
+  "name": "CHEVELLE",
+  "brand_name": "PYRO BOX",
+  "target_fields": [
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": 20,
+    "duration_seconds": 54,
+    "effects": null,
+    "packing": "6/1",
+    "description": "Gold palm tail to gigantic gold palm, gold pine and gold"
+  },
+  "queries": [
+    "\"MC5101\" CHEVELLE fireworks",
+    "CHEVELLE PYRO BOX fireworks",
+    "\"CHEVELLE\" fireworks",
+    "\"CHEVELLE\" \"20 shot\" fireworks",
+    "\"CHEVELLE\" \"20 shot\" PYRO BOX fireworks",
+    "\"CHEVELLE\" \"54 seconds\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

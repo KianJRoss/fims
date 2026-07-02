@@ -1,0 +1,43 @@
+{
+  "product_id": "48491a83-3997-448e-9c8a-b526fc82462c",
+  "item_number": "JJ2529",
+  "name": "Freedom",
+  "brand_name": "Pyromaniacs Wholesale",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 100,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "1/4 100 shot"
+  },
+  "queries": [
+    "\"JJ2529\" Freedom fireworks",
+    "Freedom Pyromaniacs Wholesale fireworks",
+    "\"Freedom\" fireworks",
+    "\"Freedom\" \"100 shot\" fireworks",
+    "\"Freedom\" \"100 shot\" Pyromaniacs Wholesale fireworks",
+    "\"Freedom\" 4/1s fireworks"
+  ],
+  "candidate_urls": [
+    "https://hitechaust.com/job/jf-jj2529",
+    "https://www.pandahall.com/p-3957368-201-stainless-steel-irregular-leaf-hoop-earrings-golden-27x25mm.html",
+    "https://us.trip.com/flights/status-jj2529/",
+    "https://www.trip.com/flights/status-jj2529/",
+    "https://sg.trip.com/flights/status-jj2529/",
+    "https://www.pinkoi.com/product/4RYcciPY"
+  ],
+  "urls_fetched": [
+    "https://hitechaust.com/job/jf-jj2529",
+    "https://us.trip.com/flights/status-jj2529/",
+    "https://www.trip.com/flights/status-jj2529/",
+    "https://sg.trip.com/flights/status-jj2529/",
+    "https://www.pinkoi.com/product/4RYcciPY"
+  ],
+  "candidate_records": [],
+  "records_added": 0
+}

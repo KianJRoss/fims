@@ -1,0 +1,65 @@
+{
+  "product_id": "004b8e0c-f5ae-4d62-920e-2508075e4dd8",
+  "item_number": "CHF8003",
+  "name": "Gandalf Rocket",
+  "brand_name": "Kraken",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": 6,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"CHF8003\" Gandalf Rocket fireworks",
+    "Gandalf Rocket Kraken fireworks",
+    "\"Gandalf Rocket\" fireworks",
+    "\"Gandalf Rocket\" \"6 shot\" fireworks",
+    "\"Gandalf Rocket\" \"6 shot\" Kraken fireworks",
+    "\"Gandalf Rocket\" Rockets fireworks"
+  ],
+  "candidate_urls": [
+    "https://lotr.fandom.com/wiki/Gandalf's_fireworks",
+    "https://krazykaplans.net/",
+    "https://tolkien-middle-earth-cinematic-universe.fandom.com/wiki/Gandalf's_Fireworks",
+    "https://www.deviantart.com/gnome-the-artist/art/Fireworks-872992988",
+    "https://giphy.com/explore/gandalf-fireworks"
+  ],
+  "urls_fetched": [
+    "https://krazykaplans.net/",
+    "https://www.deviantart.com/gnome-the-artist/art/Fireworks-872992988"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 9,
+      "source": "krazykaplans.net (regex)",
+      "url": "https://krazykaplans.net/",
+      "confidence": 0.19999999999999998,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Krazy Kaplans Fireworks is Northwest Indiana's premier outlet for consumer fireworks. Stop in at one of our five convenient store locations.",
+      "source": "krazykaplans.net (meta.description)",
+      "url": "https://krazykaplans.net/",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    },
+    {
+      "field": "description",
+      "value": "Fireworks — artwork by Gnome-the-artist on DeviantArt. Published: 2021-03-12 · Likes: 52 · Views: 2096 · Comments: 4 · Tags: acrylic, acrylicpainting, fireworks, gandalf, gandalfthegrey, hobbiton, hobbits, illustration, middleearth, party, powerfull, rocket, shire, tolkien, traditional, tolkienart, tolkieninspired, tolkienillustration, inktober52",
+      "source": "deviantart.com (meta.description)",
+      "url": "https://www.deviantart.com/gnome-the-artist/art/Fireworks-872992988",
+      "confidence": 0.3,
+      "identity_check": "loose name match"
+    }
+  ],
+  "records_added": 1
+}

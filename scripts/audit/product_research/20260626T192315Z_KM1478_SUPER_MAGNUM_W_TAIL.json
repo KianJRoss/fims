@@ -1,0 +1,81 @@
+{
+  "product_id": "f550dd21-cc8e-495b-adf5-2af605c5d365",
+  "item_number": "KM1478",
+  "name": "SUPER MAGNUM W/ TAIL",
+  "brand_name": "World Class",
+  "target_fields": [
+    "duration_seconds",
+    "effects",
+    "packing"
+  ],
+  "known_values": {
+    "shot_count": 12,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": "DESCRIPTION: 12 assorted effects with rising tails and strong aerial bursts."
+  },
+  "queries": [
+    "\"KM1478\" SUPER MAGNUM W/ TAIL fireworks",
+    "SUPER MAGNUM W/ TAIL World Class fireworks",
+    "\"SUPER MAGNUM W/ TAIL\" fireworks",
+    "\"SUPER MAGNUM W/ TAIL\" \"12 shot\" fireworks",
+    "\"SUPER MAGNUM W/ TAIL\" \"12 shot\" World Class fireworks",
+    "\"SUPER MAGNUM W/ TAIL\" Artillery Shells fireworks"
+  ],
+  "candidate_urls": [
+    "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=132",
+    "http://starspangledwholesalefireworks.com/index.php?main_page=product_info&products_id=1703",
+    "https://pahrump.area51fireworks.com/product/super-magnum-artillery-shell-w-tail-each/",
+    "https://blackjackfireworksnevada.com/product/super-magnum-artillery-shell-w-tail-each/"
+  ],
+  "urls_fetched": [
+    "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=132",
+    "http://starspangledwholesalefireworks.com/index.php?main_page=product_info&products_id=1703",
+    "https://pahrump.area51fireworks.com/product/super-magnum-artillery-shell-w-tail-each/",
+    "https://blackjackfireworksnevada.com/product/super-magnum-artillery-shell-w-tail-each/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 12,
+      "source": "myvictoryfireworks.com (regex)",
+      "url": "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=132",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1478)"
+    },
+    {
+      "field": "description",
+      "value": "My Victory Fireworks Super Magnum w/tail [KM1478] - An updated version of the 12 shot classic. Each box contains a great variety of 12 different 40 gram single break ball artillery shells. All 12 shells contain great crackling dragon tails that follow each sky as they rise into the air. Each shell rises to over 150 feet and",
+      "source": "myvictoryfireworks.com (meta.description)",
+      "url": "http://www.myvictoryfireworks.com/Zencart/index.php?main_page=product_info&products_id=132",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1478)"
+    },
+    {
+      "field": "shot_count",
+      "value": 49,
+      "source": "pahrump.area51fireworks.com (regex)",
+      "url": "https://pahrump.area51fireworks.com/product/super-magnum-artillery-shell-w-tail-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1478)"
+    },
+    {
+      "field": "description",
+      "value": "Get FREE Fireworks With Loyalty Points! | online ordering currently unavailable",
+      "source": "pahrump.area51fireworks.com (text.description)",
+      "url": "https://pahrump.area51fireworks.com/product/super-magnum-artillery-shell-w-tail-each/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (KM1478)"
+    },
+    {
+      "field": "shot_count",
+      "value": 119,
+      "source": "blackjackfireworksnevada.com (regex)",
+      "url": "https://blackjackfireworksnevada.com/product/super-magnum-artillery-shell-w-tail-each/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (KM1478)"
+    }
+  ],
+  "records_added": 5
+}

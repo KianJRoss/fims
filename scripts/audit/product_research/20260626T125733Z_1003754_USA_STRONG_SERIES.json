@@ -1,0 +1,57 @@
+{
+  "product_id": "e8a1d226-8552-47c1-b9a8-7d69bba7cd43",
+  "item_number": "1003754",
+  "name": "USA STRONG SERIES",
+  "brand_name": "World Class",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": "1/4",
+    "description": "DESCRIPTION: Four elite effects: sunglow willows, waterfall bursts, glitter mines, and bold red-green-blue peonies - American power packed into every shot."
+  },
+  "queries": [
+    "\"1003754\" USA STRONG SERIES fireworks",
+    "USA STRONG SERIES World Class fireworks",
+    "\"USA STRONG SERIES\" fireworks",
+    "\"USA STRONG SERIES\" Show To Go Cartons fireworks"
+  ],
+  "candidate_urls": [
+    "https://www.worldclassfireworks.com/firework/usa-strong-series/"
+  ],
+  "urls_fetched": [
+    "https://www.worldclassfireworks.com/firework/usa-strong-series/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 9,
+      "source": "worldclassfireworks.com (regex)",
+      "url": "https://www.worldclassfireworks.com/firework/usa-strong-series/",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (1003754)"
+    },
+    {
+      "field": "effects",
+      "value": "chrysanthemum, glitter, mine, peony, waterfall, willow",
+      "source": "worldclassfireworks.com (worldclass.spec)",
+      "url": "https://www.worldclassfireworks.com/firework/usa-strong-series/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1003754)"
+    },
+    {
+      "field": "description",
+      "value": "Includes 4 different 9 shot 500 gram cakes.",
+      "source": "worldclassfireworks.com (meta.description)",
+      "url": "https://www.worldclassfireworks.com/firework/usa-strong-series/",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (1003754)"
+    }
+  ],
+  "records_added": 3
+}

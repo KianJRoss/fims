@@ -1,0 +1,29 @@
+{
+  "product_id": "c88f2f24-e62c-4aec-9a28-c117eb085463",
+  "item_number": "P5192",
+  "name": "Pulse Pounder",
+  "brand_name": "Winda",
+  "target_fields": [
+    "shot_count",
+    "duration_seconds",
+    "effects",
+    "packing",
+    "description"
+  ],
+  "known_values": {
+    "shot_count": null,
+    "duration_seconds": null,
+    "effects": null,
+    "packing": null,
+    "description": null
+  },
+  "queries": [
+    "\"P5192\" Pulse Pounder fireworks",
+    "Pulse Pounder Winda fireworks",
+    "\"Pulse Pounder\" fireworks"
+  ],
+  "candidate_urls": [],
+  "urls_fetched": [],
+  "candidate_records": [],
+  "records_added": 0
+}

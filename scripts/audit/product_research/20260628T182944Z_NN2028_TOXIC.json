@@ -1,0 +1,140 @@
+{
+  "product_id": "00d1116d-86c3-4b61-a083-3cb8da871e2e",
+  "item_number": "NN2028",
+  "name": "TOXIC",
+  "brand_name": "NO NAME",
+  "target_fields": [
+    "duration_seconds"
+  ],
+  "known_values": {
+    "shot_count": 10,
+    "duration_seconds": null,
+    "effects": "10 Shots - Brocade crown with crackling.",
+    "packing": "24/1",
+    "description": "10 Shots - Brocade crown with crackling."
+  },
+  "queries": [
+    "\"NN2028\" TOXIC fireworks",
+    "TOXIC NO NAME fireworks",
+    "\"TOXIC\" fireworks",
+    "\"TOXIC\" \"10 shot\" fireworks",
+    "\"TOXIC\" \"10 shot\" NO NAME fireworks",
+    "\"TOXIC\" 200 Gram Cakes fireworks",
+    "\"TOXIC\" Shots Brocade crown with crackling fireworks"
+  ],
+  "candidate_urls": [
+    "https://nonamefireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://gotfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://github.com/NN2028",
+    "https://scratch.mit.edu/users/nn2028/"
+  ],
+  "urls_fetched": [
+    "https://nonamefireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://jbfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://snapfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://gotfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+    "https://github.com/NN2028",
+    "https://scratch.mit.edu/users/nn2028/"
+  ],
+  "candidate_records": [
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "nonamefireworks.com (regex)",
+      "url": "https://nonamefireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "nonamefireworks.com (jsonld)",
+      "url": "https://nonamefireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "nonamefireworks.com (jsonld.description)",
+      "url": "https://nonamefireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "jbfireworks.com (regex)",
+      "url": "https://jbfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "jbfireworks.com (jsonld)",
+      "url": "https://jbfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "jbfireworks.com (jsonld.description)",
+      "url": "https://jbfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "snapfireworks.com (regex)",
+      "url": "https://snapfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "snapfireworks.com (jsonld)",
+      "url": "https://snapfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "snapfireworks.com (jsonld.description)",
+      "url": "https://snapfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "shot_count",
+      "value": 10,
+      "source": "gotfireworks.com (regex)",
+      "url": "https://gotfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.8,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "effects",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "gotfireworks.com (jsonld)",
+      "url": "https://gotfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    },
+    {
+      "field": "description",
+      "value": "10 Shots - Brocade crown with crackling.",
+      "source": "gotfireworks.com (jsonld.description)",
+      "url": "https://gotfireworks.com/toxic-10-shot-200-gram-multi-shot-aerial-by-no-name-fireworks.html",
+      "confidence": 0.9,
+      "identity_check": "exact SKU found in page text (NN2028)"
+    }
+  ],
+  "records_added": 0
+}
