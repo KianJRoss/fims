@@ -31,6 +31,13 @@ type DailyReport = {
   card_count: number;
   cash_revenue: number;
   card_revenue: number;
+  top_products?: Array<{
+    product_id: string;
+    name: string | null;
+    item_number: string | null;
+    qty: number;
+    revenue: number;
+  }>;
   transactions: TransactionSummary[];
 };
 
@@ -105,6 +112,7 @@ export default function Reports() {
   });
 
   const report = dailyReportQuery.data;
+  const topProducts = report?.top_products ?? [];
 
   return (
     <div className="min-h-full bg-gray-950 px-4 py-6 text-gray-100 sm:px-6">
@@ -168,6 +176,37 @@ export default function Reports() {
             subvalue={dailyReportQuery.isLoading ? "-" : formatMoney(report?.card_revenue ?? 0)}
             accent="text-orange-200"
           />
+        </section>
+
+        <section className="rounded-3xl border border-gray-800 bg-gray-900">
+          <div className="border-b border-gray-800 px-6 py-4">
+            <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Top Sellers</div>
+            <div className="mt-1 text-sm text-gray-400">{selectedDate}</div>
+          </div>
+          {dailyReportQuery.isLoading ? (
+            <div className="px-6 py-8 text-sm text-gray-400">Loading top sellers...</div>
+          ) : topProducts.length === 0 ? (
+            <div className="px-6 py-8 text-sm text-gray-400">No sales yet.</div>
+          ) : (
+            <div className="divide-y divide-gray-800">
+              {topProducts.slice(0, 10).map((product, index) => (
+                <div
+                  key={product.product_id}
+                  className="grid gap-3 px-6 py-4 sm:grid-cols-[auto_minmax(0,1fr)_auto_auto] sm:items-center"
+                >
+                  <div className="text-sm font-semibold text-gray-500">#{index + 1}</div>
+                  <div className="min-w-0">
+                    <div className="truncate text-sm font-medium text-gray-50">
+                      {product.name ?? product.item_number ?? "Unknown"}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500">{product.item_number ?? product.product_id}</div>
+                  </div>
+                  <div className="text-sm text-gray-300">{product.qty} sold</div>
+                  <div className="text-sm font-semibold text-orange-200">{formatMoney(product.revenue)}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="overflow-hidden rounded-3xl border border-gray-800 bg-gray-900">

@@ -26,6 +26,8 @@ type ProductSearchResult = {
   item_number: string | null;
   image_url: string | null;
   category_name: string | null;
+  brand_name: string | null;
+  fuzzy_match?: boolean;
 };
 
 type QuickAddProduct = {
@@ -97,11 +99,28 @@ type ParkedCart = {
 };
 
 const PARKED_CARTS_STORAGE_KEY = "fims_parked_carts";
+const LIVE_CART_STORAGE_KEY = "fims-live-cart";
 
 function loadParkedCarts(): ParkedCart[] {
   try {
     const raw = window.localStorage.getItem(PARKED_CARTS_STORAGE_KEY);
     return raw ? (JSON.parse(raw) as ParkedCart[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function loadLiveCart(): CartItem[] {
+  try {
+    const raw = window.sessionStorage.getItem(LIVE_CART_STORAGE_KEY);
+    if (!raw) {
+      return [];
+    }
+    const parsed = JSON.parse(raw) as CartItem[];
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+    return parsed.map((item) => ({ ...item, taxable: item.taxable ?? true }));
   } catch {
     return [];
   }
@@ -168,20 +187,26 @@ export default function SalesScreen() {
   const [barcodeInput, setBarcodeInput] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(loadLiveCart);
   const [dealSummary, setDealSummary] = useState<DealSummary>(EMPTY_DEAL_SUMMARY);
   const [expandedProductId, setExpandedProductId] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState("CASH");
+  const [cashTendered, setCashTendered] = useState("");
   const [flash, setFlash] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [completedReceiptToken, setCompletedReceiptToken] = useState<string | null>(null);
   const [parkedCarts, setParkedCarts] = useState<ParkedCart[]>(loadParkedCarts);
   const [showParkedList, setShowParkedList] = useState(false);
   const [editQuickAdd, setEditQuickAdd] = useState(false);
+  const [barcodeMatchCandidates, setBarcodeMatchCandidates] = useState<ProductSearchResult[] | null>(null);
   const dealRequestId = useRef(0);
 
   useEffect(() => {
     window.localStorage.setItem(PARKED_CARTS_STORAGE_KEY, JSON.stringify(parkedCarts));
   }, [parkedCarts]);
+
+  useEffect(() => {
+    window.sessionStorage.setItem(LIVE_CART_STORAGE_KEY, JSON.stringify(cart));
+  }, [cart]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setDebouncedSearch(searchInput.trim()), 300);
@@ -253,6 +278,13 @@ export default function SalesScreen() {
       }
       setDealSummary(summary);
     },
+    onError: (_error, variables) => {
+      if (variables.requestId !== dealRequestId.current) {
+        return;
+      }
+      setDealSummary(EMPTY_DEAL_SUMMARY);
+      setFlash({ kind: "error", text: "Deals could not be applied — totals show no discount." });
+    },
   });
 
   const saleMutation = useMutation({
@@ -264,6 +296,7 @@ export default function SalesScreen() {
       setCart([]);
       setDealSummary(EMPTY_DEAL_SUMMARY);
       setBarcodeInput("");
+      setCashTendered("");
       setCompletedReceiptToken(data.receipt_token ?? null);
       barcodeInputRef.current?.focus();
       await queryClient.invalidateQueries({ queryKey: ["sales"] });
@@ -314,6 +347,10 @@ export default function SalesScreen() {
   const afterDiscount = applyDealsMutation.isPending && cart.length > 0 ? subtotal : displayedDealSummary.total;
   const taxTotal = useMemo(() => computeTaxTotal(cart, totalDiscount), [cart, totalDiscount]);
   const total = Math.round((afterDiscount + taxTotal) * 100) / 100;
+  const parsedCashTendered = cashTendered.trim() === "" ? Number.NaN : Number(cashTendered);
+  const cashDifference = Number.isFinite(parsedCashTendered)
+    ? Math.round((parsedCashTendered - total) * 100) / 100
+    : null;
 
   const addProductToCart = useCallback(async (productId: string) => {
     try {
@@ -356,12 +393,32 @@ export default function SalesScreen() {
         if (!data.length) {
           throw new Error("No product");
         }
-        await addProductToCart(data[0].id);
+        if (data.length === 1 && data[0].fuzzy_match !== true) {
+          await addProductToCart(data[0].id);
+          return;
+        }
+        setBarcodeMatchCandidates(data);
       } catch {
         setFlash({ kind: "error", text: "Barcode not found." });
       }
     },
     [addProductToCart]
+  );
+
+  const closeBarcodeMatchPicker = useCallback(() => {
+    setBarcodeMatchCandidates(null);
+    barcodeInputRef.current?.focus();
+  }, []);
+
+  const chooseBarcodeMatch = useCallback(
+    async (productId: string) => {
+      try {
+        await addProductToCart(productId);
+      } finally {
+        closeBarcodeMatchPicker();
+      }
+    },
+    [addProductToCart, closeBarcodeMatchPicker]
   );
 
   useScannerStream((barcode, target) => {
@@ -410,6 +467,7 @@ export default function SalesScreen() {
     setCart([]);
     setDealSummary(EMPTY_DEAL_SUMMARY);
     setBarcodeInput("");
+    setCashTendered("");
     barcodeInputRef.current?.focus();
   }
 
@@ -784,6 +842,49 @@ export default function SalesScreen() {
                     ))}
                   </div>
 
+                  {paymentMethod === "CASH" && cart.length > 0 ? (
+                    <div className="space-y-3 rounded-2xl border border-gray-800 bg-gray-950 p-3">
+                      <label className="block">
+                        <span className="mb-2 block text-xs uppercase tracking-[0.25em] text-gray-500">Cash tendered</span>
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          value={cashTendered}
+                          onChange={(event) => setCashTendered(event.target.value)}
+                          className="w-full rounded-2xl border border-gray-700 bg-gray-900 px-4 py-4 text-2xl font-semibold text-gray-50 outline-none placeholder:text-gray-600 focus:border-orange-500"
+                        />
+                      </label>
+                      <div className="grid grid-cols-4 gap-2">
+                        {[
+                          { label: "Exact", value: total.toFixed(2) },
+                          { label: "$20", value: "20" },
+                          { label: "$50", value: "50" },
+                          { label: "$100", value: "100" },
+                        ].map((button, index) => (
+                          <button
+                            key={`${button.label}-${index}`}
+                            type="button"
+                            onClick={() => setCashTendered(button.value)}
+                            className="rounded-2xl border border-gray-700 bg-gray-800 px-3 py-3 text-sm font-semibold text-gray-300 transition hover:border-gray-600 hover:text-gray-100"
+                          >
+                            {button.label}
+                          </button>
+                        ))}
+                      </div>
+                      {cashDifference !== null ? (
+                        cashDifference >= 0 ? (
+                          <div className="text-2xl font-semibold text-emerald-300">
+                            Change due: {formatMoney(cashDifference)}
+                          </div>
+                        ) : (
+                          <div className="text-2xl font-semibold text-red-300">
+                            Short: {formatMoney(Math.abs(cashDifference))}
+                          </div>
+                        )
+                      ) : null}
+                    </div>
+                  ) : null}
+
                   {hasZeroPrice ? (
                     <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
                       One or more items have no price set. Add prices before charging.
@@ -939,6 +1040,59 @@ export default function SalesScreen() {
           </div>
         </aside>
       </div>
+
+      {barcodeMatchCandidates !== null ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-3xl border border-gray-800 bg-gray-900 p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="text-xl font-semibold text-gray-50">Choose barcode match</div>
+                <div className="mt-1 text-sm text-gray-400">This scan matched multiple or uncertain products.</div>
+              </div>
+              <button
+                type="button"
+                onClick={closeBarcodeMatchPicker}
+                className="rounded-2xl border border-gray-800 p-3 text-gray-400 transition hover:border-gray-700 hover:text-gray-100"
+                aria-label="Cancel barcode match"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              {barcodeMatchCandidates.map((product) => (
+                <button
+                  key={product.id}
+                  type="button"
+                  onClick={() => void chooseBarcodeMatch(product.id)}
+                  className="w-full rounded-2xl border border-gray-800 bg-gray-950/60 p-5 text-left transition hover:border-orange-500/70 hover:bg-gray-950 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-base font-semibold text-gray-50">{product.name}</span>
+                    {product.fuzzy_match === true ? (
+                      <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-200">
+                        Possible mis-scan
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className="mt-2 grid gap-1 text-sm text-gray-400 sm:grid-cols-2">
+                    <div>Brand: {product.brand_name || "No brand"}</div>
+                    <div>Item: {product.item_number || "No item number"}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={closeBarcodeMatchPicker}
+              className="mt-5 w-full rounded-2xl border border-gray-800 py-3 font-semibold text-gray-200 transition hover:border-gray-700 hover:bg-gray-800"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       {completedReceiptToken !== null ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">

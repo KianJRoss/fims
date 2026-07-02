@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 import { api } from "../../api/client";
+import { productThumbUrl } from "../../components/ProductImage";
 
 type ProductSummary = {
   id: string;
@@ -145,11 +146,18 @@ export default function ShopProducts() {
               <div className="flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-sky-900/60">
                 {product.image_url ? (
                   <img
-                    src={product.image_url}
+                    src={productThumbUrl(product.image_url) ?? product.image_url}
                     alt={product.name}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-contain p-2"
                     onError={(e) => {
                       const target = e.currentTarget;
+                      if (!target.dataset.fullTried && product.image_url) {
+                        target.dataset.fullTried = "1";
+                        target.src = product.image_url;
+                        return;
+                      }
                       target.style.display = "none";
                       const fallback = target.nextElementSibling as HTMLElement | null;
                       if (fallback) fallback.style.display = "flex";

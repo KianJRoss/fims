@@ -23,18 +23,8 @@ type ProductDetail = {
   shot_count: number | null;
   duration_seconds: number | null;
   effects: string | null;
+  retail_price?: number | null;
   videos: ProductVideo[];
-};
-
-type PricingResponse = {
-  id: string;
-  name: string;
-  prices: Array<{
-    id: number;
-    price_type_code: string | null;
-    price_type_name: string | null;
-    amount: number;
-  }>;
 };
 
 function formatMoney(value: number | null | undefined) {
@@ -59,20 +49,8 @@ export default function ShopProduct() {
     enabled: Boolean(id),
   });
 
-  const pricingQuery = useQuery({
-    queryKey: ["shop-pricing", id],
-    queryFn: async (): Promise<PricingResponse> => {
-      if (!id) {
-        throw new Error("Missing product id");
-      }
-      const { data } = await api.get(`/v1/pricing/${encodeURIComponent(id)}`);
-      return data;
-    },
-    enabled: Boolean(id),
-  });
-
   const product = productQuery.data;
-  const retailPrice = pricingQuery.data?.prices.find((price) => price.price_type_code === "RETAIL")?.amount ?? null;
+  const retailPrice = product?.retail_price ?? null;
   const confirmedVideos = product?.videos.filter((video) => video.confirmed && video.youtube_id);
   const video = confirmedVideos?.[0] ?? null;
 

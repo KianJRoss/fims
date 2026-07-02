@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 type Props = {
   imageUrl: string | null | undefined;
   name: string;
@@ -12,11 +14,26 @@ const sizeMap = {
   lg: "h-40 w-full",
 };
 
+/** Thumbnail path for a product image: /media/product_images/X.jpg -> .../thumbs/X.webp */
+export function productThumbUrl(imageUrl: string): string | null {
+  const match = imageUrl.match(/^(.*\/product_images)\/([^/]+)\.[a-zA-Z0-9]+$/);
+  if (!match) return null;
+  return `${match[1]}/thumbs/${match[2]}.webp`;
+}
+
 export default function ProductImage({ imageUrl, name, size = "sm", className = "" }: Props) {
   const initial = name.trim().charAt(0).toUpperCase() || "?";
   const dims = sizeMap[size];
 
-  if (!imageUrl) {
+  // Try the small thumbnail first; fall back to the original, then the letter.
+  const thumb = imageUrl ? productThumbUrl(imageUrl) : null;
+  const sources = imageUrl ? (thumb ? [thumb, imageUrl] : [imageUrl]) : [];
+  const [sourceIndex, setSourceIndex] = useState(0);
+  useEffect(() => {
+    setSourceIndex(0);
+  }, [imageUrl]);
+
+  if (!imageUrl || sourceIndex >= sources.length) {
     return (
       <div
         className={`${dims} flex-shrink-0 flex items-center justify-center rounded-xl bg-gray-800 text-gray-500 font-bold text-sm ${className}`}
@@ -29,17 +46,12 @@ export default function ProductImage({ imageUrl, name, size = "sm", className = 
   return (
     <div className={`${dims} flex-shrink-0 flex items-center justify-center rounded-xl bg-gray-800 overflow-hidden ${className}`}>
       <img
-        src={imageUrl}
+        src={sources[sourceIndex]}
         alt={name}
+        loading="lazy"
+        decoding="async"
         className="h-full w-full object-contain p-1"
-        onError={(e) => {
-          const wrap = e.currentTarget.parentElement as HTMLElement;
-          e.currentTarget.style.display = "none";
-          const fb = document.createElement("span");
-          fb.className = "text-gray-500 font-bold text-sm";
-          fb.textContent = initial;
-          wrap.appendChild(fb);
-        }}
+        onError={() => setSourceIndex((index) => index + 1)}
       />
     </div>
   );

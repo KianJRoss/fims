@@ -33,7 +33,7 @@ import ManualProductEntry from "../components/ManualProductEntry";
 
 type View = "catalog" | "initialize" | "data-entry" | "pricing" | "barcodes" | "suppliers" | "deals";
 
-type Brand = { id: number; name: string };
+type Brand = { id: number; name: string; product_count: number };
 
 type ProductSummary = {
   id: string;
@@ -211,7 +211,7 @@ function CatalogView() {
 
   const brandsQuery = useQuery({
     queryKey: ["brands", "catalog"],
-    queryFn: async (): Promise<Brand[]> => (await api.get("/v1/brands/")).data,
+    queryFn: async (): Promise<Brand[]> => (await api.get("/v1/brands/?with_products=true")).data,
   });
 
   const categoriesQuery = useQuery({
@@ -393,7 +393,9 @@ function CatalogView() {
                       }
                       className="accent-orange-500"
                     />
-                    <span className="truncate">{brand.name}</span>
+                    <span className="truncate">
+                      {brand.name} <span className="text-gray-600">({brand.product_count})</span>
+                    </span>
                   </label>
                 );
               })}
@@ -470,6 +472,8 @@ function CatalogView() {
                             <img
                               src={product.image_url}
                               alt={product.name}
+                              loading="lazy"
+                              decoding="async"
                               className="h-full w-full object-contain p-1"
                               onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
                             />
@@ -705,6 +709,8 @@ function CatalogView() {
                                     <img
                                       src={video.thumbnail_url || `https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
                                       alt={video.title || "Video thumbnail"}
+                                      loading="lazy"
+                                      decoding="async"
                                       className="h-full w-full object-cover"
                                     />
                                   ) : (
@@ -1345,6 +1351,7 @@ function computeRetailPreview(caseCost: string, boxesPerCase: string, unitsPerBo
 function PricingView() {
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState<CostingFormState | null>(null);
+  const [missingOnly, setMissingOnly] = useState(false);
 
   const costingQuery = useQuery({
     queryKey: ["costing"],
@@ -1361,6 +1368,10 @@ function PricingView() {
     if (!editing) return null;
     return computeRetailPreview(editing.case_cost, editing.boxes_per_case, editing.units_per_box, editing.markup_multiplier);
   }, [editing]);
+
+  const costingRows = costingQuery.data ?? [];
+  const missingPriceCount = costingRows.filter((row) => row.retail_price === null).length;
+  const visibleRows = missingOnly ? costingRows.filter((row) => row.retail_price === null) : costingRows;
 
   const upsertMutation = useMutation({
     mutationFn: async (payload: { product_id: string; boxes_per_case: number; units_per_box: number; case_cost: number; markup_multiplier: number }) => {
@@ -1403,9 +1414,22 @@ function PricingView() {
   return (
     <div className="px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-7xl space-y-6">
-        <div className="rounded-3xl border border-gray-800 bg-gray-900 px-4 py-3 inline-block">
-          <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Visible products</div>
-          <div className="mt-1 text-2xl font-semibold text-gray-50">{costingQuery.data?.length?.toLocaleString() ?? "0"}</div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="rounded-3xl border border-gray-800 bg-gray-900 px-4 py-3 inline-block">
+            <div className="text-xs uppercase tracking-[0.25em] text-gray-500">Visible products</div>
+            <div className="mt-1 text-2xl font-semibold text-gray-50">{visibleRows.length.toLocaleString()}</div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMissingOnly((value) => !value)}
+            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+              missingOnly
+                ? "border-orange-500 bg-orange-500/10 text-orange-200"
+                : "border-gray-700 bg-gray-800 text-gray-300 hover:border-gray-600"
+            }`}
+          >
+            Missing price ({missingPriceCount.toLocaleString()})
+          </button>
         </div>
 
         <div className="space-y-4 lg:hidden">
@@ -1413,10 +1437,10 @@ function PricingView() {
             <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-gray-400">Loading pricing...</div>
           ) : costingQuery.isError ? (
             <div className="rounded-3xl border border-gray-800 bg-gray-900 p-8 text-sm text-red-200">Unable to load pricing.</div>
-          ) : (costingQuery.data ?? []).length === 0 ? (
+          ) : visibleRows.length === 0 ? (
             <div className="rounded-3xl border border-dashed border-gray-800 bg-gray-900 p-8 text-center text-sm text-gray-500">No in-store products found.</div>
           ) : (
-            costingQuery.data?.map((row) => {
+            visibleRows.map((row) => {
               const hasCosting = row.boxes_per_case !== null && row.units_per_box !== null && row.case_cost !== null;
               return (
                 <div key={row.product_id} className="rounded-3xl border border-gray-800 bg-gray-900 p-4">
@@ -1480,10 +1504,10 @@ function PricingView() {
                 <tr><td colSpan={6} className="px-4 py-12 text-center text-sm text-gray-400">Loading pricing...</td></tr>
               ) : costingQuery.isError ? (
                 <tr><td colSpan={6} className="px-4 py-12 text-center text-sm text-red-200">Unable to load pricing.</td></tr>
-              ) : (costingQuery.data ?? []).length === 0 ? (
+              ) : visibleRows.length === 0 ? (
                 <tr><td colSpan={6} className="px-4 py-12 text-center text-sm text-gray-500">No in-store products found.</td></tr>
               ) : (
-                costingQuery.data?.map((row) => {
+                visibleRows.map((row) => {
                   const hasCosting = row.boxes_per_case !== null && row.units_per_box !== null && row.case_cost !== null;
                   return (
                     <tr key={row.product_id} className="bg-transparent hover:bg-gray-800/40">
@@ -1503,7 +1527,7 @@ function PricingView() {
                       <td className="px-4 py-4 align-middle text-right text-sm text-gray-200">{formatMoney(row.case_cost)}</td>
                       <td className="px-4 py-4 align-middle text-right text-sm text-gray-200">{row.markup_multiplier === null ? "—" : row.markup_multiplier.toFixed(4)}</td>
                       <td className="px-4 py-4 align-middle text-right">
-                        {hasCosting ? (
+                        {row.retail_price !== null ? (
                           <span className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1 text-sm font-semibold text-orange-200">
                             <BadgeDollarSign className="h-4 w-4" />
                             {formatMoney(row.retail_price)}

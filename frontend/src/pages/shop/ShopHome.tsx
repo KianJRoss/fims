@@ -3,6 +3,7 @@ import { Clock, MapPin, Phone, Sparkles, Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 import { api } from "../../api/client";
+import { productThumbUrl } from "../../components/ProductImage";
 
 type ProductSummary = {
   id: string;
@@ -46,9 +47,18 @@ function ProductPhotoCard({ product }: { product: ProductSummary }) {
       <div className="relative h-56 overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-sky-950/60">
         {product.image_url ? (
           <img
-            src={product.image_url}
+            src={productThumbUrl(product.image_url) ?? product.image_url}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.fullTried && product.image_url) {
+                target.dataset.fullTried = "1";
+                target.src = product.image_url;
+              }
+            }}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
@@ -166,7 +176,20 @@ export default function ShopHome() {
                 <article key={product.id} className="flex overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/70 shadow-xl shadow-slate-950/25 backdrop-blur">
                   <div className="h-28 w-28 flex-shrink-0 overflow-hidden bg-slate-100 sm:h-32 sm:w-32">
                     {product.image_url ? (
-                      <img src={product.image_url} alt={product.name} className="h-full w-full object-cover" />
+                      <img
+                        src={productThumbUrl(product.image_url) ?? product.image_url}
+                        alt={product.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (!target.dataset.fullTried && product.image_url) {
+                            target.dataset.fullTried = "1";
+                            target.src = product.image_url;
+                          }
+                        }}
+                      />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-700 text-3xl font-semibold text-sky-300/80">
                         {product.name.trim().charAt(0).toUpperCase() || "?"}
