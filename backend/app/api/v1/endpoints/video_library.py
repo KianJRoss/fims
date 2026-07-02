@@ -406,8 +406,11 @@ def play_barcode_core(db: Session, barcode: str) -> dict:
     remote_videos = _fetch_remote_videos()
     remote_by_lower = {name.lower(): name for name in remote_videos}
 
-    def _play_if_present(filename: str) -> dict | None:
+    def _play_if_present(filename: str, info_lines: list[str] | None = None) -> dict | None:
         base = Path(filename).name
+        play_body = {"file_path": ""}
+        if info_lines is not None:
+            play_body["info_lines"] = info_lines
         # Most YouTube-sourced rows store the bare video id as the filename while
         # the downloaded file on the Pi is "<id>.mp4" — try both.
         candidates = [base.lower()]
@@ -416,11 +419,13 @@ def play_barcode_core(db: Session, barcode: str) -> dict:
         for candidate in candidates:
             actual = remote_by_lower.get(candidate)
             if actual:
-                return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{actual}"})
+                play_body["file_path"] = f"/media/pi/VIDEOS/videos/{actual}"
+                return post_to_video_pi("/play", play_body)
         # Pi's file list was unreachable — try the bare name directly rather than
         # giving up (mirrors /player/play's fallback).
         if not remote_videos:
-            return post_to_video_pi("/play", {"file_path": f"/media/pi/VIDEOS/videos/{base}"})
+            play_body["file_path"] = f"/media/pi/VIDEOS/videos/{base}"
+            return post_to_video_pi("/play", play_body)
         return None
 
     # 1) FIMS product(s) mapped to this barcode.
@@ -429,12 +434,30 @@ def play_barcode_core(db: Session, barcode: str) -> dict:
     product_ids, _ = resolve_product_ids(db, barcode)
     fims_name: str | None = None
     for product_id in product_ids:
+        product_name = _get_product_by_id(db, product_id).name
         if fims_name is None:
-            fims_name = _get_product_by_id(db, product_id).name
+            fims_name = product_name
+        retail_price = (
+            db.execute(
+                select(ProductPrice.amount)
+                .join(PriceType, PriceType.id == ProductPrice.price_type_id)
+                .where(
+                    ProductPrice.product_id == product_id,
+                    ProductPrice.is_active.is_(True),
+                    PriceType.code == "RETAIL",
+                )
+                .order_by(ProductPrice.effective_from.desc())
+                .limit(1)
+            )
+            .scalar_one_or_none()
+        )
+        info_lines = [product_name]
+        if retail_price is not None:
+            info_lines.append(f"${retail_price:.2f}")
         for candidate in _get_product_video_filenames(db, product_id):
-            result = _play_if_present(candidate)
+            result = _play_if_present(candidate, info_lines=info_lines)
             if result is not None:
-                return {**result, "source": "fims", "product_id": product_id, "name": fims_name}
+                return {**result, "source": "fims", "product_id": product_id, "name": product_name}
 
     # 2) Legacy kiosk library — the whole point of this endpoint.
     legacy = _lookup_legacy_video(db, barcode)

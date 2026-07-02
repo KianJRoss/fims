@@ -322,6 +322,33 @@ def _start_triggered_playback_locked(source: str) -> None:
     watcher.start()
 
 
+def _start_triggered_playlist_locked(playlist_path: str, total_duration: float | None) -> None:
+    global _current_proc, _current_source, _mode, _triggered_generation
+
+    _cancel_idle_timer_locked()
+    _stop_current_process_locked()
+    _trigger_event.set()
+    _mode = "triggered"
+
+    command = [
+        "mpv", "--fs", "--really-quiet", "--no-terminal",
+        "--force-window=yes",
+        "--image-display-duration=3",
+        f"--playlist={playlist_path}",
+    ]
+    proc = subprocess.Popen(command, env=_build_env())
+    _current_proc = proc
+    _current_source = playlist_path
+
+    _triggered_generation += 1
+    watcher = threading.Thread(
+        target=_triggered_watcher,
+        args=(proc, _triggered_generation, total_duration),
+        daemon=True,
+    )
+    watcher.start()
+
+
 def _start_card_locked(path: str) -> None:
     global _current_proc, _current_source, _mode, _triggered_generation
 
@@ -500,6 +527,7 @@ def play(body: dict[str, Any]) -> dict[str, str]:
 
     item_number = body.get("item_number")
     file_path = body.get("file_path")
+    raw_info_lines = body.get("info_lines")
 
     if item_number:
         item_number_value = str(item_number).strip()
@@ -522,9 +550,37 @@ def play(body: dict[str, Any]) -> dict[str, str]:
             raise HTTPException(status_code=400, detail="Missing file_path")
         source = str(file_path)
 
+    playlist_path: str | None = None
+    total_duration: float | None = None
+    if (
+        isinstance(raw_info_lines, list)
+        and 1 <= len(raw_info_lines) <= 3
+        and all(isinstance(line, str) and line.strip() for line in raw_info_lines)
+    ):
+        info_lines = [line.strip() for line in raw_info_lines]
+        try:
+            card_path = _get_no_video_card_png(info_lines)
+            if card_path:
+                os.makedirs(TRANSITION_CACHE_DIR, exist_ok=True)
+                digest = hashlib.sha1(
+                    "\n".join([card_path, source]).encode("utf-8")
+                ).hexdigest()
+                playlist_path = os.path.join(TRANSITION_CACHE_DIR, f"pre_{digest}.m3u")
+                with open(playlist_path, "w") as fh:
+                    fh.write(f"{card_path}\n{source}\n")
+
+                duration = _probe_duration(source)
+                total_duration = duration + 3 if duration is not None else None
+        except Exception:
+            playlist_path = None
+            total_duration = None
+
     with _lock:
         try:
-            _start_triggered_playback_locked(source)
+            if playlist_path:
+                _start_triggered_playlist_locked(playlist_path, total_duration)
+            else:
+                _start_triggered_playback_locked(source)
         except Exception as exc:
             _trigger_event.clear()
             _mode = "idle"

@@ -178,6 +178,7 @@ def _reward_discount(
     category_quantities: dict[int, int],
     unit_prices_by_product: dict[str, list[float]],
     cart_items: list[DealApplyItem],
+    bundle_member_ids: set[str] | None = None,
 ) -> float:
     reward_type = (reward.reward_type or "").upper()
     if reward_type == "PERCENT_OFF":
@@ -205,6 +206,18 @@ def _reward_discount(
             for item in cart_items:
                 prices.extend([float(item.unit_price)] * max(int(item.quantity), 0))
         return _expanded_prices(prices, target_quantity)
+    if reward_type == "BUNDLE_PRICE":
+        group_size = max(int(reward.quantity or 1), 1)
+        bundle_price = float(reward.flat_off or 0)
+        member_ids = bundle_member_ids or set(unit_prices_by_product)
+        pooled_prices: list[float] = []
+        for product_id in member_ids:
+            pooled_prices.extend(unit_prices_by_product.get(product_id, []))
+        groups = len(pooled_prices) // group_size
+        if groups <= 0:
+            return 0.0
+        taken = sorted(pooled_prices, reverse=True)[: groups * group_size]
+        return max(0.0, sum(taken) - bundle_price * groups)
     return 0.0
 
 
@@ -317,17 +330,29 @@ def compute_deal_summary(db: Session, items: list[DealApplyItem]) -> dict:
     )
 
     for deal in deals:
-        if not deal.conditions:
-            qualifies = True
-        else:
-            qualifies = all(
-                _matches_condition(condition, subtotal, total_quantity, product_quantities, category_quantities)
-                for condition in deal.conditions
+        pool_conditions = [
+            condition for condition in deal.conditions if (condition.condition_type or "").upper() == "PRODUCT_ANY"
+        ]
+        non_pool_conditions = [
+            condition for condition in deal.conditions if (condition.condition_type or "").upper() != "PRODUCT_ANY"
+        ]
+        qualifies = all(
+            _matches_condition(condition, subtotal, total_quantity, product_quantities, category_quantities)
+            for condition in non_pool_conditions
+        )
+        if pool_conditions:
+            bundle_reward = next(
+                (reward for reward in deal.rewards if (reward.reward_type or "").upper() == "BUNDLE_PRICE"),
+                None,
             )
+            group_size = max(int(bundle_reward.quantity or 1), 1) if bundle_reward else 1
+            pooled_quantity = sum(product_quantities.get(condition.product_id or "", 0) for condition in pool_conditions)
+            qualifies = qualifies and pooled_quantity >= group_size
         if not qualifies or not deal.rewards:
             continue
 
         deal_discount = 0.0
+        bundle_member_ids = {condition.product_id for condition in pool_conditions if condition.product_id}
         for reward in deal.rewards:
             deal_discount += _reward_discount(
                 reward,
@@ -336,6 +361,7 @@ def compute_deal_summary(db: Session, items: list[DealApplyItem]) -> dict:
                 category_quantities,
                 unit_prices_by_product,
                 items,
+                bundle_member_ids,
             )
 
         deal_discount = max(0.0, min(deal_discount, current_subtotal))
