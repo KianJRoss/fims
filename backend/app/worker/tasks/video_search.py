@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from datetime import datetime, timezone
 
@@ -10,10 +11,59 @@ from app.worker.celery_app import celery_app
 
 DB_URL = "postgresql://fims:fims@postgres:5432/fims"
 
+NAME_TOKEN_STOPWORDS = {
+    "the",
+    "and",
+    "for",
+    "with",
+    "shot",
+    "shots",
+    "gram",
+    "cake",
+    "fireworks",
+    "firework",
+}
+JUNK_TITLE_RE = re.compile(
+    r"news|breaking|caught on (camera|video)|accident|arrested|police|documentary|"
+    r"gameplay|walkthrough|episode|podcast|minecraft|fortnite|roblox",
+    re.IGNORECASE,
+)
+
+
+def _name_tokens(text: str) -> set[str]:
+    normalized = re.sub(r"[^a-z0-9]+", " ", text.lower())
+    return {
+        token
+        for token in normalized.split()
+        if len(token) > 2 and token not in NAME_TOKEN_STOPWORDS
+    }
+
+
+def _title_matches(product_name, item_number, title) -> bool:
+    normalized_title = (title or "").lower()
+    normalized_item_number = (item_number or "").strip().lower()
+    if normalized_item_number and normalized_item_number in normalized_title:
+        return True
+
+    product_tokens = _name_tokens(product_name or "")
+    if not product_tokens:
+        return False
+
+    title_tokens = _name_tokens(title or "")
+    overlapping_tokens = product_tokens & title_tokens
+    return bool(overlapping_tokens) and len(overlapping_tokens) / len(product_tokens) >= 0.5
+
 
 @celery_app.task(name="video_search.find_product_videos")
-def find_product_videos(product_id: str, product_name: str, item_number: str | None = None):
+def find_product_videos(
+    product_id: str,
+    product_name: str,
+    item_number: str | None = None,
+    brand: str | None = None,
+):
     queries = []
+    if product_name and brand:
+        queries.append(f"'{product_name}' {brand} fireworks")
     if product_name:
         queries.append(f"'{product_name}' fireworks")
     if item_number:
@@ -30,8 +80,11 @@ def find_product_videos(product_id: str, product_name: str, item_number: str | N
                 (product_id,),
             )
             existing_ids = {row[0] for row in cur.fetchall() if row[0]}
+            inserted_count = 0
 
             for query in queries:
+                if inserted_count >= 4:
+                    break
                 command = [
                     "yt-dlp",
                     f"ytsearch5:{query}",
@@ -49,6 +102,17 @@ def find_product_videos(product_id: str, product_name: str, item_number: str | N
                     youtube_id = video.get("id")
                     if not youtube_id or youtube_id in existing_ids:
                         continue
+                    title = video.get("title") or ""
+                    if not _title_matches(product_name, item_number, title):
+                        continue
+                    if JUNK_TITLE_RE.search(title):
+                        continue
+                    duration = video.get("duration")
+                    duration_seconds = None
+                    if duration is not None:
+                        duration_seconds = int(duration)
+                        if duration_seconds < 10 or duration_seconds > 720:
+                            continue
 
                     existing_ids.add(youtube_id)
                     cur.execute(
@@ -66,17 +130,20 @@ def find_product_videos(product_id: str, product_name: str, item_number: str | N
                             "YOUTUBE",
                             video.get("url") or youtube_id,
                             youtube_id,
-                            video.get("title"),
+                            title,
                             video.get("thumbnail"),
                             query,
                             False,
                             False,
                             None,
-                            None,
+                            duration_seconds,
                             datetime.now(timezone.utc).replace(tzinfo=None),
                             youtube_id,
                         ),
                     )
+                    inserted_count += 1
+                    if inserted_count >= 4:
+                        break
         conn.commit()
     except Exception:
         conn.rollback()
@@ -92,10 +159,11 @@ def auto_search_missing_videos(batch_size: int = 25) -> dict:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT id, name, item_number
+                SELECT products.id, products.name, products.item_number, product_brands.name
                 FROM products
-                WHERE is_active IS TRUE
-                  AND no_video_confirmed IS FALSE
+                LEFT JOIN product_brands ON products.brand_id = product_brands.id
+                WHERE products.is_active IS TRUE
+                  AND products.no_video_confirmed IS FALSE
                   AND NOT EXISTS (
                       SELECT 1
                       FROM product_videos
@@ -107,15 +175,15 @@ def auto_search_missing_videos(batch_size: int = 25) -> dict:
                       FROM product_videos
                       WHERE product_videos.product_id = products.id
                   )
-                ORDER BY created_at DESC, LOWER(name)
+                ORDER BY products.created_at DESC, LOWER(products.name)
                 LIMIT %s
                 """,
                 (batch_size,),
             )
             rows = cur.fetchall()
 
-        for product_id, product_name, item_number in rows:
-            find_product_videos.delay(str(product_id), product_name, item_number)
+        for product_id, product_name, item_number, brand_name in rows:
+            find_product_videos.delay(str(product_id), product_name, item_number, brand_name)
 
         return {"queued": len(rows), "batch_size": batch_size}
     finally:

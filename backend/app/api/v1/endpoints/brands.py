@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.db.session import get_db
 from app.models.brand_hierarchy import BrandImporter, BrandManufacturer, Importer, Manufacturer
-from app.models.product import ProductBrand
+from app.models.product import Product, ProductBrand
 
 brands_router = APIRouter()
 importers_router = APIRouter()
@@ -45,18 +45,32 @@ def _serialize_brand(brand: ProductBrand) -> dict:
 
 
 @brands_router.get("/")
-def list_brands(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def list_brands(
+    skip: int = 0,
+    limit: int = 100,
+    with_products: bool = False,
+    db: Session = Depends(get_db),
+):
     importer_count, manufacturer_count = _brand_counts_query()
+    product_count = (
+        select(func.count(Product.id))
+        .where(Product.brand_id == ProductBrand.id, Product.is_active.is_(True))
+        .correlate(ProductBrand)
+        .scalar_subquery()
+    )
     stmt = (
         select(
             ProductBrand,
             importer_count.label("importer_count"),
             manufacturer_count.label("manufacturer_count"),
+            product_count.label("product_count"),
         )
         .order_by(ProductBrand.name.asc())
         .offset(skip)
         .limit(limit)
     )
+    if with_products:
+        stmt = stmt.where(product_count > 0)
     rows = db.execute(stmt).all()
     return [
         {
@@ -66,8 +80,9 @@ def list_brands(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
             "brand_type": brand.brand_type,
             "importer_count": int(importer_count_value or 0),
             "manufacturer_count": int(manufacturer_count_value or 0),
+            "product_count": int(product_count_value or 0),
         }
-        for brand, importer_count_value, manufacturer_count_value in rows
+        for brand, importer_count_value, manufacturer_count_value, product_count_value in rows
     ]
 
 

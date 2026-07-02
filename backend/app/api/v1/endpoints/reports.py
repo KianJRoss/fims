@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-from datetime import date as date_type, datetime, timedelta
+from datetime import date as date_type
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
 
+from app.core.store_time import as_utc, store_day_utc_bounds, store_today
 from app.db.session import get_db
+from app.models.product import Product
 from app.models.sales import Sale, SaleItem
 
 router = APIRouter()
@@ -17,7 +19,7 @@ def _serialize_transaction(sale: Sale) -> dict[str, Any]:
     return {
         "id": sale.id,
         "receipt_token": sale.receipt_token,
-        "created_at": sale.created_at,
+        "created_at": as_utc(sale.created_at),
         "payment_method": sale.payment_method,
         "total": float(sale.grand_total),
         "item_count": len(sale.items),
@@ -26,9 +28,8 @@ def _serialize_transaction(sale: Sale) -> dict[str, Any]:
 
 @router.get("/daily")
 def get_daily_report(date: date_type | None = Query(default=None), db: Session = Depends(get_db)):
-    report_date = date or date_type.today()
-    start = datetime(report_date.year, report_date.month, report_date.day)
-    end = start + timedelta(days=1)
+    report_date = date or store_today()
+    start, end = store_day_utc_bounds(report_date)
 
     sales = (
         db.execute(
@@ -50,6 +51,22 @@ def get_daily_report(date: date_type | None = Query(default=None), db: Session =
     cash_sales = [sale for sale in sales if (sale.payment_method or "").upper() == "CASH"]
     card_sales = [sale for sale in sales if (sale.payment_method or "").upper() == "CARD"]
 
+    top_product_rows = db.execute(
+        select(
+            SaleItem.product_id,
+            Product.name,
+            Product.item_number,
+            func.sum(SaleItem.quantity).label("qty"),
+            func.sum(SaleItem.line_total).label("revenue"),
+        )
+        .join(Sale, Sale.id == SaleItem.sale_id)
+        .join(Product, Product.id == SaleItem.product_id)
+        .where(Sale.created_at >= start, Sale.created_at < end)
+        .group_by(SaleItem.product_id, Product.name, Product.item_number)
+        .order_by(func.sum(SaleItem.line_total).desc())
+        .limit(10)
+    ).all()
+
     return {
         "date": report_date.isoformat(),
         "transaction_count": transaction_count,
@@ -60,6 +77,16 @@ def get_daily_report(date: date_type | None = Query(default=None), db: Session =
         "card_count": len(card_sales),
         "cash_revenue": sum(float(sale.grand_total) for sale in cash_sales),
         "card_revenue": sum(float(sale.grand_total) for sale in card_sales),
+        "top_products": [
+            {
+                "product_id": product_id,
+                "name": name,
+                "item_number": item_number,
+                "qty": int(qty or 0),
+                "revenue": float(top_product_revenue or 0),
+            }
+            for product_id, name, item_number, qty, top_product_revenue in top_product_rows
+        ],
         "transactions": [_serialize_transaction(sale) for sale in sales],
     }
 
@@ -81,8 +108,8 @@ def get_transaction_detail(sale_id: str, db: Session = Depends(get_db)):
     return {
         "id": sale.id,
         "receipt_token": sale.receipt_token,
-        "created_at": sale.created_at,
-        "completed_at": sale.completed_at,
+        "created_at": as_utc(sale.created_at),
+        "completed_at": as_utc(sale.completed_at),
         "payment_method": sale.payment_method,
         "card_last4": sale.card_last4,
         "subtotal": float(sale.subtotal),

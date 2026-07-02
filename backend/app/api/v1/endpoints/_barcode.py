@@ -7,12 +7,13 @@ from sqlalchemy.orm import Session, joinedload
 from app.models.product import Product, ProductBarcode
 
 
-def resolve_product_ids(db: Session, barcode: str) -> list[str]:
+def resolve_product_ids(db: Session, barcode: str) -> tuple[list[str], bool]:
     """
     Return product_ids for a barcode.  Tries exact match first, then falls back
     to stripping all '1' digits from both the scanned barcode and stored barcodes
     (the text-layer OCR often drops/duplicates '1' because they look like lines).
     Returns a list because one barcode can legitimately map to several products.
+    The boolean is true when the result came from the stripped-'1' fallback.
     """
     rows = db.execute(
         select(ProductBarcode.product_id)
@@ -21,12 +22,12 @@ def resolve_product_ids(db: Session, barcode: str) -> list[str]:
     ).scalars().all()
 
     if rows:
-        return list(rows)
+        return list(rows), False
 
     # Fuzzy: compare with '1's removed
     stripped = barcode.replace("1", "")
     if not stripped:
-        return []
+        return [], False
 
     fuzzy_rows = db.execute(
         text(
@@ -41,12 +42,12 @@ def resolve_product_ids(db: Session, barcode: str) -> list[str]:
         {"stripped": stripped},
     ).scalars().all()
 
-    return list(fuzzy_rows)
+    return list(fuzzy_rows), bool(fuzzy_rows)
 
 
 def resolve_product(db: Session, barcode: str) -> Product | None:
     """Return the single best-matching active product for a barcode, or None."""
-    product_ids = resolve_product_ids(db, barcode)
+    product_ids, _ = resolve_product_ids(db, barcode)
     if not product_ids:
         return None
 

@@ -114,7 +114,7 @@ def _fetch_remote_videos() -> list[str]:
         return []
 
     try:
-        with httpx.Client(timeout=15.0) as client:
+        with httpx.Client(timeout=3.0) as client:
             response = client.get(f"{video_pi_url}/videos")
             response.raise_for_status()
             payload = response.json()

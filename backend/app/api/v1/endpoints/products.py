@@ -98,6 +98,14 @@ def _serialize_alias(alias: ProductAlias) -> dict:
 
 
 def _serialize_product_detail(product: Product) -> dict:
+    retail_price = next(
+        (
+            price.amount
+            for price in product.prices
+            if price.is_active and price.price_type and price.price_type.code == "RETAIL"
+        ),
+        None,
+    )
     return {
         "id": product.id,
         "name": product.name,
@@ -116,6 +124,7 @@ def _serialize_product_detail(product: Product) -> dict:
         "is_active": product.is_active,
         "in_store": product.in_store,
         "quick_add": product.quick_add,
+        "retail_price": float(retail_price) if retail_price is not None else None,
         "no_video_confirmed": product.no_video_confirmed,
         "needs_data_review": product.needs_data_review,
         "created_at": product.created_at,
@@ -171,6 +180,7 @@ def _get_product_detail(db: Session, product_id: str) -> Product:
                 joinedload(Product.category),
                 joinedload(Product.barcodes),
                 joinedload(Product.videos),
+                joinedload(Product.prices).joinedload(ProductPrice.price_type),
             )
             .where(Product.id == product_id, Product.is_active.is_(True))
         )
@@ -307,7 +317,7 @@ def list_products(
 def lookup_by_barcode(barcode: str, db: Session = Depends(get_db)):
     """Returns all products mapped to this barcode (may be more than one)."""
     from app.api.v1.endpoints._barcode import resolve_product_ids
-    product_ids = resolve_product_ids(db, barcode)
+    product_ids, fuzzy = resolve_product_ids(db, barcode)
     if not product_ids:
         raise HTTPException(status_code=404, detail="Barcode not found")
     products = (
@@ -339,6 +349,7 @@ def lookup_by_barcode(barcode: str, db: Session = Depends(get_db)):
             "no_video_confirmed": product.no_video_confirmed,
             "created_at": product.created_at,
             "updated_at": product.updated_at,
+            "fuzzy_match": fuzzy,
         }
         for product_id in product_ids
         if (product := product_map.get(product_id))

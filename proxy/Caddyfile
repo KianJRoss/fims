@@ -22,6 +22,7 @@
 
     @public_products {
         host kianpotpi.taile4f97e.ts.net
+        method GET
         path /api/v1/products*
     }
     handle @public_products {
@@ -33,6 +34,7 @@
 
     @public_categories {
         host kianpotpi.taile4f97e.ts.net
+        method GET
         path /api/v1/categories*
     }
     handle @public_categories {
@@ -44,6 +46,7 @@
 
     @public_deals {
         host kianpotpi.taile4f97e.ts.net
+        method GET
         path /api/v1/deals/*
     }
     handle @public_deals {
@@ -55,6 +58,7 @@
 
     @public_receipts {
         host kianpotpi.taile4f97e.ts.net
+        method GET
         path /api/v1/receipts/*
     }
     handle @public_receipts {
@@ -66,7 +70,8 @@
 
     @public_media {
         host kianpotpi.taile4f97e.ts.net
-        path /media/*
+        method GET
+        path /media/product_images/*
     }
     handle @public_media {
         uri strip_prefix /media

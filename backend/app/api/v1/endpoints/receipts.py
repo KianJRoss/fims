@@ -8,6 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, R
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
+from app.core.store_time import as_utc
 from app.db.session import get_db
 from app.models.sales import Sale, SaleItem
 from app.services.receipt_printer import (
@@ -81,7 +82,7 @@ def get_receipt(token: str, db: Session = Depends(get_db)):
 
     return {
         "id": sale.id,
-        "created_at": sale.created_at,
+        "created_at": as_utc(sale.created_at),
         "payment_method": sale.payment_method,
         "card_last4": sale.card_last4,
         "receipt_token": sale.receipt_token,

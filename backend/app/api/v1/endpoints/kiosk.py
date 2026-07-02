@@ -22,7 +22,7 @@ def scan_for_display(barcode: str, db: Session = Depends(get_db)):
     Given a barcode, return product info + video URL for kiosk display.
     If multiple products map to the barcode, returns all (Pi can cycle through them).
     """
-    product_ids = resolve_product_ids(db, barcode)
+    product_ids, _ = resolve_product_ids(db, barcode)
     if not product_ids:
         raise HTTPException(status_code=404, detail="Unknown barcode")
 

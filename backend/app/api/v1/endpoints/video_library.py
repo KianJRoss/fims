@@ -390,7 +390,7 @@ def play_barcode_core(db: Session, barcode: str) -> dict:
     # 1) FIMS product(s) mapped to this barcode.
     from app.api.v1.endpoints._barcode import resolve_product_ids
 
-    product_ids = resolve_product_ids(db, barcode)
+    product_ids, _ = resolve_product_ids(db, barcode)
     fims_name: str | None = None
     for product_id in product_ids:
         if fims_name is None:

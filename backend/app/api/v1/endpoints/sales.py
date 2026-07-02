@@ -11,8 +11,11 @@ from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
 
+from app.api.v1.endpoints.deals import DealApplyItem, compute_deal_summary
+from app.core.store_time import as_utc, store_day_utc_bounds, store_today
 from app.db.session import get_db
 from app.models.pricing import PriceType, ProductPrice
+from app.models.product import Product
 from app.models.sales import Receipt, Sale, SaleItem
 from app.services.receipt_printer import print_receipt, receipt_print_payload
 
@@ -67,8 +70,8 @@ def _serialize_sale(sale: Sale) -> dict[str, Any]:
         "card_last4": sale.card_last4,
         "status": sale.status,
         "notes": sale.notes,
-        "created_at": sale.created_at,
-        "completed_at": sale.completed_at,
+        "created_at": as_utc(sale.created_at),
+        "completed_at": as_utc(sale.completed_at),
         "items": [
             {
                 "id": item.id,
@@ -114,7 +117,10 @@ def _validate_sale_payload(
         db.execute(
             select(ProductPrice.product_id, ProductPrice.amount).where(
                 ProductPrice.product_id.in_(product_ids),
+                ProductPrice.is_active.is_(True),
+                PriceType.code.in_(("RETAIL", "SALE", "TENT")),
             )
+            .join(PriceType, PriceType.id == ProductPrice.price_type_id)
         )
         .all()
         if product_ids
@@ -126,6 +132,8 @@ def _validate_sale_payload(
 
     for item in payload.items:
         quantity = int(item.quantity)
+        if quantity < 1:
+            raise HTTPException(status_code=400, detail="Item quantity must be at least 1")
         unit_price = _money(item.unit_price)
         line_discount = max(Decimal("0.00"), _money(item.discount_amount))
         line_subtotal = _money(unit_price * quantity)
@@ -193,6 +201,25 @@ def create_sale(
     now = datetime.utcnow()
     retail_price_type_id = db.execute(select(PriceType.id).where(PriceType.code == "RETAIL")).scalar_one_or_none()
     line_items, subtotal, discount_total, tax_total, grand_total = _validate_sale_payload(payload, db)
+    product_ids = {item.product_id for item in line_items}
+    category_rows = (
+        db.execute(select(Product.id, Product.category_id).where(Product.id.in_(product_ids))).all()
+        if product_ids
+        else []
+    )
+    categories_by_product = {product_id: category_id for product_id, category_id in category_rows}
+    deal_items = [
+        DealApplyItem(
+            product_id=item.product_id,
+            quantity=item.quantity,
+            unit_price=float(item.unit_price),
+            category_id=categories_by_product.get(item.product_id),
+        )
+        for item in line_items
+    ]
+    deal_summary = compute_deal_summary(db, deal_items)
+    if abs(_money(deal_summary["total_discount"]) - discount_total) > Decimal("0.02"):
+        raise HTTPException(status_code=400, detail="Submitted discount does not match active deals")
 
     sale = Sale(
         cashier_id=None,
@@ -256,18 +283,17 @@ def list_sales(db: Session = Depends(get_db)):
 
 @router.get("/today")
 def sales_today(db: Session = Depends(get_db)):
-    now = datetime.utcnow()
-    midnight = datetime(now.year, now.month, now.day)
+    start, end = store_day_utc_bounds(store_today())
     sale_count = (
         db.execute(
-            select(func.count(Sale.id)).where(Sale.created_at >= midnight, Sale.created_at <= now)
+            select(func.count(Sale.id)).where(Sale.created_at >= start, Sale.created_at < end)
         ).scalar_one()
     )
     total = (
         db.execute(
             select(func.coalesce(func.sum(Sale.grand_total), 0)).where(
-                Sale.created_at >= midnight,
-                Sale.created_at <= now,
+                Sale.created_at >= start,
+                Sale.created_at < end,
             )
         ).scalar_one()
     )
@@ -275,7 +301,7 @@ def sales_today(db: Session = Depends(get_db)):
         db.execute(
             select(func.coalesce(func.sum(SaleItem.quantity), 0))
             .join(Sale, SaleItem.sale_id == Sale.id)
-            .where(Sale.created_at >= midnight, Sale.created_at <= now)
+            .where(Sale.created_at >= start, Sale.created_at < end)
         ).scalar_one()
     )
     count = int(sale_count or 0)

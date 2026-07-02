@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, joinedload
 
+from app.core.store_time import store_now
 from app.db.session import get_db
 from app.models.discount import Deal, DealCondition, DealReward
 
@@ -288,11 +289,16 @@ def toggle_deal(deal_id: int, db: Session = Depends(get_db)):
 
 @router.post("/apply")
 def apply_deals(payload: DealApplyPayload, db: Session = Depends(get_db)):
-    subtotal, total_quantity, product_quantities, category_quantities, unit_prices_by_product = _cart_totals(payload.items)
+    return compute_deal_summary(db, payload.items)
+
+
+def compute_deal_summary(db: Session, items: list[DealApplyItem]) -> dict:
+    subtotal, total_quantity, product_quantities, category_quantities, unit_prices_by_product = _cart_totals(items)
     current_subtotal = subtotal
     total_discount = 0.0
     applied_deals: list[dict[str, Any]] = []
-    now = datetime.utcnow()
+    # Deal validity timestamps are stored as naive store-local datetimes.
+    now = store_now()
 
     deals = (
         db.execute(
@@ -329,7 +335,7 @@ def apply_deals(payload: DealApplyPayload, db: Session = Depends(get_db)):
                 product_quantities,
                 category_quantities,
                 unit_prices_by_product,
-                payload.items,
+                items,
             )
 
         deal_discount = max(0.0, min(deal_discount, current_subtotal))

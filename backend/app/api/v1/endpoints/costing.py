@@ -30,7 +30,17 @@ def _retail_price(case_cost: Decimal, boxes_per_case: int, units_per_box: int, m
     return (Decimal(round(unit_cost * markup_multiplier)) - Decimal("0.05")).quantize(Decimal("0.01"))
 
 
-def _serialize_row(product: Product, costing: ProductCosting | None) -> dict[str, Any]:
+def _serialize_row(product: Product, costing: ProductCosting | None, manual_retail: Decimal | None = None) -> dict[str, Any]:
+    if manual_retail is not None:
+        retail_price = manual_retail
+        retail_source = "manual"
+    elif costing and costing.retail_price is not None:
+        retail_price = costing.retail_price
+        retail_source = "costing"
+    else:
+        retail_price = None
+        retail_source = None
+
     return {
         "product_id": product.id,
         "item_number": product.item_number,
@@ -41,7 +51,8 @@ def _serialize_row(product: Product, costing: ProductCosting | None) -> dict[str
         "units_per_box": costing.units_per_box if costing else None,
         "case_cost": float(costing.case_cost) if costing else None,
         "markup_multiplier": float(costing.markup_multiplier) if costing else None,
-        "retail_price": float(costing.retail_price) if costing else None,
+        "retail_price": float(retail_price) if retail_price is not None else None,
+        "retail_source": retail_source,
         "category_name": product.category.name if product.category else None,
     }
 
@@ -63,6 +74,24 @@ def _get_retail_price_type_id(db: Session) -> int:
 
 @router.get("/")
 def list_costing_rows(db: Session = Depends(get_db)):
+    manual_retail_prices: dict[str, Decimal] = {}
+    try:
+        retail_price_type_id = _get_retail_price_type_id(db)
+    except HTTPException:
+        retail_price_type_id = None
+    if retail_price_type_id is not None:
+        manual_retail_prices = {
+            product_id: amount
+            for product_id, amount in db.execute(
+                select(ProductPrice.product_id, ProductPrice.amount)
+                .where(
+                    ProductPrice.price_type_id == retail_price_type_id,
+                    ProductPrice.is_active.is_(True),
+                )
+                .order_by(ProductPrice.effective_from.asc())
+            )
+        }
+
     rows = (
         db.execute(
             select(Product, ProductCosting)
@@ -75,7 +104,10 @@ def list_costing_rows(db: Session = Depends(get_db)):
         .unique()
         .all()
     )
-    return [_serialize_row(product, costing) for product, costing in rows]
+    return [
+        _serialize_row(product, costing, manual_retail=manual_retail_prices.get(product.id))
+        for product, costing in rows
+    ]
 
 
 @router.post("/")
