@@ -141,12 +141,14 @@ def _find_video_match(
     product_name: str | None,
     remote_videos: list[str],
 ) -> str | None:
-    # Try item_number substring match first (fast, exact)
+    # Try item_number substring match first (fast, exact). Very short item
+    # numbers substring-match unrelated filenames, so require 4+ chars.
     if product_item_number:
         needle = product_item_number.strip().lower()
-        for filename in remote_videos:
-            if needle in filename.lower():
-                return filename
+        if len(needle) >= 4:
+            for filename in remote_videos:
+                if needle in filename.lower():
+                    return filename
 
     # Fall back to name-based match
     if not product_name or product_name.lower().startswith("item "):
@@ -156,13 +158,18 @@ def _find_video_match(
     if len(name_key) < 3:
         return None
 
+    # A single short word is far too weak a signal — "Loco" substring-matched
+    # "Coco Loco.mp4". Require a reasonably long phrase or 2+ significant words.
+    words = [w for w in name_key.split() if len(w) > 2]
+    if len(words) < 2 and len(name_key) < 8:
+        return None
+
     for filename in remote_videos:
         if name_key in _name_to_search_key(filename):
             return filename
 
-    # Partial: all words in name appear in filename
-    words = [w for w in name_key.split() if len(w) > 2]
-    if words:
+    # Partial: all words in name appear in filename (2+ words only)
+    if len(words) >= 2:
         for filename in remote_videos:
             file_key = _name_to_search_key(filename)
             if all(w in file_key for w in words):
@@ -247,9 +254,23 @@ def _pairing_exists(db: Session, product_id: str, video_filename: str) -> bool:
     return row is not None
 
 
+def _has_confirmed_video(db: Session, product_id: str) -> bool:
+    row = db.execute(
+        text("SELECT 1 FROM product_videos WHERE product_id = :pid AND confirmed LIMIT 1"),
+        {"pid": product_id},
+    ).first()
+    return row is not None
+
+
 def _mark_in_store_and_pair_video(db: Session, product: Product) -> dict | None:
     """Marks the product in_store and attempts a video pairing. Returns the video_match dict (or None)."""
     product.in_store = True
+
+    # A confirmed clip already exists — don't add loose filename guesses next
+    # to it (they can win the scan-to-play race and show the wrong firework).
+    if _has_confirmed_video(db, product.id):
+        db.commit()
+        return None
 
     remote_videos = _fetch_remote_videos()
     video_match_filename = _find_video_match(product.item_number, product.name, remote_videos)

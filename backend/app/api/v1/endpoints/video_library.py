@@ -112,6 +112,9 @@ def _get_best_product_video_filename(db: Session, product_id: str) -> tuple[bool
             )
             .where(product_videos_table.c.product_id == product_id)
             .order_by(
+                # Confirmed clips always beat loose unconfirmed pairings (e.g.
+                # inventory-scan substring matches like "Loco" -> "Coco Loco").
+                product_videos_table.c.confirmed.desc(),
                 product_videos_table.c.is_primary.desc(),
                 nullslast(product_videos_table.c.uploaded_at.desc()),
             )
@@ -142,6 +145,9 @@ def _get_product_video_filenames(db: Session, product_id: str) -> list[str]:
             select(product_videos_table.c.video_filename)
             .where(product_videos_table.c.product_id == product_id)
             .order_by(
+                # Confirmed clips always beat loose unconfirmed pairings (e.g.
+                # inventory-scan substring matches like "Loco" -> "Coco Loco").
+                product_videos_table.c.confirmed.desc(),
                 product_videos_table.c.is_primary.desc(),
                 nullslast(product_videos_table.c.uploaded_at.desc()),
             )
