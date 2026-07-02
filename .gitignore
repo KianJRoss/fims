@@ -90,3 +90,10 @@ scripts/videopi/*.err
 
 # Stray git leftover from a previous re-init attempt
 .git-temp/
+
+# One-off session scratch files in the repo root (test clips, patch drafts, work dumps)
+/tmp_*
+
+# Enrichment watcher process logs (state lives in the tracked ledgers/jsonl)
+scripts/audit/*.err
+scripts/audit/*.out
