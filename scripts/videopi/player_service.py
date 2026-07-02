@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import glob
+import hashlib
 import json
 import os
 import random
@@ -96,6 +97,51 @@ def _get_transition_png(brand: str) -> str | None:
     return path if result.returncode == 0 else None
 
 
+def _get_no_video_card_png(lines: list[str]) -> str | None:
+    os.makedirs(TRANSITION_CACHE_DIR, exist_ok=True)
+    joined = "\n".join(lines)
+    digest = hashlib.sha1(joined.encode("utf-8")).hexdigest()
+    path = os.path.join(TRANSITION_CACHE_DIR, f"card_{digest}.png")
+    if os.path.exists(path):
+        return path
+
+    font_candidates = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+    ]
+    font = next((f for f in font_candidates if os.path.exists(f)), None)
+    font_opt = f":fontfile={font}" if font else ""
+    offsets_by_count = {
+        1: [0],
+        2: [-70, 70],
+        3: [-120, 20, 120],
+    }
+    filters = []
+    for index, line in enumerate(lines):
+        escaped = line.replace("'", "\\'").replace(":", "\\:")
+        fontsize = 96 if index == 0 else 54
+        fontcolor = "white" if index == 0 else "0xBBBBBB"
+        offset = offsets_by_count[len(lines)][index]
+        sign = "+" if offset >= 0 else "-"
+        y_expr = f"(h-text_h)/2{sign}{abs(offset)}" if offset else "(h-text_h)/2"
+        filters.append(
+            f"drawtext=text='{escaped}'{font_opt}:fontsize={fontsize}:"
+            f"fontcolor={fontcolor}:x=(w-text_w)/2:y={y_expr}"
+        )
+
+    result = subprocess.run(
+        [
+            "ffmpeg", "-y", "-f", "lavfi", "-i",
+            "color=black:size=1920x1080:rate=1",
+            "-frames:v", "1", "-vf", ",".join(filters), path,
+        ],
+        capture_output=True,
+    )
+    return path if result.returncode == 0 else None
+
+
 def _list_interstitial_images() -> list[str]:
     if not os.path.isdir(INTERSTITIAL_IMAGE_DIR):
         return []
@@ -121,6 +167,16 @@ def _spawn_mpv(path: str, loop_forever: bool = False) -> subprocess.Popen[bytes]
     if loop_forever:
         command.append("--loop-file=inf")
     command.append(path)
+    return subprocess.Popen(command, env=_build_env())
+
+
+def _spawn_mpv_card(path: str) -> subprocess.Popen[bytes]:
+    command = [
+        "mpv", "--fs", "--really-quiet", "--no-terminal",
+        "--force-window=yes",
+        "--image-display-duration=6",
+        path,
+    ]
     return subprocess.Popen(command, env=_build_env())
 
 
@@ -266,6 +322,27 @@ def _start_triggered_playback_locked(source: str) -> None:
     watcher.start()
 
 
+def _start_card_locked(path: str) -> None:
+    global _current_proc, _current_source, _mode, _triggered_generation
+
+    _cancel_idle_timer_locked()
+    _stop_current_process_locked()
+    _trigger_event.set()
+    _mode = "triggered"
+
+    proc = _spawn_mpv_card(path)
+    _current_proc = proc
+    _current_source = path
+
+    _triggered_generation += 1
+    watcher = threading.Thread(
+        target=_triggered_watcher,
+        args=(proc, _triggered_generation, 6.0),
+        daemon=True,
+    )
+    watcher.start()
+
+
 def _pick_idle_source_locked() -> str | None:
     playlist = list(_idle_playlist)
     if playlist:
@@ -282,6 +359,22 @@ def _pick_idle_source_locked() -> str | None:
 
 def _idle_loop() -> None:
     global _current_proc, _current_source, _mode
+
+    display_deadline = time.time() + 120
+    while time.time() < display_deadline:
+        runtime_dir = os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000")
+        wayland_display = os.environ.get("WAYLAND_DISPLAY", "wayland-0")
+        wayland_socket = os.path.join(runtime_dir, wayland_display)
+        x_socket = "/tmp/.X11-unix/X0"
+        if os.path.exists(wayland_socket) or os.path.exists(x_socket):
+            break
+        time.sleep(2)
+
+    video_deadline = time.time() + 120
+    while time.time() < video_deadline:
+        if glob.glob(os.path.join(VIDEO_DIR, "*.mp4")):
+            break
+        time.sleep(2)
 
     while True:
         if _trigger_event.is_set():
@@ -336,6 +429,7 @@ def _idle_loop() -> None:
             except Exception:
                 time.sleep(IDLE_POLL_SECONDS)
                 continue
+            spawn_time = time.time()
             _current_proc = proc
             _current_source = playlist_path
             _mode = "idle"
@@ -354,6 +448,9 @@ def _idle_loop() -> None:
             if _current_proc is proc:
                 _current_proc = None
                 _current_source = None
+
+        if time.time() - spawn_time < 2:
+            time.sleep(3)
 
 
 def _save_idle_playlist(paths: list[str]) -> None:
@@ -435,6 +532,37 @@ def play(body: dict[str, Any]) -> dict[str, str]:
             raise HTTPException(status_code=500, detail=str(exc)) from exc
 
     return {"status": "playing", "source": source}
+
+
+@app.post("/no-video")
+def no_video(body: dict[str, Any]) -> dict[str, Any]:
+    global _mode
+
+    raw_lines = body.get("lines")
+    if not isinstance(raw_lines, list):
+        raise HTTPException(status_code=400, detail="Missing lines")
+
+    if not 1 <= len(raw_lines) <= 3:
+        raise HTTPException(status_code=400, detail="Expected 1-3 non-empty lines")
+    if not all(isinstance(line, str) and line.strip() for line in raw_lines):
+        raise HTTPException(status_code=400, detail="Expected 1-3 non-empty lines")
+
+    lines = [line.strip() for line in raw_lines]
+
+    path = _get_no_video_card_png(lines)
+    if path is None:
+        return {"status": "render_failed"}
+
+    with _lock:
+        try:
+            _start_card_locked(path)
+        except Exception as exc:
+            _trigger_event.clear()
+            _mode = "idle"
+            _stop_current_process_locked()
+            raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    return {"status": "card", "lines": lines}
 
 
 @app.get("/videos")

@@ -29,6 +29,7 @@ product_videos_table = table(
     column("video_filename"),
     column("is_primary"),
     column("confirmed"),
+    column("youtube_id"),
     column("uploaded_at"),
 )
 
@@ -353,6 +354,29 @@ def _lookup_legacy_video(db: Session, barcode: str) -> dict | None:
     return {"video_filename": Path(video_filename).name, "name": (row.name or "").strip() or None}
 
 
+def _show_no_video_card(db: Session, product_id: str | None, name: str | None, barcode: str) -> bool:
+    if name:
+        lines = ["NO VIDEO YET", name[:40].upper()]
+        if product_id:
+            count = db.execute(
+                select(func.count())
+                .select_from(product_videos_table)
+                .where(product_videos_table.c.product_id == product_id)
+                .where(product_videos_table.c.confirmed.is_(False))
+                .where(product_videos_table.c.youtube_id.isnot(None))
+            ).scalar_one()
+            if count > 0:
+                lines.append(f"{count} possible video{'s' if count != 1 else ''} awaiting review in FIMS")
+    else:
+        lines = ["VIDEO NOT FOUND", f"Barcode {barcode}"]
+
+    try:
+        post_to_video_pi("/no-video", {"lines": lines})
+    except Exception:
+        return False
+    return True
+
+
 def play_barcode_core(db: Session, barcode: str) -> dict:
     """Resolve a scanned barcode to a video and play it on the Video Pi.
 
@@ -408,8 +432,16 @@ def play_barcode_core(db: Session, barcode: str) -> dict:
             return {**result, "source": "legacy", "name": legacy["name"] or fims_name}
 
     if product_ids:
-        return {"status": "no_match", "source": "fims", "name": fims_name, "reason": "video_not_available"}
-    return {"status": "not_found", "barcode": barcode}
+        card_shown = _show_no_video_card(db, product_ids[0], fims_name, barcode)
+        return {
+            "status": "no_match",
+            "source": "fims",
+            "name": fims_name,
+            "reason": "video_not_available",
+            "card_shown": card_shown,
+        }
+    card_shown = _show_no_video_card(db, None, None, barcode)
+    return {"status": "not_found", "barcode": barcode, "card_shown": card_shown}
 
 
 @router.post("/player/play-by-barcode")
